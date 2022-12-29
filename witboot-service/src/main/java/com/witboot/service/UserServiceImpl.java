@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.witboot.dao.dataobject.UserDO;
 import com.witboot.dao.mapper.UserMapper;
-import com.witboot.utils.UserService;
-import com.witboot.utils.model.UserModel;
+import com.witboot.api.UserService;
+import com.witboot.api.model.UserModel;
 
 
 @Component

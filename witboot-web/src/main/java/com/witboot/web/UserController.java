@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.witboot.utils.UserService;
-import com.witboot.utils.model.UserModel;
+import com.witboot.api.UserService;
+import com.witboot.api.model.UserModel;
 
 
 @Component
