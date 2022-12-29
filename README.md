@@ -7,4 +7,6 @@
 * MyBatis-Plus
 * MySQL
 * Druid
-* 
+* Validate校验
+* 统一数据返回
+* 统一异常处理
