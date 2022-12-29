@@ -3,6 +3,12 @@ package com.witboot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * WitBoot
+ *
+ * @author sunxiaozhi
+ * @date 2022/12/29
+ */
 @SpringBootApplication
 public class WitbootApplication {
 
