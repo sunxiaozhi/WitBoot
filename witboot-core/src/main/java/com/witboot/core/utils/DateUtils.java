@@ -1,7 +1,8 @@
 package com.witboot.core.utils;
 
 /**
- * @author Administrator
+ * 时间工具类
+ * @author sunxiaozhi
  */
 public class DateUtils {
 }

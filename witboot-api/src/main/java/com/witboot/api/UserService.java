@@ -1,12 +1,27 @@
 package com.witboot.api;
 
+import com.witboot.api.dto.UserRequestDTO;
+import com.witboot.dao.mybatis.dataobject.UserDO;
 
-import com.witboot.api.model.UserModel;
-
-
+/**
+ * 用户接口类
+ *
+ * @author sunxiaozhi
+ */
 public interface UserService {
 
+    /**
+     * 获取用户信息
+     *
+     * @param id id
+     * @return 用户信息
+     */
     String getUserName(Long id);
 
-    UserModel addUser(UserModel user);
+    /**
+     * 新增用户
+     * @param userRequestDTO 用户请求类
+     * @return 用户信息
+     */
+    UserDO addUser(UserRequestDTO userRequestDTO);
 }

@@ -1,34 +1,39 @@
 package com.witboot.service;
 
+import com.witboot.api.UserService;
+import com.witboot.api.dto.UserRequestDTO;
+import com.witboot.dao.mybatis.dataobject.UserDO;
+import com.witboot.dao.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
 
-import com.witboot.dao.dataobject.UserDO;
-import com.witboot.dao.mapper.UserMapper;
-import com.witboot.api.UserService;
-import com.witboot.api.model.UserModel;
-
-
+/**
+ * 用户接口实现类
+ *
+ * @author sunxiaozhi
+ */
 @Component
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
-    private static final BeanCopier copier = BeanCopier.create(UserModel.class, UserDO.class, false);
+    private static final BeanCopier COPIER = BeanCopier.create(UserRequestDTO.class, UserDO.class, false);
 
+    @Override
     public String getUserName(Long id) {
         UserDO userDO = userMapper.getById(id);
         return userDO != null ? userDO.getName() : null;
     }
 
-    public UserModel addUser(UserModel user) {
+    @Override
+    public UserDO addUser(UserRequestDTO userRequestDTO) {
         UserDO userDO = new UserDO();
-        copier.copy(user, userDO, null);
+        COPIER.copy(userRequestDTO, userDO, null);
 
         Long id = userMapper.insert(userDO);
-        user.setId(id);
-        return user;
+        userDO.setId(id);
+        return userDO;
     }
 }
