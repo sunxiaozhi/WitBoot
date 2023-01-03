@@ -9,9 +9,18 @@ import lombok.Data;
  */
 @Data
 public class UserDO {
+    /**
+     * id
+     */
     private Long id;
 
+    /**
+     * 用户名
+     */
     private String name;
 
+    /**
+     * 年龄
+     */
     private Integer age;
 }
