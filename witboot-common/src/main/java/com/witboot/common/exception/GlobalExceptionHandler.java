@@ -1,4 +1,4 @@
-package com.witboot.;
+package com.witboot.common.exception;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
