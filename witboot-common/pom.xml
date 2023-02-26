@@ -8,10 +8,15 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>witboot-core</artifactId>
+    <artifactId>witboot-commmon</artifactId>
     <version>0.0.1</version>
 
     <dependencies>
+        <!-- SpringBoot Web容器 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

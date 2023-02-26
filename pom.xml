@@ -26,7 +26,7 @@
         <module>witboot-manager</module>
         <module>witboot-service</module>
         <module>witboot-web</module>
-        <module>witboot-core</module>
+        <module>witboot-common</module>
     </modules>
 
     <dependencyManagement>
