@@ -41,6 +41,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.witboot</groupId>
+            <artifactId>witboot-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>

@@ -16,6 +16,14 @@ public interface UserService {
      * @param id id
      * @return 用户信息
      */
+    UserDO getUser(Long id);
+
+    /**
+     * 获取用户姓名
+     *
+     * @param id id
+     * @return 用户姓名
+     */
     String getUserName(Long id);
 
     /**
