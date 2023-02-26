@@ -1,4 +1,4 @@
-package com.witboot.common.util;
+package com.witboot.common.utils;
 
 /**
  * 时间工具类

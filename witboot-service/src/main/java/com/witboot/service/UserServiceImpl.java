@@ -22,6 +22,11 @@ public class UserServiceImpl implements UserService {
     private static final BeanCopier COPIER = BeanCopier.create(UserRequestDTO.class, UserDO.class, false);
 
     @Override
+    public UserDO getUser(Long id) {
+        return  userMapper.getById(id);
+    }
+
+    @Override
     public String getUserName(Long id) {
         UserDO userDO = userMapper.getById(id);
         return userDO != null ? userDO.getName() : null;

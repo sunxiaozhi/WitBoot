@@ -2,6 +2,7 @@ package com.witboot.web;
 
 import com.witboot.api.UserService;
 import com.witboot.api.dto.UserRequestDTO;
+import com.witboot.common.base.response.ResponseResult;
 import com.witboot.dao.mybatis.dataobject.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,21 +13,25 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author sunxiaozhi
  */
-@Component
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/username")
-    public String getUserName(@RequestParam("id") Long id) {
-        return userService.getUserName(id);
+    @GetMapping("/user")
+    public ResponseResult<UserDO> getUser(@RequestParam("id") Long id) {
+        return ResponseResult.success(userService.getUser(id));
     }
 
-    @RequestMapping("/add")
-    @ResponseBody
-    public UserDO addUser(@RequestBody UserRequestDTO userRequestDTO) {
-        return userService.addUser(userRequestDTO);
+    @GetMapping("/username")
+    public ResponseResult<String> getUserName(@RequestParam("id") Long id) {
+        return ResponseResult.success(userService.getUserName(id));
+    }
+
+    @PostMapping("/add")
+    public ResponseResult<UserDO> addUser(@RequestBody UserRequestDTO userRequestDTO) {
+        return ResponseResult.success(userService.addUser(userRequestDTO));
     }
 }
