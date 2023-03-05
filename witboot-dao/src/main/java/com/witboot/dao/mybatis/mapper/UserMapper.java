@@ -3,6 +3,8 @@ package com.witboot.dao.mybatis.mapper;
 import com.witboot.dao.mybatis.dataobject.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 用户信息表 数据层
  *
@@ -10,6 +12,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper {
+    /**
+     * 获取用户信息
+     *
+     * @return 用户信息
+     */
+    List<UserDO> getUserList();
+
     /**
      * 获取用户信息
      *
