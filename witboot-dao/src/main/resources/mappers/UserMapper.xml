@@ -16,6 +16,11 @@
         WHERE id = #{value}
     </select>
 
+    <select id="getUserList" resultType="com.witboot.dao.mybatis.dataobject.UserDO">
+        SELECT *
+        FROM users
+    </select>
+
     <insert id="insert" parameterType="com.witboot.dao.mybatis.dataobject.UserDO">
         INSERT INTO users(name, age) VALUES (#{name}, #{age})
         <selectKey resultType="java.lang.Long" keyProperty="id">

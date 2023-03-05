@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 用户接口实现类
  *
@@ -20,6 +22,11 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     private static final BeanCopier COPIER = BeanCopier.create(UserRequestDTO.class, UserDO.class, false);
+
+    @Override
+    public List<UserDO> getUserList() {
+        return  userMapper.getUserList();
+    }
 
     @Override
     public UserDO getUser(Long id) {

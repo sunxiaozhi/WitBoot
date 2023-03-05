@@ -5,8 +5,9 @@ import com.witboot.api.dto.UserRequestDTO;
 import com.witboot.common.base.response.ResponseResult;
 import com.witboot.dao.mybatis.dataobject.UserDO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户控制器
@@ -19,6 +20,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/list")
+    public ResponseResult<List<UserDO>> getUserList() {
+        return ResponseResult.success(userService.getUserList());
+    }
 
     @GetMapping("/user")
     public ResponseResult<UserDO> getUser(@RequestParam("id") Long id) {
