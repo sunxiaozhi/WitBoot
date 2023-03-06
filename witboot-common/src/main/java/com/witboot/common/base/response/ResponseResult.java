@@ -1,6 +1,6 @@
 package com.witboot.common.base.response;
 
-import com.witboot.common.enums.StatusCode;
+import com.witboot.common.enums.ResponseCode;
 import lombok.Data;
 
 /**
@@ -13,7 +13,7 @@ public class ResponseResult<T> {
     /**
      * 状态码
      */
-    private int statusCode;
+    private int code;
 
     /**
      * 数据
@@ -28,19 +28,19 @@ public class ResponseResult<T> {
     protected ResponseResult() {
     }
 
-    private static <T> ResponseResult<T> responseResult(int statusCode, String msg, T data) {
+    private static <T> ResponseResult<T> responseResult(int code, String msg, T data) {
         ResponseResult<T> responseResult = new ResponseResult<>();
-        responseResult.setStatusCode(statusCode);
+        responseResult.setCode(code);
         responseResult.setMsg(msg);
         responseResult.setData(data);
         return responseResult;
     }
 
     public static <T> ResponseResult<T> success(T data) {
-        return responseResult(StatusCode.SUCCESS.getStatusCode(), "成功", data);
+        return responseResult(ResponseCode.SUCCESS.getCode(), "成功", data);
     }
 
     public static <T> ResponseResult<T> fail(T data) {
-        return responseResult(StatusCode.FAIL.getStatusCode(), "失败", data);
+        return responseResult(ResponseCode.FAIL.getCode(), "失败", data);
     }
 }
