@@ -8,7 +8,7 @@ import lombok.Getter;
  * @author sunxiaozhi
  */
 @Getter
-public enum StatusCode {
+public enum ResponseCode {
     /**
      * 成功
      */
@@ -22,15 +22,15 @@ public enum StatusCode {
     /**
      * 状态码
      */
-    private final int statusCode;
+    private final int code;
 
     /**
      * 提示语
      */
     private final String message;
 
-    StatusCode(int statusCode, String message) {
-        this.statusCode = statusCode;
+    ResponseCode(int code, String message) {
+        this.code = code;
         this.message = message;
     }
 }
