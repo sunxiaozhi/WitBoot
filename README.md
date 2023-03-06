@@ -11,15 +11,15 @@
 * **witboot-start**：程序启动入口
 
 ## 待办任务
-* 系统分层架构设计
+* ~~系统分层架构设计~~
 * Swagger  Knife4j增强
 * 接口版本
 * MyBatis-Plus
 * MySQL
 * Druid
 * Validate校验
-* 统一数据返回
-* 统一异常处理
+* ~~统一数据返回~~
+* ~~统一异常处理~~
 * lombok配置
 * Redis
 * Elasticsearch
