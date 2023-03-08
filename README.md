@@ -20,6 +20,7 @@
 * Validate校验
 * ~~统一数据返回~~
 * ~~统一异常处理~~
+* ~~Actuator~~
 * lombok配置
 * Redis
 * Elasticsearch
