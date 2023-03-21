@@ -1,7 +1,6 @@
 # WitBoot
 
 ## 组件构成
-
 * **witboot-api**：API层，对外以 jar 包的形式提供接口
 * **witboot-core**：核心层，主要包括公共配置、工具类等
 * **witboot-dao**：数据持久层，与底层MySQL、Elasticsearch、MongoDB等进行数据交互
