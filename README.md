@@ -16,7 +16,7 @@
 * MyBatis-Plus
 * MySQL
 * Druid
-* Validate校验
+* Validate校验（接口）
 * ~~统一数据返回~~
 * ~~统一异常处理~~
 * ~~Actuator~~
@@ -25,6 +25,9 @@
 * Elasticsearch
 * Kafka
 * Flyway
+* 接口限流
+* 接口幂等性
+* 接口加签验签
 
 ## 待完成功能
 * 用户管理
