@@ -24,13 +24,13 @@
 
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-service</artifactId>
+            <artifactId>witboot-app</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-web</artifactId>
+            <artifactId>witboot-adapter</artifactId>
             <version>${project.version}</version>
         </dependency>
 

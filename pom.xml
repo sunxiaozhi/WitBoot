@@ -21,12 +21,11 @@
 
     <modules>
         <module>witboot-start</module>
-        <module>witboot-api</module>
-        <module>witboot-dao</module>
-        <module>witboot-manager</module>
-        <module>witboot-service</module>
-        <module>witboot-web</module>
-        <module>witboot-common</module>
+        <module>witboot-client</module>
+        <module>witboot-domain</module>
+        <module>witboot-app</module>
+        <module>witboot-adapter</module>
+        <module>witboot-infrastructure</module>
     </modules>
 
     <dependencyManagement>
