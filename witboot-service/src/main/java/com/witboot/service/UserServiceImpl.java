@@ -4,7 +4,7 @@ import com.witboot.api.UserService;
 import com.witboot.api.dto.UserRequestDTO;
 import com.witboot.dao.mybatis.dataobject.UserDO;
 import com.witboot.dao.mybatis.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @Component
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     private static final BeanCopier COPIER = BeanCopier.create(UserRequestDTO.class, UserDO.class, false);

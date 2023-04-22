@@ -1,10 +1,9 @@
 package com.witboot.common.exception;
 
+import com.witboot.common.base.response.ResponseResult;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.witboot.common.base.response.ResponseResult;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局异常处理类

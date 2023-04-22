@@ -1,5 +1,7 @@
 # WitBoot
 
+> 本项目结合Spring Boot3.0和COLA 4.0（整洁面向对象分层架构）实现。
+
 ## 组件构成
 * **witboot-api**：API层，对外以 jar 包的形式提供接口
 * **witboot-core**：核心层，主要包括公共配置、工具类等

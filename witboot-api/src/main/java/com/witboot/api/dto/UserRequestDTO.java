@@ -1,8 +1,8 @@
 package com.witboot.api.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

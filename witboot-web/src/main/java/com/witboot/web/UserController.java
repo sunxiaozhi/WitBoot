@@ -4,7 +4,7 @@ import com.witboot.api.UserService;
 import com.witboot.api.dto.UserRequestDTO;
 import com.witboot.common.base.response.ResponseResult;
 import com.witboot.dao.mybatis.dataobject.UserDO;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @GetMapping("/list")
