@@ -47,8 +47,38 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.6</version>
+                <version>2.7</version>
                 <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-adapter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-app</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-infrastructure</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

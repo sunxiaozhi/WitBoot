@@ -15,19 +15,16 @@
         <dependency>
             <groupId>com.witboot</groupId>
             <artifactId>witboot-client</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.witboot</groupId>
             <artifactId>witboot-domain</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.witboot</groupId>
             <artifactId>witboot-infrastructure</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
