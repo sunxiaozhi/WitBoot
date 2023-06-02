@@ -15,28 +15,28 @@ import java.util.List;
  * @author sunxiaozhi
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user/")
 public class UserController {
 
     @Resource
     private UserService userService;
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public ResponseResult<List<UserDO>> getUserList() {
         return ResponseResult.success(userService.getUserList());
     }
 
-    @GetMapping("/user")
+    @GetMapping("user")
     public ResponseResult<UserDO> getUser(@RequestParam("id") Long id) {
         return ResponseResult.success(userService.getUser(id));
     }
 
-    @GetMapping("/username")
+    @GetMapping("username")
     public ResponseResult<String> getUserName(@RequestParam("id") Long id) {
         return ResponseResult.success(userService.getUserName(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("add")
     public ResponseResult<UserDO> addUser(@RequestBody UserRequestDTO userRequestDTO) {
         return ResponseResult.success(userService.addUser(userRequestDTO));
     }
