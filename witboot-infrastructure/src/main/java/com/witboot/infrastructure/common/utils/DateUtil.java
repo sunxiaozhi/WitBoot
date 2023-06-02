@@ -1,4 +1,4 @@
-package com.witboot.infrastructure.common.response.utils;
+package com.witboot.infrastructure.common.utils;
 
 /**
  * 时间工具类

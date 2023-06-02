@@ -1,4 +1,4 @@
-package com.witboot.service;
+package com.witboot.user.service;
 
 import com.witboot.api.UserService;
 import com.witboot.api.dto.UserRequestDTO;
@@ -6,7 +6,7 @@ import com.witboot.dao.mybatis.dataobject.UserDO;
 import com.witboot.dao.mybatis.mapper.UserMapper;
 import jakarta.annotation.Resource;
 import org.springframework.cglib.beans.BeanCopier;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author sunxiaozhi
  */
-@Component
+@Service
 public class UserServiceImpl implements UserService {
 
     @Resource
