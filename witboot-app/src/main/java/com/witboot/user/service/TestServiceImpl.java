@@ -16,7 +16,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void testThreadPool() {
-        for(int i = 0; i<=100; i++) {
+        for(int i = 0; i<=10; i++) {
             int finalI = i;
             ThreadPoolUtil.getInstance().execute(() -> {
                 log.info("测试线程池开始-{}", finalI);
