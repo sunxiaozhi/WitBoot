@@ -21,7 +21,7 @@
 * ~~统一数据返回~~
 * ~~统一异常处理~~
 * ~~Actuator~~
-* lombok配置
+* ~~log4j2配置~~
 * Redis
 * Elasticsearch
 * Kafka
