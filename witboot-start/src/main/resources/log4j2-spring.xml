@@ -8,16 +8,12 @@
         <!--*********************控制台日志***********************-->
         <Console name="consoleAppender" target="SYSTEM_OUT">
             <!--设置日志格式及颜色-->
-            <PatternLayout
-                    pattern="%style{%d{ISO8601}}{bright,green} %highlight{%-5level} [%style{%t}{bright,blue}] %style{%C{}}{bright,yellow}: %msg%n%style{%throwable}{red}"
-                    disableAnsi="false" noConsoleNoAnsi="false"/>
+            <PatternLayout pattern="%style{%d{ISO8601}}{bright,green} %highlight{%-5level} [%style{%t}{bright,blue}] %style{%C{}}{bright,yellow}: %msg%n%style{%throwable}{red}" disableAnsi="false" noConsoleNoAnsi="false"/>
         </Console>
 
         <!--*********************文件日志***********************-->
         <!--all级别日志-->
-        <RollingFile name="allFileAppender"
-                     fileName="${LOG_HOME}/all.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/all-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="allFileAppender" fileName="${LOG_HOME}/all.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/all-%d{yyyy-MM-dd}-%i.log.gz">
             <!--设置日志格式-->
             <PatternLayout>
                 <pattern>%d %p %C{} [%t] %m%n</pattern>
@@ -35,9 +31,7 @@
         </RollingFile>
 
         <!--debug级别日志-->
-        <RollingFile name="debugFileAppender"
-                     fileName="${LOG_HOME}/debug.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="debugFileAppender" fileName="${LOG_HOME}/debug.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/debug-%d{yyyy-MM-dd}-%i.log.gz">
             <Filters>
                 <!--过滤掉info及更高级别日志-->
                 <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -59,9 +53,7 @@
         </RollingFile>
 
         <!--info级别日志-->
-        <RollingFile name="infoFileAppender"
-                     fileName="${LOG_HOME}/info.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="infoFileAppender" fileName="${LOG_HOME}/info.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log.gz">
             <Filters>
                 <!--过滤掉warn及更高级别日志-->
                 <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -83,9 +75,7 @@
         </RollingFile>
 
         <!--warn级别日志-->
-        <RollingFile name="warnFileAppender"
-                     fileName="${LOG_HOME}/warn.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="warnFileAppender" fileName="${LOG_HOME}/warn.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
             <Filters>
                 <!--过滤掉error及更高级别日志-->
                 <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
@@ -107,9 +97,7 @@
         </RollingFile>
 
         <!--error及更高级别日志-->
-        <RollingFile name="errorFileAppender"
-                     fileName="${LOG_HOME}/error.log"
-                     filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="errorFileAppender" fileName="${LOG_HOME}/error.log" filePattern="${LOG_HOME}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
             <!--设置日志格式-->
             <PatternLayout>
                 <pattern>%d %p %C{} [%t] %m%n</pattern>
@@ -127,9 +115,7 @@
         </RollingFile>
 
         <!--json格式error级别日志-->
-        <RollingFile name="errorJsonAppender"
-                     fileName="${LOG_HOME}/error-json.log"
-                     filePattern="${LOG_HOME}/error-json-%d{yyyy-MM-dd}-%i.log.gz">
+        <RollingFile name="errorJsonAppender" fileName="${LOG_HOME}/error-json.log" filePattern="${LOG_HOME}/error-json-%d{yyyy-MM-dd}-%i.log.gz">
             <JSONLayout compact="true" eventEol="true" locationInfo="true"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -151,7 +137,7 @@
         </Root>
 
         <!--spring日志-->
-        <Logger name="org.springframework" level="debug"/>
+        <Logger name="org.springframework" level="info"/>
 
         <!--druid数据源日志-->
         <Logger name="druid.sql.Statement" level="warn"/>

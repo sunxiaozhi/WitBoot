@@ -18,8 +18,7 @@ public class ThreadPoolUtil {
     /**
      * 线程池的工具类
      * 用于进行线程的管理，防止重复创建、杀死线程。
-     * 多线程运行期间，如果系统不断的创建、杀死新线程，
-     * 会产生过度消耗系统资源，以及过度切换线程的问题，甚至可能导致系统资源的崩溃。
+     * 多线程运行期间，如果系统不断的创建、杀死新线程，会产生过度消耗系统资源，以及过度切换线程的问题，甚至可能导致系统资源的崩溃。
      * 因此需要线程池，对线程进行管理。
      */
     private final String TAG = getClass().getName();
@@ -38,7 +37,6 @@ public class ThreadPoolUtil {
     private ThreadPoolExecutor executor;
 
     private ThreadPoolUtil() {
-
         //给corePoolSize赋值：当前设备可用处理器核心数*2 + 1,能够让cpu的效率得到最大程度执行（有研究论证的）
         corePoolSize = Runtime.getRuntime().availableProcessors() * 2 + 1;
         log.info("核心线程数：{}", corePoolSize);
@@ -134,8 +132,8 @@ public class ThreadPoolUtil {
         }
 
         @Override
-        public Thread newThread(Runnable r) {
-            Thread thread = new Thread(group, r, namePrefix + threadNumber.getAndIncrement(), 0);
+        public Thread newThread(Runnable runnable) {
+            Thread thread = new Thread(group, runnable, namePrefix + threadNumber.getAndIncrement(), 0);
 
             // 返回True该线程就是守护线程
             // 守护线程应该永远不去访问固有资源，如：数据库、文件等。因为它会在任何时候甚至在一个操作的中间发生中断。
