@@ -19,6 +19,6 @@ public class TestController {
 
     @GetMapping("threadPool")
     public void threadPool(){
-        testService.testThreadPool();
+        testService.testThreadPoolUtil();
     }
 }

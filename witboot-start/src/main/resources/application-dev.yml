@@ -18,6 +18,14 @@ spring:
   flyway:
     enabled: false
 
+  task:
+    execution:
+      pool:
+        core-size: 8
+        max-size: 16
+        queue-capacity: 9999
+        keep-alive: 60
+
 server:
   port: 8080
 

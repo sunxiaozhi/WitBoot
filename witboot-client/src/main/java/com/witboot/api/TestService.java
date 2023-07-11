@@ -9,5 +9,5 @@ public interface TestService {
     /**
      * 测试线程池
      */
-    void testThreadPool();
+    void testThreadPoolUtil();
 }
