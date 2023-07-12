@@ -27,5 +27,4 @@
             <artifactId>witboot-infrastructure</artifactId>
         </dependency>
     </dependencies>
-
 </project>

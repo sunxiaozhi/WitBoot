@@ -9,7 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * 全局异常处理类
+ * 线程池配置类
  *
  * @author sunxiaozhi
  */
