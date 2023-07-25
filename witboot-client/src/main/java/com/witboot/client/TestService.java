@@ -1,4 +1,4 @@
-package com.witboot.api;
+package com.witboot.client;
 
 /**
  * 测试接口类

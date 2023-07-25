@@ -1,6 +1,6 @@
-package com.witboot.dao.mybatis.mapper;
+package com.witboot.domain.mybatis.mapper;
 
-import com.witboot.dao.mybatis.dataobject.UserDO;
+import com.witboot.domain.mybatis.dataobject.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

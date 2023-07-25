@@ -1,7 +1,7 @@
-package com.witboot.api;
+package com.witboot.client;
 
-import com.witboot.api.dto.UserRequestDTO;
-import com.witboot.dao.mybatis.dataobject.UserDO;
+import com.witboot.client.dto.UserRequestDTO;
+import com.witboot.domain.mybatis.dataobject.UserDO;
 
 import java.util.List;
 

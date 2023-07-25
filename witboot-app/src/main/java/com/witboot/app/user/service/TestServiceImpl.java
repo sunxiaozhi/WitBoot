@@ -1,6 +1,6 @@
-package com.witboot.user.service;
+package com.witboot.app.user.service;
 
-import com.witboot.api.TestService;
+import com.witboot.client.TestService;
 import com.witboot.infrastructure.common.utils.ThreadPoolUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

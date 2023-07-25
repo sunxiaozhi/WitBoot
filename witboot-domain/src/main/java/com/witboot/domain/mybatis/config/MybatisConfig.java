@@ -1,4 +1,4 @@
-package com.witboot.dao.mybatis.config;
+package com.witboot.domain.mybatis.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -7,6 +7,6 @@ import org.mybatis.spring.annotation.MapperScan;
  *
  * @author sunxiaozhi
  */
-@MapperScan("com.witboot.dao.mybatis.mapper")
+@MapperScan("com.witboot.domain.mybatis.mapper")
 public class MybatisConfig {
 }

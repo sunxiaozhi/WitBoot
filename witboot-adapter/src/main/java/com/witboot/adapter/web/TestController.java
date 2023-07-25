@@ -1,6 +1,6 @@
 package com.witboot.adapter.web;
 
-import com.witboot.api.TestService;
+import com.witboot.client.TestService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

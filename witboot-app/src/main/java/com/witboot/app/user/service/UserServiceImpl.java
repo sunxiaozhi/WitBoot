@@ -1,9 +1,9 @@
-package com.witboot.user.service;
+package com.witboot.app.user.service;
 
-import com.witboot.api.UserService;
-import com.witboot.api.dto.UserRequestDTO;
-import com.witboot.dao.mybatis.dataobject.UserDO;
-import com.witboot.dao.mybatis.mapper.UserMapper;
+import com.witboot.client.UserService;
+import com.witboot.client.dto.UserRequestDTO;
+import com.witboot.domain.mybatis.dataobject.UserDO;
+import com.witboot.domain.mybatis.mapper.UserMapper;
 import jakarta.annotation.Resource;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Service;

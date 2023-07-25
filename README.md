@@ -16,7 +16,7 @@
 * 接口版本
 * MyBatis-Plus
 * MySQL
-* Druid
+* ~~Druid~~
 * Validate校验（接口）
 * ~~统一数据返回~~
 * ~~统一异常处理~~

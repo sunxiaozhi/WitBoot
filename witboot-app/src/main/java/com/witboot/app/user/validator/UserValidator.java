@@ -1,4 +1,4 @@
-package com.witboot.user.validator;
+package com.witboot.app.user.validator;
 
 /**
  * 用户校验

@@ -1,8 +1,8 @@
 package com.witboot.adapter.web;
 
-import com.witboot.api.UserService;
-import com.witboot.api.dto.UserRequestDTO;
-import com.witboot.dao.mybatis.dataobject.UserDO;
+import com.witboot.client.UserService;
+import com.witboot.client.dto.UserRequestDTO;
+import com.witboot.domain.mybatis.dataobject.UserDO;
 import com.witboot.infrastructure.common.response.ResponseResult;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

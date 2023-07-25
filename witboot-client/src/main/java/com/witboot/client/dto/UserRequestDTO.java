@@ -1,4 +1,4 @@
-package com.witboot.api.dto;
+package com.witboot.client.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

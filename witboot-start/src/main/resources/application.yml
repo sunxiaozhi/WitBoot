@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: prod
   application:
     name: WitBoot
     version: 0.0.1
@@ -9,4 +9,4 @@ logging:
   config: classpath:log4j2-spring.xml
   level:
     org.springframework: info
-    com.witboot: debug
+    com.witboot: info

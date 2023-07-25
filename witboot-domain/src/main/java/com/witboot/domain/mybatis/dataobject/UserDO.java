@@ -1,4 +1,4 @@
-package com.witboot.dao.mybatis.dataobject;
+package com.witboot.domain.mybatis.dataobject;
 
 import lombok.Data;
 
