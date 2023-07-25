@@ -44,8 +44,6 @@ public class ThreadPoolUtil {
         maxPoolSize = corePoolSize;
         log.info("最大线程数：{}", corePoolSize);
 
-        TimeUnit unit = TimeUnit.HOURS;
-
         executor = new ThreadPoolExecutor(
                 //当某个核心任务执行完毕，会依次从缓冲队列中取出等待任务
                 corePoolSize,
@@ -56,7 +54,7 @@ public class ThreadPoolUtil {
                 //表示的是maximumPoolSize当中等待任务的存活时间
                 keepAliveTime,
 
-                unit,
+                TimeUnit.HOURS,
 
                 //缓冲队列，用于存放等待任务，Linked的先进先出
                 new LinkedBlockingQueue<>(),
