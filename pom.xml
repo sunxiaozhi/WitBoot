@@ -17,6 +17,8 @@
     <properties>
         <java.version>17</java.version>
         <spring-boot.version>3.0.6</spring-boot.version>
+        <arthas.version>3.4.8</arthas.version>
+        <common-io.version>2.7</common-io.version>
         <druid.version>1.2.18</druid.version>
         <mybatis.version>3.0.0</mybatis.version>
     </properties>
@@ -35,7 +37,7 @@
             <dependency>
                 <groupId>com.taobao.arthas</groupId>
                 <artifactId>arthas-spring-boot-starter</artifactId>
-                <version>3.4.8</version>
+                <version>${arthas.version}</version>
                 <type>jar</type>
             </dependency>
 
@@ -49,7 +51,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.7</version>
+                <version>${common-io.version}</version>
                 <type>jar</type>
             </dependency>
 
