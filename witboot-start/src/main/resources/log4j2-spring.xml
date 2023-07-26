@@ -140,11 +140,9 @@
         <Logger name="org.springframework" level="info"/>
 
         <!--druid数据源日志-->
-        <Logger name="druid.sql.Statement" level="warn"/>
+        <Logger name="druid.sql.Statement" level="info"/>
 
         <!-- mybatis日志 -->
-        <Logger name="com.mybatis" level="warn"/>
-        <Logger name="org.hibernate" level="warn"/>
-        <Logger name="com.zaxxer.hikari" level="info"/>
+        <Logger name="com.mybatis" level="info"/>
     </Loggers>
 </Configuration>
