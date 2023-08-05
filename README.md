@@ -15,7 +15,7 @@
 * Swagger  Knife4j增强
 * 接口版本
 * MyBatis-Plus
-* MySQL
+* ~~MySQL~~
 * ~~Druid~~
 * Validate校验（接口）
 * ~~统一数据返回~~
@@ -41,3 +41,16 @@
 * 操作日志记录
 
 ## 开发规范
+
+### 方法名约定
+
+|CRUD操作| 方法名约定 |
+|---|---|
+|新增| create |
+|添加| add |
+|删除| remove（App和Domain层），delete（Infrastructure层） |
+|修改| update |
+|查询（单个结果） | get |
+|查询（多个结果） | list |
+|分页查询| page |
+|统计| count |

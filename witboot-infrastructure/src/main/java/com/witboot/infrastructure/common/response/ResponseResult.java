@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.common.response;
 
-import com.witboot.infrastructure.enums.ResponseCode;
+import com.witboot.infrastructure.common.enums.ResponseCode;
 import lombok.Data;
 
 /**

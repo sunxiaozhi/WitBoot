@@ -1,13 +1,14 @@
 package com.witboot.adapter.web;
 
-import com.witboot.client.UserService;
-import com.witboot.client.dto.UserRequestDTO;
-import com.witboot.domain.mybatis.dataobject.UserDO;
-import com.witboot.infrastructure.common.response.ResponseResult;
+import com.alibaba.cola.dto.MultiResponse;
+import com.alibaba.cola.dto.Response;
+import com.witboot.client.api.IUserService;
+import com.witboot.client.dto.UserRegisterCmd;
+import com.witboot.client.dto.data.UserVO;
+import com.witboot.client.dto.query.UserListByParamQuery;
+import com.witboot.client.dto.query.UserLoginQuery;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 用户控制器
@@ -17,27 +18,23 @@ import java.util.List;
 @RestController
 @RequestMapping("user/")
 public class UserController {
-
     @Resource
-    private UserService userService;
+    private IUserService userService;
 
-    @GetMapping("list")
-    public ResponseResult<List<UserDO>> getUserList() {
-        return ResponseResult.success(userService.getUserList());
+    @PostMapping(value = "/register")
+    public Response register(@RequestBody UserRegisterCmd cmd) {
+        userService.register(cmd);
+        return Response.buildSuccess();
     }
 
-    @GetMapping("user")
-    public ResponseResult<UserDO> getUser(@RequestParam("id") Long id) {
-        return ResponseResult.success(userService.getUser(id));
+    @PostMapping(value = "/login")
+    public Response login(@RequestBody UserLoginQuery userLoginQuery) {
+        userService.login(userLoginQuery);
+        return Response.buildSuccess();
     }
 
-    @GetMapping("username")
-    public ResponseResult<String> getUserName(@RequestParam("id") Long id) {
-        return ResponseResult.success(userService.getUserName(id));
-    }
-
-    @PostMapping("add")
-    public ResponseResult<UserDO> addUser(@RequestBody UserRequestDTO userRequestDTO) {
-        return ResponseResult.success(userService.addUser(userRequestDTO));
+    @GetMapping(value = "/list")
+    public MultiResponse<UserVO> list(@RequestParam(required = false) String name) {
+        return userService.listByName(UserListByParamQuery.builder().name(name).build());
     }
 }

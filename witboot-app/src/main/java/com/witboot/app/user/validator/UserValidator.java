@@ -1,9 +1,9 @@
 package com.witboot.app.user.validator;
 
 /**
- * 用户校验
+ * UserValidator
  *
- * @author sunxiaozhi
+ * @author sunxiaoizhi
  */
 public class UserValidator {
 
