@@ -7,6 +7,7 @@ import com.witboot.client.dto.UserRegisterCmd;
 import com.witboot.client.dto.data.UserVO;
 import com.witboot.client.dto.query.UserListByParamQuery;
 import com.witboot.client.dto.query.UserLoginQuery;
+import com.witboot.infrastructure.common.response.ResponseResult;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +23,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping(value = "/register")
-    public Response register(@RequestBody UserRegisterCmd cmd) {
-        userService.register(cmd);
-        return Response.buildSuccess();
+    public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd cmd) {
+        return ResponseResult.success(userService.register(cmd));
     }
 
     @PostMapping(value = "/login")
