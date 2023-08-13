@@ -22,5 +22,4 @@ public class UserLoginQuery extends Query {
 
     @NotBlank
     private String password;
-
 }

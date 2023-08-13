@@ -44,5 +44,4 @@
         FROM wt_user_info
         WHERE id = #{id}
     </select>
-
 </mapper>

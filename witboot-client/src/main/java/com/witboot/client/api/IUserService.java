@@ -53,5 +53,4 @@ public interface IUserService {
      * @return MultiResponse
      */
     MultiResponse<UserVO> listByName(UserListByParamQuery query);
-
 }

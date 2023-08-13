@@ -56,5 +56,4 @@ public class UserModifyCmd extends Command {
      * 描述
      */
     private String description;
-
 }

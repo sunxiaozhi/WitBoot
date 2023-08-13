@@ -143,5 +143,4 @@ public class UserGatewayImpl implements UserGateway {
 
         return UserConvertor.toEntity(userDO, userInfoDO);
     }
-
 }

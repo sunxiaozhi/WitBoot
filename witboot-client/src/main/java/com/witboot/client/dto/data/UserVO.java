@@ -23,14 +23,11 @@ public class UserVO {
      * 姓名（较常用，故放在用户主表）
      */
     private String name;
+
     /**
      * 手机号（可用手机号登录，故放在用户主表）
      */
     private String phoneNo;
-
-    /*
-     * 附加信息
-     */
 
     /**
      * 性别
@@ -44,5 +41,4 @@ public class UserVO {
      * 描述
      */
     private String description;
-
 }

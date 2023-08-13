@@ -21,5 +21,4 @@ public class UserInfoDO {
     private LocalDate birthday;
 
     private String description;
-
 }

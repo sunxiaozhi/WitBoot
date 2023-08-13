@@ -85,6 +85,7 @@
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
+            <!-- 阿里数据库连接池 -->
 
             <dependency>
                 <groupId>com.witboot</groupId>

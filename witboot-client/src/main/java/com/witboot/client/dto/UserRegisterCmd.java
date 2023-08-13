@@ -56,5 +56,4 @@ public class UserRegisterCmd extends Command {
      * 描述
      */
     private String description;
-
 }

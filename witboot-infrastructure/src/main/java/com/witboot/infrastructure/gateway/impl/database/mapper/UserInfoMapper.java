@@ -16,5 +16,4 @@ public interface UserInfoMapper {
     int update(UserInfoDO userInfoDO);
 
     UserInfoDO findById(Long id);
-
 }

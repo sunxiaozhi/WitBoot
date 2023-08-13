@@ -52,5 +52,4 @@ public interface UserGateway {
      * @return true-已存在
      */
     Boolean checkByUsername(Long userId, String username);
-
 }
