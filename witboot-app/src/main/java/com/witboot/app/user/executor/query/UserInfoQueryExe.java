@@ -1,4 +1,4 @@
-package com.witboot.app.user.command.query;
+package com.witboot.app.user.executor.query;
 
 import com.alibaba.cola.dto.SingleResponse;
 import com.witboot.infrastructure.common.exception.WitBootBizException;

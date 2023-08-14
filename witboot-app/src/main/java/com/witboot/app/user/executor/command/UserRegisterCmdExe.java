@@ -1,4 +1,4 @@
-package com.witboot.app.user.command;
+package com.witboot.app.user.executor.command;
 
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.domain.gateway.UserGateway;
@@ -31,5 +31,4 @@ public class UserRegisterCmdExe {
 
         return UserAssembler.toValueObject(userEntity);
     }
-
 }

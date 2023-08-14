@@ -1,4 +1,4 @@
-package com.witboot.app.user.command;
+package com.witboot.app.user.executor.command;
 
 import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.client.dto.UserModifyCmd;

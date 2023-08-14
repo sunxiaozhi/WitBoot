@@ -1,4 +1,4 @@
-package com.witboot.app.user.command.query;
+package com.witboot.app.user.executor.query;
 
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.domain.gateway.UserGateway;
