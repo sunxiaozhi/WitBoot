@@ -13,6 +13,12 @@
 * **witboot-domain**：
 * **witboot-infrastructure**：
 
+## 模块规范
+![App Module](doc/image/witboot-app.png)
+![Client Module](doc/image/witboot-client.png)
+![Domain Module](doc/image/witboot-domain.png)
+![Infrastructure Module](doc/image/witboot-infrastructure.png)
+
 ## 集成功能列表
 - [ ] Swagger Knife4j增强
 - [ ] 接口版本

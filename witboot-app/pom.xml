@@ -19,11 +19,6 @@
 
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-domain</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.witboot</groupId>
             <artifactId>witboot-infrastructure</artifactId>
         </dependency>
 
