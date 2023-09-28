@@ -41,8 +41,8 @@ public class UserServiceImpl implements IUserService {
     private UserListByParamQueryExe userListByParamQueryExe;
 
     @Override
-    public UserVO register(UserRegisterCmd cmd) {
-        return userRegisterCmdExe.execute(cmd);
+    public UserVO register(UserRegisterCmd userRegisterCmd) {
+        return userRegisterCmdExe.execute(userRegisterCmd);
     }
 
     @Override

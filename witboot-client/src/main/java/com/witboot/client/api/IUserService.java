@@ -18,25 +18,25 @@ public interface IUserService {
     /**
      * 注册用户
      *
-     * @param cmd 用户注册请求
+     * @param userRegisterCmd 用户注册请求
      * @return Response
      */
-    UserVO register(UserRegisterCmd cmd);
+    UserVO register(UserRegisterCmd userRegisterCmd);
 
     /**
      * 用户信息修改
      *
-     * @param cmd 用户信息修改请求
+     * @param userModifyCmd 用户信息修改请求
      * @return Response
      */
-    UserVO modify(UserModifyCmd cmd);
+    UserVO modify(UserModifyCmd userModifyCmd);
 
     /**
      * 用户登录
      *
-     * @param query 用户登录请求
+     * @param userLoginQuery 用户登录请求
      */
-    void login(UserLoginQuery query);
+    void login(UserLoginQuery userLoginQuery);
 
     /**
      * 获取用户信息

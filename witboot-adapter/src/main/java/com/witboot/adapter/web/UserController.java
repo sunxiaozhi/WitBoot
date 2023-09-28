@@ -23,8 +23,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping(value = "/register")
-    public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd cmd) {
-        return ResponseResult.success(userService.register(cmd));
+    public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd userRegisterCmd) {
+        return ResponseResult.success(userService.register(userRegisterCmd));
     }
 
     @PostMapping(value = "/login")

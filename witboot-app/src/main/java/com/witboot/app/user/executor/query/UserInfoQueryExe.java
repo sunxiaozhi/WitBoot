@@ -31,5 +31,4 @@ public class UserInfoQueryExe {
 
         return SingleResponse.of(UserAssembler.toValueObject(userEntity));
     }
-
 }

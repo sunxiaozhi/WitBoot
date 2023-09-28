@@ -20,13 +20,13 @@ public class UserModifyCmdExe {
     @Autowired
     private UserGateway userGateway;
 
-    public UserVO execute(UserModifyCmd cmd) {
+    public UserVO execute(UserModifyCmd userModifyCmd) {
         // check 用户名是否重复
-        if (userGateway.checkByUsername(cmd.getId(), cmd.getUsername())) {
+        if (userGateway.checkByUsername(userModifyCmd.getId(), userModifyCmd.getUsername())) {
             throw new WitBootBizException(ErrorCode.B_USER_USERNAME_REPEAT);
         }
 
-        UserEntity userEntity = userGateway.save(UserAssembler.toEntity(cmd));
+        UserEntity userEntity = userGateway.save(UserAssembler.toEntity(userModifyCmd));
         return UserAssembler.toValueObject(userEntity);
     }
 }

@@ -80,7 +80,7 @@ public class ThreadPoolUtil {
     /**
      * 执行任务
      *
-     * @param runnable
+     * @param runnable runnable
      */
     public void execute(Runnable runnable) {
         if (executor == null) {
@@ -102,7 +102,7 @@ public class ThreadPoolUtil {
     /**
      * 移除任务
      *
-     * @param runnable
+     * @param runnable runnable
      */
     public void remove(Runnable runnable) {
         if (runnable != null) {
@@ -112,7 +112,7 @@ public class ThreadPoolUtil {
 
     private static class DefaultThreadFactory implements ThreadFactory {
         //线程池的计数
-        private static final AtomicInteger poolNumber = new AtomicInteger(1);
+        private static final AtomicInteger POOL_NUMBER = new AtomicInteger(1);
 
         //线程的计数
         private final AtomicInteger threadNumber = new AtomicInteger(1);
@@ -126,7 +126,7 @@ public class ThreadPoolUtil {
         DefaultThreadFactory(int threadPriority, String threadNamePrefix) {
             this.threadPriority = threadPriority;
             this.group = Thread.currentThread().getThreadGroup();
-            this.namePrefix = threadNamePrefix + poolNumber.getAndIncrement() + "-thread-";
+            this.namePrefix = threadNamePrefix + POOL_NUMBER.getAndIncrement() + "-thread-";
         }
 
         @Override

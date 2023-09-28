@@ -14,28 +14,28 @@ import com.witboot.domain.user.UserPassword;
  * @author sunxiaozhi
  */
 public class UserAssembler {
-    public static UserEntity toEntity(UserRegisterCmd co) {
+    public static UserEntity toEntity(UserRegisterCmd userRegisterCmd) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(new UserName(co.getUsername()));
-        userEntity.setPassword(new UserPassword(co.getPassword()));
-        userEntity.setName(co.getName());
-        userEntity.setPhoneNo(co.getPhoneNo());
-        userEntity.setGender(co.getGender());
-        userEntity.setBirthday(co.getBirthday());
-        userEntity.setDescription(co.getDescription());
+        userEntity.setUsername(new UserName(userRegisterCmd.getUsername()));
+        userEntity.setPassword(new UserPassword(userRegisterCmd.getPassword()));
+        userEntity.setName(userRegisterCmd.getName());
+        userEntity.setPhoneNo(userRegisterCmd.getPhoneNo());
+        userEntity.setGender(userRegisterCmd.getGender());
+        userEntity.setBirthday(userRegisterCmd.getBirthday());
+        userEntity.setDescription(userRegisterCmd.getDescription());
 
         return userEntity;
     }
 
-    public static UserEntity toEntity(UserModifyCmd co) {
+    public static UserEntity toEntity(UserModifyCmd userModifyCmd) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(co.getId());
-        userEntity.setUsername(new UserName(co.getUsername()));
-        userEntity.setName(co.getName());
-        userEntity.setPhoneNo(co.getPhoneNo());
-        userEntity.setGender(co.getGender());
-        userEntity.setBirthday(co.getBirthday());
-        userEntity.setDescription(co.getDescription());
+        userEntity.setId(userModifyCmd.getId());
+        userEntity.setUsername(new UserName(userModifyCmd.getUsername()));
+        userEntity.setName(userModifyCmd.getName());
+        userEntity.setPhoneNo(userModifyCmd.getPhoneNo());
+        userEntity.setGender(userModifyCmd.getGender());
+        userEntity.setBirthday(userModifyCmd.getBirthday());
+        userEntity.setDescription(userModifyCmd.getDescription());
 
         return userEntity;
     }
