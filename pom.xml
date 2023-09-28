@@ -11,7 +11,7 @@
     <artifactId>witboot</artifactId>
     <version>0.0.1</version>
     <packaging>pom</packaging>
-    <name>witboot</name>
+    <name>WitBoot</name>
     <description>WitBoot</description>
 
     <properties>
@@ -22,6 +22,8 @@
         <druid.version>1.2.18</druid.version>
         <mybatis.version>3.0.0</mybatis.version>
         <cola.components.version>4.0.0</cola.components.version>
+        <validation-api.version>2.0.0.Final</validation-api.version>
+        <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
     </properties>
 
     <modules>
@@ -79,13 +81,11 @@
                 <type>jar</type>
             </dependency>
 
-            <!-- 阿里数据库连接池 -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
             </dependency>
-            <!-- 阿里数据库连接池 -->
 
             <dependency>
                 <groupId>com.witboot</groupId>
@@ -121,12 +121,13 @@
             <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
-                <version>2.0.0.Final</version>
+                <version>${validation-api.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.hibernate.validator</groupId>
                 <artifactId>hibernate-validator</artifactId>
-                <version>6.1.6.Final</version>
+                <version>${hibernate-validator.version}</version>
             </dependency>
             <!--Validation API End -->
         </dependencies>
