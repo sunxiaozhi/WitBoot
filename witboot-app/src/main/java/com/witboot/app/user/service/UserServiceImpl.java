@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public MultiResponse<UserVO> listByName(UserListByParamQuery query) {
-        return userListByParamQueryExe.execute(query);
+    public MultiResponse<UserVO> listByName(UserListByParamQuery userListByParamQuery) {
+        return userListByParamQueryExe.execute(userListByParamQuery);
     }
 }

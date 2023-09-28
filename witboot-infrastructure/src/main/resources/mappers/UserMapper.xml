@@ -55,16 +55,16 @@
     </select>
 
     <select id="selectByParam" resultMap="userDOMap">
-        select id, username, name, info_id
-        from wt_user
+        SELECT id, username, name, info_id
+        FROM wt_user
         <where>
             <if test="name != null">
-                name like CONCAT('%', #{name}, '%')
+                name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="username != null">
                 username = #{username}
             </if>
-            and delete_flag = 0
+            AND delete_flag = 0
         </where>
     </select>
 

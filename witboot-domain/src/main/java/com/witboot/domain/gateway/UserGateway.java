@@ -31,10 +31,10 @@ public interface UserGateway {
     /**
      * 根据条件查询
      *
-     * @param query 用户名等
+     * @param userListByParamQuery 用户名等
      * @return List 用户实体
      */
-    List<UserEntity> findByParam(UserListByParamQuery query);
+    List<UserEntity> findByParam(UserListByParamQuery userListByParamQuery);
 
     /**
      * 获取密码信息

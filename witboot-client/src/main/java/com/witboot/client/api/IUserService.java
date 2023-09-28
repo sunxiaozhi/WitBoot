@@ -49,8 +49,8 @@ public interface IUserService {
     /**
      * 根据用户名称查询
      *
-     * @param query 用户查询请求
+     * @param userListByParamQuery 用户查询请求
      * @return MultiResponse
      */
-    MultiResponse<UserVO> listByName(UserListByParamQuery query);
+    MultiResponse<UserVO> listByName(UserListByParamQuery userListByParamQuery);
 }

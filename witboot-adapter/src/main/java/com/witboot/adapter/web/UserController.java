@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/list")
-    public MultiResponse<UserVO> list(@RequestParam(required = false) String name) {
-        return userService.listByName(UserListByParamQuery.builder().name(name).build());
+    public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
+        return userService.listByName(userListByParamQuery);
     }
 }

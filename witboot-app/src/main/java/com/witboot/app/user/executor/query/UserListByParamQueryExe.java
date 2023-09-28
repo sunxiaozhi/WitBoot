@@ -23,8 +23,8 @@ public class UserListByParamQueryExe {
     @Autowired
     private UserGateway userGateway;
 
-    public MultiResponse<UserVO> execute(UserListByParamQuery query) {
-        List<UserEntity> userEntities = userGateway.findByParam(query);
+    public MultiResponse<UserVO> execute(UserListByParamQuery userListByParamQuery) {
+        List<UserEntity> userEntities = userGateway.findByParam(userListByParamQuery);
         List<UserVO> userVOList = userEntities.stream()
                 .map(UserAssembler::toValueObject)
                 .collect(Collectors.toList());
