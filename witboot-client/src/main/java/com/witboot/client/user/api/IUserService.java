@@ -1,12 +1,12 @@
-package com.witboot.client.api;
+package com.witboot.client.user.api;
 
 import com.alibaba.cola.dto.MultiResponse;
 import com.alibaba.cola.dto.SingleResponse;
-import com.witboot.client.dto.UserModifyCmd;
-import com.witboot.client.dto.UserRegisterCmd;
-import com.witboot.client.dto.data.UserVO;
-import com.witboot.client.dto.query.UserListByParamQuery;
-import com.witboot.client.dto.query.UserLoginQuery;
+import com.witboot.client.user.dto.UserModifyCmd;
+import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.client.user.dto.query.UserLoginQuery;
 
 /**
  * 用户相关

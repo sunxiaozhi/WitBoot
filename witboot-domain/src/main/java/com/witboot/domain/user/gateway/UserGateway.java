@@ -1,7 +1,7 @@
-package com.witboot.domain.gateway;
+package com.witboot.domain.user.gateway;
 
-import com.witboot.domain.user.UserEntity;
-import com.witboot.client.dto.query.UserListByParamQuery;
+import com.witboot.domain.user.model.UserEntity;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
 
 import java.util.List;
 

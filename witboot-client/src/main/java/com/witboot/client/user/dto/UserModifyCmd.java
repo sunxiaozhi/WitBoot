@@ -1,4 +1,4 @@
-package com.witboot.client.dto;
+package com.witboot.client.user.dto;
 
 import com.alibaba.cola.dto.Command;
 import lombok.Data;

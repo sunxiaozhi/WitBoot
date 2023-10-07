@@ -1,10 +1,10 @@
 package com.witboot.infrastructure.gateway.impl;
 
-import com.witboot.client.dto.data.ErrorCode;
-import com.witboot.client.dto.query.UserListByParamQuery;
-import com.witboot.domain.gateway.UserGateway;
-import com.witboot.domain.user.UserEntity;
-import com.witboot.domain.user.UserPassword;
+import com.witboot.client.user.dto.data.ErrorCode;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.domain.user.gateway.UserGateway;
+import com.witboot.domain.user.model.UserEntity;
+import com.witboot.domain.user.model.UserPassword;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;

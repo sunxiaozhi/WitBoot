@@ -1,4 +1,4 @@
-package com.witboot.client.dto.data;
+package com.witboot.client.user.dto.data;
 
 /**
  * 错误信息

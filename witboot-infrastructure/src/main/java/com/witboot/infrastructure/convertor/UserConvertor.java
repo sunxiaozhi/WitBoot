@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.convertor;
 
-import com.witboot.domain.user.UserEntity;
-import com.witboot.domain.user.UserName;
+import com.witboot.domain.user.model.UserEntity;
+import com.witboot.domain.user.model.UserName;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserInfoDO;
 import org.apache.commons.lang3.tuple.ImmutablePair;

@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.common.exception;
 
 import com.alibaba.cola.exception.BizException;
-import com.witboot.client.dto.data.ErrorCode;
+import com.witboot.client.user.dto.data.ErrorCode;
 
 /**
  * 业务异常

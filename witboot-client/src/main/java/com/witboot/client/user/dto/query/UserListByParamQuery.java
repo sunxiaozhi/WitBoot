@@ -1,4 +1,4 @@
-package com.witboot.client.dto.query;
+package com.witboot.client.user.dto.query;
 
 import com.alibaba.cola.dto.Query;
 import lombok.Builder;

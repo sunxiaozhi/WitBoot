@@ -1,35 +1,31 @@
-package com.witboot.domain.user;
+package com.witboot.client.user.dto.data;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 /**
- * User Domain
+ * User VO
  *
  * @author sunxiaoizhi
  */
 @Data
-public class UserEntity {
+public class UserVO {
 
     private Long id;
 
     /**
      * 用户名
      */
-    private UserName username;
-    /**
-     * 密码
-     */
-    private UserPassword password;
+    private String username;
 
     /**
-     * 姓名
+     * 姓名（较常用，故放在用户主表）
      */
     private String name;
 
     /**
-     * 手机号
+     * 手机号（可用手机号登录，故放在用户主表）
      */
     private String phoneNo;
 
@@ -37,12 +33,10 @@ public class UserEntity {
      * 性别
      */
     private Integer gender;
-
     /**
      * 生日
      */
     private LocalDate birthday;
-
     /**
      * 描述
      */

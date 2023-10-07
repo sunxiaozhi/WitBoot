@@ -1,11 +1,11 @@
 package com.witboot.app.user.assembler;
 
-import com.witboot.client.dto.UserModifyCmd;
-import com.witboot.client.dto.UserRegisterCmd;
-import com.witboot.client.dto.data.UserVO;
-import com.witboot.domain.user.UserEntity;
-import com.witboot.domain.user.UserName;
-import com.witboot.domain.user.UserPassword;
+import com.witboot.client.user.dto.UserModifyCmd;
+import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.domain.user.model.UserEntity;
+import com.witboot.domain.user.model.UserName;
+import com.witboot.domain.user.model.UserPassword;
 
 /**
  * User Application层 转换器

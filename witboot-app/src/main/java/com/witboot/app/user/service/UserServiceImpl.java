@@ -8,12 +8,12 @@ import com.witboot.app.user.executor.command.UserRegisterCmdExe;
 import com.witboot.app.user.executor.query.UserInfoQueryExe;
 import com.witboot.app.user.executor.query.UserListByParamQueryExe;
 import com.witboot.app.user.executor.query.UserLoginQueryExe;
-import com.witboot.client.api.IUserService;
-import com.witboot.client.dto.UserModifyCmd;
-import com.witboot.client.dto.UserRegisterCmd;
-import com.witboot.client.dto.data.UserVO;
-import com.witboot.client.dto.query.UserListByParamQuery;
-import com.witboot.client.dto.query.UserLoginQuery;
+import com.witboot.client.user.api.IUserService;
+import com.witboot.client.user.dto.UserModifyCmd;
+import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.client.user.dto.query.UserLoginQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

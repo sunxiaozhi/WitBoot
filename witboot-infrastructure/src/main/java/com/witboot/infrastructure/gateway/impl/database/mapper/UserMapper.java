@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
-import com.witboot.client.dto.query.UserListByParamQuery;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,4 +1,4 @@
-package com.witboot.domain.user;
+package com.witboot.domain.user.model;
 
 import org.apache.commons.lang3.StringUtils;
 

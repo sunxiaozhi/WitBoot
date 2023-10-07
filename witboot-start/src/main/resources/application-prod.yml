@@ -4,10 +4,10 @@ info:
     version: 0.0.1
 
 spring:
-#  security:
-#    user:
-#      name: admin
-#      password: admin
+  security:
+    user:
+      name: admin
+      password: admin
 
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

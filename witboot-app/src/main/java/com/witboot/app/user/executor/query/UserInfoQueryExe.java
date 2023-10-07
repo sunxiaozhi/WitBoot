@@ -1,12 +1,12 @@
 package com.witboot.app.user.executor.query;
 
 import com.alibaba.cola.dto.SingleResponse;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
-import com.witboot.domain.gateway.UserGateway;
-import com.witboot.domain.user.UserEntity;
-import com.witboot.client.dto.data.ErrorCode;
-import com.witboot.client.dto.data.UserVO;
 import com.witboot.app.user.assembler.UserAssembler;
+import com.witboot.client.user.dto.data.ErrorCode;
+import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.domain.user.gateway.UserGateway;
+import com.witboot.domain.user.model.UserEntity;
+import com.witboot.infrastructure.common.exception.WitBootBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

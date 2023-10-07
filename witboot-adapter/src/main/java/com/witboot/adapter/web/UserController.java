@@ -2,11 +2,11 @@ package com.witboot.adapter.web;
 
 import com.alibaba.cola.dto.MultiResponse;
 import com.alibaba.cola.dto.Response;
-import com.witboot.client.api.IUserService;
-import com.witboot.client.dto.UserRegisterCmd;
-import com.witboot.client.dto.data.UserVO;
-import com.witboot.client.dto.query.UserListByParamQuery;
-import com.witboot.client.dto.query.UserLoginQuery;
+import com.witboot.client.user.api.IUserService;
+import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.infrastructure.common.response.ResponseResult;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
