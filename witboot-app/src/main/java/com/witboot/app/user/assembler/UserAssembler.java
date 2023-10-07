@@ -44,7 +44,7 @@ public class UserAssembler {
         UserVO userVO = new UserVO();
         userVO.setId(userEntity.getId());
         userVO.setName(userEntity.getName());
-        userVO.setUsername(userEntity.getUsername().getName());
+        userVO.setUsername(userEntity.getUsername().name());
         userVO.setPhoneNo(userEntity.getPhoneNo());
         userVO.setGender(userEntity.getGender());
         userVO.setBirthday(userEntity.getBirthday());

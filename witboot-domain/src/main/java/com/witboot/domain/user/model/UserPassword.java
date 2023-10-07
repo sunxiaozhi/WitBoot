@@ -37,7 +37,7 @@ public class UserPassword {
      * @return true-密码正确; false-密码错误
      */
     public boolean isCorrect(String password) {
-        return encryptPassword.getEncryptPassword().equals(generateEncryptPassword(password));
+        return encryptPassword.encryptPassword().equals(generateEncryptPassword(password));
     }
 
     /**
@@ -50,22 +50,12 @@ public class UserPassword {
     }
 
     public String getEncryptPassword() {
-        return encryptPassword.getEncryptPassword();
+        return encryptPassword.encryptPassword();
     }
 
     /**
      * 加密后的密码
      */
-    public static class EncryptPassword {
-
-        private final String encryptPassword;
-
-        public EncryptPassword(String encryptPassword) {
-            this.encryptPassword = encryptPassword;
-        }
-
-        public String getEncryptPassword() {
-            return encryptPassword;
-        }
+    public record EncryptPassword(String encryptPassword) {
     }
 }

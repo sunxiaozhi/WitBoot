@@ -34,7 +34,7 @@ public class UserConvertor {
     public static ImmutablePair<UserDO, UserInfoDO> toAddUserDO(UserEntity userEntity) {
         UserDO userDO = new UserDO();
         userDO.setId(userEntity.getId());
-        userDO.setUsername(userEntity.getUsername().getName());
+        userDO.setUsername(userEntity.getUsername().name());
         userDO.setPassword(userEntity.getPassword().getEncryptPassword());
         userDO.setName(userEntity.getName());
         userDO.setDeleteFlag(false);
@@ -52,7 +52,7 @@ public class UserConvertor {
 
     public static void toModifyUserDO(UserEntity userEntity, UserDO userDO, UserInfoDO userInfoDO) {
         userDO.setName(userEntity.getName());
-        userDO.setUsername(userEntity.getUsername().getName());
+        userDO.setUsername(userEntity.getUsername().name());
 
         userInfoDO.setPhoneNo(userEntity.getPhoneNo());
         userInfoDO.setGender(userEntity.getGender());
