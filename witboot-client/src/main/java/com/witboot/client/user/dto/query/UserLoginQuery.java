@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serial;
 
 /**
  * 用户登录请求
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class UserLoginQuery extends Query {
 
+    @Serial
     private static final long serialVersionUID = 5180182193190154824L;
 
     @NotBlank

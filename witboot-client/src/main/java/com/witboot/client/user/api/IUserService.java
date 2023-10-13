@@ -52,5 +52,5 @@ public interface IUserService {
      * @param userListByParamQuery 用户查询请求
      * @return MultiResponse
      */
-    MultiResponse<UserVO> listByName(UserListByParamQuery userListByParamQuery);
+    MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery);
 }

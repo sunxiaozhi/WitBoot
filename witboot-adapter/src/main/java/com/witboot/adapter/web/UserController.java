@@ -22,6 +22,11 @@ public class UserController {
     @Resource
     private IUserService userService;
 
+    @GetMapping(value = "/list")
+    public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
+        return userService.listByParam(userListByParamQuery);
+    }
+
     @PostMapping(value = "/register")
     public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd userRegisterCmd) {
         return ResponseResult.success(userService.register(userRegisterCmd));
@@ -31,10 +36,5 @@ public class UserController {
     public Response login(@RequestBody UserLoginQuery userLoginQuery) {
         userService.login(userLoginQuery);
         return Response.buildSuccess();
-    }
-
-    @GetMapping(value = "/list")
-    public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
-        return userService.listByName(userListByParamQuery);
     }
 }

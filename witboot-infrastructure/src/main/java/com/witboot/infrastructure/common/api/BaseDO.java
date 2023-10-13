@@ -15,16 +15,33 @@ import java.time.LocalDateTime;
 @Setter
 @Accessors(chain = true)
 public abstract class BaseDO {
-
+    /**
+     * 编码
+     */
     private Long id;
 
+    /**
+     * 数据标识
+     */
+    private Boolean deleteFlag;
+
+    /**
+     * 创建人
+     */
     private String creator;
 
-    private LocalDateTime gmtCreate;
-
+    /**
+     * 修改人
+     */
     private String modifier;
 
-    private LocalDateTime gmtModified;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
 
-    private Boolean deleteFlag;
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 }

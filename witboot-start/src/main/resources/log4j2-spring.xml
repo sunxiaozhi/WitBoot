@@ -4,6 +4,7 @@
     <properties>
         <property name="LOG_HOME">./service-logs</property>
     </properties>
+
     <Appenders>
         <!--*********************控制台日志***********************-->
         <Console name="consoleAppender" target="SYSTEM_OUT">

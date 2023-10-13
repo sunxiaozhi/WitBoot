@@ -4,6 +4,8 @@ import com.witboot.infrastructure.common.api.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDate;
+
 /**
  * UserDO
  *
@@ -28,7 +30,22 @@ public class UserDO extends BaseDO {
     private String name;
 
     /**
-     * 附加信息主键ID
+     * 手机号
      */
-    private Long infoId;
+    private String mobile;
+
+    /**
+     * 性别
+     */
+    private Integer gender;
+
+    /**
+     * 生日
+     */
+    private LocalDate birthday;
+
+    /**
+     * 描述
+     */
+    private String description;
 }

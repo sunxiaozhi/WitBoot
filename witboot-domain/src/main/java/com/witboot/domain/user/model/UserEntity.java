@@ -31,7 +31,7 @@ public class UserEntity {
     /**
      * 手机号
      */
-    private String phoneNo;
+    private String mobile;
 
     /**
      * 性别

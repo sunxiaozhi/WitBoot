@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 /**
- * UserListByNameQueryExe
+ * UserlistByParamQueryExe
  *
  * @author sunxiaoizhi
  */

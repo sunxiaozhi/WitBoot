@@ -8,16 +8,12 @@ import com.witboot.domain.user.model.UserPassword;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
-import com.witboot.infrastructure.gateway.impl.database.dataobject.UserInfoDO;
-import com.witboot.infrastructure.gateway.impl.database.mapper.UserInfoMapper;
 import com.witboot.infrastructure.gateway.impl.database.mapper.UserMapper;
-import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,9 +28,6 @@ import java.util.Optional;
 public class UserGatewayImpl implements UserGateway {
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private UserInfoMapper userInfoMapper;
 
     @Override
     @Transactional(rollbackFor = Throwable.class)
@@ -56,17 +49,15 @@ public class UserGatewayImpl implements UserGateway {
         }
 
         UserDO userDO = findById.get();
-        UserInfoDO userInfoDO = userInfoMapper.findById(userDO.getInfoId());
 
-        return UserConvertor.toEntity(userDO, userInfoDO);
+        return UserConvertor.toEntity(userDO);
     }
 
     @Override
     public List<UserEntity> findByParam(UserListByParamQuery query) {
         List<UserEntity> entities = new ArrayList<>();
         userMapper.selectByParam(query).forEach(userDO -> {
-            UserInfoDO userInfoDO = userInfoMapper.findById(userDO.getInfoId());
-            entities.add(UserConvertor.toEntity(userDO, userInfoDO));
+            entities.add(UserConvertor.toEntity(userDO));
         });
         return entities;
     }
@@ -93,24 +84,14 @@ public class UserGatewayImpl implements UserGateway {
      */
     private UserEntity addUser(UserEntity userEntity) {
         // 初始化用户信息
-        ImmutablePair<UserDO, UserInfoDO> pair = UserConvertor.toAddUserDO(userEntity);
-        UserDO userDO = pair.getLeft();
-        UserInfoDO userInfoDO = pair.getRight();
+        UserDO userDO = UserConvertor.toAddUserDO(userEntity);
 
-        // 1. 先保存用户信息
-        int insert = userInfoMapper.insert(userInfoDO);
-        if (insert < 1) {
-            throw new PersistenceException("保存用户信息异常");
-        }
-
-        // 2. 获取 userInfoId 关联 userDO
-        userDO.setInfoId(userInfoDO.getId());
-        insert = userMapper.insert(userDO);
+        int insert = userMapper.insert(userDO);
         if (insert < 1) {
             throw new PersistenceException("保存用户异常");
         }
 
-        return UserConvertor.toEntity(userDO, userInfoDO);
+        return UserConvertor.toEntity(userDO);
     }
 
     /**
@@ -123,24 +104,16 @@ public class UserGatewayImpl implements UserGateway {
         }
 
         UserDO userDO = findById.get();
-        UserInfoDO userInfoDO = userInfoMapper.findById(userDO.getInfoId());
 
         // 更新用户信息
-        UserConvertor.toModifyUserDO(userEntity, userDO, userInfoDO);
+        UserConvertor.toModifyUserDO(userEntity, userDO);
 
-        // 1. 先保存userInfoDO
-        int update = userInfoMapper.update(userInfoDO);
-        if (update < 1) {
-            throw new PersistenceException("更新用户信息异常");
-        }
-
-        // 2. 再保存userDO
-        userDO.setGmtModified(LocalDateTime.now());
-        update = userMapper.update(userDO);
+        // 保存userDO
+        int update = userMapper.update(userDO);
         if (update < 1) {
             throw new PersistenceException("更新用户异常");
         }
 
-        return UserConvertor.toEntity(userDO, userInfoDO);
+        return UserConvertor.toEntity(userDO);
     }
 }

@@ -8,21 +8,23 @@
         <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="name" column="name"/>
-        <result property="infoId" column="info_id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="gender" column="gender"/>
+        <result property="birthday" column="birthday"/>
+        <result property="description" column="description"/>
         <result property="creator" column="creator"/>
-        <result property="gmtCreate" column="gmt_create"/>
         <result property="modifier" column="modifier"/>
-        <result property="gmtModified" column="gmt_modify"/>
         <result property="deleteFlag" column="delete_flag"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wt_user
-        ( username, name, password, info_id,
-        creator, gmt_create, modifier, gmt_modify, delete_flag )
-        VALUES
-        ( #{username}, #{name}, #{password}, #{infoId},
-        #{creator}, #{gmtCreate}, #{modifier}, #{gmtModified}, #{deleteFlag} )
+        (username, name, password, delete_flag, creator, modifier, create_time, update_time)
+        VALUES (#{username}, #{name}, #{password}, #{deleteFlag}, #{creator}, #{modifier}, sysdate(), sysdate())
     </insert>
 
     <insert id="update" useGeneratedKeys="true" keyProperty="id">
@@ -37,25 +39,23 @@
             <if test="modifier != null">
                 modifier = #{modifier},
             </if>
-            <if test="gmtModified != null">
-                gmt_modify = #{gmtModified},
-            </if>
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
+            update_time = sys_date()
         </set>
         WHERE id = #{id}
     </insert>
 
     <select id="selectById" resultMap="userDOMap">
-        select id, username, name, info_id
-        from wt_user
-        where id = #{id}
-        and delete_flag = 0
+        SELECT id, username, name, mobile
+        FROM wt_user
+        WHERE id = #{id}
+        AND delete_flag = 0
     </select>
 
     <select id="selectByParam" resultMap="userDOMap">
-        SELECT id, username, name, info_id
+        SELECT id, username, name, mobile
         FROM wt_user
         <where>
             <if test="name != null">
@@ -69,21 +69,21 @@
     </select>
 
     <select id="existByUsername" resultType="java.lang.Boolean">
-        select count(*)
-        from wt_user
+        SELECT count(*)
+        FROM wt_user
         <where>
             username = #{username}
             <if test="userId != null">
-                and id &lt;&gt; #{userId}
+                AND id &lt;&gt; #{userId}
             </if>
-            and delete_flag = 0
+            AND delete_flag = 0
         </where>
     </select>
 
     <select id="selectPassword" resultType="java.lang.String">
-        select password
-        from wt_user
-        where username = #{username}
-        and delete_flag = 0
+        SELECT password
+        FROM wt_user
+        WHERE username = #{username}
+        AND delete_flag = 0
     </select>
 </mapper>

@@ -19,7 +19,7 @@ public class UserAssembler {
         userEntity.setUsername(new UserName(userRegisterCmd.getUsername()));
         userEntity.setPassword(new UserPassword(userRegisterCmd.getPassword()));
         userEntity.setName(userRegisterCmd.getName());
-        userEntity.setPhoneNo(userRegisterCmd.getPhoneNo());
+        userEntity.setMobile(userRegisterCmd.getMobile());
         userEntity.setGender(userRegisterCmd.getGender());
         userEntity.setBirthday(userRegisterCmd.getBirthday());
         userEntity.setDescription(userRegisterCmd.getDescription());
@@ -32,7 +32,7 @@ public class UserAssembler {
         userEntity.setId(userModifyCmd.getId());
         userEntity.setUsername(new UserName(userModifyCmd.getUsername()));
         userEntity.setName(userModifyCmd.getName());
-        userEntity.setPhoneNo(userModifyCmd.getPhoneNo());
+        userEntity.setMobile(userModifyCmd.getPhoneNo());
         userEntity.setGender(userModifyCmd.getGender());
         userEntity.setBirthday(userModifyCmd.getBirthday());
         userEntity.setDescription(userModifyCmd.getDescription());
@@ -45,7 +45,7 @@ public class UserAssembler {
         userVO.setId(userEntity.getId());
         userVO.setName(userEntity.getName());
         userVO.setUsername(userEntity.getUsername().name());
-        userVO.setPhoneNo(userEntity.getPhoneNo());
+        userVO.setMobile(userEntity.getMobile());
         userVO.setGender(userEntity.getGender());
         userVO.setBirthday(userEntity.getBirthday());
         userVO.setDescription(userEntity.getDescription());

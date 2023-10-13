@@ -20,23 +20,25 @@ public class UserVO {
     private String username;
 
     /**
-     * 姓名（较常用，故放在用户主表）
+     * 姓名
      */
     private String name;
 
     /**
-     * 手机号（可用手机号登录，故放在用户主表）
+     * 手机号（可用手机号登录）
      */
-    private String phoneNo;
+    private String mobile;
 
     /**
      * 性别
      */
     private Integer gender;
+
     /**
      * 生日
      */
     private LocalDate birthday;
+
     /**
      * 描述
      */

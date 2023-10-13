@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 @Service
 @CatchAndLog
 public class UserServiceImpl implements IUserService {
-
     /**
      * xxxExe 避免 Service 膨胀利器
      */
@@ -51,8 +50,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void login(UserLoginQuery query) {
-        userLoginQueryExe.execute(query);
+    public void login(UserLoginQuery userLoginQuery) {
+        userLoginQueryExe.execute(userLoginQuery);
     }
 
     @Override
@@ -61,7 +60,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public MultiResponse<UserVO> listByName(UserListByParamQuery userListByParamQuery) {
+    public MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
         return userListByParamQueryExe.execute(userListByParamQuery);
     }
 }

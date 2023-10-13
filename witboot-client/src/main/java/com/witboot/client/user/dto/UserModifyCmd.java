@@ -4,6 +4,7 @@ import com.alibaba.cola.dto.Command;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.time.LocalDate;
 
 /**
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Data
 public class UserModifyCmd extends Command {
 
+    @Serial
     private static final long serialVersionUID = 2484506238493820565L;
 
     public UserModifyCmd(Long id, String username) {
@@ -33,7 +35,7 @@ public class UserModifyCmd extends Command {
     private String username;
 
     /**
-     * 姓名（较常用，故放在用户主表）
+     * 姓名
      */
     private String name;
 

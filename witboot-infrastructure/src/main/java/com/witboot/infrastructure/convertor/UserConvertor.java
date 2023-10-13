@@ -3,10 +3,6 @@ package com.witboot.infrastructure.convertor;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserName;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
-import com.witboot.infrastructure.gateway.impl.database.dataobject.UserInfoDO;
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
-import java.time.LocalDateTime;
 
 /**
  * UserConvertor DO <---> Entity
@@ -15,48 +11,42 @@ import java.time.LocalDateTime;
  */
 public class UserConvertor {
 
-    public static UserEntity toEntity(UserDO userDO, UserInfoDO userInfoDO) {
+    public static UserEntity toEntity(UserDO userDO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDO.getId());
         userEntity.setUsername(new UserName(userDO.getUsername()));
         userEntity.setName(userDO.getName());
-
-        if (userInfoDO != null) {
-            userEntity.setPhoneNo(userInfoDO.getPhoneNo());
-            userEntity.setGender(userInfoDO.getGender());
-            userEntity.setBirthday(userInfoDO.getBirthday());
-            userEntity.setDescription(userInfoDO.getDescription());
-        }
+        userEntity.setMobile(userDO.getMobile());
+        userEntity.setGender(userDO.getGender());
+        userEntity.setBirthday(userDO.getBirthday());
+        userEntity.setDescription(userDO.getDescription());
 
         return userEntity;
     }
 
-    public static ImmutablePair<UserDO, UserInfoDO> toAddUserDO(UserEntity userEntity) {
+    public static UserDO toAddUserDO(UserEntity userEntity) {
         UserDO userDO = new UserDO();
         userDO.setId(userEntity.getId());
         userDO.setUsername(userEntity.getUsername().name());
         userDO.setPassword(userEntity.getPassword().getEncryptPassword());
         userDO.setName(userEntity.getName());
         userDO.setDeleteFlag(false);
-        userDO.setGmtCreate(LocalDateTime.now());
+        userDO.setMobile(userEntity.getMobile());
+        userDO.setGender(userEntity.getGender());
+        userDO.setBirthday(userEntity.getBirthday());
+        userDO.setDescription(userEntity.getDescription());
+        userDO.setCreator("");
+        userDO.setModifier("");
 
-        // user info
-        UserInfoDO userInfoDO = new UserInfoDO();
-        userInfoDO.setPhoneNo(userEntity.getPhoneNo());
-        userInfoDO.setGender(userEntity.getGender());
-        userInfoDO.setBirthday(userEntity.getBirthday());
-        userInfoDO.setDescription(userEntity.getDescription());
-
-        return new ImmutablePair<>(userDO, userInfoDO);
+        return userDO;
     }
 
-    public static void toModifyUserDO(UserEntity userEntity, UserDO userDO, UserInfoDO userInfoDO) {
+    public static void toModifyUserDO(UserEntity userEntity, UserDO userDO) {
         userDO.setName(userEntity.getName());
         userDO.setUsername(userEntity.getUsername().name());
-
-        userInfoDO.setPhoneNo(userEntity.getPhoneNo());
-        userInfoDO.setGender(userEntity.getGender());
-        userInfoDO.setBirthday(userEntity.getBirthday());
-        userInfoDO.setDescription(userEntity.getDescription());
+        userDO.setMobile(userEntity.getMobile());
+        userDO.setGender(userEntity.getGender());
+        userDO.setBirthday(userEntity.getBirthday());
+        userDO.setDescription(userEntity.getDescription());
     }
 }
