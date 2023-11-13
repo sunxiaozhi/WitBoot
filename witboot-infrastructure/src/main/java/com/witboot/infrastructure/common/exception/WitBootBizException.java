@@ -16,6 +16,6 @@ public class WitBootBizException extends BizException {
     private static final long serialVersionUID = -2776433598172531409L;
 
     public WitBootBizException(ErrorCode errorCode) {
-        super(errorCode.getErrCode(), errorCode.getErrDesc());
+        super(errorCode.getErrorCode(), errorCode.getErrorDescription());
     }
 }
