@@ -3,13 +3,17 @@ package com.witboot.infrastructure.common.utils;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
+=======
+>>>>>>> 28ed750 (RedisUtil RedisUtilTest)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> ca56e17 (日志等级)
@@ -17,6 +21,8 @@ import org.springframework.stereotype.Component;
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 =======
 >>>>>>> 91070f1 (日志等级)
+=======
+>>>>>>> 28ed750 (RedisUtil RedisUtilTest)
 /**
  * Redis工具类
  *
@@ -25,8 +31,11 @@ import org.springframework.stereotype.Component;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
+=======
+>>>>>>> 28ed750 (RedisUtil RedisUtilTest)
 @Component
 public class RedisUtil {
     @Autowired
@@ -63,6 +72,7 @@ public class RedisUtil {
         return redisTemplate.delete(key);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 public class RedisUtil {
 >>>>>>> ca56e17 (日志等级)
@@ -71,4 +81,6 @@ public class RedisUtil {
 =======
 public class RedisUtil {
 >>>>>>> 91070f1 (日志等级)
+=======
+>>>>>>> 28ed750 (RedisUtil RedisUtilTest)
 }
