@@ -2,6 +2,7 @@ package com.witboot.infrastructure.common.utils;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,14 @@ import org.springframework.stereotype.Component;
 >>>>>>> ca56e17 (日志等级)
 =======
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
+=======
+>>>>>>> 91070f1 (日志等级)
 /**
  * Redis工具类
  *
  * @author sunxiaozhi
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -64,4 +68,7 @@ public class RedisUtil {
 >>>>>>> ca56e17 (日志等级)
 =======
 >>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
+=======
+public class RedisUtil {
+>>>>>>> 91070f1 (日志等级)
 }

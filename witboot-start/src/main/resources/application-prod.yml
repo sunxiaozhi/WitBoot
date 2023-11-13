@@ -67,7 +67,10 @@ spring:
     redis:
       host: localhost
       port: 6379
+<<<<<<< HEAD
       time-to-live: 0
+=======
+>>>>>>> 91070f1 (日志等级)
 
   # 线程池
   task:
