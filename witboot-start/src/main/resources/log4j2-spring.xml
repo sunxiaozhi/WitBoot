@@ -4,7 +4,6 @@
     <properties>
         <property name="LOG_HOME">./service-logs</property>
     </properties>
-
     <Appenders>
         <!--*********************控制台日志***********************-->
         <Console name="consoleAppender" target="SYSTEM_OUT">
@@ -138,12 +137,12 @@
         </Root>
 
         <!--spring日志-->
-        <Logger name="org.springframework" level="info"/>
+<!--        <Logger name="org.springframework" level="info"/>-->
 
         <!--druid数据源日志-->
-        <Logger name="druid.sql.Statement" level="info"/>
+<!--        <Logger name="druid.sql.Statement" level="info"/>-->
 
         <!-- mybatis日志 -->
-        <Logger name="com.mybatis" level="info"/>
+<!--        <Logger name="com.mybatis" level="info"/>-->
     </Loggers>
 </Configuration>

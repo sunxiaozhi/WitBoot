@@ -8,5 +8,6 @@ spring:
 logging:
   config: classpath:log4j2-spring.xml
   level:
-    org.springframework: info
-    com.witboot: info
+    root: info
+    # org.springframework: info
+    # com.witboot: info

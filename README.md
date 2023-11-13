@@ -20,6 +20,7 @@
 ![Infrastructure Module](doc/image/witboot-infrastructure.png)
 
 ## 集成功能列表
+- [ ] SpringBoot Security集成
 - [ ] Swagger Knife4j增强
 - [ ] 接口版本
 - [ ] MyBatis-Plus

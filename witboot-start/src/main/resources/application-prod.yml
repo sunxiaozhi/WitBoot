@@ -58,8 +58,15 @@ spring:
         # 登录密码
         login-password: 123456
 
+  # flyway
   flyway:
     enabled: false
+
+  data:
+    # redis
+    redis:
+      host: localhost
+      port: 6379
 
   # 线程池
   task:
