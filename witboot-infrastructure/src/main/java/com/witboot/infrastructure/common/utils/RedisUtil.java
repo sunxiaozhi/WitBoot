@@ -1,19 +1,28 @@
 package com.witboot.infrastructure.common.utils;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 =======
 >>>>>>> ca56e17 (日志等级)
+=======
+>>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 /**
  * Redis工具类
  *
  * @author sunxiaozhi
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 @Component
 public class RedisUtil {
     @Autowired
@@ -49,7 +58,10 @@ public class RedisUtil {
     public boolean deleteCache(String key) {
         return redisTemplate.delete(key);
     }
+<<<<<<< HEAD
 =======
 public class RedisUtil {
 >>>>>>> ca56e17 (日志等级)
+=======
+>>>>>>> 8e37e7e (RedisUtil RedisUtilTest)
 }
