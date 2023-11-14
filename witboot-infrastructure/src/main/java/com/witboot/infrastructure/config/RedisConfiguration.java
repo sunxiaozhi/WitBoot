@@ -2,6 +2,7 @@ package com.witboot.infrastructure.config;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> e8d2a37 (Redis序列化和反序列化配置)
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -30,6 +31,9 @@ import org.springframework.context.annotation.Configuration;
 >>>>>>> d1eebc6 (RedisConfiguration)
 =======
 >>>>>>> e8d2a37 (Redis序列化和反序列化配置)
+=======
+import org.springframework.context.annotation.Configuration;
+>>>>>>> b7d8aec (RedisConfiguration)
 
 /**
  * Redis配置类
@@ -37,6 +41,7 @@ import org.springframework.context.annotation.Configuration;
  * @author sunxiaozhi
  */
 @Configuration
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 @EnableCaching
@@ -172,4 +177,8 @@ public class RedisConfiguration {
                 .build();
     }
 >>>>>>> e8d2a37 (Redis序列化和反序列化配置)
+=======
+public class RedisConfiguration {
+
+>>>>>>> b7d8aec (RedisConfiguration)
 }
