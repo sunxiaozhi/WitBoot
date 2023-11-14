@@ -8,5 +8,5 @@ import org.mybatis.spring.annotation.MapperScan;
  * @author sunxiaozhi
  */
 @MapperScan("com.witboot.domain.mybatis.mapper")
-public class MybatisConfig {
+public class MybatisConfiguration {
 }
