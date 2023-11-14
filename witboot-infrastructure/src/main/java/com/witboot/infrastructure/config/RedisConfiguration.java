@@ -1,5 +1,6 @@
 package com.witboot.infrastructure.config;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -20,6 +21,9 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
+=======
+import org.springframework.context.annotation.Configuration;
+>>>>>>> d1eebc6 (RedisConfiguration)
 
 /**
  * Redis配置类
@@ -27,6 +31,7 @@ import java.time.Duration;
  * @author sunxiaozhi
  */
 @Configuration
+<<<<<<< HEAD
 @EnableCaching
 public class RedisConfiguration {
     @Value("${spring.data.redis.time-to-live}")
@@ -90,4 +95,8 @@ public class RedisConfiguration {
                 .cacheDefaults(config)
                 .build();
     }
+=======
+public class RedisConfiguration {
+
+>>>>>>> d1eebc6 (RedisConfiguration)
 }
