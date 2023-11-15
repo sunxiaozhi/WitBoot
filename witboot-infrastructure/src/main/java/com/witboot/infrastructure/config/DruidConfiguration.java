@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class DruidConfiguration {
-
     /**
      * 注册一个StatViewServlet
      *
