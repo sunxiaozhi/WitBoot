@@ -21,7 +21,7 @@
 
 ## 集成功能列表
 - [ ] SpringBoot Security集成
-- [ ] Swagger Knife4j增强
+- [x] Swagger Knife4j增强
 - [ ] 接口版本
 - [ ] MyBatis-Plus
 - [x] MySQL
@@ -48,6 +48,7 @@
 - [ ] 性能监控
 - [ ] 数据变更记录
 - [ ] 操作日志记录
+- [ ] Redis监控
 
 ## 开发规范
 

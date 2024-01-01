@@ -11,7 +11,6 @@ import javax.validation.ValidationException;
  * @author sunxiaoizhi
  */
 public class UserPassword {
-
     /**
      * 加密后的密码
      */

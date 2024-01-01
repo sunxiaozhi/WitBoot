@@ -25,6 +25,7 @@ import java.util.Optional;
  * @author sunxiaoizhi
  */
 @Component("userGateway")
+//public class UserGatewayImpl implements UserGateway, UserDetailsService {
 public class UserGatewayImpl implements UserGateway {
     @Autowired
     private UserMapper userMapper;
@@ -116,4 +117,9 @@ public class UserGatewayImpl implements UserGateway {
 
         return UserConvertor.toEntity(userDO);
     }
+
+    /*@Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }*/
 }
