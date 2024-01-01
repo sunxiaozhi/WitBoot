@@ -70,18 +70,7 @@ spring:
     redis:
       host: localhost
       port: 6379
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       time-to-live: 0
-=======
->>>>>>> 91070f1 (日志等级)
-=======
-      time-to-live: 0
->>>>>>> e8d2a37 (Redis序列化和反序列化配置)
-=======
-      time-to-live: 0
->>>>>>> e168c13 (Redis序列化和反序列化配置)
 
   # 线程池
   task:
