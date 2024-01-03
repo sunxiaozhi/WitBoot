@@ -70,6 +70,7 @@ spring:
     redis:
       host: localhost
       port: 6379
+      time-to-live: 0
 
   # 线程池
   task:
