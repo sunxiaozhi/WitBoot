@@ -153,7 +153,7 @@ public class JwtTokenUtil {
     /**
      * 获取请求token
      *
-     * @param request
+     * @param request request
      * @return token
      */
     public String getToken(HttpServletRequest request) {

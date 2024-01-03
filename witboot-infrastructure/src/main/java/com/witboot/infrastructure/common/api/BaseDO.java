@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * BaseEntity
+ * BaseDO
  *
  * @author sunxiaoizhi
  */

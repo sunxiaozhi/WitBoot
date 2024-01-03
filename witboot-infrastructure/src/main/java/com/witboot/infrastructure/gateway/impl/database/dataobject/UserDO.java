@@ -3,8 +3,11 @@ package com.witboot.infrastructure.gateway.impl.database.dataobject;
 import com.witboot.infrastructure.common.api.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 /**
  * UserDO
@@ -13,12 +16,12 @@ import java.time.LocalDate;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDO extends BaseDO {
-
+public class UserDO extends BaseDO implements UserDetails {
     /**
      * 用户名
      */
     private String username;
+
     /**
      * 密码
      */
@@ -48,4 +51,29 @@ public class UserDO extends BaseDO {
      * 描述
      */
     private String description;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }

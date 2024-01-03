@@ -11,7 +11,9 @@ import java.time.LocalDate;
  */
 @Data
 public class UserVO {
-
+    /**
+     * id
+     */
     private Long id;
 
     /**

@@ -10,7 +10,6 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
  * @author sunxiaoizhi
  */
 public class UserConvertor {
-
     public static UserEntity toEntity(UserDO userDO) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDO.getId());

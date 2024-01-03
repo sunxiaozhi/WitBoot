@@ -15,7 +15,6 @@ import java.util.Optional;
  */
 @Mapper
 public interface UserMapper {
-
     int insert(UserDO userDO);
 
     int update(UserDO userDO);
