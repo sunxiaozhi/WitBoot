@@ -26,15 +26,21 @@ public class JwtTokenUtil {
     private static final String CLAIM_KEY_CREATED = "created";
     private static final String CLAIM_KEY_USER_ID = "userId";
 
-    // 令牌自定义标识
+    /**
+     * 令牌自定义标识
+     */
     @Value("${jwt.token.header}")
     private String header;
 
-    // 令牌秘钥
+    /**
+     * 令牌秘钥
+     */
     @Value("${jwt.token.secret}")
     private String secret;
 
-    // 令牌有效期（默认30分钟），也可将token的过期时间交给redis管理
+    /**
+     * 令牌有效期（默认30分钟），也可将token的过期时间交给redis管理
+     */
     @Value("${jwt.token.expireTime}")
     private Long expiration;
 
