@@ -64,7 +64,7 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests()
                 //对于登录接口 允许匿名访问
-                .requestMatchers("/user/login", "/index/hello", "/doc.html", "/webjars/**", "/favicon.ico", "/v3/api-docs/**")
+                .requestMatchers("/user/register", "/user/login", "/index/hello", "/doc.html", "/webjars/**", "/favicon.ico", "/v3/api-docs/**")
                 .permitAll()
                 //配置权限
                 /*requestMatchers("/test")
