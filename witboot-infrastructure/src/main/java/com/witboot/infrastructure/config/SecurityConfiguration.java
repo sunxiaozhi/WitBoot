@@ -63,7 +63,7 @@ public class SecurityConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                //对于登录接口 允许匿名访问
+                //对于部分接口 允许匿名访问
                 .requestMatchers("/user/register", "/user/login", "/index/hello", "/doc.html", "/webjars/**", "/favicon.ico", "/v3/api-docs/**")
                 .permitAll()
                 //配置权限
