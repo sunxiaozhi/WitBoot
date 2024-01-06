@@ -81,3 +81,6 @@
 |xxxValidator| Validator | 校验器，用于校验的类 |
 |xxxAssembler| Assembler | 组装器，DTO <---> Entity，用于Application层 |
 |xxxConvertor| Convertor | 转化器，Entity <---> DO，用于Infrastructure层 |
+
+### 公众号
+![WeChat](doc/image/WeChat.jpg)
