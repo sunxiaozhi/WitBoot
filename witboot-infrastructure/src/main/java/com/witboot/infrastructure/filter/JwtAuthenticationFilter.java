@@ -41,12 +41,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         //从客户端请求中获取JWT
         String authHeader = request.getHeader(this.tokenHeader);
+
         //该JWT是我们规定的格式，以tokenHead开头
         if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
             //The part after "Bearer "
             String authToken = authHeader.substring(this.tokenHead.length());
+
             //从JWT中获取用户名
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
+
             log.info("checking username:{}", username);
 
             //SecurityContextHolder是SpringSecurity的一个工具类

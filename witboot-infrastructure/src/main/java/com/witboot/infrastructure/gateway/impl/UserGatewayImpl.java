@@ -83,7 +83,7 @@ public class UserGatewayImpl implements UserGateway {
 
         UserEntity userEntity = new UserEntity();
         userEntity.setId(userDOBak.getId());
-        userEntity.setUsername(new UserName(userDOBak.getUsername()));
+        userEntity.setUsername((new UserName(userDOBak.getUsername()).name()));
         userEntity.setPassword(new UserPassword(new UserPassword.EncryptPassword(password)));
         return userEntity;
     }

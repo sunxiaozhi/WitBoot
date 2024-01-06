@@ -12,6 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 用户控制器
  *
@@ -38,8 +41,10 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @Operation(summary = "登录")
-    public ResponseResult<String> login(@RequestBody UserLoginQuery userLoginQuery) {
+    public ResponseResult<Map<String, String>> login(@RequestBody UserLoginQuery userLoginQuery) {
         String jwtToken = userService.login(userLoginQuery);
-        return ResponseResult.success(jwtToken);
+        return ResponseResult.success(new HashMap<>(){{
+            put("accessToken", jwtToken);
+        }});
     }
 }
