@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -60,10 +59,12 @@ public class SecurityConfiguration {
                 //允许跨域（也可以不允许，看具体需求）
                 .cors().and()
                 //不通过Session获取SecurityContext
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeHttpRequests()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeHttpRequests()
                 //对于登录接口 允许匿名访问
-                .requestMatchers(HttpMethod.POST, "/user/login")
+                .requestMatchers("/user/login", "/index/hello", "/doc.html", "/webjars/**", "/favicon.ico", "/v3/api-docs/**")
                 .permitAll()
                 //配置权限
                 /*requestMatchers("/test")

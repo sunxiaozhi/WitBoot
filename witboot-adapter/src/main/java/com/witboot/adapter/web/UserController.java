@@ -27,12 +27,6 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping(value = "/list")
-    @Operation(summary = "列表")
-    public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
-        return userService.listByParam(userListByParamQuery);
-    }
-
     @PostMapping(value = "/register")
     @Operation(summary = "注册")
     public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd userRegisterCmd) {
@@ -46,5 +40,11 @@ public class UserController {
         return ResponseResult.success(new HashMap<>(){{
             put("accessToken", jwtToken);
         }});
+    }
+
+    @GetMapping(value = "/list")
+    @Operation(summary = "列表")
+    public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
+        return userService.listByParam(userListByParamQuery);
     }
 }

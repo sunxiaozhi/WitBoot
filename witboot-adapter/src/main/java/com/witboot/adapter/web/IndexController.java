@@ -18,6 +18,6 @@ public class IndexController {
     @GetMapping(value = "/hello")
     @Operation(summary = "hello")
     public String hello() {
-        return "Hello, welcome to WitBoot world!";
+        return "Hello, welcome to WitBoot!";
     }
 }
