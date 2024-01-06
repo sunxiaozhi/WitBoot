@@ -57,11 +57,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 //根据用户名获取登录用户信息
                 UserDetails userDetails = this.userGateway.loadUserByUsername(username);
+
                 //验证token是否过期
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     //将登录用户保存到安全上下文中
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
                     SecurityContextHolder.getContext().setAuthentication(authentication);
 
                     log.info("authenticated user:{}", username);
