@@ -50,8 +50,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void login(UserLoginQuery userLoginQuery) {
-        userLoginQueryExe.execute(userLoginQuery);
+    public String login(UserLoginQuery userLoginQuery) {
+        return userLoginQueryExe.execute(userLoginQuery);
     }
 
     @Override

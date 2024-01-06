@@ -21,9 +21,9 @@ public interface UserMapper {
 
     Optional<UserDO> selectById(Long id);
 
-    List<UserDO> selectByParam(UserListByParamQuery query);
+    Optional<UserDO> selectByUsername(String username);
 
-    String selectPassword(String username);
+    List<UserDO> selectByParam(UserListByParamQuery query);
 
     Boolean existByUsername(@Param("userId") Long userId, @Param("username") String username);
 }

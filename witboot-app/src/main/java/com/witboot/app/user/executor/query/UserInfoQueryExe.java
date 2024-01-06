@@ -19,7 +19,6 @@ import java.util.Objects;
  */
 @Component
 public class UserInfoQueryExe {
-
     @Autowired
     private UserGateway userGateway;
 

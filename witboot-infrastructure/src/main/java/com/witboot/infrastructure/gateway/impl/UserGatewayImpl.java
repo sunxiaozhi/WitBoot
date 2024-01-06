@@ -4,6 +4,7 @@ import com.witboot.client.user.dto.data.ErrorCode;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
+import com.witboot.domain.user.model.UserName;
 import com.witboot.domain.user.model.UserPassword;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
@@ -11,6 +12,8 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import com.witboot.infrastructure.gateway.impl.database.mapper.UserMapper;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +28,6 @@ import java.util.Optional;
  * @author sunxiaoizhi
  */
 @Component("userGateway")
-//public class UserGatewayImpl implements UserGateway, UserDetailsService {
 public class UserGatewayImpl implements UserGateway {
     @Autowired
     private UserMapper userMapper;
@@ -65,12 +67,23 @@ public class UserGatewayImpl implements UserGateway {
 
     @Override
     public UserEntity findPasswordInfo(String username) {
-        String password = userMapper.selectPassword(username);
+        Optional<UserDO> userDO = userMapper.selectByUsername(username);
+
+        if (userDO.isEmpty()) {
+            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+        }
+
+        UserDO userDOBak = userDO.get();
+
+        String password = userDOBak.getPassword();
+
         if (Objects.isNull(password)) {
             return null;
         }
 
         UserEntity userEntity = new UserEntity();
+        userEntity.setId(userDOBak.getId());
+        userEntity.setUsername(new UserName(userDOBak.getUsername()));
         userEntity.setPassword(new UserPassword(new UserPassword.EncryptPassword(password)));
         return userEntity;
     }
@@ -118,8 +131,16 @@ public class UserGatewayImpl implements UserGateway {
         return UserConvertor.toEntity(userDO);
     }
 
-    /*@Override
+    /**
+     * 获取登陆用户信息
+     */
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }*/
+        Optional<UserDO> findById = userMapper.selectByUsername(username);
+        if (findById.isEmpty()) {
+            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+        }
+
+        return findById.get();
+    }
 }

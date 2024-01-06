@@ -1,7 +1,8 @@
 package com.witboot.domain.user.gateway;
 
-import com.witboot.domain.user.model.UserEntity;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.domain.user.model.UserEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author sunxiaoizhi
  */
-public interface UserGateway {
+public interface UserGateway extends UserDetailsService {
 
     /**
      * 保存用户

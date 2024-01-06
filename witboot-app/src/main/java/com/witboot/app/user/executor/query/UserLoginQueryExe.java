@@ -5,6 +5,7 @@ import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.infrastructure.common.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +22,10 @@ public class UserLoginQueryExe {
     @Autowired
     private UserGateway userGateway;
 
-    public void execute(UserLoginQuery userLoginQuery) {
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    public String execute(UserLoginQuery userLoginQuery) {
         UserEntity userEntity = userGateway.findPasswordInfo(userLoginQuery.getUsername());
         if (Objects.isNull(userEntity)) {
             throw new WitBootBizException(ErrorCode.B_USER_PASSWORD_ERROR);
@@ -31,5 +35,7 @@ public class UserLoginQueryExe {
         if (!userEntity.getPassword().isCorrect(userLoginQuery.getPassword())) {
             throw new WitBootBizException(ErrorCode.B_USER_PASSWORD_ERROR);
         }
+
+        return jwtTokenUtil.generateToken(userEntity);
     }
 }

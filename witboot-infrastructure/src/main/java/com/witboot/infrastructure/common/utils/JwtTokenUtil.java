@@ -23,14 +23,16 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
     private static final String CLAIM_KEY_USERNAME = "username";
+
     private static final String CLAIM_KEY_CREATED = "created";
+
     private static final String CLAIM_KEY_USER_ID = "userId";
 
     /**
      * 令牌自定义标识
      */
-    @Value("${jwt.token.header}")
-    private String header;
+    @Value("${jwt.token.tokenHeader}")
+    private String tokenHeader;
 
     /**
      * 令牌秘钥
@@ -135,7 +137,7 @@ public class JwtTokenUtil {
     public String generateToken(UserEntity userEntity) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userEntity.getUsername());
-        //claims.put(CLAIM_KEY_USER_ID, userEntity.getUser().getId());
+        claims.put(CLAIM_KEY_USER_ID, userEntity.getId());
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
@@ -163,6 +165,6 @@ public class JwtTokenUtil {
      * @return token
      */
     public String getToken(HttpServletRequest request) {
-        return request.getHeader(header);
+        return request.getHeader(tokenHeader);
     }
 }

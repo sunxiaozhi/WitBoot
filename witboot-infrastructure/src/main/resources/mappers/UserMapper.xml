@@ -54,6 +54,13 @@
         AND delete_flag = 0
     </select>
 
+    <select id="selectByUsername" resultMap="userDOMap">
+        SELECT id, username, name, password, mobile
+        FROM wt_user
+        WHERE username = #{username}
+          AND delete_flag = 0
+    </select>
+
     <select id="selectByParam" resultMap="userDOMap">
         SELECT id, username, name, mobile
         FROM wt_user
@@ -78,12 +85,5 @@
             </if>
             AND delete_flag = 0
         </where>
-    </select>
-
-    <select id="selectPassword" resultType="java.lang.String">
-        SELECT password
-        FROM wt_user
-        WHERE username = #{username}
-        AND delete_flag = 0
     </select>
 </mapper>
