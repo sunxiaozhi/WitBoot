@@ -7,7 +7,7 @@ import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserPassword;
 
 /**
- * User Application层 转换器
+ * User Application层转换器
  * 用于DTO与实体之间的互转
  *
  * @author sunxiaozhi

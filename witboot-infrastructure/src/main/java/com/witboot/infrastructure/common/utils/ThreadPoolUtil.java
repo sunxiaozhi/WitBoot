@@ -23,18 +23,24 @@ public class ThreadPoolUtil {
      */
     private final String TAG = getClass().getName();
 
-    private static volatile ThreadPoolUtil mInstance;
+    private static volatile ThreadPoolUtil instance;
 
-    //核心线程池的数量，同时能够执行的线程数量
+    /**
+     * 核心线程池的数量，同时能够执行的线程数量
+     */
     private final int corePoolSize;
 
-    //最大线程池数量，表示当缓冲队列满的时候能继续容纳的等待任务的数量
+    /**
+     * 最大线程池数量，表示当缓冲队列满的时候能继续容纳的等待任务的数量
+     */
     private final int maxPoolSize;
 
-    //存活时间
+    /**
+     * 存活时间
+     */
     private final long keepAliveTime = 1;
 
-    private ThreadPoolExecutor executor;
+    private ThreadPoolExecutor threadPoolExecutor;
 
     private ThreadPoolUtil() {
         //给corePoolSize赋值：当前设备可用处理器核心数*2 + 1,能够让cpu的效率得到最大程度执行（有研究论证的）
@@ -44,7 +50,7 @@ public class ThreadPoolUtil {
         maxPoolSize = corePoolSize;
         log.info("最大线程数：{}", corePoolSize);
 
-        executor = new ThreadPoolExecutor(
+        threadPoolExecutor = new ThreadPoolExecutor(
                 //当某个核心任务执行完毕，会依次从缓冲队列中取出等待任务
                 corePoolSize,
 
@@ -65,16 +71,21 @@ public class ThreadPoolUtil {
         );
     }
 
+    /**
+     * 线程池初始化
+     *
+     * @return 线程池
+     */
     public static ThreadPoolUtil getInstance() {
-        if (mInstance == null) {
+        if (instance == null) {
             log.info("线程池未存在，创建线程池");
             synchronized (ThreadPoolUtil.class) {
-                if (mInstance == null) {
-                    mInstance = new ThreadPoolUtil();
+                if (instance == null) {
+                    instance = new ThreadPoolUtil();
                 }
             }
         }
-        return mInstance;
+        return instance;
     }
 
     /**
@@ -83,8 +94,8 @@ public class ThreadPoolUtil {
      * @param runnable runnable
      */
     public void execute(Runnable runnable) {
-        if (executor == null) {
-            executor = new ThreadPoolExecutor(
+        if (threadPoolExecutor == null) {
+            threadPoolExecutor = new ThreadPoolExecutor(
                     corePoolSize,
                     maxPoolSize,
                     keepAliveTime,
@@ -95,7 +106,7 @@ public class ThreadPoolUtil {
         }
 
         if (runnable != null) {
-            executor.execute(runnable);
+            threadPoolExecutor.execute(runnable);
         }
     }
 
@@ -106,7 +117,7 @@ public class ThreadPoolUtil {
      */
     public void remove(Runnable runnable) {
         if (runnable != null) {
-            executor.remove(runnable);
+            threadPoolExecutor.remove(runnable);
         }
     }
 
