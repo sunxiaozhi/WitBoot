@@ -53,4 +53,12 @@ public interface UserGateway extends UserDetailsService {
      * @return true-已存在
      */
     Boolean checkByUsername(Long userId, String username);
+
+    /**
+     * 删除用户
+     *
+     * @param ids ids
+     * @return 删除
+     */
+    int deleteByIds(String[] ids);
 }

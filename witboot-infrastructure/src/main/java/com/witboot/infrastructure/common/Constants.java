@@ -7,4 +7,6 @@ package com.witboot.infrastructure.common;
  */
 public class Constants {
     public final static String LOGIN_USER_KEY = "loginUser:username:";
+
+    public final static int ONE = 1;
 }

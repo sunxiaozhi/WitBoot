@@ -125,7 +125,7 @@ public class JwtTokenUtil {
      * 根据用户信息生成token
      */
     public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(16);
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
@@ -135,7 +135,7 @@ public class JwtTokenUtil {
      * 根据用户信息生成token
      */
     public String generateToken(UserEntity userEntity) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(16);
         claims.put(CLAIM_KEY_USERNAME, userEntity.getUsername());
         claims.put(CLAIM_KEY_USER_ID, userEntity.getId());
         claims.put(CLAIM_KEY_CREATED, new Date());
