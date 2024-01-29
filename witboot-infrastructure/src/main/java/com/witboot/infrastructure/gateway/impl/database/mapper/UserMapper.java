@@ -26,4 +26,6 @@ public interface UserMapper {
     List<UserDO> selectByParam(UserListByParamQuery query);
 
     Boolean existByUsername(@Param("userId") Long userId, @Param("username") String username);
+
+    int deleteByIds(String[] ids);
 }

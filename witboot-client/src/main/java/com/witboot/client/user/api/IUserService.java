@@ -35,6 +35,7 @@ public interface IUserService {
      * 用户登录
      *
      * @param userLoginQuery 用户登录请求
+     * @return 登录信息
      */
     String login(UserLoginQuery userLoginQuery);
 
@@ -53,4 +54,11 @@ public interface IUserService {
      * @return MultiResponse
      */
     MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery);
+
+    /**
+     * 用户删除
+     * @param ids ids
+     * @return 删除数量
+     */
+    int deleteByIds(String[] ids);
 }

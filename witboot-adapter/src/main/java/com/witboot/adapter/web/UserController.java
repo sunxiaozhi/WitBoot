@@ -37,7 +37,7 @@ public class UserController {
     @Operation(summary = "登录")
     public ResponseResult<Map<String, String>> login(@RequestBody UserLoginQuery userLoginQuery) {
         String jwtToken = userService.login(userLoginQuery);
-        return ResponseResult.success(new HashMap<>(){{
+        return ResponseResult.success(new HashMap<>(16){{
             put("accessToken", jwtToken);
         }});
     }
@@ -46,5 +46,11 @@ public class UserController {
     @Operation(summary = "列表")
     public MultiResponse<UserVO> list(UserListByParamQuery userListByParamQuery) {
         return userService.listByParam(userListByParamQuery);
+    }
+
+    @DeleteMapping(value = "/delete")
+    @Operation(summary = "删除")
+    public ResponseResult<Integer> delete(String[] ids) {
+        return ResponseResult.success(userService.deleteByIds(ids));
     }
 }

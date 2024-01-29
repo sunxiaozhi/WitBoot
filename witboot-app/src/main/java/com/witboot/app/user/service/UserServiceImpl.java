@@ -3,6 +3,7 @@ package com.witboot.app.user.service;
 import com.alibaba.cola.catchlog.CatchAndLog;
 import com.alibaba.cola.dto.MultiResponse;
 import com.alibaba.cola.dto.SingleResponse;
+import com.witboot.app.user.executor.command.UserDeleteCmdExe;
 import com.witboot.app.user.executor.command.UserModifyCmdExe;
 import com.witboot.app.user.executor.command.UserRegisterCmdExe;
 import com.witboot.app.user.executor.query.UserInfoQueryExe;
@@ -30,14 +31,21 @@ public class UserServiceImpl implements IUserService {
      */
     @Autowired
     private UserRegisterCmdExe userRegisterCmdExe;
+
     @Autowired
     private UserModifyCmdExe userModifyCmdExe;
+
     @Autowired
     private UserLoginQueryExe userLoginQueryExe;
+
     @Autowired
     private UserInfoQueryExe userInfoQueryExe;
+
     @Autowired
     private UserListByParamQueryExe userListByParamQueryExe;
+
+    @Autowired
+    private UserDeleteCmdExe userDeleteCmdExe;
 
     @Override
     public UserVO register(UserRegisterCmd userRegisterCmd) {
@@ -62,5 +70,15 @@ public class UserServiceImpl implements IUserService {
     @Override
     public MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
         return userListByParamQueryExe.execute(userListByParamQuery);
+    }
+
+    /**
+     * 用户删除
+     * @param ids ids
+     * @return 删除数量
+     */
+    @Override
+    public int deleteByIds(String[] ids){
+        return userDeleteCmdExe.execute(ids);
     }
 }

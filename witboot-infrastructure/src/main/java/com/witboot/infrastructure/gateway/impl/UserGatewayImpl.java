@@ -6,6 +6,7 @@ import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserName;
 import com.witboot.domain.user.model.UserPassword;
+import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
@@ -101,7 +102,7 @@ public class UserGatewayImpl implements UserGateway {
         UserDO userDO = UserConvertor.toAddUserDO(userEntity);
 
         int insert = userMapper.insert(userDO);
-        if (insert < 1) {
+        if (insert < Constants.ONE) {
             throw new PersistenceException("保存用户异常");
         }
 
@@ -124,7 +125,7 @@ public class UserGatewayImpl implements UserGateway {
 
         // 保存userDO
         int update = userMapper.update(userDO);
-        if (update < 1) {
+        if (update < Constants.ONE) {
             throw new PersistenceException("更新用户异常");
         }
 
@@ -142,5 +143,16 @@ public class UserGatewayImpl implements UserGateway {
         }
 
         return findById.get();
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param ids ids
+     * @return 删除
+     */
+    @Override
+    public int deleteByIds(String[] ids){
+        return userMapper.deleteByIds(ids);
     }
 }
