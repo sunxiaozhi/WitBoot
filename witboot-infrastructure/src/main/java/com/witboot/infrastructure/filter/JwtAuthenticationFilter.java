@@ -1,13 +1,18 @@
 package com.witboot.infrastructure.filter;
 
+import com.witboot.client.user.dto.data.ErrorCode;
 import com.witboot.domain.user.gateway.UserGateway;
+import com.witboot.infrastructure.common.Constants;
+import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.common.utils.JwtTokenUtil;
+import com.witboot.infrastructure.common.utils.RedisUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +35,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Value("${jwt.token.tokenHeader}")
     private String tokenHeader;
@@ -55,6 +63,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //SecurityContextHolder是SpringSecurity的一个工具类
             //保存应用程序中当前使用人的安全上下文
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                //判断authToken是否已失效
+                String jwtToken = redisUtil.getCache(Constants.LOGIN_USER_KEY + username);
+                if (!StringUtils.equals(authToken, jwtToken)) {
+                    throw new WitBootBizException(ErrorCode.B_USER_AUTH_TOKEN_ERROR);
+                }
+
                 //根据用户名获取登录用户信息
                 UserDetails userDetails = this.userGateway.loadUserByUsername(username);
 
