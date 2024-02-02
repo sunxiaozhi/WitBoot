@@ -89,9 +89,8 @@ mybatis:
 jwt:
   token:
     secret: EZtu61L38S90opg6zcaUXNtRS10MBte81OBw7EnNlGyE6ou1bctsmIlP4pcIZOrXKlIwKtYu2LgphsNmakSWKVDYwk
-    expireTime: 1800
     tokenHeader: Authorization #JWT存储的请求头
-    expiration: 604800 #JWT的超期限时间(60*60*24*7)
+    expireTime: 604800 #JWT的超期限时间(60*60*24*7)
     tokenHead: 'Bearer '  #JWT负载中拿到开头
 
 management:

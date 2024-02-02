@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -62,7 +63,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             //SecurityContextHolder是SpringSecurity的一个工具类
             //保存应用程序中当前使用人的安全上下文
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            SecurityContext securityContext = SecurityContextHolder.getContext();
+
+            if (username != null && securityContext.getAuthentication() == null) {
                 //判断authToken是否已失效
                 String jwtToken = redisUtil.getCache(Constants.LOGIN_USER_KEY + username);
                 if (!StringUtils.equals(authToken, jwtToken)) {
@@ -79,7 +82,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    securityContext.setAuthentication(authentication);
 
                     log.info("authenticated user:{}", username);
                 }
