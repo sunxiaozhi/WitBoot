@@ -36,6 +36,10 @@ public class ResponseResult<T> {
         return responseResult;
     }
 
+    public static <T> ResponseResult<T> success(int rows) {
+        return responseResult(ResponseCode.SUCCESS.getCode(), rows > 0 ? "成功" : "失败", null);
+    }
+
     public static <T> ResponseResult<T> success(T data) {
         return responseResult(ResponseCode.SUCCESS.getCode(), "成功", data);
     }

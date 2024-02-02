@@ -4,11 +4,12 @@ import com.witboot.client.user.dto.data.ErrorCode;
 import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
+import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.common.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import com.witboot.infrastructure.common.utils.RedisUtil;
 import java.util.Objects;
 
 /**
@@ -25,6 +26,9 @@ public class UserLoginQueryExe {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    RedisUtil redisUtil;
+
     public String execute(UserLoginQuery userLoginQuery) {
         UserEntity userEntity = userGateway.findPasswordInfo(userLoginQuery.getUsername());
         if (Objects.isNull(userEntity)) {
@@ -36,6 +40,11 @@ public class UserLoginQueryExe {
             throw new WitBootBizException(ErrorCode.B_USER_PASSWORD_ERROR);
         }
 
-        return jwtTokenUtil.generateToken(userEntity);
+        String jwtToken = jwtTokenUtil.generateToken(userEntity);
+
+        //将jwtToken存进Redis，用于后续登录判断jwtToken的有效性
+        redisUtil.setCache(Constants.LOGIN_USER_KEY + userEntity.getUsername(), jwtToken);
+
+        return jwtToken;
     }
 }
