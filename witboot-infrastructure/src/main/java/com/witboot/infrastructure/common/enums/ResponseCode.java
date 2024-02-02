@@ -1,5 +1,6 @@
 package com.witboot.infrastructure.common.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Getter;
  * @author sunxiaozhi
  */
 @Getter
+@AllArgsConstructor
 public enum ResponseCode {
     /**
      * 成功
@@ -28,9 +30,4 @@ public enum ResponseCode {
      * 提示语
      */
     private final String message;
-
-    ResponseCode(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
 }
