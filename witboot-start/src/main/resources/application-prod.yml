@@ -7,11 +7,6 @@ server:
   port: 8080
 
 spring:
-  security:
-    user:
-      name: admin
-      password: admin
-
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver

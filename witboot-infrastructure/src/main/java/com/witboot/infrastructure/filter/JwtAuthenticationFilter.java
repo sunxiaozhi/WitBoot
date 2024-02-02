@@ -73,7 +73,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
 
                 //根据用户名获取登录用户信息
-                UserDetails userDetails = this.userGateway.loadUserByUsername(username);
+                UserDetails userDetails = userGateway.loadUserByUsername(username);
 
                 //验证token是否过期
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
