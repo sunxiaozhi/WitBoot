@@ -41,7 +41,7 @@ public class JwtTokenUtil {
     private String secret;
 
     /**
-     * 令牌有效期（默认30分钟），也可将token的过期时间交给redis管理
+     * 令牌有效期（默认7天），也可将token的过期时间交给redis管理
      */
     @Value("${jwt.token.expireTime}")
     private Long expiration;
