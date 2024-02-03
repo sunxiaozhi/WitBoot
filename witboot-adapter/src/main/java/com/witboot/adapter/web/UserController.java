@@ -37,7 +37,7 @@ public class UserController {
     @Operation(summary = "登录")
     public ResponseResult<Map<String, String>> login(@RequestBody UserLoginQuery userLoginQuery) {
         String jwtToken = userService.login(userLoginQuery);
-        return ResponseResult.success(new HashMap<>(16){{
+        return ResponseResult.success(new HashMap<>(16) {{
             put("accessToken", jwtToken);
         }});
     }

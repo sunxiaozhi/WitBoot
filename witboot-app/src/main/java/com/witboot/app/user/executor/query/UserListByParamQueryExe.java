@@ -31,5 +31,4 @@ public class UserListByParamQueryExe {
 
         return MultiResponse.of(userVOList);
     }
-
 }
