@@ -1,9 +1,9 @@
 SET NAMES utf8mb4;
 -- ----------------------------
--- Table structure for wt_user
+-- Table structure for wb_user
 -- ----------------------------
-DROP TABLE IF EXISTS `wt_user`;
-CREATE TABLE IF NOT EXISTS `wt_user` (
+DROP TABLE IF EXISTS `wb_user`;
+CREATE TABLE IF NOT EXISTS `wb_user` (
     `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编码',
     `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
     `password` varchar(255) NOT NULL DEFAULT '' COMMENT '加盐密码',
