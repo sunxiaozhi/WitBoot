@@ -7,9 +7,10 @@ import com.witboot.domain.user.model.UserEntity;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.common.utils.JwtTokenUtil;
+import com.witboot.infrastructure.common.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.witboot.infrastructure.common.utils.RedisUtil;
+
 import java.util.Objects;
 
 /**
@@ -19,15 +20,14 @@ import java.util.Objects;
  */
 @Component
 public class UserLoginQueryExe {
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     private UserGateway userGateway;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    RedisUtil redisUtil;
 
     public String execute(UserLoginQuery userLoginQuery) {
         UserEntity userEntity = userGateway.findPasswordInfo(userLoginQuery.getUsername());

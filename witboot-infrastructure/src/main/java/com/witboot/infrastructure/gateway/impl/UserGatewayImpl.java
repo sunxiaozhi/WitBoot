@@ -74,17 +74,15 @@ public class UserGatewayImpl implements UserGateway {
             throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
         }
 
-        UserDO userDOBak = userDO.get();
-
-        String password = userDOBak.getPassword();
+        String password = userDO.get().getPassword();
 
         if (Objects.isNull(password)) {
             return null;
         }
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(userDOBak.getId());
-        userEntity.setUsername((new UserName(userDOBak.getUsername()).name()));
+        userEntity.setId(userDO.get().getId());
+        userEntity.setUsername((new UserName(userDO.get().getUsername()).name()));
         userEntity.setPassword(new UserPassword(new UserPassword.EncryptPassword(password)));
         return userEntity;
     }
