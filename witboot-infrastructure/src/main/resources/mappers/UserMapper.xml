@@ -22,13 +22,13 @@
     </resultMap>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO wt_user
+        INSERT INTO wb_user
         (username, name, password, delete_flag, creator, modifier, create_time, update_time)
         VALUES (#{username}, #{name}, #{password}, #{deleteFlag}, #{creator}, #{modifier}, sysdate(), sysdate())
     </insert>
 
     <insert id="update" useGeneratedKeys="true" keyProperty="id">
-        UPDATE wt_user
+        UPDATE wb_user
         <set>
             <if test="name != null">
                 name = #{name},
@@ -49,21 +49,21 @@
 
     <select id="selectById" resultMap="userDOMap">
         SELECT id, username, name, mobile
-        FROM wt_user
+        FROM wb_user
         WHERE id = #{id}
         AND delete_flag = 0
     </select>
 
     <select id="selectByUsername" resultMap="userDOMap">
         SELECT id, username, name, password, mobile
-        FROM wt_user
+        FROM wb_user
         WHERE username = #{username}
           AND delete_flag = 0
     </select>
 
     <select id="selectByParam" resultMap="userDOMap">
         SELECT id, username, name, mobile
-        FROM wt_user
+        FROM wb_user
         <where>
             <if test="name != null">
                 name LIKE CONCAT('%', #{name}, '%')
@@ -77,7 +77,7 @@
 
     <select id="existByUsername" resultType="java.lang.Boolean">
         SELECT count(*)
-        FROM wt_user
+        FROM wb_user
         <where>
             username = #{username}
             <if test="userId != null">
@@ -88,7 +88,7 @@
     </select>
 
     <delete id="deleteByIds">
-        DELETE FROM wt_user WHERE id IN
+        DELETE FROM wb_user WHERE id IN
             <foreach collection="ids" item="id" open="(" close=")" separator=",">
                 #{id}
             </foreach>
