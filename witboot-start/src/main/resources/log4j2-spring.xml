@@ -143,6 +143,6 @@
 <!--        <Logger name="druid.sql.Statement" level="info"/>-->
 
         <!-- mybatis日志 -->
-<!--        <Logger name="com.mybatis" level="info"/>-->
+        <Logger name="com.witboot.infrastructure.gateway.impl.database.mapper" level="debug"/>
     </Loggers>
 </Configuration>
