@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.config;
 
-import com.witboot.infrastructure.filter.JwtAuthenticationFilter;
+import com.witboot.infrastructure.common.filter.JwtAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

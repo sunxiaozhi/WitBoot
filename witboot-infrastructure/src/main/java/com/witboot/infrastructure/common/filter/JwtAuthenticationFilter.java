@@ -1,4 +1,4 @@
-package com.witboot.infrastructure.filter;
+package com.witboot.infrastructure.common.filter;
 
 import com.witboot.client.user.dto.data.ErrorCode;
 import com.witboot.domain.user.gateway.UserGateway;
