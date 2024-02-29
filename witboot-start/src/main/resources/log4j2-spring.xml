@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-    <!--<Configuration status="WARN" monitorInterval="30"> -->
     <properties>
         <property name="LOG_HOME">./service-logs</property>
     </properties>
+
     <Appenders>
         <!--*********************控制台日志***********************-->
         <Console name="consoleAppender" target="SYSTEM_OUT">
@@ -136,11 +136,11 @@
             <AppenderRef ref="errorJsonAppender" level="error"/>
         </Root>
 
-        <!--spring日志-->
-<!--        <Logger name="org.springframework" level="info"/>-->
+        <!-- spring日志 -->
+        <!--<Logger name="org.springframework" level="info"/>-->
 
-        <!--druid数据源日志-->
-<!--        <Logger name="druid.sql.Statement" level="info"/>-->
+        <!-- druid数据源日志 -->
+        <!--<Logger name="druid.sql.Statement" level="info"/>-->
 
         <!-- mybatis日志 -->
         <Logger name="com.witboot.infrastructure.gateway.impl.database.mapper" level="debug"/>
