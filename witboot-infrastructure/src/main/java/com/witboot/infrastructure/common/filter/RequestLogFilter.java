@@ -49,7 +49,7 @@ public class RequestLogFilter extends HttpFilter {
         // 缓存的响应体
         byte[] responseContent = cachingResponse.getContentAsByteArray();
 
-        log.info("Response <= 返回状态：{} 响应体：{}", status, new String(responseContent));
+        log.info("Response => 返回状态：{} 响应体：{}", status, new String(responseContent));
 
         // 把缓存的响应数据，响应给客户端
         cachingResponse.copyBodyToResponse();
