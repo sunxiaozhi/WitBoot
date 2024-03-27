@@ -19,6 +19,7 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { login } from '@/api/user/index';
 
 const username = ref('');
 const password = ref('');
@@ -28,6 +29,10 @@ function userLogin() {
     if (username.value.length == 0 || password.value.length == 0) {
         alert("请填写用户名或密码");
     }
+
+    login({ "username": username.value, "password": password.value }, {}).then(res => {
+        console.log(res)
+    })
 }
 </script>
 
@@ -48,58 +53,64 @@ function userLogin() {
         <div class="login-item">
             <button class="login-button" @click="userLogin">登录</button>
         </div>
-    </div>s
+    </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-    .login {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+body {
+    background-color: #F1F1F1;
+}
 
-    .login-title{
-        font-weight: 500;
-        color: hsla(160, 100%, 37%, 1);
-        margin-bottom: 25px;
-    }
+.login {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;
+    border-radius: 50px;
+}
 
-    .login-item {
-        margin-bottom: 10px;
-        display: flex;
-        height: 35px;
-        justify-content: center;
-    }
+.login-title {
+    font-weight: 500;
+    color: hsla(160, 100%, 37%, 1);
+    margin-bottom: 25px;
+}
 
-    .login-filed-tip {
-        flex: 0 0 60px;
-        
-        background-color: hsla(160, 100%, 37%, 1);
-        color: #fff;
+.login-item {
+    display: flex;
+    height: 35px;
+    justify-content: center;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    margin-bottom: 15px;
+}
 
-        border: solid 1px hsla(160, 100%, 37%, 1);
-        border-radius: 6px 0 0 6px;
-    }
+.login-filed-tip {
+    display: flex;
+    flex: 0 0 60px;
+    justify-content: center;
+    align-items: center;
 
-    .login-field {
-        border: solid 1px #AAABD3;
-        border-radius: 0 6px 6px 0;
-    }
+    background-color: hsla(160, 100%, 37%, 1);
+    border: solid 1px hsla(160, 100%, 37%, 1);
+    color: #fff;
 
-    .login-button {
-        font-size: 20px;
-        border: solid 1px #AAABD3;
-        border-radius: 6px;
+    border-radius: 6px 0 0 6px;
+}
 
-        color: #FFF;
-        background-color: hsla(160, 100%, 37%, 1);;
-    }
+.login-field {
+    border: solid 1px #AAABD3;
+    border-radius: 0 6px 6px 0;
+}
+
+.login-button {
+    font-size: 20px;
+    border: solid 1px #AAABD3;
+    border-radius: 6px;
+
+    color: #FFF;
+    background-color: hsla(160, 100%, 37%, 1);
+
+    width: 100px;
 }
 </style>
