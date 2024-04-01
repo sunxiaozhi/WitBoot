@@ -21,9 +21,12 @@ export default {
 import { ref } from 'vue';
 import { login } from '@/api/user';
 import { setAccessToken } from '@/utils/auth';
+import { useRouter } from "vue-router";
 
 const username = ref('');
 const password = ref('');
+
+const router = useRouter();
 
 function userLogin() {
     console.log(`用户名：${username.value},密码：${password.value}`);
@@ -36,6 +39,8 @@ function userLogin() {
 
         let accessToken = res.accessToken;
         setAccessToken(accessToken);
+
+        router.push('/user')
     })
 }
 </script>

@@ -13,7 +13,7 @@ const instance = axios.create({
 })
 
 /* 请求拦截 */
-instance.interceptors.request.use(requestAuth, (err) => Promise.reject(err))
+instance.interceptors.request.use(requestAuth, (error) => Promise.reject(error))
 
 /**
  * 请求开始前的检查
@@ -31,8 +31,8 @@ function requestAuth(
 }
 
 /* 响应拦截 */
-instance.interceptors.response.use(responseSuccess, (err) => {
-  return Promise.reject(err)
+instance.interceptors.response.use(responseSuccess, (error) => {
+  return Promise.reject(error)
 })
 
 /**
@@ -67,8 +67,8 @@ function request(url: string, data: any, config: any, method: Method): any {
       params: method === 'GET' ? data : null, // get请求不携带data，params放在url上
       ...config // 用户自定义配置，可以覆盖前面的配置
     })
-    .then((res) => checkResponse(res.data))
-    .catch((err) => responseError(err))
+    .then((response) => checkResponse(response.data))
+    .catch((error) => responseError(error))
 }
 
 /**
@@ -87,31 +87,31 @@ function checkResponse(data: ResponseDataType) {
 /**
  * 响应错误
  */
-function responseError(err: any) {
-  console.log('error->', '请求错误', err)
+function responseError(error: any) {
+  console.log('error->', '请求错误', error)
 
-  if (!err) {
+  if (!error) {
     return Promise.reject({ reason: '未知错误' })
   }
-  if (typeof err === 'string') {
-    return Promise.reject({ reason: err })
+  if (typeof error === 'string') {
+    return Promise.reject({ reason: error })
   }
-  if (err.response) {
+  if (error.response) {
     // 有报错响应
-    const res = err.response
+    const response = error.response
 
-    if (res.data.code in TOKEN_ERROR_CODE) {
+    if (response.data.code in TOKEN_ERROR_CODE) {
       clearAccessToken()
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
-    if (res.status >= 500) {
+    if (response.status >= 500) {
       return Promise.reject({ reason: '服务器出错啦，请稍后再试～' })
     }
-    return Promise.reject({ reason: res.data.reason })
+    return Promise.reject({ reason: response.data.reason })
   }
 
   return Promise.reject({
-    ...err,
+    ...error,
     reason: '网络出错啦，请检查您的网络或更换浏览器重试'
   })
 }
