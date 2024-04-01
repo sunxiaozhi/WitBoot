@@ -19,7 +19,8 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { login } from '@/api/user/index';
+import { login } from '@/api/user';
+import { setAccessToken } from '@/utils/auth';
 
 const username = ref('');
 const password = ref('');
@@ -30,8 +31,11 @@ function userLogin() {
         alert("请填写用户名或密码");
     }
 
-    login({ "username": username.value, "password": password.value }, {}).then(res => {
+    login({ "username": username.value, "password": password.value }).then((res: any) => {
         console.log(res)
+
+        let accessToken = res.accessToken;
+        setAccessToken(accessToken);
     })
 }
 </script>

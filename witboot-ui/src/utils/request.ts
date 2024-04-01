@@ -1,86 +1,140 @@
-import axios from 'axios'
+import axios, { type Method, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
+import { getAccessToken, clearAccessToken } from './auth'
+import { TOKEN_ERROR_CODE } from './responseCode'
+import type { ResponseDataType, requestConfigType } from './request.d'
 
-// get 请求
-export function httpGet({ url, params = {} }) {
-  return new Promise((resolve, reject) => {
-    axios
-      .get(url, {
-        params
-      })
-      .then((res) => {
-        resolve(res.data)
-      })
-      .catch((err) => {
-        reject(err)
-      })
-  })
+const instance = axios.create({
+  baseURL: '/api', // 开发环境下的跨域解决
+  timeout: 5000, //配置超时时间
+  withCredentials: true, //携带凭证允许
+  headers: {
+    'content-type': 'application/json'
+  }
+})
+
+/* 请求拦截 */
+instance.interceptors.request.use(requestAuth, (err) => Promise.reject(err))
+
+/**
+ * 请求开始前的检查
+ */
+function requestAuth(
+  config: InternalAxiosRequestConfig & requestConfigType
+): InternalAxiosRequestConfig {
+  if (config.headers && config.isToken) {
+    config.headers.Authorization = `Bearer ${getAccessToken()}`
+    // 需要使用token的请求
+  }
+
+  // 不需要使用token的请求，直接送出即可
+  return config
 }
 
-// post
-// post请求
-export function httpPost({ url, data = {}, params = {} }) {
-  return new Promise((resolve, reject) => {
-    axios({
-      url,
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      transformRequest: [
-        function (data) {
-          let ret = ''
-          for (let it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }
-      ],
-      // 发送的数据
-      data,
-      // url参数
-      params
-    }).then((res) => {
-      resolve(res.data)
+/* 响应拦截 */
+instance.interceptors.response.use(responseSuccess, (err) => {
+  return Promise.reject(err)
+})
+
+/**
+ * 请求成功,检查请求头
+ */
+function responseSuccess(response: AxiosResponse<ResponseDataType>) {
+  return response
+}
+
+/**
+ * request请求
+ *
+ * @param url
+ * @param data
+ * @param config
+ * @param method
+ * @returns
+ */
+function request(url: string, data: any, config: any, method: Method): any {
+  /* 去空 */
+  for (const key in data) {
+    if (data[key] === null || data[key] === undefined) {
+      delete data[key]
+    }
+  }
+
+  return instance
+    .request({
+      url: url,
+      method: method,
+      data: method === 'GET' ? null : data,
+      params: method === 'GET' ? data : null, // get请求不携带data，params放在url上
+      ...config // 用户自定义配置，可以覆盖前面的配置
     })
+    .then((res) => checkResponse(res.data))
+    .catch((err) => responseError(err))
+}
+
+/**
+ * 响应数据检查
+ */
+function checkResponse(data: ResponseDataType) {
+  if (data === undefined) {
+    console.log('error->', data, 'data is empty')
+    return Promise.reject('服务器异常')
+  } else if (data.code < 200 || data.code >= 400) {
+    return Promise.reject(data)
+  }
+  return data.data
+}
+
+/**
+ * 响应错误
+ */
+function responseError(err: any) {
+  console.log('error->', '请求错误', err)
+
+  if (!err) {
+    return Promise.reject({ reason: '未知错误' })
+  }
+  if (typeof err === 'string') {
+    return Promise.reject({ reason: err })
+  }
+  if (err.response) {
+    // 有报错响应
+    const res = err.response
+
+    if (res.data.code in TOKEN_ERROR_CODE) {
+      clearAccessToken()
+      return Promise.reject({ reason: '登录信息已过期，请重新登录' })
+    }
+    if (res.status >= 500) {
+      return Promise.reject({ reason: '服务器出错啦，请稍后再试～' })
+    }
+    return Promise.reject({ reason: res.data.reason })
+  }
+
+  return Promise.reject({
+    ...err,
+    reason: '网络出错啦，请检查您的网络或更换浏览器重试'
   })
 }
 
-// 请求拦截器
-// axios.interceptors.request.use(
-//   (config) => {
-//     // 每次发送请求之前判断是否存在token
-//     // 如果存在，则统一在http请求的header都加上token，这样后台根据token判断你的登录情况，此处token一般是用户完成登录后储存到localstorage里的
-//     token && (config.headers.Authorization = token)
-//     return config
-//   },
-//   (error) => {
-//     return Promise.error(error)
-//   }
-// )
+/**
+ * api请求方式
+ * @param {string} url
+ * @param {any} params
+ * @param {object} config
+ * @returns
+ */
+export function GET<T>(url: string, params: any = {}, config: any = {}): Promise<T> {
+  return request(url, params, config, 'GET')
+}
 
-// 响应拦截器
-// axios.interceptors.response.use(
-//   (response) => {
-//     // 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
-//     // 否则的话抛出错误
-//     if (response.status === 200) {
-//       if (response.data.code === 511) {
-//         // 未授权调取授权接口
-//       } else if (response.data.code === 510) {
-//         // 未登录跳转登录页
-//       } else {
-//         return Promise.resolve(response)
-//       }
-//     } else {
-//       return Promise.reject(response)
-//     }
-//   },
-//   (error) => {
-//     // 我们可以在这里对异常状态作统一处理
-//     if (error.response.status) {
-//       // 处理请求失败的情况
-//       // 对不同返回码对相应处理
-//       return Promise.reject(error.response)
-//     }
-//   }
-// )
+export function POST<T>(url: string, data = {}, config: any = {}): Promise<T> {
+  return request(url, data, config, 'POST')
+}
+
+export function PUT<T>(url: string, data = {}, config: any = {}): Promise<T> {
+  return request(url, data, config, 'PUT')
+}
+
+export function DELETE<T>(url: string, data = {}, config: any = {}): Promise<T> {
+  return request(url, data, config, 'DELETE')
+}
