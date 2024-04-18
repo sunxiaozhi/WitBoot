@@ -1,6 +1,7 @@
 package com.witboot.domain.operationLog.gateway;
 
 import com.witboot.domain.operationLog.model.OperationLogEntity;
+import org.springframework.scheduling.annotation.Async;
 
 /**
  * OperationLog Gateway
@@ -12,7 +13,7 @@ public interface OperationLogGateway {
      * 保存操记录
      *
      * @param operationLogEntity operationLog Domain
-     * @return 操作记录实体
      */
-    int save(OperationLogEntity operationLogEntity);
+    @Async
+    void save(OperationLogEntity operationLogEntity);
 }

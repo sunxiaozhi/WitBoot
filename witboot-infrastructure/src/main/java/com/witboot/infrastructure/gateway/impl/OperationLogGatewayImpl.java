@@ -6,6 +6,7 @@ import com.witboot.infrastructure.convertor.OperationLogConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDo;
 import com.witboot.infrastructure.gateway.impl.database.mapper.OperationLogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,9 +20,10 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
     private OperationLogMapper operationLogMapper;
 
     @Override
-    public int save(OperationLogEntity operationLogEntity) {
+    @Async
+    public void save(OperationLogEntity operationLogEntity) {
         OperationLogDo operationLogDo = OperationLogConvertor.toAddOperationLogDo(operationLogEntity);
 
-        return operationLogMapper.insert(operationLogDo);
+        operationLogMapper.insert(operationLogDo);
     }
 }
