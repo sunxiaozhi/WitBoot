@@ -8,7 +8,7 @@
       <el-button type="danger">Danger</el-button>
     </div>
   
-    <!-- <div class="mb-4">
+    <div class="mb-4">
       <el-button plain>Plain</el-button>
       <el-button type="primary" plain>Primary</el-button>
       <el-button type="success" plain>Success</el-button>
@@ -26,7 +26,7 @@
       <el-button type="danger" round>Danger</el-button>
     </div>
   
-    <div>
+    <!-- <div>
       <el-button :icon="Search" circle />
       <el-button type="primary" :icon="Edit" circle />
       <el-button type="success" :icon="Check" circle />
