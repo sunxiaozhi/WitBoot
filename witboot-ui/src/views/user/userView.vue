@@ -7,6 +7,15 @@
       <el-button type="warning">Warning</el-button>
       <el-button type="danger">Danger</el-button>
     </div>
+
+    <div>
+      <el-button :icon="Search" circle />
+      <el-button type="primary" :icon="Edit" circle />
+      <el-button type="success" :icon="Check" circle />
+      <el-button type="info" :icon="Message" circle />
+      <el-button type="warning" :icon="Star" circle />
+      <el-button type="danger" :icon="Delete" circle />
+    </div>
   
     <div class="mb-4">
       <el-button plain>Plain</el-button>
@@ -36,7 +45,7 @@
     </div> -->
   </template>
   
-  <script lang="ts" setup>
+  <!-- <script lang="ts" setup>
   import {
     Check,
     Delete,
@@ -45,5 +54,5 @@
     Search,
     Star,
   } from '@element-plus/icons-vue'
-  </script>
+  </script> -->
   
