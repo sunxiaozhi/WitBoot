@@ -12,7 +12,6 @@ import java.util.List;
  * @author sunxiaoizhi
  */
 public interface UserGateway extends UserDetailsService {
-
     /**
      * 保存用户
      *
