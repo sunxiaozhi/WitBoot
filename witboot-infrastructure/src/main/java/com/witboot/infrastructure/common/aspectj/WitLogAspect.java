@@ -1,9 +1,14 @@
 package com.witboot.infrastructure.common.aspectj;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.witboot.domain.operationLog.gateway.OperationLogGateway;
 import com.witboot.domain.operationLog.model.OperationLogEntity;
 import com.witboot.infrastructure.common.annotation.WitLog;
+import com.witboot.infrastructure.common.response.ResponseResult;
 import com.witboot.infrastructure.common.utils.BeanUtils;
+import com.witboot.infrastructure.common.utils.JakartaServletUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -28,21 +33,40 @@ public class WitLogAspect {
         log.info("WitLog切入点之后操作");
     }
 
-    @AfterReturning(pointcut = "@annotation(witLog)")
-    public void afterReturning(JoinPoint point, WitLog witLog) {
+    @AfterReturning(pointcut = "@annotation(witLog)", returning = "responseResult")
+    public void afterReturning(JoinPoint point, WitLog witLog, Object responseResult) {
         log.info("WitLog切入点请求数据返回之后操作,描述信息：{}", witLog.description());
 
-        OperationLogEntity operationLogEntity = new OperationLogEntity();
-        operationLogEntity.setIp("127.0.0.1");
-        operationLogEntity.setLocation("位置地址");
-        operationLogEntity.setMethod("Get");
-        operationLogEntity.setUri("/test");
-        operationLogEntity.setStatus(200);
-        operationLogEntity.setRequestContent("{}");
-        operationLogEntity.setResponseContent("[]");
+        try {
+            HttpServletRequest httpServletRequest = JakartaServletUtil.getRequest();
 
-        OperationLogGateway operationLogGateway = BeanUtils.getBean(OperationLogGateway.class);
-        operationLogGateway.save(operationLogEntity);
+            OperationLogEntity operationLogEntity = new OperationLogEntity();
+
+            operationLogEntity.setIp(JakartaServletUtil.getClientIP(httpServletRequest));
+
+            operationLogEntity.setLocation("未知地址");
+
+            operationLogEntity.setMethod(httpServletRequest.getMethod());
+
+            operationLogEntity.setUri(httpServletRequest.getRequestURI());
+
+            operationLogEntity.setStatus(((ResponseResult<?>) responseResult).getCode());
+
+            operationLogEntity.setRequestParam("{}");
+
+            operationLogEntity.setRequestBody("{}");
+
+            // 创建 ObjectMapper 对象
+            ObjectMapper objectMapper = new ObjectMapper();
+            // 将对象转换为 JSON 字符串
+            String responseResultJson = objectMapper.writeValueAsString(responseResult);
+            operationLogEntity.setResponseResult(responseResultJson);
+
+            OperationLogGateway operationLogGateway = BeanUtils.getBean(OperationLogGateway.class);
+            operationLogGateway.save(operationLogEntity);
+        } catch (JsonProcessingException jsonProcessingException) {
+            log.error(jsonProcessingException.getMessage());
+        }
     }
 
     @AfterThrowing(pointcut = "@annotation(witLog)")

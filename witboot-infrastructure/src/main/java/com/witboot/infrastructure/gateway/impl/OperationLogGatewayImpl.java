@@ -23,7 +23,6 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
     @Async
     public void save(OperationLogEntity operationLogEntity) {
         OperationLogDo operationLogDo = OperationLogConvertor.toAddOperationLogDo(operationLogEntity);
-
         operationLogMapper.insert(operationLogDo);
     }
 }

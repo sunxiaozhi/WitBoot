@@ -26,6 +26,7 @@
         <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
         <knife4j-openapi3-jakarta-spring-boot-starter.version>4.0.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
+        <hutool.version>5.8.26</hutool.version>
     </properties>
 
     <modules>
@@ -159,6 +160,12 @@
                 <type>pom</type>
             </dependency>
             <!-- API文档-swagger -->
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

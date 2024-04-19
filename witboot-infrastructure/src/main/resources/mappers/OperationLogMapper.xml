@@ -10,7 +10,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_operation_log
-        (ip, location, method, uri, status, request_content, response_content, create_time, update_time)
-        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{status}, #{requestContent}, #{responseContent}, sysdate(), sysdate())
+        (ip, location, method, uri, status, request_param, request_body, response_result, create_time)
+        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{status}, #{requestParam}, #{requestBody}, #{responseResult}, sysdate())
     </insert>
 </mapper>

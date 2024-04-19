@@ -14,10 +14,12 @@ public class OperationLogConvertor {
         operationLogEntity.setId(operationLogDo.getId());
         operationLogEntity.setIp(operationLogDo.getIp());
         operationLogEntity.setLocation(operationLogDo.getLocation());
+        operationLogEntity.setUri(operationLogDo.getUri());
         operationLogEntity.setMethod(operationLogDo.getMethod());
         operationLogEntity.setStatus(operationLogDo.getStatus());
-        operationLogEntity.setRequestContent(operationLogDo.getRequestContent());
-        operationLogEntity.setResponseContent(operationLogDo.getResponseContent());
+        operationLogEntity.setRequestParam(operationLogDo.getRequestParam());
+        operationLogEntity.setRequestBody(operationLogDo.getRequestBody());
+        operationLogEntity.setResponseResult(operationLogDo.getResponseResult());
 
         return operationLogEntity;
     }
@@ -26,10 +28,12 @@ public class OperationLogConvertor {
         OperationLogDo operationLogDo = new OperationLogDo();
         operationLogDo.setIp(operationLogEntity.getIp());
         operationLogDo.setLocation(operationLogEntity.getLocation());
+        operationLogDo.setUri(operationLogEntity.getUri());
         operationLogDo.setMethod(operationLogEntity.getMethod());
         operationLogDo.setStatus(operationLogEntity.getStatus());
-        operationLogDo.setRequestContent(operationLogEntity.getRequestContent());
-        operationLogDo.setResponseContent(operationLogEntity.getResponseContent());
+        operationLogDo.setRequestParam(operationLogEntity.getRequestParam());
+        operationLogDo.setRequestBody(operationLogEntity.getRequestBody());
+        operationLogDo.setResponseResult(operationLogEntity.getResponseResult());
 
         return operationLogDo;
     }

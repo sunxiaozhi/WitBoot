@@ -40,12 +40,17 @@ public class OperationLogEntity {
     private int status;
 
     /**
-     * 请求内容
+     * 请求参数
      */
-    private String requestContent;
+    private String requestParam;
+
+    /**
+     * 请求参数
+     */
+    private String requestBody;
 
     /**
      * 响应内容
      */
-    private String responseContent;
+    private String responseResult;
 }
