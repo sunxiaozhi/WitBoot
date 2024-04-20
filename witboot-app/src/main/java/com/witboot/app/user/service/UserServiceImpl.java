@@ -1,6 +1,5 @@
 package com.witboot.app.user.service;
 
-import com.alibaba.cola.catchlog.CatchAndLog;
 import com.witboot.app.user.executor.command.UserDeleteCmdExe;
 import com.witboot.app.user.executor.command.UserModifyCmdExe;
 import com.witboot.app.user.executor.command.UserRegisterCmdExe;
@@ -24,7 +23,6 @@ import java.util.List;
  * @author sunxiaoizhi
  */
 @Service
-@CatchAndLog
 public class UserServiceImpl implements IUserService {
     /**
      * xxxExe 避免 Service 膨胀利器

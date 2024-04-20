@@ -1,7 +1,5 @@
 package com.witboot.client.user.api;
 
-import com.alibaba.cola.dto.MultiResponse;
-import com.alibaba.cola.dto.SingleResponse;
 import com.witboot.client.user.dto.UserModifyCmd;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.data.UserVO;
