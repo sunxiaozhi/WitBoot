@@ -16,7 +16,7 @@ public class OperationLogConvertor {
         operationLogEntity.setLocation(operationLogDo.getLocation());
         operationLogEntity.setUri(operationLogDo.getUri());
         operationLogEntity.setMethod(operationLogDo.getMethod());
-        operationLogEntity.setStatus(operationLogDo.getStatus());
+        operationLogEntity.setWasteTime(operationLogDo.getWasteTime());
         operationLogEntity.setRequestParam(operationLogDo.getRequestParam());
         operationLogEntity.setRequestBody(operationLogDo.getRequestBody());
         operationLogEntity.setResponseResult(operationLogDo.getResponseResult());
@@ -30,7 +30,7 @@ public class OperationLogConvertor {
         operationLogDo.setLocation(operationLogEntity.getLocation());
         operationLogDo.setUri(operationLogEntity.getUri());
         operationLogDo.setMethod(operationLogEntity.getMethod());
-        operationLogDo.setStatus(operationLogEntity.getStatus());
+        operationLogDo.setWasteTime(operationLogEntity.getWasteTime());
         operationLogDo.setRequestParam(operationLogEntity.getRequestParam());
         operationLogDo.setRequestBody(operationLogEntity.getRequestBody());
         operationLogDo.setResponseResult(operationLogEntity.getResponseResult());

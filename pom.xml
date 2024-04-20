@@ -20,6 +20,7 @@
         <arthas.version>3.4.8</arthas.version>
         <common-io.version>2.7</common-io.version>
         <druid.version>1.2.18</druid.version>
+        <pagehelper.version>1.4.7</pagehelper.version>
         <mybatis.version>3.0.0</mybatis.version>
         <cola.components.version>4.0.0</cola.components.version>
         <validation-api.version>2.0.0.Final</validation-api.version>
@@ -68,6 +69,12 @@
                 <artifactId>arthas-spring-boot-starter</artifactId>
                 <version>${arthas.version}</version>
                 <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
             </dependency>
 
             <dependency>

@@ -1,8 +1,6 @@
 package com.witboot.app.user.service;
 
 import com.alibaba.cola.catchlog.CatchAndLog;
-import com.alibaba.cola.dto.MultiResponse;
-import com.alibaba.cola.dto.SingleResponse;
 import com.witboot.app.user.executor.command.UserDeleteCmdExe;
 import com.witboot.app.user.executor.command.UserModifyCmdExe;
 import com.witboot.app.user.executor.command.UserRegisterCmdExe;
@@ -17,6 +15,8 @@ import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户相关
@@ -63,12 +63,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public SingleResponse<UserVO> getUserInfo(Long id) {
+    public UserVO getUserInfo(Long id) {
         return userInfoQueryExe.execute(id);
     }
 
     @Override
-    public MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
+    public List<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
         return userListByParamQueryExe.execute(userListByParamQuery);
     }
 

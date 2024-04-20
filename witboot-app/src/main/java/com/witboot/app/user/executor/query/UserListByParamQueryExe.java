@@ -1,6 +1,5 @@
 package com.witboot.app.user.executor.query;
 
-import com.alibaba.cola.dto.MultiResponse;
 import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
@@ -23,12 +22,11 @@ public class UserListByParamQueryExe {
     @Autowired
     private UserGateway userGateway;
 
-    public MultiResponse<UserVO> execute(UserListByParamQuery userListByParamQuery) {
+    public List<UserVO> execute(UserListByParamQuery userListByParamQuery) {
         List<UserEntity> userEntities = userGateway.findByParam(userListByParamQuery);
-        List<UserVO> userVOList = userEntities.stream()
+
+        return userEntities.stream()
                 .map(UserAssembler::toValueObject)
                 .collect(Collectors.toList());
-
-        return MultiResponse.of(userVOList);
     }
 }

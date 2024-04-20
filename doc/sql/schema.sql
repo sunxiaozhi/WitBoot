@@ -39,10 +39,10 @@ CREATE TABLE `wb_operation_log` (
     `location` varchar(100) NOT NULL DEFAULT '' COMMENT '位置',
     `uri` varchar(255) NOT NULL DEFAULT '' COMMENT 'uri',
     `method` varchar(20) NOT NULL DEFAULT '' COMMENT '请求方式',
-    `status` int(8) NOT NULL DEFAULT '0' COMMENT '响应码',
+    `waste_time` int(8) NOT NULL DEFAULT '0' COMMENT '耗费时间',
     `request_param` varchar(1000) NOT NULL DEFAULT '' COMMENT '请求参数',
     `request_body` varchar(1000) NOT NULL DEFAULT '' COMMENT '请求内容',
     `response_result` varchar(1000) NOT NULL DEFAULT '' COMMENT '响应内容',
     `create_time` datetime DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

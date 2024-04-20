@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,9 +24,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class WitLogAspect {
+    /** 计算操作消耗时间 */
+    private static final ThreadLocal<Long> WASTE_TIME_THREADLOCAL = new NamedThreadLocal<Long>("wasteTime");
+
     @Before("@annotation(com.witboot.infrastructure.common.annotation.WitLog)")
     public void before() {
         log.info("WitLog切入点之前操作");
+        WASTE_TIME_THREADLOCAL.set(System.currentTimeMillis());
     }
 
     @After("@annotation(com.witboot.infrastructure.common.annotation.WitLog)")
@@ -40,6 +45,9 @@ public class WitLogAspect {
         try {
             HttpServletRequest httpServletRequest = JakartaServletUtil.getRequest();
 
+            // 创建 ObjectMapper 对象
+            ObjectMapper objectMapper = new ObjectMapper();
+
             OperationLogEntity operationLogEntity = new OperationLogEntity();
 
             operationLogEntity.setIp(JakartaServletUtil.getClientIP(httpServletRequest));
@@ -50,22 +58,21 @@ public class WitLogAspect {
 
             operationLogEntity.setUri(httpServletRequest.getRequestURI());
 
-            operationLogEntity.setStatus(((ResponseResult<?>) responseResult).getCode());
+            operationLogEntity.setWasteTime(System.currentTimeMillis() - WASTE_TIME_THREADLOCAL.get());
 
-            operationLogEntity.setRequestParam("{}");
+            operationLogEntity.setRequestParam(objectMapper.writeValueAsString(httpServletRequest.getParameterMap()));
 
             operationLogEntity.setRequestBody("{}");
 
-            // 创建 ObjectMapper 对象
-            ObjectMapper objectMapper = new ObjectMapper();
             // 将对象转换为 JSON 字符串
-            String responseResultJson = objectMapper.writeValueAsString(responseResult);
-            operationLogEntity.setResponseResult(responseResultJson);
+            operationLogEntity.setResponseResult(objectMapper.writeValueAsString(responseResult));
 
             OperationLogGateway operationLogGateway = BeanUtils.getBean(OperationLogGateway.class);
             operationLogGateway.save(operationLogEntity);
         } catch (JsonProcessingException jsonProcessingException) {
             log.error(jsonProcessingException.getMessage());
+        } finally {
+            WASTE_TIME_THREADLOCAL.remove();
         }
     }
 

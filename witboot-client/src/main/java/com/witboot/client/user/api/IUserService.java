@@ -8,6 +8,8 @@ import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
 
+import java.util.List;
+
 /**
  * 用户相关
  *
@@ -45,7 +47,7 @@ public interface IUserService {
      * @param id 用户ID
      * @return 用户信息
      */
-    SingleResponse<UserVO> getUserInfo(Long id);
+    UserVO getUserInfo(Long id);
 
     /**
      * 根据用户名称查询
@@ -53,7 +55,7 @@ public interface IUserService {
      * @param userListByParamQuery 用户查询请求
      * @return MultiResponse
      */
-    MultiResponse<UserVO> listByParam(UserListByParamQuery userListByParamQuery);
+    List<UserVO> listByParam(UserListByParamQuery userListByParamQuery);
 
     /**
      * 用户删除

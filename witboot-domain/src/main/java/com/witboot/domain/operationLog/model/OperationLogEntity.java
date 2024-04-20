@@ -35,9 +35,9 @@ public class OperationLogEntity {
     private String uri;
 
     /**
-     * x响应状态码
+     * 耗费时间
      */
-    private int status;
+    private long wasteTime;
 
     /**
      * 请求参数

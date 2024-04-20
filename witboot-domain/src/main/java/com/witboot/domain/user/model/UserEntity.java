@@ -1,6 +1,8 @@
 package com.witboot.domain.user.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -44,6 +46,8 @@ public class UserEntity {
     /**
      * 生日
      */
+    @DateTimeFormat
+    @JsonFormat
     private LocalDate birthday;
 
     /**

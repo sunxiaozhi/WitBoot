@@ -22,12 +22,12 @@ public class UserInfoQueryExe {
     @Autowired
     private UserGateway userGateway;
 
-    public SingleResponse<UserVO> execute(Long id) {
+    public UserVO execute(Long id) {
         UserEntity userEntity = userGateway.findById(id);
         if (Objects.isNull(userEntity)) {
             throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
         }
 
-        return SingleResponse.of(UserAssembler.toValueObject(userEntity));
+        return UserAssembler.toValueObject(userEntity);
     }
 }
