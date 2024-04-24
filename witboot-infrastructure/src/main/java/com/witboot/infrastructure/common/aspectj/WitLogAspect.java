@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.witboot.domain.operationLog.gateway.OperationLogGateway;
 import com.witboot.domain.operationLog.model.OperationLogEntity;
 import com.witboot.infrastructure.common.annotation.WitLog;
-import com.witboot.infrastructure.common.response.ResponseResult;
 import com.witboot.infrastructure.common.utils.BeanUtils;
 import com.witboot.infrastructure.common.utils.JakartaServletUtil;
 import jakarta.servlet.http.HttpServletRequest;

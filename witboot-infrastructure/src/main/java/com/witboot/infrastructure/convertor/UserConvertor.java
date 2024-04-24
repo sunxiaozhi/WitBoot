@@ -2,6 +2,7 @@ package com.witboot.infrastructure.convertor;
 
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
+import org.springframework.beans.BeanUtils;
 
 /**
  * UserConvertor DO <---> Entity
@@ -11,13 +12,14 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 public class UserConvertor {
     public static UserEntity toEntity(UserDO userDO) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(userDO.getId());
+        /*userEntity.setId(userDO.getId());
         userEntity.setUsername(userDO.getUsername());
         userEntity.setName(userDO.getName());
         userEntity.setMobile(userDO.getMobile());
         userEntity.setGender(userDO.getGender());
         userEntity.setBirthday(userDO.getBirthday());
-        userEntity.setDescription(userDO.getDescription());
+        userEntity.setDescription(userDO.getDescription());*/
+        BeanUtils.copyProperties(userDO, userEntity);
 
         return userEntity;
     }
