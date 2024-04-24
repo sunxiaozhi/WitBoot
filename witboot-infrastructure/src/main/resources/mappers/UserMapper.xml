@@ -65,10 +65,10 @@
         SELECT id, username, name, mobile
         FROM wb_user
         <where>
-            <if test="name != null">
+            <if test="name != null and name != ''">
                 name LIKE CONCAT('%', #{name}, '%')
             </if>
-            <if test="username != null">
+            <if test="username != null and username != ''">
                 username = #{username}
             </if>
             AND delete_flag = 0

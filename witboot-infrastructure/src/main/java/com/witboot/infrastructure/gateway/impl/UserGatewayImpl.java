@@ -1,5 +1,6 @@
 package com.witboot.infrastructure.gateway.impl;
 
+import com.github.pagehelper.PageInfo;
 import com.witboot.client.user.dto.data.ErrorCode;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.domain.user.gateway.UserGateway;
@@ -59,11 +60,15 @@ public class UserGatewayImpl implements UserGateway {
 
     @Override
     public List<UserEntity> findByParam(UserListByParamQuery query) {
-        List<UserEntity> entities = new ArrayList<>();
-        userMapper.selectByParam(query).forEach(userDO -> {
-            entities.add(UserConvertor.toEntity(userDO));
+        List<UserEntity> userEntityList = new ArrayList<>();
+
+        List<UserDO> userDOList = userMapper.selectByParam(query);
+
+        new PageInfo<>(userDOList).getTotal();
+        userDOList.forEach(userDO -> {
+            userEntityList.add(UserConvertor.toEntity(userDO));
         });
-        return entities;
+        return userEntityList;
     }
 
     @Override
