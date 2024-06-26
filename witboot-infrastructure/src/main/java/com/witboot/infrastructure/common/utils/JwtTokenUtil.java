@@ -3,13 +3,15 @@ package com.witboot.infrastructure.common.utils;
 import com.witboot.domain.user.model.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,13 +49,20 @@ public class JwtTokenUtil {
     private Long expiration;
 
     /**
+     * 加密key
+     */
+    public SecretKey generateKey() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+    }
+
+    /**
      * 根据负责生成JWT的token
      */
     private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(generateKey())
                 .compact();
     }
 
@@ -63,8 +72,9 @@ public class JwtTokenUtil {
     public Claims getClaimsFromToken(String token) {
         Claims claims = null;
         try {
-            claims = Jwts.parser()
-                    .setSigningKey(secret)
+            claims = Jwts.parserBuilder()
+                    .setSigningKey(generateKey())
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
