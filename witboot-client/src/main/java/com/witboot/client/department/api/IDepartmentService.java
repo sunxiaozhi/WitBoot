@@ -20,7 +20,7 @@ public interface IDepartmentService {
     List<DepartmentVO> listByParam(DepartmentListByParamQuery departmentParamQuery);
 
     /**
-     * 用户删除
+     * 部门删除
      * @param ids ids
      * @return 删除数量
      */

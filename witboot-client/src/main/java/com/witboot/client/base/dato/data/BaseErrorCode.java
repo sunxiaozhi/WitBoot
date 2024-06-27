@@ -7,12 +7,14 @@ package com.witboot.client.base.dato.data;
  */
 public interface BaseErrorCode {
     /**
-     * 错误码
+     * 获取错误码
+     * @return 错误码
      */
     String getErrorCode();
 
     /**
-     * 错误描述
+     * 获取错误描述
+     * @return 错误描述
      */
     String getErrorDescription();
 }

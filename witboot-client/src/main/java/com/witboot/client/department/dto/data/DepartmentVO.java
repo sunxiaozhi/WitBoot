@@ -12,7 +12,7 @@ public class DepartmentVO {
     /**
      * id
      */
-    private long id;
+    private Long id;
 
     /**
      * 名称
