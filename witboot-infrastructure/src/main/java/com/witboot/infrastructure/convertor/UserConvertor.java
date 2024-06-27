@@ -30,7 +30,7 @@ public class UserConvertor {
         userDO.setUsername(userEntity.getUsername());
         userDO.setPassword(userEntity.getPassword().getEncryptPassword());
         userDO.setName(userEntity.getName());
-        userDO.setDeleteFlag(false);
+        userDO.setDeleteFlag(1);
         userDO.setMobile(userEntity.getMobile());
         userDO.setGender(userEntity.getGender());
         userDO.setBirthday(userEntity.getBirthday());

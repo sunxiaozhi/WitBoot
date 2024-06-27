@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.gateway.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.witboot.client.user.dto.data.ErrorCode;
+import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
@@ -50,7 +50,7 @@ public class UserGatewayImpl implements UserGateway {
     public UserEntity findById(Long id) {
         Optional<UserDO> findById = userMapper.selectById(id);
         if (findById.isEmpty()) {
-            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+            throw new WitBootBizException(UserErrorCode.B_USER_UNDEFINED);
         }
 
         UserDO userDO = findById.get();
@@ -76,7 +76,7 @@ public class UserGatewayImpl implements UserGateway {
         Optional<UserDO> userDO = userMapper.selectByUsername(username);
 
         if (userDO.isEmpty()) {
-            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+            throw new WitBootBizException(UserErrorCode.B_USER_UNDEFINED);
         }
 
         String password = userDO.get().getPassword();
@@ -118,7 +118,7 @@ public class UserGatewayImpl implements UserGateway {
     private UserEntity modifyUser(UserEntity userEntity) {
         Optional<UserDO> findById = userMapper.selectById(userEntity.getId());
         if (findById.isEmpty()) {
-            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+            throw new WitBootBizException(UserErrorCode.B_USER_UNDEFINED);
         }
 
         UserDO userDO = findById.get();
@@ -142,7 +142,7 @@ public class UserGatewayImpl implements UserGateway {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserDO> findById = userMapper.selectByUsername(username);
         if (findById.isEmpty()) {
-            throw new WitBootBizException(ErrorCode.B_USER_UNDEFINED);
+            throw new WitBootBizException(UserErrorCode.B_USER_UNDEFINED);
         }
 
         return findById.get();

@@ -23,7 +23,7 @@ public abstract class BaseDO {
     /**
      * 数据标识
      */
-    private Boolean deleteFlag;
+    private Integer deleteFlag;
 
     /**
      * 创建人

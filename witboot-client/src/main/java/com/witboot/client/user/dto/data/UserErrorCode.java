@@ -1,5 +1,6 @@
 package com.witboot.client.user.dto.data;
 
+import com.witboot.client.base.dato.data.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum ErrorCode {
+public enum UserErrorCode implements BaseErrorCode {
     /**
      * 尽量让code可以达意
      */

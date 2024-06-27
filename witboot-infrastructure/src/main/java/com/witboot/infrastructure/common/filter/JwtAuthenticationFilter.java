@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.common.filter;
 
-import com.witboot.client.user.dto.data.ErrorCode;
+import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
@@ -69,7 +69,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 //判断authToken是否已失效
                 String jwtToken = redisUtil.getCache(Constants.LOGIN_USER_KEY + username);
                 if (!StringUtils.equals(authToken, jwtToken)) {
-                    throw new WitBootBizException(ErrorCode.B_USER_AUTH_TOKEN_ERROR);
+                    throw new WitBootBizException(UserErrorCode.B_USER_AUTH_TOKEN_ERROR);
                 }
 
                 //根据用户名获取登录用户信息

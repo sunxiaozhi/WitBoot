@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.witboot.infrastructure.gateway.impl.database.mapper.DepartmentMapper">
+
+    <resultMap id="departmentDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.DepartmentDO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="selectByParam" resultMap="departmentDOMap">
+        SELECT id, name, parent_id
+        FROM wb_department
+        <where>
+            <if test="name != null and name != ''">
+                name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            AND delete_flag = 1
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="departmentDOMap">
+        SELECT id, name, parentId
+        FROM wb_department
+        WHERE id = #{id}
+          AND delete_flag = 1
+    </select>
+
+    <delete id="deleteByIds">
+        DELETE FROM wb_department WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

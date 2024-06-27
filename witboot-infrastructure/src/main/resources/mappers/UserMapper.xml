@@ -51,14 +51,14 @@
         SELECT id, username, name, mobile
         FROM wb_user
         WHERE id = #{id}
-        AND delete_flag = 0
+        AND delete_flag = 1
     </select>
 
     <select id="selectByUsername" resultMap="userDOMap">
         SELECT id, username, name, password, mobile
         FROM wb_user
         WHERE username = #{username}
-          AND delete_flag = 0
+          AND delete_flag = 1
     </select>
 
     <select id="selectByParam" resultMap="userDOMap">
@@ -71,7 +71,7 @@
             <if test="username != null and username != ''">
                 username = #{username}
             </if>
-            AND delete_flag = 0
+            AND delete_flag = 1
         </where>
     </select>
 
@@ -83,7 +83,7 @@
             <if test="userId != null">
                 AND id &lt;&gt; #{userId}
             </if>
-            AND delete_flag = 0
+            AND delete_flag = 1
         </where>
     </select>
 

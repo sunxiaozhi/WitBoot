@@ -2,7 +2,7 @@ package com.witboot.app.user.executor.command;
 
 import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.client.user.dto.UserRegisterCmd;
-import com.witboot.client.user.dto.data.ErrorCode;
+import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
@@ -24,7 +24,7 @@ public class UserRegisterCmdExe {
     public UserVO execute(UserRegisterCmd userRegisterCmd) {
         // check 用户名是否重复
         if (userGateway.checkByUsername(null, userRegisterCmd.getUsername())) {
-            throw new WitBootBizException(ErrorCode.B_USER_USERNAME_REPEAT);
+            throw new WitBootBizException(UserErrorCode.B_USER_USERNAME_REPEAT);
         }
 
         UserEntity userEntity = userGateway.save(UserAssembler.toEntity(userRegisterCmd));

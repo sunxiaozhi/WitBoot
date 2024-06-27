@@ -1,7 +1,7 @@
 package com.witboot.client.department.api;
 
-import com.witboot.client.department.dto.data.DepartmentVo;
-import com.witboot.client.department.dto.query.DepartmentParamQuery;
+import com.witboot.client.department.dto.data.DepartmentVO;
+import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 
 import java.util.List;
 
@@ -17,5 +17,12 @@ public interface IDepartmentService {
      * @param departmentParamQuery 部门查询请求
      * @return MultiResponse
      */
-    List<DepartmentVo> listByParam(DepartmentParamQuery departmentParamQuery);
+    List<DepartmentVO> listByParam(DepartmentListByParamQuery departmentParamQuery);
+
+    /**
+     * 用户删除
+     * @param ids ids
+     * @return 删除数量
+     */
+    int deleteByIds(String[] ids);
 }
