@@ -10,6 +10,16 @@ public class Constants {
 
     public final static int ONE = 1;
 
+    /**
+     * 已删除数据标识
+     */
+    public final static int DELETED_FLAG = 0;
+
+    /**
+     * 正常数据标识
+     */
+    public final static int NOT_DELETED_FLAG = 1;
+
     public static class DateTime {
         /** 默认日期时间格式 */
         public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";

@@ -1,6 +1,7 @@
 package com.witboot.infrastructure.convertor;
 
 import com.witboot.domain.user.model.UserEntity;
+import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import org.springframework.beans.BeanUtils;
 
@@ -30,7 +31,7 @@ public class UserConvertor {
         userDO.setUsername(userEntity.getUsername());
         userDO.setPassword(userEntity.getPassword().getEncryptPassword());
         userDO.setName(userEntity.getName());
-        userDO.setDeleteFlag(1);
+        userDO.setDeleteFlag(Constants.NOT_DELETED_FLAG);
         userDO.setMobile(userEntity.getMobile());
         userDO.setGender(userEntity.getGender());
         userDO.setBirthday(userEntity.getBirthday());
