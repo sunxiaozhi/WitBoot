@@ -1,22 +1,3 @@
-<!-- <script>
-export default {
-    data() {
-        return {
-            username: "",
-            password: ""
-
-        }
-    },
-
-    methods: {
-        alertUsername() {
-            alert(this.username);
-            alert(this.password);
-        }
-    },
-}
-</script> -->
-
 <script setup lang="ts">
 import { login } from '@/api/user';
 import { setAccessToken } from '@/utils/auth';
@@ -27,18 +8,18 @@ import { reactive } from 'vue'
 // do not use same name with ref
 const form = reactive({
     username: '',
-    passsword: '',
+    password: '',
 })
 
 const router = useRouter();
 
 function userLogin() {
-    console.log(`用户名：${form.username},密码：${form.passsword}`);
-    if (form.username.length == 0 || form.passsword.length == 0) {
+    console.log(`用户名：${form.username},密码：${form.password}`);
+    if (form.username.length == 0 || form.password.length == 0) {
         alert("请填写用户名或密码");
     }
 
-    login({ "username": form.username, "password": form.passsword }).then((res: any) => {
+    login({ "username": form.username, "password": form.password }).then((res: any) => {
         console.log(res)
 
         let accessToken = res.accessToken;
@@ -47,11 +28,10 @@ function userLogin() {
         router.push('/user')
     })
 }
-
 </script>
 
 <template>
-    <el-row :gutter="20">
+    <el-row>
         <el-col :span="16">
             <header>
                 <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
@@ -68,11 +48,10 @@ function userLogin() {
                     <el-input v-model="form.username" />
                 </el-form-item>
                 <el-form-item label="密码">
-                    <el-input v-model="form.passsword" />
+                    <el-input v-model="form.password" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="userLogin">登录</el-button>
-                    <el-button>取消</el-button>
                 </el-form-item>
             </el-form>
 
@@ -142,123 +121,4 @@ nav a:first-of-type {
         margin-top: 1rem;
     }
 }
-
-/* header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-
-body {
-    background-color: #F1F1F1;
-}
-
-.login {
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #FFF;
-    border-radius: 50px;
-}
-
-.login-title {
-    font-weight: 500;
-    color: hsla(160, 100%, 37%, 1);
-    margin-bottom: 25px;
-}
-
-.login-item {
-    display: flex;
-    height: 35px;
-    justify-content: center;
-
-    margin-bottom: 15px;
-}
-
-.login-filed-tip {
-    display: flex;
-    flex: 0 0 60px;
-    justify-content: center;
-    align-items: center;
-
-    background-color: hsla(160, 100%, 37%, 1);
-    border: solid 1px hsla(160, 100%, 37%, 1);
-    color: #fff;
-
-    border-radius: 6px 0 0 6px;
-}
-
-.login-field {
-    border: solid 1px #AAABD3;
-    border-radius: 0 6px 6px 0;
-}
-
-.login-button {
-    font-size: 20px;
-    border: solid 1px #AAABD3;
-    border-radius: 6px;
-
-    color: #FFF;
-    background-color: hsla(160, 100%, 37%, 1);
-
-    width: 100px;
-} */
 </style>
