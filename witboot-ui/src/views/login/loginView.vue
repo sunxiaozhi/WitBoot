@@ -21,11 +21,11 @@ const ruleForm = reactive<RuleForm>({
 const rules = reactive<FormRules<RuleForm>>({
   username: [
     { required: true, message: '请填写用户名', trigger: 'blur' },
-    { min: 3, max: 5, message: '字段长度3-5', trigger: 'blur' }
+    { min: 3, max: 12, message: '字段长度3-12', trigger: 'blur' }
   ],
   password: [
     { required: true, message: '请填写密码', trigger: 'blur' },
-    { min: 3, max: 5, message: '字段长度3-5', trigger: 'blur' }
+    { min: 3, max: 12, message: '字段长度3-12', trigger: 'blur' }
   ]
 })
 
