@@ -9,5 +9,6 @@ logging:
   config: classpath:log4j2-spring.xml
   level:
     root: info
+    org.springframework.web.filter.CommonsRequestLoggingFilter: debug
     # org.springframework: info
     # com.witboot: info
