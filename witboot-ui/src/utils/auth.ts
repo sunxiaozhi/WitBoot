@@ -3,16 +3,16 @@
  * @param accessToken
  * @returns
  */
-export const setAccessToken = (accessToken: string) => sessionStorage.setItem('accessToken', accessToken)
+export const setAccessToken = (accessToken: string) => localStorage.setItem('accessToken', accessToken)
 
 /**
  * 获取accessToken
  * @returns
  */
-export const getAccessToken = () => window.localStorage.getItem('accessToken')
+export const getAccessToken = () => localStorage.getItem('accessToken')
 
 /**
  * 获取accessToken
  * @returns
  */
-export const clearAccessToken = () => window.localStorage.removeItem('accessToken')
+export const clearAccessToken = () => localStorage.removeItem('accessToken')

@@ -1,8 +1,39 @@
+<template>
+  <div class="login-container">
+    <el-row :gutter="20">
+      <el-col :span="16">
+        <header>
+          <img alt="witboot logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+          <div class="wrapper">
+            <WitBootInfo msg="WitBoot" />
+          </div>
+        </header>
+      </el-col>
+
+      <el-col :span="8">
+        <el-form ref="ruleFormRef" style="max-width: 600px" :model="ruleForm" :rules="rules" label-width="auto"
+          class="ruleForm" :size="formSize" status-icon>
+          <el-form-item label="" prop="username">
+            <el-input v-model="ruleForm.username" placeholder="用户名" />
+          </el-form-item>
+          <el-form-item label="" prop="password">
+            <el-input v-model="ruleForm.password" placeholder="密码" />
+          </el-form-item>
+          <el-form-item>
+            <el-button style="margin: 0 auto;" type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+          </el-form-item>
+        </el-form>
+      </el-col>
+    </el-row>
+  </div>
+</template>
+
 <script lang="ts" setup>
 import { login } from '@/api/user'
 import { setAccessToken } from '@/utils/auth'
 import { useRouter } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+import WitBootInfo from '@/components/WitBootInfo.vue'
 import { reactive, ref } from 'vue'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
 
@@ -51,46 +82,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 </script>
 
-<template>
-  <div class="login-container">
-    <el-row :gutter="20">
-      <el-col :span="16">
-        <header>
-          <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-          <div class="wrapper">
-            <HelloWorld msg="WitBoot" />
-          </div>
-        </header>
-      </el-col>
-
-      <el-col :span="8">
-        <el-form
-          ref="ruleFormRef"
-          style="max-width: 600px"
-          :model="ruleForm"
-          :rules="rules"
-          label-width="auto"
-          class="ruleForm"
-          :size="formSize"
-          status-icon
-        >
-          <el-form-item label="" prop="username">
-            <el-input v-model="ruleForm.username" placeholder="用户名" />
-          </el-form-item>
-          <el-form-item label="" prop="password">
-            <el-input v-model="ruleForm.password" placeholder="密码" />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
-    </el-row>
-  </div>
-</template>
-
 <style scoped>
+.lo
+
 header {
   line-height: 1.5;
   max-height: 100vh;
