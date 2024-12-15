@@ -1,15 +1,15 @@
 <template>
   <div class="login-container">
-    <el-row :gutter="20">
-      <el-col :span="8" class="witboot-info" :offset="5">
+    <el-row :gutter="20" type="flex" justify="center">
+      <el-col :span="8" class="witboot-info">
         <h3>
           WitBoot基于SpringBoot3.x + COLA 4.0（整洁面向对象分层架构）+ Mybatis Plus + Vue3.X +
           Element Plus实现的前后端分离系统，支持RBAC动态权限、数据权限、日志记录...
         </h3>
       </el-col>
 
-      <el-col :span="4" class="login-form" :offset="1">
-        <div class="logo">
+      <el-col :span="5" class="login-form" :offset="1">
+        <div class="title">
           <!-- <img alt="witboot logo" src="@/assets/logo.svg" width="100" height="100" /> -->
           <h3>WitBoot</h3>
         </div>
@@ -20,20 +20,30 @@
           :rules="rules"
           label-width="auto"
           :size="formSize"
+          label-position="top"
         >
-          <el-form-item label="" prop="username">
+          <el-form-item label="用户名" prop="username">
             <el-input v-model="ruleForm.username" :prefix-icon="User" />
           </el-form-item>
-          <el-form-item label="" prop="password">
-            <el-input v-model="ruleForm.password" :prefix-icon="Lock" />
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="ruleForm.password" :prefix-icon="Lock" type="password" />
+          </el-form-item>
+          <el-form-item>
+            <el-switch v-model="rememberMe" active-text="记住我" />
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm(ruleFormRef)"> 登录 </el-button>
-            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
+            <!-- <el-button @click="resetForm(ruleFormRef)">重置</el-button> -->
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
+  </div>
+  <div class="login-footer">
+    <span
+      >Copyright © 2024 Powered by
+      <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a></span
+    >
   </div>
 </template>
 
@@ -68,6 +78,8 @@ const rules = reactive<FormRules<RuleForm>>({
   ]
 })
 
+const rememberMe = ref(false)
+
 const router = useRouter()
 
 const submitForm = async (formEl: FormInstance | undefined) => {
@@ -100,7 +112,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 90vh;
   background-color: #eee;
 
   .witboot-info {
@@ -110,7 +122,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     h3 {
       text-indent: 2.5rem;
       line-height: 2.5rem;
-      color: #4e4d4d;
+      color: #52616b;
     }
   }
 
@@ -119,9 +131,38 @@ const resetForm = (formEl: FormInstance | undefined) => {
     border: 1px solid #d1d9e0b3;
     border-radius: 10px;
 
-    .logo {
+    .title {
       text-align: center;
-      color: #4e4d4d;
+      color: #409eff;
+    }
+  }
+}
+.login-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: #eee;
+  /* border-top: 1px solid #d1d9e0b3; */
+
+  span {
+    color: #4e4d4d;
+
+    a:link {
+      color: #409eff;
+      text-decoration: none;
+    }
+    a:visited {
+      color: #409eff;
+      text-decoration: none;
+    }
+    a:active {
+      color: #409eff;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #409eff;
+      text-decoration: none;
     }
   }
 }
