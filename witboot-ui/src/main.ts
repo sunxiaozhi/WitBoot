@@ -1,4 +1,4 @@
-import './assets/main.css'
+import './assets/witboot.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -11,9 +11,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-if (process.env.NODE_ENV === 'development') {
-  devtools.connect('http://localhost', 8098)
-}
+// if (process.env.NODE_ENV === 'development') {
+//   devtools.connect('http://localhost', 8098)
+// }
 
 const app = createApp(App)
 

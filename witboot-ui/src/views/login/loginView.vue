@@ -1,27 +1,35 @@
 <template>
   <div class="login-container">
     <el-row :gutter="20">
-      <el-col :span="16">
-        <header>
-          <img alt="witboot logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-          <div class="wrapper">
-            <WitBootInfo msg="WitBoot" />
-          </div>
-        </header>
+      <el-col :span="8" class="witboot-info" :offset="5">
+        <h3>
+          WitBoot基于SpringBoot3.x + COLA 4.0（整洁面向对象分层架构）+ Mybatis Plus + Vue3.X +
+          Element Plus实现的前后端分离系统，支持RBAC动态权限、数据权限、日志记录...
+        </h3>
       </el-col>
 
-      <el-col :span="8">
-        <el-form ref="ruleFormRef" style="max-width: 600px" :model="ruleForm" :rules="rules" label-width="auto"
-          class="ruleForm" :size="formSize" status-icon>
+      <el-col :span="4" class="login-form" :offset="1">
+        <div class="logo">
+          <!-- <img alt="witboot logo" src="@/assets/logo.svg" width="100" height="100" /> -->
+          <h3>WitBoot</h3>
+        </div>
+
+        <el-form
+          ref="ruleFormRef"
+          :model="ruleForm"
+          :rules="rules"
+          label-width="auto"
+          :size="formSize"
+        >
           <el-form-item label="" prop="username">
-            <el-input v-model="ruleForm.username" placeholder="用户名" />
+            <el-input v-model="ruleForm.username" :prefix-icon="User" />
           </el-form-item>
           <el-form-item label="" prop="password">
-            <el-input v-model="ruleForm.password" placeholder="密码" />
+            <el-input v-model="ruleForm.password" :prefix-icon="Lock" />
           </el-form-item>
           <el-form-item>
-            <el-button style="margin: 0 auto;" type="primary" @click="submitForm(ruleFormRef)">登录</el-button>
+            <el-button type="primary" @click="submitForm(ruleFormRef)"> 登录 </el-button>
+            <el-button @click="resetForm(ruleFormRef)">重置</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -33,9 +41,9 @@
 import { login } from '@/api/user'
 import { setAccessToken } from '@/utils/auth'
 import { useRouter } from 'vue-router'
-import WitBootInfo from '@/components/WitBootInfo.vue'
 import { reactive, ref } from 'vue'
 import type { ComponentSize, FormInstance, FormRules } from 'element-plus'
+import { User, Lock } from '@element-plus/icons-vue'
 
 interface RuleForm {
   username: string
@@ -80,75 +88,41 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     }
   })
 }
+
+const resetForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
+}
 </script>
 
 <style scoped>
-.lo
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #eee;
 
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-/* .ruleForm {
-    border: 1px silver solid;
-    padding: 10px;
-} */
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
+  .witboot-info {
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    align-items: center;
+
+    h3 {
+      text-indent: 2.5rem;
+      line-height: 2.5rem;
+      color: #4e4d4d;
+    }
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+  .login-form {
+    background-color: #f6f8fa;
+    border: 1px solid #d1d9e0b3;
+    border-radius: 10px;
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    .logo {
+      text-align: center;
+      color: #4e4d4d;
+    }
   }
 }
 </style>
