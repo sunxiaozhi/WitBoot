@@ -2,6 +2,7 @@ import axios, { type Method, type InternalAxiosRequestConfig, type AxiosResponse
 import { getAccessToken, clearAccessToken } from './auth'
 import { TOKEN_ERROR_CODE } from './responseCode'
 import type { ResponseDataType, requestConfigType } from './request.d'
+import { ElMessage } from 'element-plus'
 
 const instance = axios.create({
   baseURL: '/api', // 开发环境下的跨域解决
@@ -89,6 +90,8 @@ function checkResponse(data: ResponseDataType) {
  */
 function responseError(error: any) {
   console.log('error->', '请求错误', error)
+
+  ElMessage.error(error.data)
 
   if (!error) {
     return Promise.reject({ reason: '未知错误' })

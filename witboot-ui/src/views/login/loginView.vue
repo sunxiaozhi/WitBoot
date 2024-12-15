@@ -21,6 +21,7 @@
           label-width="auto"
           :size="formSize"
           label-position="top"
+          hide-required-asterisk="true"
         >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="ruleForm.username" :prefix-icon="User" />
@@ -70,11 +71,11 @@ const ruleForm = reactive<RuleForm>({
 const rules = reactive<FormRules<RuleForm>>({
   username: [
     { required: true, message: '请填写用户名', trigger: 'blur' },
-    { min: 3, max: 12, message: '字段长度3-12', trigger: 'blur' }
+    { min: 6, max: 12, message: '用户名长度需6-12位', trigger: 'blur' }
   ],
   password: [
     { required: true, message: '请填写密码', trigger: 'blur' },
-    { min: 3, max: 12, message: '字段长度3-12', trigger: 'blur' }
+    { min: 6, max: 12, message: '密码长度需6-12位', trigger: 'blur' }
   ]
 })
 
@@ -137,6 +138,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     }
   }
 }
+
 .login-footer {
   display: flex;
   justify-content: center;
