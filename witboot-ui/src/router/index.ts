@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       path: '/elemetDemo',
-      name: 'container',
+      name: 'elemetDemo',
       component: () => import('../views/ElementDemo.vue')
     },
   ]
