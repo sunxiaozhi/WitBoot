@@ -14,15 +14,8 @@
           <h3>WitBoot</h3>
         </div>
 
-        <el-form
-          ref="ruleFormRef"
-          :model="ruleForm"
-          :rules="rules"
-          label-width="auto"
-          :size="formSize"
-          label-position="top"
-          hide-required-asterisk="true"
-        >
+        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="auto" :size="formSize"
+          label-position="top" hide-required-asterisk="true">
           <el-form-item label="用户名" prop="username">
             <el-input v-model="ruleForm.username" :prefix-icon="User" />
           </el-form-item>
@@ -41,10 +34,8 @@
     </el-row>
   </div>
   <div class="login-footer">
-    <span
-      >Copyright © 2024 Powered by
-      <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a></span
-    >
+    <span>Copyright © 2024 Powered by
+      <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a></span>
   </div>
 </template>
 
@@ -154,14 +145,17 @@ const resetForm = (formEl: FormInstance | undefined) => {
       color: #409eff;
       text-decoration: none;
     }
+
     a:visited {
       color: #409eff;
       text-decoration: none;
     }
+
     a:active {
       color: #409eff;
       text-decoration: none;
     }
+
     a:hover {
       color: #409eff;
       text-decoration: none;
