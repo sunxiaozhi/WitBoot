@@ -16,7 +16,6 @@ import java.io.Serial;
 @Data
 @Builder
 public class UserListByParamQuery extends Query {
-
     @Serial
     private static final long serialVersionUID = -2794036665910524477L;
 

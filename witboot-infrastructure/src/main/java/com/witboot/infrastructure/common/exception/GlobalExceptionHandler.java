@@ -16,17 +16,17 @@ public class GlobalExceptionHandler {
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseResult<String> handleRuntimeException(RuntimeException e, HttpServletRequest request)
+    public ResponseResult<String> handleRuntimeException(RuntimeException runtimeException, HttpServletRequest request)
     {
-        return ResponseResult.fail(e.getMessage());
+        return ResponseResult.fail(runtimeException.getMessage());
     }
 
     /**
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public ResponseResult<String> handleException(Exception e, HttpServletRequest request)
+    public ResponseResult<String> handleException(Exception exception, HttpServletRequest request)
     {
-        return ResponseResult.fail(e.getMessage());
+        return ResponseResult.fail(exception.getMessage());
     }
 }

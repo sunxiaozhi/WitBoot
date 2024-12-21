@@ -15,7 +15,6 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class UserLoginQuery extends Query {
-
     @Serial
     private static final long serialVersionUID = 5180182193190154824L;
 

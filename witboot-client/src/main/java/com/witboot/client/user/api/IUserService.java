@@ -14,7 +14,6 @@ import java.util.List;
  * @author sunxiaoizhi
  */
 public interface IUserService {
-
     /**
      * 注册用户
      *
