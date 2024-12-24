@@ -14,5 +14,5 @@ public @interface WitLog {
     /**
      * 描述
      */
-    public String description() default "";
+    String description() default "";
 }

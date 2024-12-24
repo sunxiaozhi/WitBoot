@@ -7,22 +7,22 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/login/index')
+      component: () => import('@/views/login/index.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import('@/views/about/index')
+      component: () => import('@/views/about/index.vue')
     },
     {
       path: '/elemetContainerDemo',
       name: 'elemetContainerDemo',
-      component: () => import('@/views/ElementContainerDemo')
+      component: () => import('@/views/ElementContainerDemo.vue')
     },
     {
       path: '/elemetDemo',
       name: 'elemetDemo',
-      component: () => import('@/views/ElementDemo')
+      component: () => import('@/views/ElementDemo.vue')
     }
   ]
 })
