@@ -27,7 +27,7 @@ public class DepartmentController extends BaseController {
     private IDepartmentService departmentService;
 
     @GetMapping(value = "/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "部门列表")
     @WitLog(description = "部门列表")
     public ResponseListResult list(DepartmentListByParamQuery departmentParamQuery) {
         startPage();
@@ -35,7 +35,7 @@ public class DepartmentController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete")
-    @Operation(summary = "删除")
+    @Operation(summary = "部门删除")
     @WitLog(description = "部门删除")
     public ResponseResult<Integer> delete(String[] ids) {
         return ResponseResult.success(departmentService.deleteByIds(ids));

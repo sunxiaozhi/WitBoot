@@ -30,14 +30,14 @@ public class UserController extends BaseController {
     private IUserService userService;
 
     @PostMapping(value = "/register")
-    @Operation(summary = "注册")
+    @Operation(summary = "用户注册")
     @WitLog(description = "用户注册")
     public ResponseResult<UserVO> register(@RequestBody UserRegisterCmd userRegisterCmd) {
         return ResponseResult.success(userService.register(userRegisterCmd));
     }
 
     @PostMapping(value = "/login")
-    @Operation(summary = "登录")
+    @Operation(summary = "用户登录")
     @WitLog(description = "用户登录")
     public ResponseResult<Map<String, String>> login(@RequestBody UserLoginQuery userLoginQuery) {
         String jwtToken = userService.login(userLoginQuery);
@@ -47,7 +47,7 @@ public class UserController extends BaseController {
     }
 
     @GetMapping(value = "/list")
-    @Operation(summary = "列表")
+    @Operation(summary = "用户列表")
     @WitLog(description = "用户列表")
     public ResponseListResult list(UserListByParamQuery userListByParamQuery) {
         startPage();
@@ -55,7 +55,7 @@ public class UserController extends BaseController {
     }
 
     @DeleteMapping(value = "/delete")
-    @Operation(summary = "删除")
+    @Operation(summary = "用户删除")
     @WitLog(description = "用户删除")
     public ResponseResult<Integer> delete(String[] ids) {
         return ResponseResult.success(userService.deleteByIds(ids));
