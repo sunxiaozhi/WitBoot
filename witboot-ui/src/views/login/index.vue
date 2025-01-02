@@ -34,8 +34,9 @@
     </el-row>
   </div>
   <div class="login-footer">
-    <span>Copyright © 2024 Powered by
-      <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a></span>
+    <span>
+      Copyright © 2024 Powered by <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a>
+    </span>
   </div>
 </template>
 
@@ -141,21 +142,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
   span {
     color: #4e4d4d;
 
-    a:link {
-      color: #409eff;
-      text-decoration: none;
-    }
-
-    a:visited {
-      color: #409eff;
-      text-decoration: none;
-    }
-
-    a:active {
-      color: #409eff;
-      text-decoration: none;
-    }
-
+    a:link,
+    a:visited,
+    a:active,
     a:hover {
       color: #409eff;
       text-decoration: none;

@@ -3,7 +3,8 @@
  * @param accessToken
  * @returns
  */
-export const setAccessToken = (accessToken: string) => localStorage.setItem('accessToken', accessToken)
+export const setAccessToken = (accessToken: string) =>
+  localStorage.setItem('accessToken', accessToken)
 
 /**
  * 获取accessToken
