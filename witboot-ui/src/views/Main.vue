@@ -7,7 +7,7 @@
         <el-main>
           <router-view />
         </el-main>
-         <common-footer />
+        <common-footer />
       </el-container>
     </el-container>
   </div>

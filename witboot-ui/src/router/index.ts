@@ -18,6 +18,11 @@ const router = createRouter({
       component: () => import('@/views/Main.vue'),
       children: [
         {
+          path: '/user',
+          name: 'user',
+          component: () => import('@/views/user/index.vue')
+        },
+        {
           path: '/about',
           name: 'about',
           component: () => import('@/views/about/index.vue')
