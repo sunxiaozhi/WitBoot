@@ -1,4 +1,4 @@
-import '@/assets/witboot.css'
+import '@/assets/witboot.scss'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

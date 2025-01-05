@@ -2,7 +2,7 @@
     <el-header>
         <div class="header-left">
             <el-icon :size="size" :color="color" @click="changeCollapse()">
-                <Menu />
+                <fold />
             </el-icon>
         </div>
         <div class="header-right">
@@ -24,8 +24,8 @@
 <script setup lang="ts">
 import { Menu, User } from '@element-plus/icons-vue'
 
-const size = '40px'
-const color = '#fff'
+const size = '25px'
+const color = '#333'
 
 const changeCollapse = () => {
     console.log('changeCollapse')
@@ -37,7 +37,7 @@ const changeCollapse = () => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    background-color: #00adb5;
+    height: 45px;
+    background-color: #fff;
 }
 </style>

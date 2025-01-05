@@ -10,7 +10,6 @@
 
       <el-col :span="5" class="login-form" :offset="1">
         <div class="title">
-          <!-- <img alt="witboot logo" src="@/assets/logo.svg" width="100" height="100" /> -->
           <h3>WitBoot</h3>
         </div>
 
@@ -106,7 +105,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
   justify-content: center;
   align-items: center;
   height: 90vh;
-  background-color: #eee;
 
   .witboot-info {
     display: flex;
@@ -115,7 +113,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
     h3 {
       text-indent: 2.5rem;
       line-height: 2.5rem;
-      color: #52616b;
+      color: #333;
     }
   }
 
@@ -136,11 +134,9 @@ const resetForm = (formEl: FormInstance | undefined) => {
   justify-content: center;
   align-items: center;
   height: 10vh;
-  background-color: #eee;
-  /* border-top: 1px solid #d1d9e0b3; */
 
   span {
-    color: #4e4d4d;
+    color: #333;
 
     a:link,
     a:visited,

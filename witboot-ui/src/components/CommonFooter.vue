@@ -11,12 +11,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #00adb5;
 
     span {
-        color: #FFF;
+        color: #333;
 
-        a {
+        a:link,
+        a:visited,
+        a:active,
+        a:hover {
+            color: #409eff;
             text-decoration: none;
         }
     }
