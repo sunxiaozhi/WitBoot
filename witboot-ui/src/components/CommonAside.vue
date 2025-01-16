@@ -3,7 +3,9 @@
     <h3>WitBoot</h3>
     <el-menu default-active="1" :collapse="isCollapse">
       <el-menu-item index="1">
-        <el-icon><home-filled /></el-icon>
+        <el-icon>
+          <home-filled />
+        </el-icon>
         <span>首页</span>
       </el-menu-item>
       <el-sub-menu index="2">
@@ -32,18 +34,24 @@
           <span>字典管理</span>
         </el-menu-item>
         <el-sub-menu index="2-4">
-          <template #title><el-icon>
+          <template #title>
+            <el-icon>
               <setting />
             </el-icon>
-            <span>日志管理</span></template>
-          <el-menu-item index="2-4-1"><el-icon>
+            <span>日志管理</span></template
+          >
+          <el-menu-item index="2-4-1">
+            <el-icon>
               <setting />
             </el-icon>
-            <span>操作日志</span></el-menu-item>
-          <el-menu-item index="2-4-2"><el-icon>
+            <span>操作日志</span></el-menu-item
+          >
+          <el-menu-item index="2-4-2">
+            <el-icon>
               <setting />
             </el-icon>
-            <span>登录日志</span></el-menu-item>
+            <span>登录日志</span></el-menu-item
+          >
         </el-sub-menu>
       </el-sub-menu>
       <el-menu-item index="3">
@@ -57,7 +65,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
+
 const isCollapse = ref(false)
 </script>
 

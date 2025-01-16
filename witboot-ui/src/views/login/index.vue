@@ -13,8 +13,15 @@
           <h3>WitBoot</h3>
         </div>
 
-        <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="auto" :size="formSize"
-          label-position="top" hide-required-asterisk="true">
+        <el-form
+          ref="ruleFormRef"
+          :model="ruleForm"
+          :rules="rules"
+          label-width="auto"
+          :size="formSize"
+          label-position="top"
+          hide-required-asterisk="true"
+        >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="ruleForm.username" :prefix-icon="User" />
           </el-form-item>
@@ -25,7 +32,7 @@
             <el-switch v-model="rememberMe" active-text="记住我" />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm(ruleFormRef)"> 登录 </el-button>
+            <el-button type="primary" @click="submitForm(ruleFormRef)"> 登录</el-button>
             <!-- <el-button @click="resetForm(ruleFormRef)">重置</el-button> -->
           </el-form-item>
         </el-form>
@@ -34,7 +41,8 @@
   </div>
   <div class="login-footer">
     <span>
-      Copyright © 2024 Powered by <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a>
+      Copyright © 2024 Powered by
+      <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a>
     </span>
   </div>
 </template>

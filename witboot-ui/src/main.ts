@@ -2,7 +2,6 @@ import '@/assets/witboot.scss'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { devtools } from '@vue/devtools'
 
 import App from '@/App.vue'
 import router from '@/router'
@@ -10,10 +9,6 @@ import router from '@/router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-// if (process.env.NODE_ENV === 'development') {
-//   devtools.connect('http://localhost', 8098)
-// }
 
 const app = createApp(App)
 
