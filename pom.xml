@@ -21,12 +21,11 @@
         <common-io.version>2.7</common-io.version>
         <druid.version>1.2.18</druid.version>
         <pagehelper.version>1.4.7</pagehelper.version>
-        <mybatis.version>3.0.0</mybatis.version>
-        <cola.components.version>4.0.0</cola.components.version>
+        <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
+        <cola.version>4.0.0</cola.version>
         <validation-api.version>2.0.0.Final</validation-api.version>
         <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
-
-        <jjwt-api.version>0.11.5</jjwt-api.version>
+        <jjwt.version>0.11.5</jjwt.version>
         <knife4j-openapi3-jakarta-spring-boot-starter.version>4.5.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
         <hutool.version>5.8.26</hutool.version>
     </properties>
@@ -42,28 +41,28 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--COLA Components-->
+            <!--COLA-->
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-domain-starter</artifactId>
-                <version>${cola.components.version}</version>
+                <version>${cola.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-exception</artifactId>
-                <version>${cola.components.version}</version>
+                <version>${cola.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-dto</artifactId>
-                <version>${cola.components.version}</version>
+                <version>${cola.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cola</groupId>
                 <artifactId>cola-component-catchlog-starter</artifactId>
-                <version>${cola.components.version}</version>
+                <version>${cola.version}</version>
             </dependency>
-            <!--COLA Components End-->
+            <!--COLA End-->
 
             <dependency>
                 <groupId>com.taobao.arthas</groupId>
@@ -81,7 +80,7 @@
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.version}</version>
+                <version>${mybatis-spring-boot-starter.version}</version>
                 <type>jar</type>
             </dependency>
 
@@ -96,6 +95,55 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!--Validation API-->
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.validator</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
+            <!--Validation API -->
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <!-- JWT -->
+
+            <!-- API文档-swagger -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
+                <type>pom</type>
+            </dependency>
+            <!-- API文档-swagger -->
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
             <dependency>
@@ -126,53 +174,6 @@
                 <groupId>com.witboot</groupId>
                 <artifactId>witboot-infrastructure</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-
-            <!--Validation API-->
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${validation-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.hibernate.validator</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
-            </dependency>
-            <!--Validation API End -->
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-api</artifactId>
-                <version>${jjwt-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-impl</artifactId>
-                <version>${jjwt-api.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt-jackson</artifactId>
-                <version>${jjwt-api.version}</version>
-            </dependency>
-
-            <!-- API文档-swagger -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
-                <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
-                <type>pom</type>
-            </dependency>
-            <!-- API文档-swagger -->
-
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
