@@ -19,7 +19,7 @@
         <spring-boot.version>3.0.6</spring-boot.version>
         <arthas.version>3.4.8</arthas.version>
         <common-io.version>2.7</common-io.version>
-        <druid.version>1.2.18</druid.version>
+        <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
         <pagehelper.version>1.4.7</pagehelper.version>
         <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
         <cola.version>4.0.0</cola.version>
@@ -94,7 +94,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
+                <version>${druid-spring-boot-starter.version}</version>
             </dependency>
 
             <!--Validation API-->
