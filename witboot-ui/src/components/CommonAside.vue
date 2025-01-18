@@ -38,20 +38,20 @@
             <el-icon>
               <setting />
             </el-icon>
-            <span>日志管理</span></template
-          >
+            <span>日志管理</span>
+          </template>
           <el-menu-item index="2-4-1">
             <el-icon>
               <setting />
             </el-icon>
-            <span>操作日志</span></el-menu-item
-          >
+            <span>操作日志</span>
+          </el-menu-item>
           <el-menu-item index="2-4-2">
             <el-icon>
               <setting />
             </el-icon>
-            <span>登录日志</span></el-menu-item
-          >
+            <span>登录日志</span>
+          </el-menu-item>
         </el-sub-menu>
       </el-sub-menu>
       <el-menu-item index="3">

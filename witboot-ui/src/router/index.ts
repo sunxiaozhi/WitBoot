@@ -14,7 +14,7 @@ const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('@/views/Main.vue'),
+      component: () => import('@/layouts/Main.vue'),
       children: [
         {
           path: '/user',
