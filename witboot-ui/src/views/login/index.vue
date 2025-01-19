@@ -20,7 +20,7 @@
           label-width="auto"
           :size="formSize"
           label-position="top"
-          hide-required-asterisk="true"
+          hide-required-asterisk
         >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="ruleForm.username" :prefix-icon="User" />
