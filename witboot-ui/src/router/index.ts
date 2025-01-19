@@ -17,9 +17,34 @@ const router = createRouter({
       component: () => import('@/layouts/Main.vue'),
       children: [
         {
+          path: '/home',
+          name: 'home',
+          component: () => import('@/views/home/index.vue')
+        },
+        {
           path: '/user',
           name: 'user',
           component: () => import('@/views/user/index.vue')
+        },
+        {
+          path: '/department',
+          name: 'department',
+          component: () => import('@/views/department/index.vue')
+        },
+        {
+          path: '/dictionary',
+          name: 'dictionary',
+          component: () => import('@/views/dictionary/index.vue')
+        },
+        {
+          path: '/loginLog',
+          name: 'loginLog',
+          component: () => import('@/views/login-log/index.vue')
+        },
+        {
+          path: '/operationLog',
+          name: 'operationLog',
+          component: () => import('@/views/operation-log/index.vue')
         },
         {
           path: '/about',

@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { login } from '@/api/user'
 import { setAccessToken } from '@/utils/auth'
 import { useRouter } from 'vue-router'
@@ -92,7 +92,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         let accessToken = res.accessToken
         setAccessToken(accessToken)
 
-        router.push('/about')
+        router.push('/home')
       })
       console.log('submit!')
     } else {

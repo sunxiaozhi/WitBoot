@@ -1,62 +1,62 @@
 <template>
   <el-aside width="200px">
     <h3>WitBoot</h3>
-    <el-menu default-active="1" :collapse="isCollapse">
-      <el-menu-item index="1">
+    <el-menu default-active="1" :collapse="isCollapse" :router="true">
+      <el-menu-item index="/home">
         <el-icon>
-          <home-filled />
+          <HomeFilled />
         </el-icon>
         <span>首页</span>
       </el-menu-item>
       <el-sub-menu index="2">
         <template #title>
           <el-icon>
-            <setting />
+            <Setting />
           </el-icon>
           <span>系统管理</span>
         </template>
-        <el-menu-item index="2-1">
+        <el-menu-item index="/user">
           <el-icon>
-            <user />
+            <User />
           </el-icon>
           <span>人员管理</span>
         </el-menu-item>
-        <el-menu-item index="2-2">
+        <el-menu-item index="/department">
           <el-icon>
-            <setting />
+            <List />
           </el-icon>
           <span>部门管理</span>
         </el-menu-item>
-        <el-menu-item index="2-3">
+        <el-menu-item index="/dictionary">
           <el-icon>
-            <setting />
+            <Tickets />
           </el-icon>
           <span>字典管理</span>
         </el-menu-item>
         <el-sub-menu index="2-4">
           <template #title>
             <el-icon>
-              <setting />
+              <Memo />
             </el-icon>
             <span>日志管理</span>
           </template>
-          <el-menu-item index="2-4-1">
+          <el-menu-item index="/operationLog">
             <el-icon>
-              <setting />
+              <Document />
             </el-icon>
             <span>操作日志</span>
           </el-menu-item>
-          <el-menu-item index="2-4-2">
+          <el-menu-item index="/loginLog">
             <el-icon>
-              <setting />
+              <Reading />
             </el-icon>
             <span>登录日志</span>
           </el-menu-item>
         </el-sub-menu>
       </el-sub-menu>
-      <el-menu-item index="3">
+      <el-menu-item index="/about">
         <el-icon>
-          <info-filled />
+          <InfoFilled />
         </el-icon>
         <span>关于系统</span>
       </el-menu-item>
