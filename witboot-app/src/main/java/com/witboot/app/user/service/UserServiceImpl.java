@@ -1,14 +1,14 @@
 package com.witboot.app.user.service;
 
 import com.witboot.app.user.executor.command.UserDeleteCmdExe;
-import com.witboot.app.user.executor.command.UserModifyCmdExe;
 import com.witboot.app.user.executor.command.UserRegisterCmdExe;
+import com.witboot.app.user.executor.command.UserUpdateCmdExe;
 import com.witboot.app.user.executor.query.UserInfoQueryExe;
 import com.witboot.app.user.executor.query.UserListByParamQueryExe;
 import com.witboot.app.user.executor.query.UserLoginQueryExe;
 import com.witboot.client.user.api.IUserService;
-import com.witboot.client.user.dto.UserModifyCmd;
 import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
     private UserRegisterCmdExe userRegisterCmdExe;
 
     @Autowired
-    private UserModifyCmdExe userModifyCmdExe;
+    private UserUpdateCmdExe userUpdateCmdExe;
 
     @Autowired
     private UserLoginQueryExe userLoginQueryExe;
@@ -51,8 +51,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserVO modify(UserModifyCmd cmd) {
-        return userModifyCmdExe.execute(cmd);
+    public UserVO update(UserUpdateCmd userUpdateCmd) {
+        return userUpdateCmdExe.execute(userUpdateCmd);
     }
 
     @Override
@@ -72,11 +72,12 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * 用户删除
+     *
      * @param ids ids
      * @return 删除数量
      */
     @Override
-    public int deleteByIds(String[] ids){
+    public int deleteByIds(String[] ids) {
         return userDeleteCmdExe.execute(ids);
     }
 }

@@ -1,4 +1,4 @@
-package com.witboot.domain.operationLog.model;
+package com.witboot.domain.operationlog.model;
 
 import lombok.Data;
 

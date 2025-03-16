@@ -1,4 +1,4 @@
-package com.witboot.client.user.dto;
+package com.witboot.client.menu.dto;
 
 import com.alibaba.cola.dto.Command;
 import lombok.Data;
@@ -14,12 +14,12 @@ import java.time.LocalDate;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class UserModifyCmd extends Command {
+public class MenuUpdateCmd extends Command {
 
     @Serial
     private static final long serialVersionUID = 2484506238493820565L;
 
-    public UserModifyCmd(Long id, String username) {
+    public MenuUpdateCmd(Long id, String username) {
         this.id = id;
         this.username = username;
     }

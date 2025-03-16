@@ -1,4 +1,4 @@
-package com.witboot.domain.department.model;
+package com.witboot.domain.menu.model;
 
 import lombok.Data;
 
@@ -14,7 +14,7 @@ import java.util.Date;
  * @author sunxiaoizhi
  */
 @Data
-public class DepartmentEntity implements Serializable {
+public class MenuEntity implements Serializable {
     /**
      * 编码
      */

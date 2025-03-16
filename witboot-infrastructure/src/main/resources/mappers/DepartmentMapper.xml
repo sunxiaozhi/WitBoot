@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.witboot.infrastructure.gateway.impl.database.mapper.DepartmentMapper">
-
     <resultMap id="departmentDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.DepartmentDO">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
@@ -17,6 +16,32 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
+    <insert id="insert">
+        INSERT INTO wb_department
+        (id, name, parent_id, creator, modifier, delete_flag, create_time, update_time)
+        VALUES
+        (#{id}, #{name}, #{parentId}, #{creator}, #{modifier}, #{deleteFlag}, sysdate(), sysdate())
+    </insert>
+
+    <update id="update">
+        UPDATE wb_department
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            update_time = sysdate()
+       </set>
+    </update>
+
     <select id="selectByParam" resultMap="departmentDOMap">
         SELECT id, name, parent_id
         FROM wb_department
@@ -29,7 +54,7 @@
     </select>
 
     <select id="selectById" resultMap="departmentDOMap">
-        SELECT id, name, parentId
+        SELECT id, name, parent_id
         FROM wb_department
         WHERE id = #{id}
           AND delete_flag = 1

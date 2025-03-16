@@ -8,7 +8,7 @@ import com.witboot.infrastructure.common.response.ResponseListResult;
 import com.witboot.infrastructure.common.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("department/")
 @Tag(name = "部门接口")
 public class DepartmentController extends BaseController {
-    @Autowired
+    @Resource
     private IDepartmentService departmentService;
 
     @GetMapping(value = "/list")

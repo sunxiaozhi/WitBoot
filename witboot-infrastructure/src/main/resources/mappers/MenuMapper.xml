@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.witboot.infrastructure.gateway.impl.database.mapper.MenuMapper">
+    <resultMap id="menuDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.MenuDO">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="deleteFlag" column="delete_flag"/>
+        <result property="creator" column="creator"/>
+        <result property="modifier" column="modifier"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="insert">
+        INSERT INTO wb_menu
+        (id, name, parent_id, creator, modifier, delete_flag, create_time, update_time)
+        VALUES
+        (#{id}, #{name}, #{parentId}, #{creator}, #{modifier}, #{deleteFlag}, sysdate(), sysdate())
+    </insert>
+
+    <update id="update">
+        UPDATE wb_menu
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="modifier != null">
+                modifier = #{modifier},
+            </if>
+            <if test="deleteFlag != null">
+                delete_flag = #{deleteFlag},
+            </if>
+            update_time = sysdate()
+        </set>
+    </update>
+
+    <select id="selectByParam" resultMap="menuDOMap">
+        SELECT id, name, parent_id
+        FROM wb_menu
+        <where>
+            <if test="name != null and name != ''">
+                name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            AND delete_flag = 1
+        </where>
+    </select>
+
+    <select id="selectById" resultMap="menuDOMap">
+        SELECT id, name, parent_id
+        FROM wb_menu
+        WHERE id = #{id}
+          AND delete_flag = 1
+    </select>
+
+    <select id="existByMenuName" resultType="java.lang.Boolean">
+        SELECT count(*)
+        FROM wb_menu
+        <where>
+            name = #{menuName}
+            <if test="menuId != null">
+                AND id &lt;&gt; #{menuId}
+            </if>
+            <if test="parentId != null">
+                AND parent_id = #{parentId}
+            </if>
+            AND delete_flag = 1
+        </where>
+    </select>
+
+    <delete id="deleteByIds">
+        DELETE FROM wb_menu WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,6 +1,6 @@
 package com.witboot.client.user.api;
 
-import com.witboot.client.user.dto.UserModifyCmd;
+import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
@@ -25,10 +25,10 @@ public interface IUserService {
     /**
      * 用户信息修改
      *
-     * @param userModifyCmd 用户信息修改请求
+     * @param userUpdateCmd 用户信息修改请求
      * @return Response
      */
-    UserVO modify(UserModifyCmd userModifyCmd);
+    UserVO update(UserUpdateCmd userUpdateCmd);
 
     /**
      * 用户登录
@@ -48,6 +48,7 @@ public interface IUserService {
 
     /**
      * 根据用户名称查询
+     *
      *
      * @param userListByParamQuery 用户查询请求
      * @return MultiResponse

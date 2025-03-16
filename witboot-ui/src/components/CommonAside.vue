@@ -1,7 +1,7 @@
 <template>
   <el-aside width="200px">
     <h3>WitBoot</h3>
-    <el-menu default-active="1" :collapse="isCollapse" :router="true">
+    <el-menu default-active="/home" :collapse="isCollapse" :router="true">
       <el-menu-item index="/home">
         <el-icon>
           <HomeFilled />

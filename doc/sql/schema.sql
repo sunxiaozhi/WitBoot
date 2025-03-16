@@ -30,7 +30,20 @@ CREATE TABLE `wb_department` (
     `create_time` datetime DEFAULT NULL COMMENT '创建时间',
     `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '组织架构表';
+
+DROP TABLE IF EXISTS `wb_menu`;
+CREATE TABLE `wb_menu` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编码',
+    `name` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
+    `parent_id` bigint(20) NOT NULL COMMENT '上级id',
+    `delete_flag` tinyint(1) NOT NULL DEFAULT '1' COMMENT '删除标识 0已删除 1正常',
+    `creator` varchar(255) NOT NULL DEFAULT '' COMMENT '创建人',
+    `modifier` varchar(255) NOT NULL DEFAULT '' COMMENT '修改人',
+    `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '菜单表';
 
 DROP TABLE IF EXISTS `wb_operation_log`;
 CREATE TABLE `wb_operation_log` (
@@ -45,4 +58,4 @@ CREATE TABLE `wb_operation_log` (
     `response_result` varchar(1000) NOT NULL DEFAULT '' COMMENT '响应内容',
     `create_time` datetime DEFAULT NULL COMMENT '创建时间',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '操作记录表';

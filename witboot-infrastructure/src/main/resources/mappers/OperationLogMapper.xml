@@ -4,9 +4,23 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.witboot.infrastructure.gateway.impl.database.mapper.OperationLogMapper">
 
-    <resultMap id="userDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDo">
+    <resultMap id="operationLogDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO">
         <result property="id" column="id"/>
     </resultMap>
+
+    <select id="selectById" resultMap="operationLogDOMap">
+        SELECT * FROM wb_operation_log WHERE id = #{id}
+    </select>
+
+    <select id="selectByParam" resultMap="operationLogDOMap">
+        SELECT * FROM wb_operation_log
+        <where>
+            <if test="ip != null and ip != ''">
+                AND ip = #{ip}
+            </if>
+        </where>
+    </select>
+
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_operation_log
