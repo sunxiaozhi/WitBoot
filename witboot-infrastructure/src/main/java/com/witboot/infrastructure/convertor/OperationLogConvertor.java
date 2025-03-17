@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.convertor;
 
-import com.witboot.domain.operationLog.model.OperationLogEntity;
-import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDo;
+import com.witboot.domain.operationlog.model.OperationLogEntity;
+import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO;
 
 /**
  * OperationLogConvertor DO <---> Entity
@@ -9,7 +9,7 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogD
  * @author sunxiaoizhi
  */
 public class OperationLogConvertor {
-    public static OperationLogEntity toEntity(OperationLogDo operationLogDo) {
+    public static OperationLogEntity toEntity(OperationLogDO operationLogDo) {
         OperationLogEntity operationLogEntity = new OperationLogEntity();
         operationLogEntity.setId(operationLogDo.getId());
         operationLogEntity.setIp(operationLogDo.getIp());
@@ -24,8 +24,8 @@ public class OperationLogConvertor {
         return operationLogEntity;
     }
 
-    public static OperationLogDo toAddOperationLogDo(OperationLogEntity operationLogEntity) {
-        OperationLogDo operationLogDo = new OperationLogDo();
+    public static OperationLogDO toAddOperationLogDo(OperationLogEntity operationLogEntity) {
+        OperationLogDO operationLogDo = new OperationLogDO();
         operationLogDo.setIp(operationLogEntity.getIp());
         operationLogDo.setLocation(operationLogEntity.getLocation());
         operationLogDo.setUri(operationLogEntity.getUri());

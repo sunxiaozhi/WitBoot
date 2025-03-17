@@ -5,22 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * DepartmentModifyCmdExe
+ * DepartmentRegisterCmdExe
  *
  * @author sunxiaoizhi
  */
 @Component
-public class DepartmentModifyCmdExe {
+public class DepartmentAddCmdExe {
+
     @Autowired
     private DepartmentGateway departmentGateway;
 
-//    public DepartmentVO execute(DepartmentModifyCmd departmentModifyCmd) {
+//    public DepartmentVO execute(DepartmentRegisterCmd departmentRegisterCmd) {
 //        // check 用户名是否重复
-//        if (departmentGateway.checkByDepartmentname(departmentModifyCmd.getId(), departmentModifyCmd.getDepartmentname())) {
+//        if (departmentGateway.checkByDepartmentname(null, departmentRegisterCmd.getDepartmentname())) {
 //            throw new WitBootBizException(ErrorCode.B_USER_USERNAME_REPEAT);
 //        }
 //
-//        DepartmentEntity departmentEntity = departmentGateway.save(DepartmentAssembler.toEntity(departmentModifyCmd));
+//        DepartmentEntity departmentEntity = departmentGateway.save(DepartmentAssembler.toEntity(departmentRegisterCmd));
+//
 //        return DepartmentAssembler.toValueObject(departmentEntity);
 //    }
 }

@@ -1,6 +1,6 @@
 package com.witboot.app.user.assembler;
 
-import com.witboot.client.user.dto.UserModifyCmd;
+import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.domain.user.model.UserEntity;
@@ -26,15 +26,15 @@ public class UserAssembler {
         return userEntity;
     }
 
-    public static UserEntity toEntity(UserModifyCmd userModifyCmd) {
+    public static UserEntity toEntity(UserUpdateCmd userUpdateCmd) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(userModifyCmd.getId());
-        userEntity.setUsername(userModifyCmd.getUsername());
-        userEntity.setName(userModifyCmd.getName());
-        userEntity.setMobile(userModifyCmd.getPhoneNo());
-        userEntity.setGender(userModifyCmd.getGender());
-        userEntity.setBirthday(userModifyCmd.getBirthday());
-        userEntity.setDescription(userModifyCmd.getDescription());
+        userEntity.setId(userUpdateCmd.getId());
+        userEntity.setUsername(userUpdateCmd.getUsername());
+        userEntity.setName(userUpdateCmd.getName());
+        userEntity.setMobile(userUpdateCmd.getPhoneNo());
+        userEntity.setGender(userUpdateCmd.getGender());
+        userEntity.setBirthday(userUpdateCmd.getBirthday());
+        userEntity.setDescription(userUpdateCmd.getDescription());
 
         return userEntity;
     }

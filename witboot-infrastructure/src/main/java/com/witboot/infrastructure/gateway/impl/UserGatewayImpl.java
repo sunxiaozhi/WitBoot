@@ -155,7 +155,7 @@ public class UserGatewayImpl implements UserGateway {
      * @return 删除
      */
     @Override
-    public int deleteByIds(String[] ids){
+    public int deleteByIds(String[] ids) {
         return userMapper.deleteByIds(ids);
     }
 }

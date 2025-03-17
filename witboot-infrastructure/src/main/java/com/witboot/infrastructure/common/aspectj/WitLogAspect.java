@@ -2,8 +2,8 @@ package com.witboot.infrastructure.common.aspectj;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.witboot.domain.operationLog.gateway.OperationLogGateway;
-import com.witboot.domain.operationLog.model.OperationLogEntity;
+import com.witboot.domain.operationlog.gateway.OperationLogGateway;
+import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.infrastructure.common.annotation.WitLog;
 import com.witboot.infrastructure.common.utils.BeanUtils;
 import com.witboot.infrastructure.common.utils.JakartaServletUtil;

@@ -8,7 +8,7 @@ import lombok.Data;
  * @author sunxiaoizhi
  */
 @Data
-public class OperationLogDo {
+public class OperationLogDO {
     /**
      * id
      */

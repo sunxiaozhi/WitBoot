@@ -20,7 +20,7 @@ public interface DepartmentMapper {
      * @param departmentDO 用户实体
      * @return 结果
      */
-//    int insert(DepartmentDO departmentDO);
+    int insert(DepartmentDO departmentDO);
 
     /**
      * 更新
@@ -28,7 +28,7 @@ public interface DepartmentMapper {
      * @param departmentDO 用户实体
      * @return 结果
      */
-//    int update(DepartmentDO departmentDO);
+    int update(DepartmentDO departmentDO);
 
     /**
      * 通过id查询
