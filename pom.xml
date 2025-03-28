@@ -23,7 +23,7 @@
         <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
         <pagehelper.version>1.4.7</pagehelper.version>
         <mybatis-spring-boot-starter.version>3.0.4</mybatis-spring-boot-starter.version>
-        <cola.version>4.0.0</cola.version>
+        <cola.version>5.0.0</cola.version>
         <validation-api.version>2.0.0.Final</validation-api.version>
         <hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
         <jjwt.version>0.11.5</jjwt.version>
