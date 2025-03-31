@@ -31,15 +31,17 @@ public class MenuGatewayImpl implements MenuGateway {
     private MenuMapper menuMapper;
 
     @Override
-    public List<MenuEntity> findByParam(MenuListByParamQuery query) {
+    public List<MenuEntity> findByParam(MenuListByParamQuery menuListByParamQuery) {
         List<MenuEntity> menuEntityList = new ArrayList<>();
 
-        List<MenuDO> menuDOList = menuMapper.selectByParam(query);
+        List<MenuDO> menuDOList = menuMapper.selectByParam(menuListByParamQuery);
 
         new PageInfo<>(menuDOList).getTotal();
+
         menuDOList.forEach(menuDO -> {
             menuEntityList.add(MenuConvertor.toEntity(menuDO));
         });
+
         return menuEntityList;
     }
 

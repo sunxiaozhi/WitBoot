@@ -2,7 +2,7 @@ package com.witboot.client.menu.dto.data;
 
 import lombok.Data;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * User VO
@@ -12,37 +12,42 @@ import java.time.LocalDate;
 @Data
 public class MenuVO {
     /**
-     * id
+     * 编码
      */
     private Long id;
 
     /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 姓名
+     * 名称
      */
     private String name;
 
     /**
-     * 手机号（可用手机号登录）
+     * 上级id
      */
-    private String mobile;
+    private Long parentId;
 
     /**
-     * 性别
+     * 删除标识 0已删除 1正常
      */
-    private Integer gender;
+    private Integer deleteFlag;
 
     /**
-     * 生日
+     * 创建人
      */
-    private LocalDate birthday;
+    private String creator;
 
     /**
-     * 描述
+     * 修改人
      */
-    private String description;
+    private String modifier;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
 }

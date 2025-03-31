@@ -19,5 +19,8 @@ public class MenuListByParamQuery extends Query {
     @Serial
     private static final long serialVersionUID = -2794036665910524477L;
 
+    /**
+     * 菜单名称
+     */
     private String name;
 }

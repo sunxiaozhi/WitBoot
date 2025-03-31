@@ -1,6 +1,6 @@
 # WitBoot
 
-> 本项目结合Spring Boot3.0.6和COLA 4.0（整洁面向对象分层架构）实现。
+> 本项目结合Spring Boot3.4.4和COLA 5.0.0（整洁面向对象分层架构）实现。
 
 ## 项目架构图
 ![项目架构图](doc/image/架构.png)

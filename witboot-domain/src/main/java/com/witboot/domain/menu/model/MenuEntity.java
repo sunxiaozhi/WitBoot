@@ -19,7 +19,6 @@ public class MenuEntity implements Serializable {
      * 编码
      */
     @NotNull(message = "[编码]不能为空")
-    //@ApiModelProperty("编码")
     private Long id;
 
     /**
@@ -27,22 +26,18 @@ public class MenuEntity implements Serializable {
      */
     @NotBlank(message = "[名称]不能为空")
     @Size(max = 100, message = "编码长度不能超过100")
-    //@ApiModelProperty("名称")
-    //@Length(max= 100,message="编码长度不能超过100")
     private String name;
 
     /**
      * 上级id
      */
     @NotNull(message = "[上级id]不能为空")
-    //@ApiModelProperty("上级id")
     private Long parentId;
 
     /**
      * 删除标识 0已删除 1正常
      */
     @NotNull(message = "[删除标识 0已删除 1正常]不能为空")
-    //@ApiModelProperty("删除标识 0已删除 1正常")
     private Integer deleteFlag;
 
     /**
@@ -50,8 +45,6 @@ public class MenuEntity implements Serializable {
      */
     @NotBlank(message = "[创建人]不能为空")
     @Size(max = 255, message = "编码长度不能超过255")
-    //@ApiModelProperty("创建人")
-    //@Length(max= 255,message="编码长度不能超过255")
     private String creator;
 
     /**
@@ -59,19 +52,15 @@ public class MenuEntity implements Serializable {
      */
     @NotBlank(message = "[修改人]不能为空")
     @Size(max = 255, message = "编码长度不能超过255")
-    //@ApiModelProperty("修改人")
-    //@Length(max= 255,message="编码长度不能超过255")
     private String modifier;
 
     /**
      * 创建时间
      */
-    //@ApiModelProperty("创建时间")
     private Date createTime;
 
     /**
      * 更新时间
      */
-    //@ApiModelProperty("更新时间")
     private Date updateTime;
 }
