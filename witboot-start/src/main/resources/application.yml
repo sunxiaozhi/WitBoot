@@ -3,7 +3,7 @@ spring:
     active: prod
   application:
     name: WitBoot
-    version: 0.0.1
+    version: @project.version@
 
 logging:
   config: classpath:log4j2-spring.xml
