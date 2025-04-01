@@ -71,7 +71,7 @@ public class MenuGatewayImpl implements MenuGateway {
         }
 
         // 修改
-        return modifyMenu(menuEntity);
+        return updateMenu(menuEntity);
     }
 
     /**
@@ -92,7 +92,7 @@ public class MenuGatewayImpl implements MenuGateway {
     /**
      * 修改菜单
      */
-    private MenuEntity modifyMenu(MenuEntity menuEntity) {
+    private MenuEntity updateMenu(MenuEntity menuEntity) {
         Optional<MenuDO> findById = menuMapper.selectById(menuEntity.getId());
         if (findById.isEmpty()) {
             throw new WitBootBizException(MenuErrorCode.B_MENU_UNDEFINED);

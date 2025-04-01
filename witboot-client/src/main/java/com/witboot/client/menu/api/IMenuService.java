@@ -14,9 +14,17 @@ import java.util.List;
  */
 public interface IMenuService {
     /**
+     * 菜单列表
+     *
+     * @param menuListByParamQuery 菜单查询请求
+     * @return MultiResponse
+     */
+    List<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery);
+
+    /**
      * 新增菜单
      *
-     * @param menuAddCmd 菜单注册请求
+     * @param menuAddCmd 菜单新增请求
      * @return Response
      */
     MenuVO add(MenuAddCmd menuAddCmd);
@@ -36,14 +44,6 @@ public interface IMenuService {
      * @return 菜单信息
      */
     MenuVO getMenuInfo(Long id);
-
-    /**
-     * 根据菜单名称查询
-     *
-     * @param menuListByParamQuery 菜单查询请求
-     * @return MultiResponse
-     */
-    List<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery);
 
     /**
      * 菜单删除

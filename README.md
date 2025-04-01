@@ -60,15 +60,16 @@
 ## 开发规范
 
 ### 方法名约定
-| CRUD操作 | 方法名约定                                       |
-|-------|---------------------------------------------|
-| 新增    | insert                                      |
-| 删除    | remove（App和Domain层），delete（Infrastructure层） |
-| 修改    | update                                      |
+| CRUD操作   | 方法名约定                                       |
+|----------|---------------------------------------------|
+| 新增       | insert                                      |
+| 删除       | remove（App和Domain层），delete（Infrastructure层） |
+| 修改       | update                                      |
 | 查询（单个结果） | get                                         |
 | 查询（多个结果） | list                                        |
-| 分页查询  | page                                        |
-| 统计    | count                                       |
+| 分页查询     | page                                        |
+| 统计       | count                                       |
+| xxx参数查询     | xxxParamQuery                                  |
 
 ### 命名规范
 |规范|用途|解释|
