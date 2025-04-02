@@ -1,5 +1,5 @@
 <template>
-  <el-aside width="200px">
+  <el-aside width="{isCollapse} ? 200px : 64px">
     <h3>WitBoot</h3>
     <el-menu default-active="/home" :collapse="isCollapse" :router="true">
       <el-menu-item index="/home">
@@ -65,9 +65,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import {useMenuStore} from '@/stores/menuStore'
+import {storeToRefs} from 'pinia'
 
-const isCollapse = ref(false)
+const menuStore = useMenuStore()
+const { isCollapse } = storeToRefs(menuStore)
 </script>
 
 <style lang="scss" scoped>

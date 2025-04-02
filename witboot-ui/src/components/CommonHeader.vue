@@ -22,11 +22,16 @@
 </template>
 
 <script setup lang="ts">
+import { useMenuStore } from '@/stores/menuStore'
+
 const size = '25px'
 const color = '#333'
 
+const menuStore = useMenuStore()
+const { toggleCollapse } = menuStore
+
 const changeCollapse = () => {
-  console.log('changeCollapse')
+  toggleCollapse()
 }
 </script>
 
