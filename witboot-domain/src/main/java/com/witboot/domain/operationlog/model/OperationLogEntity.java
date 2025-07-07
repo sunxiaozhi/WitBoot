@@ -35,6 +35,11 @@ public class OperationLogEntity {
     private String uri;
 
     /**
+     * 请求时间
+     */
+    private String requestTime;
+
+    /**
      * 耗费时间
      */
     private long wasteTime;

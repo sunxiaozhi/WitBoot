@@ -20,11 +20,6 @@ public class OperationLogAddCmdExe {
     private OperationLogGateway operationlogGateway;
 
     public OperationLogVO execute(OperationLogAddCmd operationLogAddCmd) {
-        // check 用户名是否重复
-        /*if (operationlogGateway.checkByOperationLogName(null, operationLogAddCmd.getOperationLogName())) {
-            throw new WitBootBizException(OperationLogErrorCode.B_USER_USERNAME_REPEAT);
-        }*/
-
         OperationLogEntity operationlogEntity = operationlogGateway.save(OperationLogAssembler.toEntity(operationLogAddCmd));
 
         return OperationLogAssembler.toValueObject(operationlogEntity);

@@ -1,7 +1,7 @@
-import axios, { type Method, type InternalAxiosRequestConfig, type AxiosResponse } from 'axios'
-import { getAccessToken, clearAccessToken } from './auth'
+import axios, { type AxiosResponse, type InternalAxiosRequestConfig, type Method } from 'axios'
+import { clearAccessToken, getAccessToken } from './auth'
 import { TOKEN_ERROR_CODE } from './responseCode'
-import type { ResponseDataType, requestConfigType } from './request.d'
+import type { requestConfigType, ResponseDataType } from './request.d'
 import { ElMessage } from 'element-plus'
 
 const instance = axios.create({
@@ -55,7 +55,7 @@ function responseSuccess(response: AxiosResponse<ResponseDataType>) {
 function request(url: string, data: any, config: any, method: Method): any {
   /* 去空 */
   for (const key in data) {
-    if (data[key] === null || data[key] === undefined) {
+    if (data[key] === null || data[key] === undefined) { 
       delete data[key]
     }
   }

@@ -8,7 +8,7 @@ import lombok.Data;
  * @author sunxiaoizhi
  */
 @Data
-public class OperationLogDO {
+public class  OperationLogDO {
     /**
      * id
      */
@@ -33,6 +33,11 @@ public class OperationLogDO {
      * uri
      */
     private String uri;
+
+    /**
+     * 请求时间
+     */
+    private String requestTime;
 
     /**
      * 耗费时间

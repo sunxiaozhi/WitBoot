@@ -1,7 +1,6 @@
 <template>
   <el-footer>
-    <span
-      >Copyright © 2024 Powered by
+    <span>Copyright © 2024 Powered by
       <a href="https://github.com/sunxiaozhi" target="_blank">sunxiaozhi</a>
     </span>
   </el-footer>

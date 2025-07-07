@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("user/")
-@Tag(name = "用户接口")
+@Tag(name = "用户")
 public class UserController extends BaseController {
     @Autowired
     private IUserService userService;

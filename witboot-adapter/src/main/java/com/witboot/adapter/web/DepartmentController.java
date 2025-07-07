@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("department/")
-@Tag(name = "部门接口")
+@Tag(name = "部门")
 public class DepartmentController extends BaseController {
     @Resource
     private IDepartmentService departmentService;

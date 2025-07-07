@@ -1,5 +1,6 @@
 package com.witboot.infrastructure.common.aspectj;
 
+import cn.hutool.core.date.DateUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
@@ -56,6 +57,8 @@ public class WitLogAspect {
             operationLogEntity.setMethod(httpServletRequest.getMethod());
 
             operationLogEntity.setUri(httpServletRequest.getRequestURI());
+
+            operationLogEntity.setRequestTime(DateUtil.now());
 
             operationLogEntity.setWasteTime(System.currentTimeMillis() - WASTE_TIME_THREADLOCAL.get());
 

@@ -8,23 +8,23 @@
         <result property="id" column="id"/>
     </resultMap>
 
-    <select id="selectById" resultMap="operationLogDOMap">
-        SELECT * FROM wb_operation_log WHERE id = #{id}
-    </select>
-
     <select id="selectByParam" resultMap="operationLogDOMap">
         SELECT * FROM wb_operation_log
         <where>
             <if test="ip != null and ip != ''">
-                AND ip = #{ip}
+                ip = #{ip}
             </if>
         </where>
+        ORDER BY request_time DESC
     </select>
 
+    <select id="selectById" resultMap="operationLogDOMap">
+        SELECT * FROM wb_operation_log WHERE id = #{id}
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_operation_log
-        (ip, location, method, uri, waste_time, request_param, request_body, response_result, create_time)
-        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{wasteTime}, #{requestParam}, #{requestBody}, #{responseResult}, sysdate())
+        (ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result)
+        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{requestTime}, #{wasteTime}, #{requestParam}, #{requestBody}, #{responseResult})
     </insert>
 </mapper>
