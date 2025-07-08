@@ -54,8 +54,8 @@ CREATE TABLE `wb_operation_log` (
     `method` varchar(20) NOT NULL DEFAULT '' COMMENT '请求方式',
     `request_time` datetime DEFAULT NULL COMMENT '请求时间',
     `waste_time` int(8) NOT NULL DEFAULT '0' COMMENT '耗费时间',
-    `request_param` text COMMENT '请求参数',
-    `request_body` text COMMENT '请求内容',
-    `response_result` text COMMENT '响应内容',
+    `request_param` text NULL COMMENT '请求参数',
+    `request_body` text NULL COMMENT '请求内容',
+    `response_result` text NULL COMMENT '响应内容',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '操作记录表';

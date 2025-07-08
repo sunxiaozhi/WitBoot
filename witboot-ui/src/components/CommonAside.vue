@@ -65,9 +65,19 @@
 </template>
 
 <script setup lang="ts">
-import {useMenuStore} from '@/stores/menuStore'
-import {storeToRefs} from 'pinia'
-import { Document, HomeFilled, InfoFilled, List, Memo, Reading, Setting, Tickets, User } from '@element-plus/icons-vue'
+import { useMenuStore } from '@/stores/menuStore'
+import { storeToRefs } from 'pinia'
+import {
+  Document,
+  HomeFilled,
+  InfoFilled,
+  List,
+  Memo,
+  Reading,
+  Setting,
+  Tickets,
+  User
+} from '@element-plus/icons-vue'
 
 const menuStore = useMenuStore()
 const { isCollapse } = storeToRefs(menuStore)
