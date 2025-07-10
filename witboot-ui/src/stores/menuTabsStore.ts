@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import {useRouter} from 'vue-router'
 
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
@@ -8,13 +9,13 @@ export const useMenuTabsStore = defineStore('menuTabs', {
     activeTab: '/home'
   }),
   actions: {
-    addTab(tab) {
+    addTab(tab: any) {
       if (!this.tabs.find((t) => t.path === tab.path)) {
         this.tabs.push(tab)
       }
       this.activeTab = tab.path
     },
-    removeTab(path) {
+    removeTab(path: string) {
       const index = this.tabs.findIndex((t) => t.path === path)
       if (index !== -1) {
         this.tabs.splice(index, 1)
@@ -23,8 +24,10 @@ export const useMenuTabsStore = defineStore('menuTabs', {
         this.activeTab = nextTab.path
       }
     },
-    setActiveTab(path) {
+    setActiveTab(path: string) {
       this.activeTab = path
+      console.log(path)
+      useRouter().push(path)
     }
   }
 })
