@@ -23,15 +23,14 @@
 </template>
 
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/menuStore'
+import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import router from '@/router'
 import { Fold as FoldIcon, User as UserIcon } from '@element-plus/icons-vue'
 
-const menuStore = useMenuStore()
-const { toggleCollapse } = menuStore
+const menuCollapseStore = useMenuCollapseStore()
 
 const changeCollapse = () => {
-  toggleCollapse()
+  menuCollapseStore.toggleCollapse()
 }
 
 const profile = () => {

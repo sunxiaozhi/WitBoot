@@ -1,15 +1,30 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
-    menuTabs: []
+    tabs: [
+      { title: '首页', path: '/home' } // 默认首页
+    ],
+    activeTab: '/home'
   }),
   actions: {
-    addMenuTab(menuTab) {
-      this.menuTabs.push(menuTab)
+    addTab(tab) {
+      if (!this.tabs.find((t) => t.path === tab.path)) {
+        this.tabs.push(tab)
+      }
+      this.activeTab = tab.path
     },
-    removeMenuTab(menuTab) {
-      this.menuTabs.splice(this.menuTabs.indexOf(menuTab), 1)
+    removeTab(path) {
+      const index = this.tabs.findIndex((t) => t.path === path)
+      if (index !== -1) {
+        this.tabs.splice(index, 1)
+        // 自动激活上一个
+        const nextTab = this.tabs[index - 1] || this.tabs[0]
+        this.activeTab = nextTab.path
+      }
+    },
+    setActiveTab(path) {
+      this.activeTab = path
     }
   }
 })

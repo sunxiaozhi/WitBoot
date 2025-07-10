@@ -26,7 +26,7 @@ import CommonMenuTab from '@/components/CommonMenuTab.vue'
   height: 100vh;
 
   .common-main {
-    background-color: aliceblue;
+    //background-color: aliceblue;
   }
 }
 </style>

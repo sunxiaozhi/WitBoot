@@ -1,7 +1,7 @@
 <template>
   <el-aside width="{isCollapse} ? 200px : 64px">
     <h3>WitBoot</h3>
-    <el-menu default-active="/home" :collapse="isCollapse" :router="true">
+    <el-menu :default-active="menuTabsStore.activeTab" :collapse="isCollapse" :router="true" @select="handleMenuSelect">
       <el-menu-item index="/home">
         <el-icon>
           <HomeFilled />
@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/menuStore'
+import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import { storeToRefs } from 'pinia'
 import {
   Document,
@@ -78,9 +78,54 @@ import {
   Tickets,
   User
 } from '@element-plus/icons-vue'
+import { useMenuTabsStore } from '@/stores/menuTabsStore'
+import { useRouter } from 'vue-router'
 
-const menuStore = useMenuStore()
-const { isCollapse } = storeToRefs(menuStore)
+const menuConfig = [
+  {
+    index: '/home',
+    icon: 'HomeFilled',
+    title: '首页'
+  },
+  {
+    index: '2',
+    icon: 'Setting',
+    title: '系统管理',
+    children: [
+      { index: '/user', icon: 'User', title: '人员管理' },
+      { index: '/department', icon: 'List', title: '部门管理' },
+      { index: '/dictionary', icon: 'Tickets', title: '字典管理' },
+      {
+        index: '2-4',
+        icon: 'Memo',
+        title: '日志管理',
+        children: [
+          { index: '/operationLog', icon: 'Document', title: '操作日志' },
+          { index: '/loginLog', icon: 'Reading', title: '登录日志' }
+        ]
+      }
+    ]
+  },
+  {
+    index: '/about',
+    icon: 'InfoFilled',
+    title: '关于系统'
+  }
+]
+
+const menuCollapseStore = useMenuCollapseStore()
+const menuTabsStore  = useMenuTabsStore ()
+
+const { isCollapse } = storeToRefs(menuCollapseStore)
+const router = useRouter()
+
+const handleMenuSelect = (path) => {
+  const route = router.getRoutes().find(r => r.path === path)
+  if (!route) return
+  const title = route.meta.title || '未知页面'
+  menuTabsStore.addTab({ title, path })
+  router.push(path)
+}
 </script>
 
 <style lang="scss" scoped>

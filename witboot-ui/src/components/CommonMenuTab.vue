@@ -1,28 +1,31 @@
 <template>
   <el-tabs
-    v-model="editableTabsValue"
+    v-model="menuTabsStore.activeTab"
     type="card"
     editable
     class="demo-tabs"
-    @edit="handleTabsEdit"
+    @edit="menuTabsStore.setActiveTab($event)"
+    @tabRemove="menuTabsStore.removeTab($event)"
   >
     <el-tab-pane
-      v-for="item in editableTabs"
-      :key="item.name"
+      v-for="item in menuTabsStore.tabs"
+      :key="item.path"
       :label="item.title"
-      :name="item.name"
+      :name="item.path"
     >
-      {{ item.content }}
     </el-tab-pane>
   </el-tabs>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useMenuTabsStore } from '@/stores/menuTabsStore'
 
 import type { TabPaneName } from 'element-plus'
 
-let tabIndex = 2
+const menuTabsStore  = useMenuTabsStore ()
+
+/*let tabIndex = 2
 const editableTabsValue = ref('2')
 const editableTabs = ref([
   {
@@ -35,9 +38,9 @@ const editableTabs = ref([
     name: '2',
     content: 'Tab 2 content',
   },
-])
+])*/
 
-const handleTabsEdit = (
+/*const handleTabsEdit = (
   targetName: TabPaneName | undefined,
   action: 'remove' | 'add'
 ) => {
@@ -66,7 +69,7 @@ const handleTabsEdit = (
     editableTabsValue.value = activeName
     editableTabs.value = tabs.filter((tab) => tab.name !== targetName)
   }
-}
+}*/
 </script>
 
 <style>
