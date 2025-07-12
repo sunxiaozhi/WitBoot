@@ -2,10 +2,10 @@
   <el-tabs
     v-model="menuTabsStore.activeTab"
     type="card"
-    editable
+    closable
     class="menu-tabs"
-    @edit="menuTabsStore.setActiveTab($event)"
-    @tabRemove="menuTabsStore.removeTab($event)"
+    @tab-change="menuTabsStore.changeActiveTab"
+    @tab-remove="menuTabsStore.removeTab"
   >
     <el-tab-pane
       v-for="item in menuTabsStore.tabs"

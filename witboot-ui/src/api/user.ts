@@ -1,3 +1,5 @@
-import { GET, POST } from '@/utils/request'
+import { POST } from '@/utils/request'
 
-export const login = (data = {}) => POST('http://localhost:8010/user/login', data)
+import { BASE_URL } from '@/config/siteConfig'
+
+export const login = (data = {}) => POST(BASE_URL + '/user/login', data)

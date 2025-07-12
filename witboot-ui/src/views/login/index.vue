@@ -86,10 +86,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      login({ username: ruleForm.username, password: ruleForm.password }).then((res: any) => {
-        console.log(res)
+      login({ username: ruleForm.username, password: ruleForm.password }).then((result: any) => {
+        console.log(result)
 
-        let accessToken = res.accessToken
+        let accessToken = result.data.accessToken
         setAccessToken(accessToken)
 
         router.push('/home')

@@ -117,7 +117,6 @@ const menuCollapseStore = useMenuCollapseStore()
 const menuTabsStore  = useMenuTabsStore ()
 
 const { isCollapse } = storeToRefs(menuCollapseStore)
-const router = useRouter()
 
 const handleMenuSelect = (path: string) => {
   const route = router.getRoutes().find(r => r.path === path)
@@ -126,6 +125,8 @@ const handleMenuSelect = (path: string) => {
   menuTabsStore.addTab({ title, path })
   router.push(path)
 }
+
+const router = useRouter()
 </script>
 
 <style lang="scss" scoped>

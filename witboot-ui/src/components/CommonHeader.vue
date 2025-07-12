@@ -15,7 +15,6 @@
             <el-dropdown-item @click="profile">个人信息</el-dropdown-item>
             <el-dropdown-item @click="logout">退出</el-dropdown-item>
           </el-dropdown-menu>
-
         </template>
       </el-dropdown>
     </div>

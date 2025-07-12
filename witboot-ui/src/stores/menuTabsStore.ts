@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {useRouter} from 'vue-router'
+import router from '@/router'
 
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
@@ -24,10 +24,10 @@ export const useMenuTabsStore = defineStore('menuTabs', {
         this.activeTab = nextTab.path
       }
     },
-    setActiveTab(path: string) {
+    changeActiveTab(path: string) {
       this.activeTab = path
       console.log(path)
-      useRouter().push(path)
+      router.push(path)
     }
   }
 })

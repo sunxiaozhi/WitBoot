@@ -53,6 +53,7 @@ function responseSuccess(response: AxiosResponse<ResponseDataType>) {
  * @returns
  */
 function request(url: string, data: any, config: any, method: Method): any {
+  console.log('request->', url, data, config, method)
   /* 去空 */
   for (const key in data) {
     if (data[key] === null || data[key] === undefined) { 
@@ -82,7 +83,8 @@ function checkResponse(data: ResponseDataType) {
   } else if (data.code < 200 || data.code >= 400) {
     return Promise.reject(data)
   }
-  return data.data
+  console.log(data)
+  return data
 }
 
 /**
