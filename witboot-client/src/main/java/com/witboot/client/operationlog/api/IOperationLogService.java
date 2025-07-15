@@ -1,10 +1,9 @@
 package com.witboot.client.operationlog.api;
 
+import com.witboot.client.base.dato.data.model.PageResult;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
-
-import java.util.List;
 
 /**
  * 操作日志相关
@@ -18,7 +17,7 @@ public interface IOperationLogService {
      * @param operationLogListByParamQuery 操作日志查询请求
      * @return MultiResponse
      */
-    List<OperationLogVO> listByParam(OperationLogListByParamQuery operationLogListByParamQuery);
+    PageInfo<OperationLogVO> listByParam(OperationLogListByParamQuery operationLogListByParamQuery);
 
     /**
      * 新增操作日志

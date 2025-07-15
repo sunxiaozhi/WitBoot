@@ -1,7 +1,8 @@
 package com.witboot.app.operationlog.service;
 
-import com.witboot.app.operationlog.executor.command.OperationLogDeleteCmdExe;
+import com.github.pagehelper.PageInfo;
 import com.witboot.app.operationlog.executor.command.OperationLogAddCmdExe;
+import com.witboot.app.operationlog.executor.command.OperationLogDeleteCmdExe;
 import com.witboot.app.operationlog.executor.query.OperationLogInfoQueryExe;
 import com.witboot.app.operationlog.executor.query.OperationLogListByParamQueryExe;
 import com.witboot.client.operationlog.api.IOperationLogService;
@@ -10,8 +11,6 @@ import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 操作记录相关
@@ -46,7 +45,7 @@ public class OperationLogServiceImpl implements IOperationLogService {
     }
 
     @Override
-    public List<OperationLogVO> listByParam(OperationLogListByParamQuery operationlogListByParamQuery) {
+    public PageInfo<OperationLogVO> listByParam(OperationLogListByParamQuery operationlogListByParamQuery) {
         return operationlogListByParamQueryExe.execute(operationlogListByParamQuery);
     }
 

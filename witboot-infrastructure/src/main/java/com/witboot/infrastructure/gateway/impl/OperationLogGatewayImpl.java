@@ -7,6 +7,8 @@ import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.client.base.dato.data.model.PageResult;
+import com.witboot.infrastructure.common.utils.PageUtil;
 import com.witboot.infrastructure.convertor.OperationLogConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO;
 import com.witboot.infrastructure.gateway.impl.database.mapper.OperationLogMapper;
@@ -36,16 +38,17 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
      * @return List 操作日志实体集合
      */
     @Override
-    public List<OperationLogEntity> findByParam(OperationLogListByParamQuery operationLogListByParamQuery){
+    public PageInfo<OperationLogEntity> findByParam(OperationLogListByParamQuery operationLogListByParamQuery){
         List<OperationLogEntity> operationLogEntityList = new ArrayList<>();
 
         List<OperationLogDO> operationLogDOList = operationLogMapper.selectByParam(operationLogListByParamQuery);
+        PageInfo<OperationLogDO> pageInfo = new PageInfo<>(operationLogDOList);
 
-        new PageInfo<>(operationLogDOList).getTotal();
+        /*new PageInfo<>(operationLogDOList).getTotal();
         operationLogDOList.forEach(operationLogDO -> {
             operationLogEntityList.add(OperationLogConvertor.toEntity(operationLogDO));
-        });
-        return operationLogEntityList;
+        });*/
+        return PageUtil.convertPageInfo(pageInfo, OperationLogConvertor::toEntity);
     }
 
     @Override

@@ -21,13 +21,26 @@
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination
+<!--    <el-pagination
       background
       layout="prev, pager, next"
       :total="filteredList.length"
       :page-size="pageSize"
       :current-page="currentPage"
       @current-change="handlePageChange"
+      style="margin-top: 16px; text-align: right"
+    />-->
+    <el-pagination
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
+      :page-sizes="[10, 15, 30, 50]"
+      :size="size"
+      :disabled="disabled"
+      :background="background"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
       style="margin-top: 16px; text-align: right"
     />
   </el-card>
@@ -40,7 +53,8 @@ import { selectOperationLogList } from '@/api/operationLog.ts'
 
 const searchKeyword = ref('')
 const currentPage = ref(1)
-const pageSize = 5
+const total = ref(1)
+const pageSize = 10
 
 const tableData = ref([])
 
@@ -55,6 +69,7 @@ const filteredList = computed(() => {
 onMounted(async () => {
   selectOperationLogList().then(res => {
     tableData.value = res.rows
+    total.value = res.total
   })
 })
 

@@ -1,9 +1,8 @@
 package com.witboot.domain.operationlog.gateway;
 
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
+import com.witboot.client.base.dato.data.model.PageResult;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
-
-import java.util.List;
 
 /**
  * OperationLog Gateway
@@ -17,7 +16,8 @@ public interface OperationLogGateway {
      * @param operationLogListByParamQuery ip等
      * @return List 操作日志实体集合
      */
-    List<OperationLogEntity> findByParam(OperationLogListByParamQuery operationLogListByParamQuery);
+
+    PageInfo<OperationLogEntity> findByParam(OperationLogListByParamQuery operationLogListByParamQuery);
 
     /**
      * 获取操作日志信息
