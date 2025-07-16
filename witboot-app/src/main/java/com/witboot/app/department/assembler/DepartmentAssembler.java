@@ -1,7 +1,9 @@
 package com.witboot.app.department.assembler;
 
 import com.witboot.client.department.dto.data.DepartmentVO;
+import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.domain.department.model.DepartmentEntity;
+import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
 
 /**
  * Department Application层转换器
@@ -35,6 +37,10 @@ public class DepartmentAssembler {
 
         return departmentEntity;
     }*/
+    public static DepartmentListByParamQuerySpec toDepartmentListByParamQuerySpec (DepartmentListByParamQuery departmentListByParamQuery) {
+        DepartmentListByParamQuerySpec departmentListByParamQuerySpec = new DepartmentListByParamQuerySpec();
+        return departmentListByParamQuerySpec;
+    }
 
     public static DepartmentVO toValueObject(DepartmentEntity departmentEntity) {
         DepartmentVO departmentVO = new DepartmentVO();

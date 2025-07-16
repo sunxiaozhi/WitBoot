@@ -1,14 +1,15 @@
 package com.witboot.app.department.service;
 
+import com.witboot.app.department.assembler.DepartmentAssembler;
 import com.witboot.app.department.executor.command.DepartmentDeleteCmdExe;
 import com.witboot.app.department.executor.query.DepartmentListByParamQueryExe;
 import com.witboot.client.department.api.IDepartmentService;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 部门相关
@@ -24,8 +25,9 @@ public class DepartmentServiceImpl implements IDepartmentService {
     private DepartmentDeleteCmdExe departmentDeleteCmdExe;
 
     @Override
-    public List<DepartmentVO> listByParam(DepartmentListByParamQuery departmentListByParamQuery) {
-        return departmentListByParamQueryExe.execute(departmentListByParamQuery);
+    public PageResult<DepartmentVO> listByParam(DepartmentListByParamQuery departmentListByParamQuery) {
+        DepartmentListByParamQuerySpec departmentListByParamQuerySpec = DepartmentAssembler.toDepartmentListByParamQuerySpec(departmentListByParamQuery);
+        return departmentListByParamQueryExe.execute(departmentListByParamQuerySpec);
     }
 
     /**

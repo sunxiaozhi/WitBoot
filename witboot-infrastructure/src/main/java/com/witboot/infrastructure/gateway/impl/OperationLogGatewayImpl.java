@@ -1,14 +1,14 @@
 package com.witboot.infrastructure.gateway.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.witboot.client.operationlog.dto.data.OperationLogErrorCode;
-import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
+import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
-import com.witboot.client.base.dato.data.model.PageResult;
-import com.witboot.infrastructure.common.utils.PageUtil;
 import com.witboot.infrastructure.convertor.OperationLogConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO;
 import com.witboot.infrastructure.gateway.impl.database.mapper.OperationLogMapper;
@@ -16,10 +16,10 @@ import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * OperationLogGatewayImpl
@@ -34,21 +34,17 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
     /**
      * 根据条件查询
      *
-     * @param operationLogListByParamQuery ip等
+     * @param OperationLogListByParamQuerySpec ip等
      * @return List 操作日志实体集合
      */
     @Override
-    public PageInfo<OperationLogEntity> findByParam(OperationLogListByParamQuery operationLogListByParamQuery){
-        List<OperationLogEntity> operationLogEntityList = new ArrayList<>();
-
-        List<OperationLogDO> operationLogDOList = operationLogMapper.selectByParam(operationLogListByParamQuery);
+    public PageResult<OperationLogEntity> findByParam(OperationLogListByParamQuerySpec OperationLogListByParamQuerySpec) {
+        PageHelper.startPage(OperationLogListByParamQuerySpec.getPageNo(), OperationLogListByParamQuerySpec.getPageSize());
+        List<OperationLogDO> operationLogDOList = operationLogMapper.selectByParam(OperationLogListByParamQuerySpec);
         PageInfo<OperationLogDO> pageInfo = new PageInfo<>(operationLogDOList);
 
-        /*new PageInfo<>(operationLogDOList).getTotal();
-        operationLogDOList.forEach(operationLogDO -> {
-            operationLogEntityList.add(OperationLogConvertor.toEntity(operationLogDO));
-        });*/
-        return PageUtil.convertPageInfo(pageInfo, OperationLogConvertor::toEntity);
+        List<OperationLogEntity> operationLogEntityList = operationLogDOList.stream().map(OperationLogConvertor::toEntity).collect(Collectors.toList());
+        return PageResult.build(operationLogEntityList, pageInfo.getTotal());
     }
 
     @Override

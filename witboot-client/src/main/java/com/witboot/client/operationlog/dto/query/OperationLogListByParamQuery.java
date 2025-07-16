@@ -19,5 +19,9 @@ public class OperationLogListByParamQuery extends Query {
     @Serial
     private static final long serialVersionUID = -2794036665910524477L;
 
+    private int pageSize;
+
+    private int pageNo;
+
     private String ip;
 }

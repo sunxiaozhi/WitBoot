@@ -5,9 +5,9 @@ import com.witboot.client.menu.dto.MenuAddCmd;
 import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.client.menu.dto.query.MenuListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.infrastructure.common.annotation.WitLog;
 import com.witboot.infrastructure.common.core.controller.BaseController;
-import com.witboot.infrastructure.common.response.ResponseListResult;
 import com.witboot.infrastructure.common.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,9 +29,9 @@ public class MenuController extends BaseController {
     @GetMapping(value = "/list")
     @Operation(summary = "菜单列表")
     @WitLog(description = "菜单列表")
-    public ResponseListResult list(MenuListByParamQuery menuListByParamQuery) {
+    public ResponseResult<PageResult<MenuVO>> list(MenuListByParamQuery menuListByParamQuery) {
         startPage();
-        return ResponseListResult.listInfo(menuService.listByParam(menuListByParamQuery));
+        return ResponseResult.success(menuService.listByParam(menuListByParamQuery));
     }
 
     @PostMapping(value = "/add")

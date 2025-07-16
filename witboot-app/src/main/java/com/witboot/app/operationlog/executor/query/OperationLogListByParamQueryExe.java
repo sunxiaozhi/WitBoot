@@ -1,15 +1,15 @@
 package com.witboot.app.operationlog.executor.query;
 
-import com.github.pagehelper.PageInfo;
 import com.witboot.app.operationlog.assembler.OperationLogAssembler;
-import com.witboot.client.base.dato.data.model.PageResult;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
-import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
-import com.witboot.infrastructure.common.utils.PageUtil;
+import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * OperationLogListByParamQueryExe
@@ -22,11 +22,11 @@ public class OperationLogListByParamQueryExe {
     @Autowired
     private OperationLogGateway operationlogGateway;
 
-    public PageInfo<OperationLogVO> execute(OperationLogListByParamQuery operationlogListByParamQuery) {
-        PageInfo<OperationLogEntity> operationLogPageResult =  operationlogGateway.findByParam(operationlogListByParamQuery);
-        //PageInfo<OperationLogDO> pageInfo = new PageInfo<>(operationLogPageResult.getList());
+    public PageResult<OperationLogVO> execute(OperationLogListByParamQuerySpec operationLogListByParamQuerySpec) {
+        PageResult<OperationLogEntity> operationLogEntityPageResult = operationlogGateway.findByParam(operationLogListByParamQuerySpec);
 
-        return PageUtil.convertPageInfo(operationLogPageResult, OperationLogAssembler::toValueObject);
-        //return operationLogEntityList.stream().map(OperationLogAssembler::toValueObject).collect(Collectors.toList());
+        List<OperationLogVO> operationLogVOList = operationLogEntityPageResult.getList().stream().map(OperationLogAssembler::toValueObject).toList();
+
+        return PageResult.build(operationLogVOList, operationLogEntityPageResult.getTotal());
     }
 }

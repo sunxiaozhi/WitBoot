@@ -1,10 +1,9 @@
 package com.witboot.domain.user.gateway;
 
-import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.user.model.UserEntity;
+import com.witboot.domain.user.query.UserListByParamQuerySpec;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
-import java.util.List;
 
 /**
  * User Gateway
@@ -31,10 +30,10 @@ public interface UserGateway extends UserDetailsService {
     /**
      * 根据条件查询
      *
-     * @param userListByParamQuery 用户名等
+     * @param userListByParamQuerySpec 用户名等
      * @return List 用户实体
      */
-    List<UserEntity> findByParam(UserListByParamQuery userListByParamQuery);
+    PageResult<UserEntity> findByParam(UserListByParamQuerySpec userListByParamQuerySpec);
 
     /**
      * 获取密码信息

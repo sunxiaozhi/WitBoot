@@ -1,6 +1,6 @@
 package com.witboot.app.operationlog.service;
 
-import com.github.pagehelper.PageInfo;
+import com.witboot.app.operationlog.assembler.OperationLogAssembler;
 import com.witboot.app.operationlog.executor.command.OperationLogAddCmdExe;
 import com.witboot.app.operationlog.executor.command.OperationLogDeleteCmdExe;
 import com.witboot.app.operationlog.executor.query.OperationLogInfoQueryExe;
@@ -9,6 +9,8 @@ import com.witboot.client.operationlog.api.IOperationLogService;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +47,9 @@ public class OperationLogServiceImpl implements IOperationLogService {
     }
 
     @Override
-    public PageInfo<OperationLogVO> listByParam(OperationLogListByParamQuery operationlogListByParamQuery) {
-        return operationlogListByParamQueryExe.execute(operationlogListByParamQuery);
+    public PageResult<OperationLogVO> listByParam(OperationLogListByParamQuery operationLogListByParamQuery) {
+        OperationLogListByParamQuerySpec opLogListByParamQuerySpec = OperationLogAssembler.toOperationLogListByParamQuerySpec(operationLogListByParamQuery);
+        return operationlogListByParamQueryExe.execute(opLogListByParamQuerySpec);
     }
 
     @Override

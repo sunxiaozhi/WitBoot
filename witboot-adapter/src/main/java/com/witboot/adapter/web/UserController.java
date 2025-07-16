@@ -5,9 +5,9 @@ import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.infrastructure.common.annotation.WitLog;
 import com.witboot.infrastructure.common.core.controller.BaseController;
-import com.witboot.infrastructure.common.response.ResponseListResult;
 import com.witboot.infrastructure.common.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -49,9 +49,9 @@ public class UserController extends BaseController {
     @GetMapping(value = "/list")
     @Operation(summary = "用户列表")
     @WitLog(description = "用户列表")
-    public ResponseListResult list(UserListByParamQuery userListByParamQuery) {
+    public ResponseResult<PageResult<UserVO>> list(UserListByParamQuery userListByParamQuery) {
         startPage();
-        return ResponseListResult.listInfo(userService.listByParam(userListByParamQuery));
+        return ResponseResult.success(userService.listByParam(userListByParamQuery));
     }
 
     @DeleteMapping(value = "/delete")

@@ -2,8 +2,7 @@ package com.witboot.client.department.api;
 
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
-
-import java.util.List;
+import com.witboot.domain.base.model.PageResult;
 
 /**
  * 部门相关
@@ -17,7 +16,7 @@ public interface IDepartmentService {
      * @param departmentParamQuery 部门查询请求
      * @return MultiResponse
      */
-    List<DepartmentVO> listByParam(DepartmentListByParamQuery departmentParamQuery);
+    PageResult<DepartmentVO> listByParam(DepartmentListByParamQuery departmentParamQuery);
 
     /**
      * 部门删除

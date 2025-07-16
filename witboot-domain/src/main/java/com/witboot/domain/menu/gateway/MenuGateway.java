@@ -1,9 +1,8 @@
 package com.witboot.domain.menu.gateway;
 
-import com.witboot.client.menu.dto.query.MenuListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.menu.model.MenuEntity;
-
-import java.util.List;
+import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
 
 /**
  * Menu Gateway
@@ -14,10 +13,10 @@ public interface MenuGateway {
     /**
      * 根据条件查询
      *
-     * @param menuListByParamQuery 菜单名等
+     * @param menuListByParamQuerySpec 菜单名等
      * @return List 菜单实体
      */
-    List<MenuEntity> findByParam(MenuListByParamQuery menuListByParamQuery);
+    PageResult<MenuEntity> findByParam(MenuListByParamQuerySpec menuListByParamQuerySpec);
 
     /**
      * 获取菜单信息

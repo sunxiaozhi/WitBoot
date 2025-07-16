@@ -24,8 +24,8 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
+            <groupId>com.witboot</groupId>
+            <artifactId>witboot-domain</artifactId>
         </dependency>
     </dependencies>
 </project>

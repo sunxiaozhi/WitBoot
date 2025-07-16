@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
-import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
+import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,10 +17,10 @@ public interface OperationLogMapper {
     /**
      * 通过参数查询
      *
-     * @param operationLogListByParamQuery 参数
+     * @param operationLogListByParamQuerySpec 参数
      * @return 结果
      */
-    List<OperationLogDO> selectByParam(OperationLogListByParamQuery operationLogListByParamQuery);
+    List<OperationLogDO> selectByParam(OperationLogListByParamQuerySpec operationLogListByParamQuerySpec);
 
     /**
      * 通过id查询

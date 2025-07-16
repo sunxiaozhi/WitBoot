@@ -1,8 +1,10 @@
 package com.witboot.app.menu.assembler;
 
+import com.witboot.client.menu.dto.query.MenuListByParamQuery;
 import com.witboot.client.menu.dto.MenuAddCmd;
 import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
+import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
 import com.witboot.domain.menu.model.MenuEntity;
 
 /**
@@ -12,6 +14,11 @@ import com.witboot.domain.menu.model.MenuEntity;
  * @author sunxiaozhi
  */
 public class MenuAssembler {
+    public static MenuListByParamQuerySpec toMenuListByParamQuerySpec (MenuListByParamQuery menuListByParamQuery) {
+        MenuListByParamQuerySpec menuListByParamQuerySpec = new MenuListByParamQuerySpec();
+        return menuListByParamQuerySpec;
+    }
+    
     public static MenuEntity toEntity(MenuAddCmd menuAddCmd) {
         MenuEntity menuEntity = new MenuEntity();
         menuEntity.setName(menuAddCmd.getName());

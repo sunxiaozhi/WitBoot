@@ -1,5 +1,6 @@
 package com.witboot.app.user.service;
 
+import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.app.user.executor.command.UserDeleteCmdExe;
 import com.witboot.app.user.executor.command.UserRegisterCmdExe;
 import com.witboot.app.user.executor.command.UserUpdateCmdExe;
@@ -12,10 +13,10 @@ import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
+import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.user.query.UserListByParamQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * 用户相关
@@ -66,8 +67,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
-        return userListByParamQueryExe.execute(userListByParamQuery);
+    public PageResult<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
+        UserListByParamQuerySpec userListByParamQuerySpec = UserAssembler.toUserListByParamQuerySpec(userListByParamQuery);
+        return userListByParamQueryExe.execute(userListByParamQuerySpec);
     }
 
     /**

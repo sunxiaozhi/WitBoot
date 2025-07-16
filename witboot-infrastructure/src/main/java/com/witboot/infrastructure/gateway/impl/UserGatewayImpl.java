@@ -1,12 +1,14 @@
 package com.witboot.infrastructure.gateway.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.witboot.client.user.dto.data.UserErrorCode;
-import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserName;
 import com.witboot.domain.user.model.UserPassword;
+import com.witboot.domain.user.query.UserListByParamQuerySpec;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
@@ -19,10 +21,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * UserGatewayImpl
@@ -59,16 +61,14 @@ public class UserGatewayImpl implements UserGateway {
     }
 
     @Override
-    public List<UserEntity> findByParam(UserListByParamQuery query) {
-        List<UserEntity> userEntityList = new ArrayList<>();
+    public PageResult<UserEntity> findByParam(UserListByParamQuerySpec userListByParamQuerySpec) {
+        PageHelper.startPage(userListByParamQuerySpec.getPageNo(), userListByParamQuerySpec.getPageSize());
+        List<UserDO> userDOList = userMapper.selectByParam(userListByParamQuerySpec);
+        PageInfo<UserDO> pageInfo = new PageInfo<>(userDOList);
 
-        List<UserDO> userDOList = userMapper.selectByParam(query);
+        List<UserEntity> userEntityList = userDOList.stream().map(UserConvertor::toEntity).collect(Collectors.toList());
 
-        new PageInfo<>(userDOList).getTotal();
-        userDOList.forEach(userDO -> {
-            userEntityList.add(UserConvertor.toEntity(userDO));
-        });
-        return userEntityList;
+        return PageResult.build(userEntityList, pageInfo.getTotal());
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.witboot.app.user.assembler;
 
-import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
+import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserPassword;
+import com.witboot.domain.user.query.UserListByParamQuerySpec;
 
 /**
  * User Application层转换器
@@ -13,6 +15,11 @@ import com.witboot.domain.user.model.UserPassword;
  * @author sunxiaozhi
  */
 public class UserAssembler {
+    public static UserListByParamQuerySpec toUserListByParamQuerySpec (UserListByParamQuery userListByParamQuery) {
+        UserListByParamQuerySpec userListByParamQuerySpec = new UserListByParamQuerySpec();
+        return userListByParamQuerySpec;
+    }
+
     public static UserEntity toEntity(UserRegisterCmd userRegisterCmd) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(userRegisterCmd.getUsername());

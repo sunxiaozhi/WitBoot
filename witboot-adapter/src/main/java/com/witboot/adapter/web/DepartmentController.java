@@ -1,7 +1,10 @@
 package com.witboot.adapter.web;
 
 import com.witboot.client.department.api.IDepartmentService;
+import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
+import com.witboot.client.operationlog.dto.data.OperationLogVO;
+import com.witboot.domain.base.model.PageResult;
 import com.witboot.infrastructure.common.annotation.WitLog;
 import com.witboot.infrastructure.common.core.controller.BaseController;
 import com.witboot.infrastructure.common.response.ResponseListResult;
@@ -29,9 +32,9 @@ public class DepartmentController extends BaseController {
     @GetMapping(value = "/list")
     @Operation(summary = "部门列表")
     @WitLog(description = "部门列表")
-    public ResponseListResult list(DepartmentListByParamQuery departmentParamQuery) {
+    public ResponseResult<PageResult<DepartmentVO>> list(DepartmentListByParamQuery departmentParamQuery) {
         startPage();
-        return ResponseListResult.listInfo(departmentService.listByParam(departmentParamQuery));
+        return ResponseResult.success(departmentService.listByParam(departmentParamQuery));
     }
 
     @DeleteMapping(value = "/delete")

@@ -2,7 +2,9 @@ package com.witboot.app.operationlog.assembler;
 
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
+import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
+import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
 
 /**
  * OperationLog Application层转换器
@@ -11,6 +13,12 @@ import com.witboot.domain.operationlog.model.OperationLogEntity;
  * @author sunxiaozhi
  */
 public class OperationLogAssembler {
+    public static OperationLogListByParamQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
+        OperationLogListByParamQuerySpec operationLogListByParamQuerySpec = new OperationLogListByParamQuerySpec();
+        operationLogListByParamQuerySpec.setIp(operatorLogListByParamQuery.getIp());
+        return operationLogListByParamQuerySpec;
+    }
+
     public static OperationLogEntity toEntity(OperationLogAddCmd operationLogAddCmd) {
         OperationLogEntity operationlogEntity = new OperationLogEntity();
         operationlogEntity.setId(operationLogAddCmd.getId());
