@@ -1,27 +1,21 @@
 package com.witboot.client.operationlog.dto.query;
 
-import com.alibaba.cola.dto.Query;
+import com.witboot.domain.base.model.query.BaseQuery;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
-
 /**
- * 查询用户列表
+ * 查询操作记录
  *
  * @author sunxiaoizhi
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
-public class OperationLogListByParamQuery extends Query {
-    @Serial
-    private static final long serialVersionUID = -2794036665910524477L;
-
-    private int pageSize;
-
-    private int pageNo;
-
+public class OperationLogListByParamQuery extends BaseQuery {
+    /**
+     * ip
+     */
     private String ip;
 }

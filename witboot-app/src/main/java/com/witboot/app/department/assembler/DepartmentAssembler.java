@@ -39,6 +39,9 @@ public class DepartmentAssembler {
     }*/
     public static DepartmentListByParamQuerySpec toDepartmentListByParamQuerySpec (DepartmentListByParamQuery departmentListByParamQuery) {
         DepartmentListByParamQuerySpec departmentListByParamQuerySpec = new DepartmentListByParamQuerySpec();
+        departmentListByParamQuerySpec.setName(departmentListByParamQuery.getName());
+        departmentListByParamQuerySpec.setPageNo(departmentListByParamQuery.getPageNo());
+        departmentListByParamQuerySpec.setPageSize(departmentListByParamQuery.getPageSize());
         return departmentListByParamQuerySpec;
     }
 

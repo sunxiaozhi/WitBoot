@@ -16,6 +16,9 @@ import com.witboot.domain.menu.model.MenuEntity;
 public class MenuAssembler {
     public static MenuListByParamQuerySpec toMenuListByParamQuerySpec (MenuListByParamQuery menuListByParamQuery) {
         MenuListByParamQuerySpec menuListByParamQuerySpec = new MenuListByParamQuerySpec();
+        menuListByParamQuerySpec.setName(menuListByParamQuery.getName());
+        menuListByParamQuerySpec.setPageNo(menuListByParamQuery.getPageNo());
+        menuListByParamQuerySpec.setPageSize(menuListByParamQuery.getPageSize());
         return menuListByParamQuerySpec;
     }
     

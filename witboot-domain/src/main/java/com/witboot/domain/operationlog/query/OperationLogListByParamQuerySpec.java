@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class OperationLogListByParamQuerySpec {
     private String ip;
-    private int pageNo;
-    private int pageSize;
+    private int pageNo = 1;
+    private int pageSize = 10;
 }

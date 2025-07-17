@@ -1,18 +1,18 @@
 package com.witboot.client.department.dto.query;
 
-import com.alibaba.cola.dto.Query;
-
-import java.io.Serial;
+import com.witboot.domain.base.model.query.BaseQuery;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 查询部门列表
  *
  * @author sunxiaoizhi
  */
-public class DepartmentListByParamQuery extends Query {
-
-    @Serial
-    private static final long serialVersionUID = -2794036665910524477L;
-
+@EqualsAndHashCode(callSuper = true)
+@Data
+@Builder
+public class DepartmentListByParamQuery extends BaseQuery {
     private String name;
 }

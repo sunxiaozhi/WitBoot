@@ -1,11 +1,9 @@
 package com.witboot.client.menu.dto.query;
 
-import com.alibaba.cola.dto.Query;
+import com.witboot.domain.base.model.query.BaseQuery;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serial;
 
 /**
  * 查询菜单列表
@@ -15,10 +13,7 @@ import java.io.Serial;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
-public class MenuListByParamQuery extends Query {
-    @Serial
-    private static final long serialVersionUID = -2794036665910524477L;
-
+public class MenuListByParamQuery extends BaseQuery {
     /**
      * 菜单名称
      */

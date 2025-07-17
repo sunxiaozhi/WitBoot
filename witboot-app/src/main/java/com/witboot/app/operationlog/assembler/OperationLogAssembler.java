@@ -16,6 +16,8 @@ public class OperationLogAssembler {
     public static OperationLogListByParamQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
         OperationLogListByParamQuerySpec operationLogListByParamQuerySpec = new OperationLogListByParamQuerySpec();
         operationLogListByParamQuerySpec.setIp(operatorLogListByParamQuery.getIp());
+        operationLogListByParamQuerySpec.setPageNo(operatorLogListByParamQuery.getPageNo());
+        operationLogListByParamQuerySpec.setPageSize(operatorLogListByParamQuery.getPageSize());
         return operationLogListByParamQuerySpec;
     }
 
