@@ -6,7 +6,7 @@ import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserPassword;
-import com.witboot.domain.user.query.UserListByParamQuerySpec;
+import com.witboot.domain.user.query.UserQuerySpec;
 
 /**
  * User Application层转换器
@@ -15,8 +15,8 @@ import com.witboot.domain.user.query.UserListByParamQuerySpec;
  * @author sunxiaozhi
  */
 public class UserAssembler {
-    public static UserListByParamQuerySpec toUserListByParamQuerySpec (UserListByParamQuery userListByParamQuery) {
-        UserListByParamQuerySpec userListByParamQuerySpec = new UserListByParamQuerySpec();
+    public static UserQuerySpec toUserListByParamQuerySpec (UserListByParamQuery userListByParamQuery) {
+        UserQuerySpec userListByParamQuerySpec = new UserQuerySpec();
         userListByParamQuerySpec.setName(userListByParamQuery.getName());
         userListByParamQuerySpec.setUsername(userListByParamQuery.getUsername());
         userListByParamQuerySpec.setPageNo(userListByParamQuery.getPageNo());

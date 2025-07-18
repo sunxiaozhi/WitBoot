@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
-import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
+import com.witboot.domain.menu.query.MenuQuerySpec;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.MenuDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
@@ -45,7 +45,7 @@ public interface MenuMapper {
      * @param menuListByParamQuerySpec 查询条件
      * @return 结果
      */
-    List<MenuDO> selectByParam(MenuListByParamQuerySpec menuListByParamQuerySpec);
+    List<MenuDO> selectByParam(MenuQuerySpec menuListByParamQuerySpec);
 
     /**
      * 判断菜单名是否存在

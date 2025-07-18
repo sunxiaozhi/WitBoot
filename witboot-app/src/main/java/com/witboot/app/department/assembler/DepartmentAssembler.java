@@ -3,7 +3,7 @@ package com.witboot.app.department.assembler;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 
 /**
  * Department Application层转换器
@@ -37,8 +37,8 @@ public class DepartmentAssembler {
 
         return departmentEntity;
     }*/
-    public static DepartmentListByParamQuerySpec toDepartmentListByParamQuerySpec (DepartmentListByParamQuery departmentListByParamQuery) {
-        DepartmentListByParamQuerySpec departmentListByParamQuerySpec = new DepartmentListByParamQuerySpec();
+    public static DepartmentQuerySpec toDepartmentListByParamQuerySpec (DepartmentListByParamQuery departmentListByParamQuery) {
+        DepartmentQuerySpec departmentListByParamQuerySpec = new DepartmentQuerySpec();
         departmentListByParamQuerySpec.setName(departmentListByParamQuery.getName());
         departmentListByParamQuerySpec.setPageNo(departmentListByParamQuery.getPageNo());
         departmentListByParamQuerySpec.setPageSize(departmentListByParamQuery.getPageSize());

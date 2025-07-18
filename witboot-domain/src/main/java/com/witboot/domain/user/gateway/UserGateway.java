@@ -2,7 +2,7 @@ package com.witboot.domain.user.gateway;
 
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.user.model.UserEntity;
-import com.witboot.domain.user.query.UserListByParamQuerySpec;
+import com.witboot.domain.user.query.UserQuerySpec;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -33,7 +33,7 @@ public interface UserGateway extends UserDetailsService {
      * @param userListByParamQuerySpec 用户名等
      * @return List 用户实体
      */
-    PageResult<UserEntity> findByParam(UserListByParamQuerySpec userListByParamQuerySpec);
+    PageResult<UserEntity> findByParam(UserQuerySpec userListByParamQuerySpec);
 
     /**
      * 获取密码信息

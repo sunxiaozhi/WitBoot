@@ -1,9 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- 添加渐变色填充（稍深一点的颜色） -->
-  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="hsla(160, 100%, 30%, 1)"/>
-    <stop offset="100%" stop-color="#CDDC39"/>
-  </linearGradient>
-  <!-- 大写字母W的三个竖直线段 -->
-  <path d="M20 90 L40 10 L60 90 L80 10" fill="url(#gradient)" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- 渐变色定义 -->
+  <defs>
+    <linearGradient id="w-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4A90E2"/>
+      <stop offset="100%" stop-color="#5CD6D6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 圆角背景（可选） -->
+  <rect x="10" y="10" rx="15" ry="15" width="80" height="80" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- 加粗 W 字母 -->
+  <text
+          x="50%"
+          y="70%"
+          text-anchor="middle"
+          font-size="60"
+          font-family="'Poppins', sans-serif"
+          fill="url(#w-gradient)"
+          font-weight="700"
+  >
+    W
+  </text>
 </svg>

@@ -6,7 +6,7 @@ import com.witboot.client.menu.dto.data.MenuErrorCode;
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.menu.gateway.MenuGateway;
 import com.witboot.domain.menu.model.MenuEntity;
-import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
+import com.witboot.domain.menu.query.MenuQuerySpec;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.MenuConvertor;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,7 +33,7 @@ public class MenuGatewayImpl implements MenuGateway {
     private MenuMapper menuMapper;
 
     @Override
-    public PageResult<MenuEntity> findByParam(MenuListByParamQuerySpec menuListByParamQuerySpec) {
+    public PageResult<MenuEntity> findByParam(MenuQuerySpec menuListByParamQuerySpec) {
         PageHelper.startPage(menuListByParamQuerySpec.getPageNo(), menuListByParamQuerySpec.getPageSize());
         List<MenuDO> menuDOList = menuMapper.selectByParam(menuListByParamQuerySpec);
         PageInfo<MenuDO> pageInfo = new PageInfo<>(menuDOList);

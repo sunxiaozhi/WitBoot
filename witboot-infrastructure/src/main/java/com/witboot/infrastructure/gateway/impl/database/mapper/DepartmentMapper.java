@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.DepartmentDO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -51,7 +51,7 @@ public interface DepartmentMapper {
      * @param departmentListByParamQuerySpec 查询条件
      * @return 结果
      */
-    List<DepartmentDO> selectByParam(DepartmentListByParamQuerySpec departmentListByParamQuerySpec);
+    List<DepartmentDO> selectByParam(DepartmentQuerySpec departmentListByParamQuerySpec);
 
     /**
      * 判断用户名是否存在

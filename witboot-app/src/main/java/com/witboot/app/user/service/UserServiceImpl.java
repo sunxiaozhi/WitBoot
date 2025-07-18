@@ -14,7 +14,7 @@ import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.domain.base.model.PageResult;
-import com.witboot.domain.user.query.UserListByParamQuerySpec;
+import com.witboot.domain.user.query.UserQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,7 +68,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public PageResult<UserVO> listByParam(UserListByParamQuery userListByParamQuery) {
-        UserListByParamQuerySpec userListByParamQuerySpec = UserAssembler.toUserListByParamQuerySpec(userListByParamQuery);
+        UserQuerySpec userListByParamQuerySpec = UserAssembler.toUserListByParamQuerySpec(userListByParamQuery);
         return userListByParamQueryExe.execute(userListByParamQuerySpec);
     }
 

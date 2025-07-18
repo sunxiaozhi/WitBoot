@@ -6,7 +6,7 @@ import com.witboot.client.department.dto.data.DepartmentErrorCode;
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.department.gateway.DepartmentGateway;
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.DepartmentConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.DepartmentDO;
@@ -29,7 +29,7 @@ public class DepartmentGatewayImpl implements DepartmentGateway {
     private DepartmentMapper departmentMapper;
 
     @Override
-    public PageResult<DepartmentEntity> findByParam(DepartmentListByParamQuerySpec departmentListByParamQuerySpec) {
+    public PageResult<DepartmentEntity> findByParam(DepartmentQuerySpec departmentListByParamQuerySpec) {
         PageHelper.startPage(departmentListByParamQuerySpec.getPageNo(), departmentListByParamQuerySpec.getPageSize());
         List<DepartmentDO> departmentDOList = departmentMapper.selectByParam(departmentListByParamQuerySpec);
         PageInfo<DepartmentDO> pageInfo = new PageInfo<>(departmentDOList);

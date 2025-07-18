@@ -4,7 +4,7 @@ import com.witboot.client.menu.dto.query.MenuListByParamQuery;
 import com.witboot.client.menu.dto.MenuAddCmd;
 import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
-import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
+import com.witboot.domain.menu.query.MenuQuerySpec;
 import com.witboot.domain.menu.model.MenuEntity;
 
 /**
@@ -14,8 +14,8 @@ import com.witboot.domain.menu.model.MenuEntity;
  * @author sunxiaozhi
  */
 public class MenuAssembler {
-    public static MenuListByParamQuerySpec toMenuListByParamQuerySpec (MenuListByParamQuery menuListByParamQuery) {
-        MenuListByParamQuerySpec menuListByParamQuerySpec = new MenuListByParamQuerySpec();
+    public static MenuQuerySpec toMenuListByParamQuerySpec (MenuListByParamQuery menuListByParamQuery) {
+        MenuQuerySpec menuListByParamQuerySpec = new MenuQuerySpec();
         menuListByParamQuerySpec.setName(menuListByParamQuery.getName());
         menuListByParamQuerySpec.setPageNo(menuListByParamQuery.getPageNo());
         menuListByParamQuerySpec.setPageSize(menuListByParamQuery.getPageSize());

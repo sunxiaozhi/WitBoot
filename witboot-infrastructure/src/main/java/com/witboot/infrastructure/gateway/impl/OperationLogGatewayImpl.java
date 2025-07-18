@@ -6,7 +6,7 @@ import com.witboot.client.operationlog.dto.data.OperationLogErrorCode;
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
-import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
+import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.OperationLogConvertor;
@@ -38,7 +38,7 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
      * @return List 操作日志实体集合
      */
     @Override
-    public PageResult<OperationLogEntity> findByParam(OperationLogListByParamQuerySpec OperationLogListByParamQuerySpec) {
+    public PageResult<OperationLogEntity> findByParam(OperationLogQuerySpec OperationLogListByParamQuerySpec) {
         PageHelper.startPage(OperationLogListByParamQuerySpec.getPageNo(), OperationLogListByParamQuerySpec.getPageSize());
         List<OperationLogDO> operationLogDOList = operationLogMapper.selectByParam(OperationLogListByParamQuerySpec);
         PageInfo<OperationLogDO> pageInfo = new PageInfo<>(operationLogDOList);

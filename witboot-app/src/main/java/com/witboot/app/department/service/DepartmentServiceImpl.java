@@ -7,7 +7,7 @@ import com.witboot.client.department.api.IDepartmentService;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.domain.base.model.PageResult;
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 
     @Override
     public PageResult<DepartmentVO> listByParam(DepartmentListByParamQuery departmentListByParamQuery) {
-        DepartmentListByParamQuerySpec departmentListByParamQuerySpec = DepartmentAssembler.toDepartmentListByParamQuerySpec(departmentListByParamQuery);
+        DepartmentQuerySpec departmentListByParamQuerySpec = DepartmentAssembler.toDepartmentListByParamQuerySpec(departmentListByParamQuery);
         return departmentListByParamQueryExe.execute(departmentListByParamQuerySpec);
     }
 

@@ -4,7 +4,7 @@ import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
-import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
+import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 
 /**
  * OperationLog Application层转换器
@@ -13,8 +13,8 @@ import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
  * @author sunxiaozhi
  */
 public class OperationLogAssembler {
-    public static OperationLogListByParamQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
-        OperationLogListByParamQuerySpec operationLogListByParamQuerySpec = new OperationLogListByParamQuerySpec();
+    public static OperationLogQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
+        OperationLogQuerySpec operationLogListByParamQuerySpec = new OperationLogQuerySpec();
         operationLogListByParamQuerySpec.setIp(operatorLogListByParamQuery.getIp());
         operationLogListByParamQuerySpec.setPageNo(operatorLogListByParamQuery.getPageNo());
         operationLogListByParamQuerySpec.setPageSize(operatorLogListByParamQuery.getPageSize());

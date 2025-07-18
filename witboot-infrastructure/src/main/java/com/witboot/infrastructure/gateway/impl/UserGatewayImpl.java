@@ -8,7 +8,7 @@ import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserName;
 import com.witboot.domain.user.model.UserPassword;
-import com.witboot.domain.user.query.UserListByParamQuerySpec;
+import com.witboot.domain.user.query.UserQuerySpec;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.UserConvertor;
@@ -61,7 +61,7 @@ public class UserGatewayImpl implements UserGateway {
     }
 
     @Override
-    public PageResult<UserEntity> findByParam(UserListByParamQuerySpec userListByParamQuerySpec) {
+    public PageResult<UserEntity> findByParam(UserQuerySpec userListByParamQuerySpec) {
         PageHelper.startPage(userListByParamQuerySpec.getPageNo(), userListByParamQuerySpec.getPageSize());
         List<UserDO> userDOList = userMapper.selectByParam(userListByParamQuerySpec);
         PageInfo<UserDO> pageInfo = new PageInfo<>(userDOList);

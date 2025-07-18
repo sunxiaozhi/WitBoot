@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
-import com.witboot.domain.user.query.UserListByParamQuerySpec;
+import com.witboot.domain.user.query.UserQuerySpec;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -52,7 +52,7 @@ public interface UserMapper {
      * @param userListByParamQuerySpec 查询条件
      * @return 结果
      */
-    List<UserDO> selectByParam(UserListByParamQuerySpec userListByParamQuerySpec);
+    List<UserDO> selectByParam(UserQuerySpec userListByParamQuerySpec);
 
     /**
      * 判断用户名是否存在

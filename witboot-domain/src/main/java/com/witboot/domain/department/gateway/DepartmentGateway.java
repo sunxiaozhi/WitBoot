@@ -2,7 +2,7 @@ package com.witboot.domain.department.gateway;
 
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 
 /**
  * Department Gateway
@@ -16,7 +16,7 @@ public interface DepartmentGateway {
      * @param departmentListByParamQuerySpec 部门名等
      * @return List 部门实体
      */
-    PageResult<DepartmentEntity> findByParam(DepartmentListByParamQuerySpec departmentListByParamQuerySpec);
+    PageResult<DepartmentEntity> findByParam(DepartmentQuerySpec departmentListByParamQuerySpec);
 
     /**
      * 获取部门信息

@@ -5,7 +5,7 @@ import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.department.gateway.DepartmentGateway;
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.domain.department.query.DepartmentListByParamQuerySpec;
+import com.witboot.domain.department.query.DepartmentQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class DepartmentListByParamQueryExe {
     @Autowired
     private DepartmentGateway departmentGateway;
 
-    public PageResult<DepartmentVO> execute(DepartmentListByParamQuerySpec departmentListByParamQuerySpec) {
+    public PageResult<DepartmentVO> execute(DepartmentQuerySpec departmentListByParamQuerySpec) {
         PageResult<DepartmentEntity> departmentEntityPageResult = departmentGateway.findByParam(departmentListByParamQuerySpec);
 
         List<DepartmentVO> departmentVOList = departmentEntityPageResult.getList().stream()

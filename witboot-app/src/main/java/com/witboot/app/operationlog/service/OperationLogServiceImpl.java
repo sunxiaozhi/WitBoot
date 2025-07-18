@@ -10,7 +10,7 @@ import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import com.witboot.domain.base.model.PageResult;
-import com.witboot.domain.operationlog.query.OperationLogListByParamQuerySpec;
+import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class OperationLogServiceImpl implements IOperationLogService {
 
     @Override
     public PageResult<OperationLogVO> listByParam(OperationLogListByParamQuery operationLogListByParamQuery) {
-        OperationLogListByParamQuerySpec opLogListByParamQuerySpec = OperationLogAssembler.toOperationLogListByParamQuerySpec(operationLogListByParamQuery);
+        OperationLogQuerySpec opLogListByParamQuerySpec = OperationLogAssembler.toOperationLogListByParamQuerySpec(operationLogListByParamQuery);
         return operationlogListByParamQueryExe.execute(opLogListByParamQuerySpec);
     }
 

@@ -5,7 +5,7 @@ import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.domain.base.model.PageResult;
 import com.witboot.domain.menu.gateway.MenuGateway;
 import com.witboot.domain.menu.model.MenuEntity;
-import com.witboot.domain.menu.query.MenuListByParamQuerySpec;
+import com.witboot.domain.menu.query.MenuQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +23,7 @@ public class MenuListByParamQueryExe {
     @Autowired
     private MenuGateway menuGateway;
 
-    public PageResult<MenuVO> execute(MenuListByParamQuerySpec menuListByParamQuerySpec) {
+    public PageResult<MenuVO> execute(MenuQuerySpec menuListByParamQuerySpec) {
         PageResult<MenuEntity> menuEntityPageResult = menuGateway.findByParam(menuListByParamQuerySpec);
 
         List<MenuVO> menuVoList = menuEntityPageResult.getList().stream()
