@@ -1,8 +1,9 @@
-<template>
+<template xmlns="">
   <el-header class="header-wrapper">
     <div class="header-wrapper__left">
       <el-icon size="25px" color="#333" @click="changeCollapse">
-        <fold-icon />
+        <fold-icon v-if="!menuCollapseStore.isCollapse"/>
+        <expand-icon v-if="menuCollapseStore.isCollapse"/>
       </el-icon>
     </div>
     <div class="header-wrapper__right">
@@ -23,7 +24,7 @@
 
 <script setup lang="ts">
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
-import { Fold as FoldIcon, User as UserIcon } from '@element-plus/icons-vue'
+import { Fold as FoldIcon, User as UserIcon, Expand as ExpandIcon } from '@element-plus/icons-vue'
 import { logout } from '@/utils/auth'
 
 const menuCollapseStore = useMenuCollapseStore()

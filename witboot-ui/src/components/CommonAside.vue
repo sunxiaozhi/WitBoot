@@ -1,6 +1,6 @@
 <template>
   <el-aside width="{isCollapse} ? 200px : 64px">
-    <h3>WitBoot</h3>
+    <h3>{{ isCollapse ? 'WB' : 'WitBoot' }}</h3>
     <el-menu :default-active="menuTabsStore.activeTab" :collapse="isCollapse" :router="true" @select="handleMenuSelect">
       <el-menu-item index="/home">
         <el-icon>
