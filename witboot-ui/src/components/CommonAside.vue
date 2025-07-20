@@ -121,8 +121,7 @@ const { isCollapse } = storeToRefs(menuCollapseStore)
 const handleMenuSelect = (path: string) => {
   const route = router.getRoutes().find(r => r.path === path)
   if (!route) return
-  const title = route.meta.title || '未知页面'
-  menuTabsStore.addTab({ title, path })
+  menuTabsStore.addTab(route)
   router.push(path)
 }
 

@@ -1,27 +1,37 @@
 import { defineStore } from 'pinia'
 import router from '@/router'
 
+interface TabItem {
+  title: string
+  path: string
+  name?: string
+  fullPath?: string
+}
+
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
-    tabs: [
-      { title: '首页', path: '/home' } // 默认首页
-    ],
-    activeTab: '/home'
+    tabs: [] as TabItem[],
+    activeTab: ''
   }),
   actions: {
-    addTab(tab: any) {
-      if (!this.tabs.find((t) => t.path === tab.path)) {
-        this.tabs.push(tab)
+    addTab(route: any) {
+      if (!this.tabs.find(tab => tab.path === route.path)) {
+        this.tabs.push({
+          title: route.meta?.title as string || route.name?.toString() || route.path,
+          path: route.path,
+          name: route.name?.toString(),
+          fullPath: route.fullPath
+        })
       }
-      this.activeTab = tab.path
+      this.activeTab = route.path
     },
     removeTab(path: string) {
-      const index = this.tabs.findIndex((t) => t.path === path)
+      const index = this.tabs.findIndex(tab => tab.path === path)
       if (index !== -1) {
         this.tabs.splice(index, 1)
-        // 自动激活上一个
-        const nextTab = this.tabs[index - 1] || this.tabs[0]
-        this.activeTab = nextTab.path
+        if (this.activeTab === path) {
+          this.activeTab = this.tabs[index - 1]?.path || this.tabs[0]?.path || ''
+        }
       }
     },
     changeActiveTab(path: string) {
