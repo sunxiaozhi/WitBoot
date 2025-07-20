@@ -23,9 +23,8 @@
 
 <script setup lang="ts">
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
-import router from '@/router'
 import { Fold as FoldIcon, User as UserIcon } from '@element-plus/icons-vue'
-import { useMenuTabsStore } from '@/stores/menuTabsStore'
+import { logout } from '@/utils/auth'
 
 const menuCollapseStore = useMenuCollapseStore()
 
@@ -36,22 +35,10 @@ const changeCollapse = () => {
 const profile = () => {
   console.log('profile')
 }
-
-const resetAllStores = () => {
-  const stores = [useMenuTabsStore(), useMenuCollapseStore()]
-  stores.forEach((store) => store.$reset())
-  localStorage.clear()
-}
-
-const logout = () => {
-  resetAllStores()
-  router.push('/login')
-}
 </script>
 
 <style lang="scss" scoped>
 .header-wrapper {
-
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,20 +1,20 @@
-export const ERROR_CODE: { [key: number]: string } = {
-  400: '请求失败',
-  401: '无权访问',
-  403: '紧张访问',
-  404: '请求不存在',
-  405: '请求方法错误',
-  406: '请求的格式错误',
-  410: '资源已删除',
-  422: '验证错误',
-  500: '服务器发生错误',
-  502: '网关错误',
-  503: '服务器暂时过载或维护',
-  504: '网关超时'
+// 标准 HTTP 状态码（使用中文描述）
+export const HTTP_STATUS_CODE: Record<number, string> = {
+  400: '错误请求',
+  401: '未授权',
+  403: '禁止访问',
+  404: '未找到',
+  500: '服务器内部错误'
 }
 
-export const TOKEN_ERROR_CODE: { [key: number]: string } = {
-  506: '请先登录',
-  507: '请重新登录',
-  508: '登录已过期'
+// Token 相关错误码（业务码）
+export const TOKEN_ERROR_CODE: Record<number, string> = {
+  1001: '登录信息已过期，请重新登录',
+  1002: '登录凭证无效，请重新登录'
+}
+
+// 通用业务错误码
+export const BUSINESS_ERROR_CODE: Record<number, string> = {
+  2001: '参数错误',
+  2002: '操作失败，请重试'
 }

@@ -79,7 +79,7 @@ import {
   User
 } from '@element-plus/icons-vue'
 import { useMenuTabsStore } from '@/stores/menuTabsStore'
-import { useRouter } from 'vue-router'
+import router from '@/router'
 
 const menuConfig = [
   {
@@ -124,8 +124,6 @@ const handleMenuSelect = (path: string) => {
   menuTabsStore.addTab(route)
   router.push(path)
 }
-
-const router = useRouter()
 </script>
 
 <style lang="scss" scoped>

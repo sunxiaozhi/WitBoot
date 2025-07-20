@@ -1,66 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { routes } from './routes'
+import { SITE_NAME } from '@/config/siteConfig'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      redirect: '/login'
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/login/index.vue')
-    },
-    {
-      path: '/',
-      component: () => import('@/layouts/Main.vue'),
-      children: [
-        {
-          path: '/home',
-          name: 'home',
-          component: () => import('@/views/home/index.vue'),
-          meta: { title: '首页' }
-        },
-        {
-          path: '/user',
-          name: 'user',
-          component: () => import('@/views/user/index.vue'),
-          meta: { title: '人员管理' }
-        },
-        {
-          path: '/department',
-          name: 'department',
-          component: () => import('@/views/department/index.vue'),
-          meta: { title: '部门管理' }
-        },
-        {
-          path: '/dictionary',
-          name: 'dictionary',
-          component: () => import('@/views/dictionary/index.vue'),
-          meta: { title: '字典管理' }
-        },
-        {
-          path: '/loginLog',
-          name: 'loginLog',
-          component: () => import('@/views/login-log/index.vue'),
-          meta: { title: '登录日志' }
-        },
-        {
-          path: '/operationLog',
-          name: 'operationLog',
-          component: () => import('@/views/operation-log/index.vue'),
-          meta: { title: '操作日志' }
-        },
-        {
-          path: '/about',
-          name: 'about',
-          component: () => import('@/views/about/index.vue'),
-          meta: { title: '关于系统' }
-        }
-      ]
+  routes
+})
+
+// 全局前置守卫
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('accessToken') // 替换为你的 token 获取方式
+
+  if (to.matched.some(record => record.meta?.requiresAuth)) {
+    if (!token) {
+      next({ name: 'login' })
+    } else {
+      next()
     }
-  ]
+  } else {
+    if (to.name === 'login' && token) {
+      next({ name: 'home' })
+      return
+    }
+    next()
+  }
+})
+
+// 设置页面标题
+router.afterEach((to) => {
+  const title = to.meta.title as string
+  if (title) {
+    document.title = SITE_NAME + ' - ' +title
+  } else {
+    document.title = SITE_NAME
+  }
 })
 
 export default router

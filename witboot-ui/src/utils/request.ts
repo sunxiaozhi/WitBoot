@@ -1,8 +1,9 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig, type Method } from 'axios'
 import { clearAccessToken, getAccessToken } from './auth'
-import { TOKEN_ERROR_CODE } from './responseCode'
+import { HTTP_STATUS_CODE, TOKEN_ERROR_CODE } from './responseCode'
 import type { requestConfigType, ResponseDataType } from './request.d'
 import { ElMessage } from 'element-plus'
+import router from '@/router'
 
 const instance = axios.create({
   baseURL: '/api', // 开发环境下的跨域解决
@@ -91,27 +92,30 @@ function checkResponse(data: ResponseDataType) {
  * 响应错误
  */
 function responseError(error: any) {
-  console.log('error->', '请求错误', error)
-
-  ElMessage.error(error.data)
-
   if (!error) {
     return Promise.reject({ reason: '未知错误' })
   }
   if (typeof error === 'string') {
     return Promise.reject({ reason: error })
   }
+
   if (error.response) {
     // 有报错响应
     const response = error.response
 
-    if (response.data.code in TOKEN_ERROR_CODE) {
+    if (response.status == 403) {
+      ElMessage.error("登录信息已过期，请重新登录")
       clearAccessToken()
+      router.push('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
-    if (response.status >= 500) {
-      return Promise.reject({ reason: '服务器出错啦，请稍后再试～' })
+
+    if (response.data.code in TOKEN_ERROR_CODE) {
+      clearAccessToken()
+      router.push('/login')
+      return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
+
     return Promise.reject({ reason: response.data.reason })
   }
 
