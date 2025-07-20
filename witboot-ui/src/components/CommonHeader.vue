@@ -1,9 +1,9 @@
-<template xmlns="">
+<template>
   <el-header class="header-wrapper">
     <div class="header-wrapper__left">
       <el-icon size="25px" color="#333" @click="changeCollapse">
-        <fold-icon v-if="!menuCollapseStore.isCollapse"/>
-        <expand-icon v-if="menuCollapseStore.isCollapse"/>
+        <fold-icon v-show="!menuCollapseStore.isCollapse"/>
+        <expand-icon v-show="menuCollapseStore.isCollapse"/>
       </el-icon>
     </div>
     <div class="header-wrapper__right">

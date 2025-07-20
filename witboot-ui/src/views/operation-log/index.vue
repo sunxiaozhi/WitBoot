@@ -21,16 +21,18 @@
     </el-table>
 
     <!-- 分页 -->
-    <el-pagination
-      v-model:current-page="pagination.currentPage"
-      v-model:page-size="pagination.pageSize"
-      :page-sizes="[10, 20, 30]"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="pagination.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      style="margin-top: 16px; text-align: right"
-    />
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="pagination.currentPage"
+        v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 30]"
+        layout="total, prev, pager, next, sizes, jumper"
+        :total="pagination.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        style="margin-top: 16px; text-align: right"
+      />
+    </div>
   </el-card>
 </template>
 
@@ -114,6 +116,11 @@ watch(
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .search-input {

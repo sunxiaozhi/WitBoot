@@ -10,14 +10,21 @@ interface TabItem {
 
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
-    tabs: [] as TabItem[],
+    tabs: [
+      {
+        title: '首页',
+        path: '/home',
+        name: 'home',
+        fullPath: '/home'
+      }
+    ] as TabItem[],
     activeTab: ''
   }),
   actions: {
     addTab(route: any) {
-      if (!this.tabs.find(tab => tab.path === route.path)) {
+      if (!this.tabs.find((tab) => tab.path === route.path)) {
         this.tabs.push({
-          title: route.meta?.title as string || route.name?.toString() || route.path,
+          title: (route.meta?.title as string) || route.name?.toString() || route.path,
           path: route.path,
           name: route.name?.toString(),
           fullPath: route.fullPath
@@ -26,7 +33,7 @@ export const useMenuTabsStore = defineStore('menuTabs', {
       this.activeTab = route.path
     },
     removeTab(path: string) {
-      const index = this.tabs.findIndex(tab => tab.path === path)
+      const index = this.tabs.findIndex((tab) => tab.path === path)
       if (index !== -1) {
         this.tabs.splice(index, 1)
         if (this.activeTab === path) {
