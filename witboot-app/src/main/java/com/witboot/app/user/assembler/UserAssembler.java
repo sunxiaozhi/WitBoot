@@ -17,6 +17,7 @@ import com.witboot.domain.user.query.UserQuerySpec;
 public class UserAssembler {
     public static UserQuerySpec toUserListByParamQuerySpec (UserListByParamQuery userListByParamQuery) {
         UserQuerySpec userListByParamQuerySpec = new UserQuerySpec();
+        userListByParamQuerySpec.setKeyword(userListByParamQuery.getKeyword());
         userListByParamQuerySpec.setName(userListByParamQuery.getName());
         userListByParamQuerySpec.setUsername(userListByParamQuery.getUsername());
         userListByParamQuerySpec.setPageNo(userListByParamQuery.getPageNo());

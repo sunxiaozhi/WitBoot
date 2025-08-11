@@ -27,6 +27,10 @@ public class UserRegisterCmdExe {
             throw new WitBootBizException(UserErrorCode.B_USER_USERNAME_REPEAT);
         }
 
+        if (!userRegisterCmd.getPassword().equals(userRegisterCmd.getRePassword())) {
+            throw new WitBootBizException(UserErrorCode.B_USER_PASSWORD_NOT_EQUALS);
+        }
+
         UserEntity userEntity = userGateway.save(UserAssembler.toEntity(userRegisterCmd));
 
         return UserAssembler.toValueObject(userEntity);

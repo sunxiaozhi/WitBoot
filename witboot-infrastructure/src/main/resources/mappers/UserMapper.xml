@@ -65,11 +65,14 @@
         SELECT id, username, name, mobile
         FROM wb_user
         <where>
+            <if test="keyword != null and keyword != ''">
+                (name LIKE CONCAT('%', #{keyword}, '%') or username LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
             <if test="name != null and name != ''">
-                name LIKE CONCAT('%', #{name}, '%')
+                and name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="username != null and username != ''">
-                username = #{username}
+                and username = #{username}
             </if>
             AND delete_flag = 1
         </where>

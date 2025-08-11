@@ -35,6 +35,11 @@ public class UserRegisterCmd extends Command {
     private String password;
 
     /**
+     * 密码
+     */
+    private String rePassword;
+
+    /**
      * 姓名
      */
     private String name;

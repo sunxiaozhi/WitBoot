@@ -13,6 +13,11 @@ import lombok.Setter;
 @Setter
 public class UserQuerySpec extends BaseQuerySpec {
     /**
+     * 关键字
+     */
+    private String keyword;
+
+    /**
      * 姓名
      */
     private String name;

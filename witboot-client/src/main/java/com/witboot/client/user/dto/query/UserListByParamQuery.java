@@ -14,6 +14,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @Builder
 public class UserListByParamQuery extends BaseQuery {
+    private String keyword;
+
     private String name;
 
     private String username;
