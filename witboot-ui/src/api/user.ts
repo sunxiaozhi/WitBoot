@@ -5,6 +5,14 @@ import { BASE_URL } from '@/config/siteConfig';
 const USER_API = {
   LOGIN: '/user/login',
   LIST: '/user/list',
+  REGISTER: '/user/register'
+};
+
+export const register = (data = {}) => {
+  const url = BASE_URL + USER_API.REGISTER;
+  const { ...restData } = data;
+
+  return POST(url, restData);
 };
 
 /**
