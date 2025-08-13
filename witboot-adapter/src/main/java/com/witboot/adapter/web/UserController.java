@@ -2,6 +2,7 @@ package com.witboot.adapter.web;
 
 import com.witboot.client.user.api.IUserService;
 import com.witboot.client.user.dto.UserRegisterCmd;
+import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
@@ -54,10 +55,17 @@ public class UserController extends BaseController {
         return ResponseResult.success(userService.listByParam(userListByParamQuery));
     }
 
+    @GetMapping(value = "/update")
+    @Operation(summary = "用户更新")
+    @WitLog(description = "用户更新")
+    public ResponseResult<UserVO> update(@RequestBody UserUpdateCmd updateCmd) {
+        return ResponseResult.success(userService.update(updateCmd));
+    }
+
     @DeleteMapping(value = "/delete")
     @Operation(summary = "用户删除")
     @WitLog(description = "用户删除")
-    public ResponseResult<Integer> delete(String[] ids) {
+    public ResponseResult<Integer> delete(@RequestBody String[] ids) {
         return ResponseResult.success(userService.deleteByIds(ids));
     }
 }
