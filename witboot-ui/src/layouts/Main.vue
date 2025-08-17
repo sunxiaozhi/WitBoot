@@ -26,8 +26,15 @@ import CommonMenuTab from '@/components/CommonMenuTab.vue'
 <style lang="scss" scoped>
 .common-layout {
   height: 100vh;
+  overflow: hidden; // 防止整体出现滚动条
+
+  .el-container {
+    height: 100%;
+  }
 
   .common-main {
+    flex: 1;
+    overflow-y: auto; // 允许主内容区域滚动
     //background-color: aliceblue;
   }
 }

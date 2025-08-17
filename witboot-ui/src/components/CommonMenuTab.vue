@@ -13,11 +13,13 @@
       :label="item.title"
       :name="item.path"
     >
-      <keep-alive>
-        <router-view v-slot="{ Component }" v-if="item.title">
-          <component :is="Component" :key="activeTab" />
-        </router-view>
-      </keep-alive>
+      <div class="tab-content-wrapper">
+        <keep-alive>
+          <router-view v-slot="{ Component }" v-if="item.title">
+            <component :is="Component" :key="activeTab" />
+          </router-view>
+        </keep-alive>
+      </div>
     </el-tab-pane>
   </el-tabs>
 </template>
@@ -75,5 +77,11 @@ watch(
 /* 去除最后一个 tab 的 margin-right */
 .menu-tabs :deep(.el-tabs__nav-wrap) {
   padding-right: 10px;
+}
+
+/* 添加内容区域滚动样式 */
+.tab-content-wrapper {
+  height: calc(100vh - 120px); /* 根据实际需要调整高度 */
+  overflow-y: auto;
 }
 </style>
