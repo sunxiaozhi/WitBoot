@@ -7,6 +7,7 @@ import com.witboot.app.user.executor.command.UserUpdateCmdExe;
 import com.witboot.app.user.executor.query.UserInfoQueryExe;
 import com.witboot.app.user.executor.query.UserListByParamQueryExe;
 import com.witboot.app.user.executor.query.UserLoginQueryExe;
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.user.api.IUserService;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
@@ -14,6 +15,7 @@ import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.query.UserQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,14 +74,9 @@ public class UserServiceImpl implements IUserService {
         return userListByParamQueryExe.execute(userListByParamQuerySpec);
     }
 
-    /**
-     * 用户删除
-     *
-     * @param ids ids
-     * @return 删除数量
-     */
     @Override
-    public int deleteByIds(String[] ids) {
-        return userDeleteCmdExe.execute(ids);
+    public int deleteByIds(DeleteRequest deleteRequest) {
+        DeleteRequestSpec deleteRequestSpec = UserAssembler.toDeleteRequestSpec(deleteRequest);
+        return userDeleteCmdExe.execute(deleteRequestSpec);
     }
 }

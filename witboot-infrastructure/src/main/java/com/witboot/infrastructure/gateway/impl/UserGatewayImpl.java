@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserName;
@@ -148,14 +149,8 @@ public class UserGatewayImpl implements UserGateway {
         return findById.get();
     }
 
-    /**
-     * 删除用户
-     *
-     * @param ids ids
-     * @return 删除
-     */
     @Override
-    public int deleteByIds(String[] ids) {
-        return userMapper.deleteByIds(ids);
+    public int deleteByIds(DeleteRequestSpec deleteRequestSpec) {
+        return userMapper.deleteByIds(deleteRequestSpec);
     }
 }

@@ -1,5 +1,6 @@
 package com.witboot.client.user.api;
 
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
@@ -56,8 +57,8 @@ public interface IUserService {
 
     /**
      * 用户删除
-     * @param ids ids
+     * @param deleteRequest 删除请求
      * @return 删除数量
      */
-    int deleteByIds(String[] ids);
+    int deleteByIds(DeleteRequest deleteRequest);
 }

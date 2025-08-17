@@ -395,7 +395,7 @@ const handleDelete = (row: User) => {
     .then(async () => {
       try {
         // 调用删除API
-        const res = await deleteUser({ ids: row.id })
+        const res = await deleteUser({ ids: [row.id] })
         if (res.code === 200) {
           ElMessage.success('删除成功')
           await fetchData()

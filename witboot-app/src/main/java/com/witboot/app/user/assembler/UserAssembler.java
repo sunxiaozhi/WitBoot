@@ -1,9 +1,11 @@
 package com.witboot.app.user.assembler;
 
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserPassword;
 import com.witboot.domain.user.query.UserQuerySpec;
@@ -62,5 +64,11 @@ public class UserAssembler {
         userVO.setDescription(userEntity.getDescription());
 
         return userVO;
+    }
+
+    public static DeleteRequestSpec toDeleteRequestSpec(DeleteRequest deleteRequest) {
+        DeleteRequestSpec deleteRequestSpec = new DeleteRequestSpec();
+        deleteRequestSpec.setIds(deleteRequest.getIds());
+        return deleteRequestSpec;
     }
 }

@@ -27,4 +27,11 @@
         (ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result)
         VALUES (#{ip}, #{location}, #{method}, #{uri}, #{requestTime}, #{wasteTime}, #{requestParam}, #{requestBody}, #{responseResult})
     </insert>
+
+    <delete id="deleteByIds">
+        DELETE FROM wb_operation_log WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

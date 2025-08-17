@@ -1,5 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.mapper;
 
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.query.UserQuerySpec;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import org.apache.ibatis.annotations.Mapper;
@@ -66,8 +67,8 @@ public interface UserMapper {
     /**
      * 删除数据
      *
-     * @param ids ids
+     * @param deleteRequestSpec 删除请求
      * @return 结果
      */
-    int deleteByIds(String[] ids);
+    int deleteByIds(DeleteRequestSpec deleteRequestSpec);
 }

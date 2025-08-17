@@ -37,4 +37,12 @@ public interface OperationLogMapper {
      * @return 结果
      */
     int insert(OperationLogDO operationLogDo);
+
+    /**
+     * 删除数据
+     *
+     * @param ids ids
+     * @return 结果
+     */
+    int deleteByIds(String[] ids);
 }

@@ -32,4 +32,6 @@ public interface OperationLogGateway {
      * @param operationLogEntity operationLog Domain
      */
     OperationLogEntity save(OperationLogEntity operationLogEntity);
+
+    int deleteByIds(String[] ids);
 }

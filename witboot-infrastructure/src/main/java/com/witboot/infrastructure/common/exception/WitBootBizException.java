@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.common.exception;
 
 import com.alibaba.cola.exception.BizException;
-import com.witboot.client.base.dato.data.BaseErrorCode;
+import com.witboot.client.base.dto.data.BaseErrorCode;
 
 import java.io.Serial;
 

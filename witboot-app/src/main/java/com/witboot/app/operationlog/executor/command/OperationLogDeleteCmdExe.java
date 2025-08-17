@@ -1,6 +1,6 @@
 package com.witboot.app.operationlog.executor.command;
 
-import com.witboot.domain.user.gateway.UserGateway;
+import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class OperationLogDeleteCmdExe {
     @Autowired
-    private UserGateway userGateway;
+    private OperationLogGateway operationLogGateway;
 
     public int execute(String[] ids) {
-        return userGateway.deleteByIds(ids);
+        return operationLogGateway.deleteByIds(ids);
     }
 }

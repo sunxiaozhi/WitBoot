@@ -1,5 +1,6 @@
 package com.witboot.adapter.web;
 
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.user.api.IUserService;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
@@ -65,7 +66,7 @@ public class UserController extends BaseController {
     @DeleteMapping(value = "/delete")
     @Operation(summary = "用户删除")
     @WitLog(description = "用户删除")
-    public ResponseResult<Integer> delete(@RequestBody String[] ids) {
-        return ResponseResult.success(userService.deleteByIds(ids));
+    public ResponseResult<Integer> delete(@RequestBody DeleteRequest deleteRequest) {
+        return ResponseResult.success(userService.deleteByIds(deleteRequest));
     }
 }

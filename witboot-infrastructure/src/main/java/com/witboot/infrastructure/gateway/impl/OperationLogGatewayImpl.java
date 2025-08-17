@@ -85,4 +85,9 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
 
         return OperationLogConvertor.toEntity(operationLogDo);
     }
+
+    @Override
+    public int deleteByIds(String[] ids) {
+        return operationLogMapper.deleteByIds(ids);
+    }
 }

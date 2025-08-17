@@ -1,6 +1,6 @@
 package com.witboot.client.menu.dto.data;
 
-import com.witboot.client.base.dato.data.BaseErrorCode;
+import com.witboot.client.base.dto.data.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,6 +1,7 @@
 package com.witboot.domain.user.gateway;
 
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.query.UserQuerySpec;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,8 +56,8 @@ public interface UserGateway extends UserDetailsService {
     /**
      * 删除用户
      *
-     * @param ids ids
+     * @param deleteRequestSpec 删除请求
      * @return 删除
      */
-    int deleteByIds(String[] ids);
+    int deleteByIds(DeleteRequestSpec deleteRequestSpec);
 }
