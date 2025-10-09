@@ -6,10 +6,25 @@
 
     <resultMap id="operationLogDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.OperationLogDO">
         <result property="id" column="id"/>
+        <result property="ip" column="ip"/>
+        <result property="location" column="location"/>
+        <result property="method" column="method"/>
+        <result property="uri" column="uri"/>
+        <result property="requestTime" column="request_time"/>
+        <result property="wasteTime" column="waste_time"/>
+        <result property="requestParam" column="request_param"/>
+        <result property="requestBody" column="request_body"/>
+        <result property="responseResult" column="response_result"/>
     </resultMap>
 
+    <sql id="Column_List">
+        id, ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result
+    </sql>
+
     <select id="selectByParam" resultMap="operationLogDOMap">
-        SELECT * FROM wb_operation_log
+        SELECT
+        <include refid="Column_List"/>
+        FROM wb_operation_log
         <where>
             <if test="ip != null and ip != ''">
                 ip = #{ip}
@@ -19,7 +34,10 @@
     </select>
 
     <select id="selectById" resultMap="operationLogDOMap">
-        SELECT * FROM wb_operation_log WHERE id = #{id}
+        SELECT
+        <include refid="Column_List"/>
+        FROM wb_operation_log
+        WHERE id = #{id}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
