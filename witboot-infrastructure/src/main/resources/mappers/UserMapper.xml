@@ -21,6 +21,10 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
+    <sql id="allColumns">
+        id, username, name, mobile, gender, birthday, description, creator, modifier, delete_flag, create_time, update_time
+    </sql>
+
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_user
         (username, name, password, delete_flag, creator, modifier, create_time, update_time)
@@ -30,11 +34,23 @@
     <insert id="update" useGeneratedKeys="true" keyProperty="id">
         UPDATE wb_user
         <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
             <if test="name != null">
                 name = #{name},
             </if>
-            <if test="username != null">
-                username = #{username},
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="description != null">
+                description = #{description},
             </if>
             <if test="modifier != null">
                 modifier = #{modifier},
@@ -42,7 +58,7 @@
             <if test="deleteFlag != null">
                 delete_flag = #{deleteFlag},
             </if>
-            update_time = sys_date()
+            update_time = sysdate()
         </set>
         WHERE id = #{id}
     </insert>
@@ -62,7 +78,7 @@
     </select>
 
     <select id="selectByParam" resultMap="userDOMap">
-        SELECT id, username, name, mobile
+        SELECT <include refid="allColumns"/>
         FROM wb_user
         <where>
             <if test="keyword != null and keyword != ''">

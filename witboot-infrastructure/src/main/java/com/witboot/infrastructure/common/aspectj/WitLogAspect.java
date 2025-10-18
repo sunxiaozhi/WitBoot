@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -27,11 +28,14 @@ import java.util.concurrent.CompletableFuture;
 @Component
 @Slf4j
 public class WitLogAspect {
+    @Autowired
+    private ObjectMapper objectMapper;
+
     /** 计算操作消耗时间 */
     private static final ThreadLocal<Long> WASTE_TIME_THREADLOCAL = new NamedThreadLocal<>("wasteTime");
 
     /** 复用ObjectMapper实例 */
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    //private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Before("@annotation(com.witboot.infrastructure.common.annotation.WitLog)")
     public void before() {
@@ -129,13 +133,13 @@ public class WitLogAspect {
             }
 
             // 记录请求参数
-            operationLogEntity.setRequestParam(OBJECT_MAPPER.writeValueAsString(requestInfo.parameterMap));
+            operationLogEntity.setRequestParam(objectMapper.writeValueAsString(requestInfo.parameterMap));
 
             // 记录请求体
             operationLogEntity.setRequestBody(requestInfo.requestBody);
 
             // 记录响应结果
-            operationLogEntity.setResponseResult(OBJECT_MAPPER.writeValueAsString(responseResult));
+            operationLogEntity.setResponseResult(objectMapper.writeValueAsString(responseResult));
 
             OperationLogGateway operationLogGateway = BeanUtils.getBean(OperationLogGateway.class);
             operationLogGateway.save(operationLogEntity);
@@ -162,7 +166,7 @@ public class WitLogAspect {
             }
 
             // 记录请求参数
-            operationLogEntity.setRequestParam(OBJECT_MAPPER.writeValueAsString(requestInfo.parameterMap));
+            operationLogEntity.setRequestParam(objectMapper.writeValueAsString(requestInfo.parameterMap));
 
             // 记录请求体
             operationLogEntity.setRequestBody(requestInfo.requestBody);

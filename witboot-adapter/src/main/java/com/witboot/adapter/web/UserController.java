@@ -56,7 +56,7 @@ public class UserController extends BaseController {
         return ResponseResult.success(userService.listByParam(userListByParamQuery));
     }
 
-    @GetMapping(value = "/update")
+    @PostMapping(value = "/update")
     @Operation(summary = "用户更新")
     @WitLog(description = "用户更新")
     public ResponseResult<UserVO> update(@RequestBody UserUpdateCmd updateCmd) {

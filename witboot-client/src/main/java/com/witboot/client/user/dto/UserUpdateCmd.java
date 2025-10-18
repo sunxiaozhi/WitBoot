@@ -42,7 +42,7 @@ public class UserUpdateCmd extends Command {
     /**
      * 手机号
      */
-    private String phoneNo;
+    private String mobile;
 
     /**
      * 性别

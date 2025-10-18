@@ -45,7 +45,7 @@ public class UserAssembler {
         userEntity.setId(userUpdateCmd.getId());
         userEntity.setUsername(userUpdateCmd.getUsername());
         userEntity.setName(userUpdateCmd.getName());
-        userEntity.setMobile(userUpdateCmd.getPhoneNo());
+        userEntity.setMobile(userUpdateCmd.getMobile());
         userEntity.setGender(userUpdateCmd.getGender());
         userEntity.setBirthday(userUpdateCmd.getBirthday());
         userEntity.setDescription(userUpdateCmd.getDescription());
