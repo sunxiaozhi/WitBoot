@@ -1,9 +1,7 @@
 <template>
-  <el-footer>
-    <span>
-      Copyright © 2024 Powered by
-      <a :href="githubUrl" target="_blank">{{ owner }}</a>
-    </span>
+  <el-footer class="footer">
+    Copyright © 2024 Powered by
+    <a :href="githubUrl" target="_blank" rel="noopener">{{ owner }}</a>
   </el-footer>
 </template>
 
@@ -12,22 +10,16 @@ import { SITE_OWNER as owner, GITHUB_URL as githubUrl } from '@/config/siteConfi
 </script>
 
 <style lang="scss" scoped>
-.el-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #333;
-
+.footer {
+  text-align: center;
+  line-height: 60px;
+  background: #fafafa;
+  border-top: 1px solid #e6e6e6;
+  color: #666;
+  font-size: 14px;
   a {
     color: #409eff;
-    text-decoration: none;
-
-    &:link,
-    &:visited,
-    &:hover,
-    &:active {
-      color: #409eff;
-    }
+    margin-left: 4px;
   }
 }
 </style>

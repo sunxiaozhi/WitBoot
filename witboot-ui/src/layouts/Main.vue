@@ -1,19 +1,16 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <common-aside />
-      <el-container direction="vertical">
-        <common-header />
-        <el-main class="common-main">
-          <common-menu-tab />
-<!--          <router-view />-->
-        </el-main>
-        <common-footer />
-      </el-container>
+  <el-container class="layout">
+    <common-aside />
+    <el-container class="main-container">
+      <common-header />
+      <el-main class="main-content">
+        <common-menu-tab />
+      </el-main>
+      <common-footer />
     </el-container>
-  </div>
+  </el-container>
 
-  <el-backtop :right="20" :bottom="20" />
+  <el-backtop :right="40" :bottom="100" />
 </template>
 
 <script setup lang="ts">
@@ -24,18 +21,28 @@ import CommonMenuTab from '@/components/CommonMenuTab.vue'
 </script>
 
 <style lang="scss" scoped>
-.common-layout {
+.layout {
   height: 100vh;
-  overflow: hidden; // 防止整体出现滚动条
+}
 
-  .el-container {
-    height: 100%;
-  }
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
 
-  .common-main {
-    flex: 1;
-    overflow-y: auto; // 允许主内容区域滚动
-    //background-color: aliceblue;
-  }
+.main-content {
+  padding: 0;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /*:deep(.el-main) {
+    padding: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }*/
 }
 </style>

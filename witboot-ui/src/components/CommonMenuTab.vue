@@ -1,87 +1,94 @@
 <template>
-  <el-tabs
-    v-model="menuTabsStore.activeTab"
-    type="card"
-    closable
-    class="menu-tabs"
-    @tab-change="menuTabsStore.changeActiveTab"
-    @tab-remove="menuTabsStore.removeTab"
-  >
-    <el-tab-pane
-      v-for="item in menuTabsStore.tabs"
-      :key="item.path"
-      :label="item.title"
-      :name="item.path"
+  <div class="menu-tabs-wrapper">
+    <el-tabs
+      v-model="activeTab"
+      type="card"
+      closable
+      class="menu-tabs"
+      @tab-remove="removeTab"
+      @tab-change="changeTab"
     >
-      <div class="tab-content-wrapper">
-        <keep-alive>
-          <router-view v-slot="{ Component }" v-if="item.title">
-            <component :is="Component" :key="activeTab" />
-          </router-view>
-        </keep-alive>
-      </div>
-    </el-tab-pane>
-  </el-tabs>
+      <el-tab-pane
+        v-for="tab in tabs"
+        :key="tab.path"
+        :label="tab.title"
+        :name="tab.path"
+      >
+        <!-- 关键：只有在激活时才渲染内容，避免缓存所有页面 -->
+        <div v-if="activeTab === tab.path" class="tab-content">
+          <keep-alive>
+            <router-view v-slot="{ Component }">
+              <component :is="Component" :key="$route.fullPath" />
+            </router-view>
+          </keep-alive>
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
+import { computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useMenuTabsStore } from '@/stores/menuTabsStore'
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
 
 const menuTabsStore = useMenuTabsStore()
-
 const route = useRoute()
+const router = useRouter()
 
+const tabs = computed(() => menuTabsStore.tabs)
+const activeTab = computed({
+  get: () => menuTabsStore.activeTab,
+  set: (val) => menuTabsStore.changeActiveTab(val)
+})
+
+const removeTab = (path: string) => {
+  menuTabsStore.removeTab(path)
+  if (activeTab.value === path && tabs.value.length > 0) {
+    router.push(tabs.value[tabs.value.length - 1].path)
+  }
+}
+
+const changeTab = (path: string) => {
+  router.push(path)
+}
+
+onMounted(() => {
+  if (route.path !== '/login' && route.meta?.title) {
+    menuTabsStore.addTab(route)
+    menuTabsStore.activeTab = route.path
+  }
+})
+
+// 路由变化时添加
 watch(
-  () => route.fullPath,
-  () => {
-    if (route.meta?.title) {
+  () => route.path,
+  (newPath) => {
+    if (newPath !== '/login' && route.meta?.title) {
       menuTabsStore.addTab(route)
-      menuTabsStore.activeTab = route.path
     }
-  },
-  { immediate: true } // 刷新时也会触发
+  }
 )
 </script>
 
 <style scoped>
-/* 自定义标签页样式 */
-.menu-tabs :deep(.el-tabs__item) {
-  border-radius: 10px !important;
-  margin-right: 5px;
-  padding: 6px 16px;
-  transition: all 0.2s;
-  border: 2px solid #EEE;
+.menu-tabs-wrapper {
+  background: #fff;
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0 10px;
 }
-
-.menu-tabs :deep(.el-tabs__header) {
-  border: none;
+/*.menu-tabs :deep(.el-tabs__item) {
+  border-radius: 6px 6px 0 0 !important;
+  margin-right: 4px;
+  user-select: none;
 }
-
-.menu-tabs :deep(.el-tabs__header .el-tabs__nav) {
-  border: none;
-}
-
-.menu-tabs :deep(.el-tabs__header .el-tabs__item:first-child) {
-  border: 2px solid #EEE;
-}
-
-/* 设置激活标签颜色、边框等可选样式 */
 .menu-tabs :deep(.el-tabs__item.is-active) {
-  background-color: var(--el-color-primary-light-9);
-  border-color: var(--el-color-primary);
+  background: var(--el-color-primary-light-9);
+  border-color: var(--el-color-primary) !important;
   color: var(--el-color-primary);
-}
-
-/* 去除最后一个 tab 的 margin-right */
-.menu-tabs :deep(.el-tabs__nav-wrap) {
-  padding-right: 10px;
-}
-
-/* 添加内容区域滚动样式 */
-.tab-content-wrapper {
-  height: calc(100vh - 120px); /* 根据实际需要调整高度 */
-  overflow-y: auto;
+}*/
+.tab-content {
+  height: calc(100vh - 160px); /* 根据你的 header + tabs + footer 高度调整 */
+  overflow: auto;
 }
 </style>

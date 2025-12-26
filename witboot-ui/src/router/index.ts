@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes'
 import { SITE_NAME } from '@/config/siteConfig'
+import { useMenuTabsStore } from '@/stores/menuTabsStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,6 +23,13 @@ router.beforeEach((to, from, next) => {
       next({ name: 'home' })
       return
     }
+
+    const menuTabsStore = useMenuTabsStore()
+    // 只要不是登录页，就确保当前路由在 tabs 中
+    if (to.path !== '/login') {
+      menuTabsStore.addTab(to)
+    }
+
     next()
   }
 })

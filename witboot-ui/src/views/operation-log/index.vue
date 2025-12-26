@@ -1,45 +1,137 @@
 <template>
-  <el-card>
-    <!-- 搜索框 -->
-    <div class="search-container">
-      <el-input
-        v-model="searchKeyword"
-        placeholder="请输入ip"
-        clearable
-        class="search-input"
-        @keyup.enter="handleSearch"
-      />
-      <el-button type="primary" @click="handleSearch">搜索</el-button>
+  <div class="operation-log-container">
+      <!-- 搜索框 -->
+      <div class="search-container">
+        <el-input
+          v-model="searchKeyword"
+          placeholder="请输入ip"
+          clearable
+          class="search-input"
+          @keyup.enter="handleSearch"
+        />
+        <el-button type="primary" @click="handleSearch" :loading="searchLoading">
+          <el-icon><Search /></el-icon>
+          搜索
+        </el-button>
+      </div>
+
+        <!-- 操作按钮区域 -->
+        <div class="option-container">
+          <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
+            <el-icon><Delete /></el-icon>
+            删除
+          </el-button>
+        </div>
+
+      <!-- 列表表格 -->
+    <div class="table-wrapper">
+      <el-table
+        ref="multipleTableRef"
+        :data="tableData"
+        row-key="id"
+        border
+        style="width: 100%"
+        element-loading-text="数据加载中..."
+        @selection-change="handleSelectionChange"
+        :loading="tableLoading"
+        class="operation-log-table"
+      >
+        <el-table-column type="selection" :selectable="selectable" width="55" />
+        <el-table-column prop="ip" label="ip" />
+        <el-table-column prop="location" label="地址" />
+        <el-table-column prop="method" label="请求方法" />
+        <el-table-column prop="uri" label="URI" />
+        <el-table-column fixed="right" label="操作" width="150" align="center">
+          <template #default="scope">
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click.prevent="handleDetail(scope.row)"
+              class="action-button"
+            >
+              <el-icon>
+                <Document />
+              </el-icon>
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
 
-    <!-- 列表表格 -->
-    <el-table :data="tableData" border style="width: 100%" :loading="loading">
-      <el-table-column prop="ip" label="ip" />
-      <el-table-column prop="location" label="地址" />
-      <el-table-column prop="method" label="请求方法" />
-      <el-table-column prop="uri" label="URI" />
-    </el-table>
+      <!-- 分页 -->
+      <div class="pagination-container">
+        <el-pagination
+          v-model:current-page="pagination.currentPage"
+          v-model:page-size="pagination.pageSize"
+          :page-sizes="[10, 20, 30]"
+          layout="total, prev, pager, next, sizes, jumper"
+          :total="pagination.total"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          style="margin-top: 16px; text-align: right"
+        />
+      </div>
 
-    <!-- 分页 -->
-    <div class="pagination-container">
-      <el-pagination
-        v-model:current-page="pagination.currentPage"
-        v-model:page-size="pagination.pageSize"
-        :page-sizes="[10, 20, 30]"
-        layout="total, prev, pager, next, sizes, jumper"
-        :total="pagination.total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        style="margin-top: 16px; text-align: right"
-      />
-    </div>
-  </el-card>
+      <!-- 新增/编辑抽屉 -->
+      <el-drawer
+        v-model="dialog"
+        :title="请求记录详情"
+        :before-close="handleClose"
+        direction="rtl"
+        size="40%"
+        class="user-drawer"
+      >
+        <div class="drawer__content">
+          <el-descriptions
+            title="Vertical list with border"
+            direction="vertical"
+            :column="4"
+            :size="size"
+            border
+          >
+            <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
+            <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
+            <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
+            <el-descriptions-item label="Remarks">
+              <el-tag size="small">School</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="Address">
+              No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+            </el-descriptions-item>
+          </el-descriptions>
+        </div>
+      </el-drawer>
+  </div>
+
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, watch, onMounted } from 'vue'
-import { selectOperationLogList } from '@/api/operationLog.ts'
+import { selectOperationLogList, operationLogInfo, deleteOperationLog } from '@/api/operationLog.ts'
 import { debounce } from 'lodash-es'
+import { Delete, Document, Search } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+
+interface OperationLog {
+  id: number
+  ip: string
+  location: string
+  method: string
+  uri: string
+  wasteTime: string
+  requestParam: string
+  requestBody: string
+  responseResult: string
+}
+
+const selectedRows = ref<OperationLog[]>([])
+const selectedIds = ref<number[]>([])
+const searchLoading = ref(false)
+const tableLoading = ref(false)
+
+const dialog = ref(false)
 
 // 搜索关键词
 const searchKeyword = ref('')
@@ -49,6 +141,11 @@ const tableData = ref([])
 
 // 加载状态
 const loading = ref(false)
+
+const handleSelectionChange = (selection: OperationLog[]) => {
+  selectedRows.value = selection
+  selectedIds.value = selection.map((item) => item.id)
+}
 
 // 分页状态
 const pagination = reactive({
@@ -65,6 +162,7 @@ const fetchData = async () => {
       pageNo: pagination.currentPage,
       pageSize: pagination.pageSize
     })
+
     tableData.value = res.data.list
     pagination.total = res.data.total
   } catch (error) {
@@ -72,6 +170,11 @@ const fetchData = async () => {
   } finally {
     loading.value = false
   }
+}
+
+// 方法定义
+const selectable = (row: OperationLog) => {
+  return ![1, 2].includes(row.id)
 }
 
 // 防抖搜索
@@ -85,6 +188,41 @@ const handleSearch = () => {
   debouncedSearch()
 }
 
+const handleBatchDelete = () => {
+  if (selectedIds.value.length === 0) {
+    ElMessage.warning('请先选择要删除的用户')
+    return
+  }
+
+  ElMessageBox.confirm(
+    `确定要删除选中的${selectedIds.value.length}个操作日志吗？此操作不可恢复！`,
+    '删除确认',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+      draggable: true
+    }
+  ).then(async () => {
+      try {
+        // 调用删除API，传入ID数组
+        const res = await deleteOperationLog({ ids: selectedIds.value })
+        if (res.code === 200) {
+          ElMessage.success('批量删除成功')
+          await fetchData()
+        } else {
+          ElMessage.error(res.message || '批量删除失败')
+        }
+      } catch (error) {
+        ElMessage.error('批量删除失败')
+        console.error('Batch delete error:', error)
+      }
+    })
+    .catch(() => {
+      ElMessage.info('已取消删除')
+    })
+}
+
 // 页面大小变化
 const handleSizeChange = (size) => {
   pagination.pageSize = size
@@ -95,6 +233,18 @@ const handleSizeChange = (size) => {
 const handleCurrentChange = (page) => {
   pagination.currentPage = page
   fetchData()
+}
+
+const handleDetail = async (row) => {
+  try {
+    const res = await operationLogInfo(row.id)
+
+    dialog.value = true
+
+    console.log(res.data)
+  } catch (error) {
+    console.error('Failed to fetch data:', error)
+  }
 }
 
 // 初始化加载
@@ -112,18 +262,40 @@ watch(
 </script>
 
 <style scoped>
+.operation-log-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .search-container {
+  flex: 0 0 auto;
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
 }
 
-.pagination-container {
+.option-container {
+  flex: 0 0 auto;
+  margin-bottom: 16px;
   display: flex;
-  justify-content: flex-end;
+  gap: 8px;
 }
 
-.search-input {
-  width: 200px;
+.table-wrapper {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.operation-log-table {
+  width: 100%;
+}
+
+.pagination-container {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
 }
 </style>

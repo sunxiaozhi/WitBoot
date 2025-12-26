@@ -1,5 +1,4 @@
 <template>
-  <el-card class="user-management-card">
     <div class="header-container">
       <!-- 搜索区域 -->
       <div class="search-container">
@@ -36,7 +35,7 @@
       row-key="id"
       border
       style="width: 100%"
-      v-loading="tableLoading"
+      :loading="tableLoading"
       element-loading-text="数据加载中..."
       @selection-change="handleSelectionChange"
       class="user-table"
@@ -203,7 +202,6 @@
         </div>
       </div>
     </el-drawer>
-  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -529,7 +527,10 @@ watch(
 
 <style scoped>
 .user-management-card {
-  height: 100%;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .header-container {
@@ -557,9 +558,16 @@ watch(
   gap: 12px;
 }
 
-.user-table {
+/*.user-table {
   margin: 20px 0;
+}*/
+
+.user-table {
+  flex: 1;
+  min-height: 0;
+  overflow: auto; /* 推荐加这个，否则 el-table 内容多时外层会被撑开 */
 }
+
 
 .action-button {
   padding: 4px 8px;

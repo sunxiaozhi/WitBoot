@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import router from '@/router'
+import type { RouteLocationNormalizedLoaded, RouteRecordNormalized } from 'vue-router'
 
 interface TabItem {
   title: string
@@ -10,41 +10,61 @@ interface TabItem {
 
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
-    tabs: [
-      {
-        title: '首页',
-        path: '/home',
-        name: 'home',
-        fullPath: '/home'
-      }
-    ] as TabItem[],
-    activeTab: ''
+    tabs: [] as TabItem[],
+    activeTab: '/home' as string
   }),
+
   actions: {
-    addTab(route: any) {
-      if (!this.tabs.find((tab) => tab.path === route.path)) {
+    initHomeTab() {
+      if (this.tabs.length === 0) {
         this.tabs.push({
-          title: (route.meta?.title as string) || route.name?.toString() || route.path,
-          path: route.path,
-          name: route.name?.toString(),
-          fullPath: route.fullPath
+          title: '首页',
+          path: '/home',
+          fullPath: '/home'
+        })
+        this.activeTab = '/home'
+      }
+    },
+
+    addTab(route: RouteLocationNormalizedLoaded | RouteRecordNormalized) {
+      const path = route.path
+      const title = (route.meta?.title as string) || (route.name as string) || path
+
+      if (!this.tabs.some(tab => tab.path === path)) {
+        this.tabs.push({
+          title,
+          path,
+          name: route.name as string | undefined,
+          fullPath: (route as any).fullPath
         })
       }
-      this.activeTab = route.path
+      this.activeTab = path
     },
+
     removeTab(path: string) {
-      const index = this.tabs.findIndex((tab) => tab.path === path)
-      if (index !== -1) {
-        this.tabs.splice(index, 1)
-        if (this.activeTab === path) {
-          this.activeTab = this.tabs[index - 1]?.path || this.tabs[0]?.path || ''
-        }
+      const index = this.tabs.findIndex(tab => tab.path === path)
+      if (index === -1) return
+
+      this.tabs.splice(index, 1)
+
+      if (this.activeTab === path) {
+        const newTab = this.tabs[index] || this.tabs[index - 1] || this.tabs[0]
+        this.activeTab = newTab?.path || '/home'
       }
     },
+
     changeActiveTab(path: string) {
       this.activeTab = path
-      console.log(path)
-      router.push(path)
+    },
+
+    closeAllTabs() {
+      this.tabs = [{ title: '首页', path: '/home', fullPath: '/home' }]
+      this.activeTab = '/home'
     }
+  },
+
+  persist: {
+    key: 'witboot-menu-tabs',
+    storage: localStorage,  // 也可以用 sessionStorage
   }
 })

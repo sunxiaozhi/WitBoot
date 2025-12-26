@@ -20,9 +20,11 @@
     "axios": "^1.6.8",
     "element-plus": "^2.6.3",
     "lodash-es": "^4.17.21",
-    "pinia": "^2.1.7",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
+    "vuedraggable": "^2.24.3",
     "witboot-ui": "file:"
   },
   "devDependencies": {

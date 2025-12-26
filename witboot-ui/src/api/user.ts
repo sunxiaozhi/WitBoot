@@ -1,5 +1,5 @@
 import { DELETE, GET, POST } from '@/utils/request'
-import { BASE_URL } from '@/config/siteConfig';
+import { BASE_URL } from '@/config/siteConfig'
 
 // 定义用户模块的 API 路径
 const USER_API = {
@@ -7,8 +7,8 @@ const USER_API = {
   LOGIN: '/user/login',
   LIST: '/user/list',
   UPDATE: '/user/update',
-  DELETE: '/user/delete',
-};
+  DELETE: '/user/delete'
+}
 
 /**
  * 用户注册接口
@@ -16,11 +16,11 @@ const USER_API = {
  * @returns Promise
  */
 export const register = (data = {}) => {
-  const url = BASE_URL + USER_API.REGISTER;
-  const { ...restData } = data;
+  const url = BASE_URL + USER_API.REGISTER
+  const { ...restData } = data
 
-  return POST(url, restData);
-};
+  return POST(url, restData)
+}
 
 /**
  * 用户登录接口
@@ -28,11 +28,11 @@ export const register = (data = {}) => {
  * @returns Promise
  */
 export const login = (data = {}) => {
-  const url = BASE_URL + USER_API.LOGIN;
-  const { ...restData } = data;
+  const url = BASE_URL + USER_API.LOGIN
+  const { ...restData } = data
 
-  return POST(url, restData);
-};
+  return POST(url, restData)
+}
 
 /**
  * 获取用户列表
@@ -40,14 +40,14 @@ export const login = (data = {}) => {
  * @returns Promise
  */
 export const selectUserList = (params = {}) => {
-  const { ...restParams } = params; // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.LIST;
+  const { ...restParams } = params // 使用解构确保参数安全
+  const url = BASE_URL + USER_API.LIST
 
   return GET(url, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true
-  });
-};
+  })
+}
 
 /**
  * 获取更新用户信息
@@ -55,23 +55,26 @@ export const selectUserList = (params = {}) => {
  * @returns Promise
  */
 export const updateUserInfo = (data = {}) => {
-  const { ...restData } = data; // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.UPDATE;
+  const { ...restData } = data // 使用解构确保参数安全
+  const url = BASE_URL + USER_API.UPDATE
 
-  return POST(url, restData);
-};
+  return POST(url, restData, {
+    headers: { 'Content-Type': 'application/json' },
+    isToken: true
+  })
+}
 
 /**
- * 删除用户接口
+ * 删除用户
  * @param params 删除请求参数
  * @returns Promise
  */
 export const deleteUser = (params = {}) => {
-  const { ...restParams } = params; // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.DELETE;
+  const { ...restParams } = params // 使用解构确保参数安全
+  const url = BASE_URL + USER_API.DELETE
 
   return DELETE(url, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true
-  });
-};
+  })
+}

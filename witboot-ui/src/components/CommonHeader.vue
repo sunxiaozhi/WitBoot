@@ -1,20 +1,23 @@
 <template>
-  <el-header class="header-wrapper">
-    <div class="header-wrapper__left">
-      <el-icon size="25px" color="#333" @click="changeCollapse">
-        <fold-icon v-show="!menuCollapseStore.isCollapse"/>
-        <expand-icon v-show="menuCollapseStore.isCollapse"/>
+  <el-header class="header">
+    <div class="left">
+      <el-icon
+        :size="24"
+        class="collapse-icon"
+        @click="menuCollapseStore.toggleCollapse"
+      >
+        <Expand v-if="menuCollapseStore.isCollapse" />
+        <Fold v-else />
       </el-icon>
     </div>
-    <div class="header-wrapper__right">
-      <el-dropdown placement="bottom-end">
-        <el-icon :size="25" :color="'#333'">
-          <user-icon />
-        </el-icon>
+
+    <div class="right">
+      <el-dropdown trigger="click">
+        <el-avatar :size="32" :src="avatarUrl" />
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="profile">个人信息</el-dropdown-item>
-            <el-dropdown-item @click="logout">退出</el-dropdown-item>
+            <el-dropdown-item @click="toProfile">个人信息</el-dropdown-item>
+            <el-dropdown-item divided @click="handleLogout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -23,33 +26,43 @@
 </template>
 
 <script setup lang="ts">
+import { Fold, Expand } from '@element-plus/icons-vue'
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
-import { Fold as FoldIcon, User as UserIcon, Expand as ExpandIcon } from '@element-plus/icons-vue'
-import { logout } from '@/utils/auth'
+import { ElMessageBox } from 'element-plus'
 
 const menuCollapseStore = useMenuCollapseStore()
+const avatarUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 
-const changeCollapse = () => {
-  menuCollapseStore.toggleCollapse()
+const toProfile = () => {
+  // router.push('/profile')
+  console.log('去个人信息页')
 }
 
-const profile = () => {
-  console.log('profile')
+const handleLogout = () => {
+  ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+    type: 'warning'
+  }).then(() => {
+    // logout()
+    localStorage.clear()
+    location.href = '/login'
+  })
 }
 </script>
 
 <style lang="scss" scoped>
-.header-wrapper {
+.header {
+  background: #fff;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 45px;
-  background-color: #fff;
-
-  &__left,
-  &__right {
-    display: flex;
-    align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 50px !important;
+  .collapse-icon {
+    cursor: pointer;
+    transition: transform 0.3s;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 }
 </style>
