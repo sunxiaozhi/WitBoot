@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.witboot.client.operationlog.dto.data.OperationLogErrorCode;
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
@@ -87,7 +88,7 @@ public class OperationLogGatewayImpl implements OperationLogGateway {
     }
 
     @Override
-    public int deleteByIds(String[] ids) {
-        return operationLogMapper.deleteByIds(ids);
+    public int deleteByIds(DeleteRequestSpec deleteRequestSpec) {
+        return operationLogMapper.deleteByIds(deleteRequestSpec);
     }
 }

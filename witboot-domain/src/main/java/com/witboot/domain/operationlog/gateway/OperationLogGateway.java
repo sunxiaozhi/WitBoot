@@ -1,6 +1,7 @@
 package com.witboot.domain.operationlog.gateway;
 
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 
@@ -33,5 +34,5 @@ public interface OperationLogGateway {
      */
     OperationLogEntity save(OperationLogEntity operationLogEntity);
 
-    int deleteByIds(String[] ids);
+    int deleteByIds(DeleteRequestSpec deleteRequestSpec);
 }

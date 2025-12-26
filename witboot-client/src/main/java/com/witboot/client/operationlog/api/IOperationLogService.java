@@ -1,5 +1,6 @@
 package com.witboot.client.operationlog.api;
 
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
@@ -33,13 +34,13 @@ public interface IOperationLogService {
      * @param id id
      * @return Response
      */
-    public OperationLogVO getOperationLogInfo(Long id);
+    OperationLogVO getOperationLogInfo(Long id);
 
     /**
      * 操作记录删除
      *
-     * @param ids ids
+     * @param deleteRequest 删除请求
      * @return 删除数量
      */
-    public int deleteByIds(String[] ids);
+    int deleteByIds(DeleteRequest deleteRequest);
 }

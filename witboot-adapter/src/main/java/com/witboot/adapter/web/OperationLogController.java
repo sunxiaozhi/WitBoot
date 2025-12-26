@@ -1,5 +1,6 @@
 package com.witboot.adapter.web;
 
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.api.IOperationLogService;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
@@ -33,7 +34,7 @@ public class OperationLogController extends BaseController {
         return ResponseResult.success(operationLogService.listByParam(operationLogListByParamQuery));
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/info/{id}")
     @Operation(summary = "操作日志详情")
     @WitLog(description = "操作日志详情")
     public ResponseResult<OperationLogVO> operationLogInfo(@PathVariable("id") Long id) {
@@ -43,7 +44,7 @@ public class OperationLogController extends BaseController {
     @DeleteMapping(value = "/delete")
     @Operation(summary = "操作日志删除")
     @WitLog(description = "操作日志删除")
-    public ResponseResult<Integer> delete(String[] ids) {
-        return ResponseResult.success(operationLogService.deleteByIds(ids));
+    public ResponseResult<Integer> delete(@RequestBody DeleteRequest deleteRequest) {
+        return ResponseResult.success(operationLogService.deleteByIds(deleteRequest));
     }
 }

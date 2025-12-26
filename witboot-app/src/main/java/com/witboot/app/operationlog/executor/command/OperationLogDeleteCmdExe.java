@@ -1,5 +1,6 @@
 package com.witboot.app.operationlog.executor.command;
 
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class OperationLogDeleteCmdExe {
     @Autowired
     private OperationLogGateway operationLogGateway;
 
-    public int execute(String[] ids) {
-        return operationLogGateway.deleteByIds(ids);
+    public int execute(DeleteRequestSpec deleteRequestSpec) {
+        return operationLogGateway.deleteByIds(deleteRequestSpec);
     }
 }

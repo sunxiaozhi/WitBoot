@@ -5,11 +5,13 @@ import com.witboot.app.operationlog.executor.command.OperationLogAddCmdExe;
 import com.witboot.app.operationlog.executor.command.OperationLogDeleteCmdExe;
 import com.witboot.app.operationlog.executor.query.OperationLogInfoQueryExe;
 import com.witboot.app.operationlog.executor.query.OperationLogListByParamQueryExe;
+import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.api.IOperationLogService;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import com.witboot.domain.base.model.PageResult;
+import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +55,8 @@ public class OperationLogServiceImpl implements IOperationLogService {
     }
 
     @Override
-    public int deleteByIds(String[] ids) {
-        return operationlogDeleteCmdExe.execute(ids);
+    public int deleteByIds(DeleteRequest deleteRequest) {
+        DeleteRequestSpec deleteRequestSpec = OperationLogAssembler.toDeleteRequestSpec(deleteRequest);
+        return operationlogDeleteCmdExe.execute(deleteRequestSpec);
     }
 }
