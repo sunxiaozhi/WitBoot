@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * JwtToken生成的工具类
+ * JwtToken 生成的工具类
  *
  * @author sunxiaozhi
  */
@@ -56,7 +56,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 根据负责生成JWT的token
+     * 根据负责生成 JWT token
      */
     private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
@@ -67,7 +67,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 从token中获取JWT中的负载
+     * 从 token 中获取 JWT 中的负载
      */
     public Claims getClaimsFromToken(String token) {
         Claims claims = null;
@@ -91,7 +91,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 从token中获取登录用户名
+     * 从 token 中获取登录用户名
      */
     public String getUserNameFromToken(String token) {
         String username;
@@ -105,9 +105,9 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 验证token是否还有效
+     * 验证 token 是否还有效
      *
-     * @param token       客户端传入的token
+     * @param token       客户端传入的 token
      * @param userDetails 从数据库中查询出来的用户信息
      */
     public boolean validateToken(String token, UserDetails userDetails) {
@@ -116,7 +116,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 判断token是否已经失效
+     * 判断 token 是否已经失效
      */
     public boolean isTokenExpired(String token) {
         Date expiredDate = getExpiredDateFromToken(token);
@@ -124,7 +124,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 从token中获取过期时间
+     * 从 token 中获取过期时间
      */
     private Date getExpiredDateFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
@@ -132,7 +132,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 根据用户信息生成token
+     * 根据用户信息生成 token
      */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>(16);
@@ -142,7 +142,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 根据用户信息生成token
+     * 根据用户信息生成 token
      */
     public String generateToken(UserEntity userEntity) {
         Map<String, Object> claims = new HashMap<>(16);
@@ -153,14 +153,14 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 判断token是否可以被刷新
+     * 判断 token 是否可以被刷新
      */
     public boolean canRefresh(String token) {
         return isTokenExpired(token);
     }
 
     /**
-     * 刷新token
+     * 刷新 token
      */
     public String refreshToken(String token) {
         Claims claims = getClaimsFromToken(token);
@@ -169,7 +169,7 @@ public class JwtTokenUtil {
     }
 
     /**
-     * 获取请求token
+     * 获取请求 token
      *
      * @param request request
      * @return token

@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 /**
- * security配置
+ * Security 配置
  *
  * @author sunxiaozhi
  */
@@ -54,11 +54,11 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        //关闭csrf
+        //关闭 csrf
         http.csrf().disable()
                 //允许跨域（也可以不允许，看具体需求）
                 .cors().and()
-                //不通过Session获取SecurityContext
+                //不通过Session获取 SecurityContext
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()

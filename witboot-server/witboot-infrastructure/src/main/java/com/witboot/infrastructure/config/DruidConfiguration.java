@@ -8,14 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * druid配置类
+ * druid 配置类
  *
  * @author sunxiaozhi
  */
 @Configuration
 public class DruidConfiguration {
     /**
-     * 注册一个StatViewServlet
+     * 注册一个 StatViewServlet
      *
      * @return StatViewServlet
      */

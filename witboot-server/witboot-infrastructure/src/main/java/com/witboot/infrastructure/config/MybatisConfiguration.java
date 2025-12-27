@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.config;
 
 /**
- * Mybatis配置
+ * Mybatis 配置
  *
  * @author sunxiaozhi
  */

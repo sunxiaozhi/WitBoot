@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 /**
- * web过滤配置
+ * Web 过滤配置
  *
  * @author sunxiaozhi
  */

@@ -57,7 +57,7 @@ public class ThreadPoolUtil {
                 // 然后new LinkedBlockingQueue<Runnable>(),然后maximumPoolSize,但是它的数量是包含了corePoolSize的
                 maxPoolSize,
 
-                //表示的是maximumPoolSize当中等待任务的存活时间
+                //表示的是 maximumPoolSize 当中等待任务的存活时间
                 keepAliveTime,
 
                 TimeUnit.HOURS,

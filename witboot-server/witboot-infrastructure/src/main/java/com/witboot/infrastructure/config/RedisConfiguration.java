@@ -22,7 +22,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.time.Duration;
 
 /**
- * Redis配置类
+ * Redis 配置类
  *
  * @author sunxiaozhi
  */
@@ -58,13 +58,13 @@ public class RedisConfiguration {
 
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
-        // 使用StringRedisSerializer来序列化和反序列化redis的key值
+        // 使用 StringRedisSerializer 来序列化和反序列化redis的key值
         redisTemplate.setKeySerializer(stringRedisSerializer);
 
-        // hash的key也采用String的序列化方式
+        // hash 的key也采用String的序列化方式
         redisTemplate.setHashKeySerializer(stringRedisSerializer);
 
-        // hash的value序列化方式采用jackson
+        // hash 的value序列化方式采用jackson
         redisTemplate.setHashValueSerializer(serializer());
 
         redisTemplate.afterPropertiesSet();
@@ -79,7 +79,7 @@ public class RedisConfiguration {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 // 缓存有效期
                 .entryTtl(timeToLive)
-                // 使用StringRedisSerializer来序列化和反序列化redis的key值
+                // 使用 StringRedisSerializer 来序列化和反序列化redis的key值
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
                 // 使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer()))

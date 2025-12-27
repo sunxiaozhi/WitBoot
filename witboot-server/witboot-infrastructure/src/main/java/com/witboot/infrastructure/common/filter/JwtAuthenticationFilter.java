@@ -25,7 +25,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * Jwt过滤器
+ * Jwt 过滤器
  *
  * @author sunxiaozhi
  */
@@ -48,7 +48,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        //从客户端请求中获取JWT
+        //从客户端请求中获取 JWT
         String authHeader = request.getHeader(this.tokenHeader);
 
         //该JWT是我们规定的格式，以tokenHead开头
@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             //The part after "Bearer "
             String authToken = authHeader.substring(this.tokenHead.length());
 
-            //从JWT中获取用户名
+            //从 JWT 中获取用户名
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
 
             log.info("checking username:{}", username);
@@ -66,7 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContext securityContext = SecurityContextHolder.getContext();
 
             if (username != null && securityContext.getAuthentication() == null) {
-                //判断authToken是否已失效
+                //判断 authToken 是否已失效
                 String jwtToken = redisUtil.getCache(Constants.LOGIN_USER_KEY + username);
                 if (!StringUtils.equals(authToken, jwtToken)) {
                     throw new WitBootBizException(UserErrorCode.B_USER_AUTH_TOKEN_ERROR);
@@ -75,7 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 //根据用户名获取登录用户信息
                 UserDetails userDetails = userGateway.loadUserByUsername(username);
 
-                //验证token是否过期
+                //验证 token 是否过期
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     //将登录用户保存到安全上下文中
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

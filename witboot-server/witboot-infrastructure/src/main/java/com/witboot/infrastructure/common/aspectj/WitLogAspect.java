@@ -39,18 +39,18 @@ public class WitLogAspect {
 
     @Before("@annotation(com.witboot.infrastructure.common.annotation.WitLog)")
     public void before() {
-        log.debug("WitLog切入点之前操作");
+        log.debug("Wit Log切入点之前操作");
         WASTE_TIME_THREADLOCAL.set(System.currentTimeMillis());
     }
 
     @After("@annotation(com.witboot.infrastructure.common.annotation.WitLog)")
     public void after() {
-        log.debug("WitLog切入点之后操作");
+        log.debug("Wit Log切入点之后操作");
     }
 
     @AfterReturning(pointcut = "@annotation(witLog)", returning = "responseResult")
     public void afterReturning(JoinPoint point, WitLog witLog, Object responseResult) {
-        log.debug("WitLog切入点请求数据返回之后操作,描述信息：{}", witLog.description());
+        log.debug("Wit Log切入点请求数据返回之后操作,描述信息：{}", witLog.description());
 
         try {
             // 在主线程中获取请求信息，然后传递给异步任务
