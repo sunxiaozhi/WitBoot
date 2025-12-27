@@ -1,4 +1,4 @@
-package com.witboot.app.user.validator;
+package com.witboot.app.operationlog.validator;
 
 /**
  * UserValidator

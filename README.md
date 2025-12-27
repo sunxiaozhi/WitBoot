@@ -3,7 +3,7 @@
 > 本项目结合Spring Boot3.4.4和COLA 5.0.0（整洁面向对象分层架构）实现。
 
 ## 项目架构图
-![项目架构图](doc/image/架构.png)
+![项目架构图](docs/image/架构.png)
 
 ## 组件构成
 * **witboot-start**：
@@ -14,13 +14,13 @@
 * **witboot-infrastructure**：
 
 ## 模块规范
-![App Module](doc/image/witboot-app.png)
+![App Module](docs/image/witboot-app.png)
 
-![Client Module](doc/image/witboot-client.png)
+![Client Module](docs/image/witboot-client.png)
 
-![Domain Module](doc/image/witboot-domain.png)
+![Domain Module](docs/image/witboot-domain.png)
 
-![Infrastructure Module](doc/image/witboot-infrastructure.png)
+![Infrastructure Module](docs/image/witboot-infrastructure.png)
 
 ## 集成功能列表
 - [x] SpringBoot Security集成
@@ -90,4 +90,4 @@
 |xxxConvertor| Convertor | 转化器，Entity <---> DO，用于Infrastructure层 |
 
 ### 公众号
-![WeChat](doc/image/WeChat.jpg)
+![WeChat](docs/image/WeChat.jpg)
