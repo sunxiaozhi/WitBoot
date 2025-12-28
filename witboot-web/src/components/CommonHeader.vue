@@ -1,11 +1,7 @@
 <template>
   <el-header class="header">
     <div class="left">
-      <el-icon
-        :size="24"
-        class="collapse-icon"
-        @click="menuCollapseStore.toggleCollapse"
-      >
+      <el-icon :size="24" class="collapse-icon" @click="menuCollapseStore.toggleCollapse">
         <Expand v-if="menuCollapseStore.isCollapse" />
         <Fold v-else />
       </el-icon>
@@ -57,9 +53,11 @@ const handleLogout = () => {
   justify-content: space-between;
   padding: 0 20px;
   height: 50px !important;
+
   .collapse-icon {
     cursor: pointer;
     transition: transform 0.3s;
+
     &:hover {
       transform: scale(1.1);
     }
