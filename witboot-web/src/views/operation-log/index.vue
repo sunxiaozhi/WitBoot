@@ -1,55 +1,42 @@
 <template>
   <div class="operation-log-container">
-      <!-- 搜索框 -->
-      <div class="search-container">
-        <el-input
-          v-model="searchKeyword"
-          placeholder="请输入ip"
-          clearable
-          class="search-input"
-          @keyup.enter="handleSearch"
-        />
-        <el-button type="primary" @click="handleSearch" :loading="searchLoading">
-          <el-icon><Search /></el-icon>
-          搜索
-        </el-button>
-      </div>
+    <!-- 搜索框 -->
+    <div class="search-container">
+      <el-input v-model="searchKeyword" placeholder="请输入ip" clearable class="search-input"
+        @keyup.enter="handleSearch" />
+      <el-button type="primary" @click="handleSearch" :loading="searchLoading">
+        <el-icon>
+          <Search />
+        </el-icon>
+        搜索
+      </el-button>
+    </div>
 
-        <!-- 操作按钮区域 -->
-        <div class="option-container">
-          <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
-            <el-icon><Delete /></el-icon>
-            删除
-          </el-button>
-        </div>
+    <!-- 操作按钮区域 -->
+    <div class="option-container">
+      <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
+        <el-icon>
+          <Delete />
+        </el-icon>
+        删除
+      </el-button>
+    </div>
 
-      <!-- 列表表格 -->
+    <!-- 列表表格 -->
     <div class="table-wrapper">
-      <el-table
-        ref="multipleTableRef"
-        :data="tableData"
-        row-key="id"
-        border
-        style="width: 100%"
-        element-loading-text="数据加载中..."
-        @selection-change="handleSelectionChange"
-        :loading="tableLoading"
-        class="operation-log-table"
-      >
-        <el-table-column type="selection" :selectable="selectable" width="55" />
-        <el-table-column prop="ip" label="ip" />
+      <el-table ref="multipleTableRef" :data="tableData" row-key="id" border style="width: 100%"
+        element-loading-text="数据加载中..." @selection-change="handleSelectionChange" :loading="tableLoading"
+        class="operation-log-table">
+        <el-table-column type="selection" width="55" />
+        <el-table-column prop="ip" label="IP" />
         <el-table-column prop="location" label="地址" />
         <el-table-column prop="method" label="请求方法" />
         <el-table-column prop="uri" label="URI" />
+        <el-table-column prop="requestTime" label="请求时间" />
+        <el-table-column prop="wasteTime" label="耗时(ms)" />
         <el-table-column fixed="right" label="操作" width="150" align="center">
           <template #default="scope">
-            <el-button
-              link
-              type="primary"
-              size="small"
-              @click.prevent="handleDetail(scope.row)"
-              class="action-button"
-            >
+            <el-button link type="primary" size="small" @click.prevent="handleDetail(scope.row)" class="action-button">
               <el-icon>
                 <Document />
               </el-icon>
@@ -60,49 +47,31 @@
       </el-table>
     </div>
 
-      <!-- 分页 -->
-      <div class="pagination-container">
-        <el-pagination
-          v-model:current-page="pagination.currentPage"
-          v-model:page-size="pagination.pageSize"
-          :page-sizes="[10, 20, 30]"
-          layout="total, prev, pager, next, sizes, jumper"
-          :total="pagination.total"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          style="margin-top: 16px; text-align: right"
-        />
-      </div>
+    <!-- 分页 -->
+    <div class="pagination-container">
+      <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 30]" layout="total, prev, pager, next, sizes, jumper" :total="pagination.total"
+        @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        style="margin-top: 16px; text-align: right" />
+    </div>
 
-      <!-- 新增/编辑抽屉 -->
-      <el-drawer
-        v-model="dialog"
-        :title="请求记录详情"
-        :before-close="handleClose"
-        direction="rtl"
-        size="40%"
-        class="user-drawer"
-      >
-        <div class="drawer__content">
-          <el-descriptions
-            title="Vertical list with border"
-            direction="vertical"
-            :column="4"
-            :size="size"
-            border
-          >
-            <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-            <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-            <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-            <el-descriptions-item label="Remarks">
-              <el-tag size="small">School</el-tag>
-            </el-descriptions-item>
-            <el-descriptions-item label="Address">
-              No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
-            </el-descriptions-item>
-          </el-descriptions>
-        </div>
-      </el-drawer>
+    <!-- 新增/编辑抽屉 -->
+    <el-drawer v-model="dialog" :title="请求记录详情" :before-close="handleClose" direction="rtl" size="40%"
+      class="user-drawer">
+      <div class="drawer__content">
+        <el-descriptions title="Vertical list with border" direction="vertical" :column="4" :size="size" border>
+          <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
+          <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
+          <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
+          <el-descriptions-item label="Remarks">
+            <el-tag size="small">School</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="Address">
+            No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+    </el-drawer>
   </div>
 
 </template>
@@ -172,11 +141,6 @@ const fetchData = async () => {
   }
 }
 
-// 方法定义
-const selectable = (row: OperationLog) => {
-  return ![1, 2].includes(row.id)
-}
-
 // 防抖搜索
 const debouncedSearch = debounce(() => {
   fetchData()
@@ -204,20 +168,20 @@ const handleBatchDelete = () => {
       draggable: true
     }
   ).then(async () => {
-      try {
-        // 调用删除API，传入ID数组
-        const res = await deleteOperationLog({ ids: selectedIds.value })
-        if (res.code === 200) {
-          ElMessage.success('批量删除成功')
-          await fetchData()
-        } else {
-          ElMessage.error(res.message || '批量删除失败')
-        }
-      } catch (error) {
-        ElMessage.error('批量删除失败')
-        console.error('Batch delete error:', error)
+    try {
+      // 调用删除API，传入ID数组
+      const res = await deleteOperationLog({ ids: selectedIds.value })
+      if (res.code === 200) {
+        ElMessage.success('批量删除成功')
+        await fetchData()
+      } else {
+        ElMessage.error(res.message || '批量删除失败')
       }
-    })
+    } catch (error) {
+      ElMessage.error('批量删除失败')
+      console.error('Batch delete error:', error)
+    }
+  })
     .catch(() => {
       ElMessage.info('已取消删除')
     })
@@ -273,6 +237,11 @@ watch(
   margin-bottom: 16px;
   display: flex;
   gap: 8px;
+
+  .search-input {
+    flex: 1;
+    max-width: 300px;
+  }
 }
 
 .option-container {
