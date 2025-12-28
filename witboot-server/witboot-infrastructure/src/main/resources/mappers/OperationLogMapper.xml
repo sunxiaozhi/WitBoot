@@ -26,8 +26,11 @@
         id, ip, location, method, uri, request_time, waste_time
         FROM wb_operation_log
         <where>
-            <if test="ip != null and ip != ''">
-                ip = #{ip}
+            <if test="searchKeyword != null and searchKeyword != ''">
+                ip like concat('%',#{searchKeyword},'%')
+            </if>
+            <if test="method != null and method != ''">
+                and method = #{method}
             </if>
         </where>
         ORDER BY request_time DESC

@@ -1,5 +1,6 @@
 package com.witboot.app.operationlog.assembler;
 
+import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.client.base.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
@@ -17,7 +18,8 @@ import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 public class OperationLogAssembler {
     public static OperationLogQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
         OperationLogQuerySpec operationLogListByParamQuerySpec = new OperationLogQuerySpec();
-        operationLogListByParamQuerySpec.setIp(operatorLogListByParamQuery.getIp());
+        operationLogListByParamQuerySpec.setSearchKeyword(operatorLogListByParamQuery.getSearchKeyword());
+        operationLogListByParamQuerySpec.setMethod(operatorLogListByParamQuery.getMethod());
         operationLogListByParamQuerySpec.setPageNo(operatorLogListByParamQuery.getPageNo());
         operationLogListByParamQuerySpec.setPageSize(operatorLogListByParamQuery.getPageSize());
         return operationLogListByParamQuerySpec;
@@ -67,8 +69,6 @@ public class OperationLogAssembler {
     }
 
     public static DeleteRequestSpec toDeleteRequestSpec(DeleteRequest deleteRequest) {
-        DeleteRequestSpec deleteRequestSpec = new DeleteRequestSpec();
-        deleteRequestSpec.setIds(deleteRequest.getIds());
-        return deleteRequestSpec;
+        return UserAssembler.toDeleteRequestSpec(deleteRequest);
     }
 }

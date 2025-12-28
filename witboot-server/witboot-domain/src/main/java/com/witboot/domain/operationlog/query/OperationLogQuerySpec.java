@@ -13,7 +13,12 @@ import lombok.Setter;
 @Setter
 public class OperationLogQuerySpec extends BaseQuerySpec {
     /**
-     * ip
+     * 查询关键词
      */
-    private String ip;
+    private String searchKeyword;
+
+    /**
+     * 请求方法
+     */
+    private String method;
 }

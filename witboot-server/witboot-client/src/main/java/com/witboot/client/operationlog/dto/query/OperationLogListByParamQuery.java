@@ -15,7 +15,12 @@ import lombok.EqualsAndHashCode;
 @Builder
 public class OperationLogListByParamQuery extends BaseQuery {
     /**
-     * ip
+     * 查询关键词
      */
-    private String ip;
+    private String searchKeyword;
+
+    /**
+     * 请求方法
+     */
+    private String method;
 }
