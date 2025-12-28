@@ -1,6 +1,6 @@
 <template>
   <el-footer class="footer">
-    Copyright © 2024 Powered by
+    Copyright © 2026 Powered by
     <a :href="githubUrl" target="_blank" rel="noopener">{{ owner }}</a>
   </el-footer>
 </template>

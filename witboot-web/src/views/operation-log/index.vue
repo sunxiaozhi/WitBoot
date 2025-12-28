@@ -2,8 +2,19 @@
   <div class="operation-log-container">
     <!-- 搜索框 -->
     <div class="search-container">
-      <el-input v-model="searchKeyword" placeholder="请输入IP" clearable class="search-input"
-        @keyup.enter="handleSearch" />
+      <el-input v-model="searchKeyword" placeholder="请输入IP" clearable class="search-input" @keyup.enter="handleSearch"
+        maxlength="30">
+        <template #prepend>查询词</template>
+      </el-input>
+      <el-select v-model="searchMethod" placeholder="请选择请求方法" clearable class="method-select">
+        <el-option label="GET" value="GET" />
+        <el-option label="POST" value="POST" />
+        <el-option label="PUT" value="PUT" />
+        <el-option label="DELETE" value="DELETE" />
+        <el-option label="PATCH" value="PATCH" />
+        <el-option label="HEAD" value="HEAD" />
+        <el-option label="OPTIONS" value="OPTIONS" />
+      </el-select>
       <el-button type="primary" @click="handleSearch" :loading="searchLoading">
         <el-icon>
           <Search />
@@ -114,6 +125,7 @@ const tableLoading = ref(false)
 const dialog = ref(false)
 const currentRow = ref<OperationLog | null>(null)
 const searchKeyword = ref('')
+const searchMethod = ref('')
 const tableData = ref([])
 const loading = ref(false)
 const pagination = reactive({
@@ -147,6 +159,7 @@ const fetchData = async () => {
       pageNo: pagination.currentPage,
       pageSize: pagination.pageSize,
       searchKeyword: searchKeyword.value,
+      method: searchMethod.value,
     })
 
     tableData.value = res.data.list
@@ -241,8 +254,11 @@ onMounted(async () => {
   gap: 8px;
 
   .search-input {
-    flex: 1;
-    max-width: 300px;
+    max-width: 200px;
+  }
+
+  .method-select {
+    max-width: 200px;
   }
 }
 
