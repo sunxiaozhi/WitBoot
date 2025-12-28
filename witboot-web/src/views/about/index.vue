@@ -2,7 +2,8 @@
   <div class="about">
     <div class="about-content">
       <p class="about-content__text">
-        WitBoot基于SpringBoot3.x + COLA 4.0（整洁面向对象分层架构）+ Mybatis Plus + Vue3.X + Element Plus实现的前后端分离系统，支持RBAC动态权限、数据权限、日志记录...
+        WitBoot基于SpringBoot3.x + COLA 4.0（整洁面向对象分层架构）+ Mybatis Plus + Vue3.X + Element
+        Plus实现的前后端分离系统，支持RBAC动态权限、数据权限、日志记录...
       </p>
     </div>
 

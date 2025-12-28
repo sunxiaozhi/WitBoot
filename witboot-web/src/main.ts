@@ -17,7 +17,7 @@ pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 
-app.use(ElementPlus, { locale: zhCn})
+app.use(ElementPlus, { locale: zhCn })
 app.use(pinia)
 app.use(router)
 

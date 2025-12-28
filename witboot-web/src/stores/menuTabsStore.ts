@@ -30,7 +30,7 @@ export const useMenuTabsStore = defineStore('menuTabs', {
       const path = route.path
       const title = (route.meta?.title as string) || (route.name as string) || path
 
-      if (!this.tabs.some(tab => tab.path === path)) {
+      if (!this.tabs.some((tab) => tab.path === path)) {
         this.tabs.push({
           title,
           path,
@@ -42,7 +42,7 @@ export const useMenuTabsStore = defineStore('menuTabs', {
     },
 
     removeTab(path: string) {
-      const index = this.tabs.findIndex(tab => tab.path === path)
+      const index = this.tabs.findIndex((tab) => tab.path === path)
       if (index === -1) return
 
       this.tabs.splice(index, 1)
@@ -65,6 +65,6 @@ export const useMenuTabsStore = defineStore('menuTabs', {
 
   persist: {
     key: 'witboot-menu-tabs',
-    storage: localStorage,  // 也可以用 sessionStorage
+    storage: localStorage // 也可以用 sessionStorage
   }
 })

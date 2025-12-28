@@ -38,11 +38,5 @@ import CommonMenuTab from '@/components/CommonMenuTab.vue'
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
-  /*:deep(.el-main) {
-    padding: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }*/
 }
 </style>

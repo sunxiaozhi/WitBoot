@@ -12,7 +12,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('accessToken') // 替换为你的 token 获取方式
 
-  if (to.matched.some(record => record.meta?.requiresAuth)) {
+  if (to.matched.some((record) => record.meta?.requiresAuth)) {
     if (!token) {
       next({ name: 'login' })
     } else {
@@ -38,7 +38,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   const title = to.meta.title as string
   if (title) {
-    document.title = SITE_NAME + ' - ' +title
+    document.title = SITE_NAME + ' - ' + title
   } else {
     document.title = SITE_NAME
   }

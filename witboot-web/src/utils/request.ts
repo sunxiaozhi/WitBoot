@@ -57,7 +57,7 @@ function request(url: string, data: any, config: any, method: Method): any {
   console.log('request->', url, data, config, method)
   /* 去空 */
   for (const key in data) {
-    if (data[key] === null || data[key] === undefined) { 
+    if (data[key] === null || data[key] === undefined) {
       delete data[key]
     }
   }
@@ -104,7 +104,7 @@ function responseError(error: any) {
     const response = error.response
 
     if (response.status == 403) {
-      ElMessage.error("登录信息已过期，请重新登录")
+      ElMessage.error('登录信息已过期，请重新登录')
       clearAccessToken()
       router.push('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
