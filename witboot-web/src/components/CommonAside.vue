@@ -54,7 +54,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { storeToRefs } from 'pinia'
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import { useMenuTabsStore } from '@/stores/menuTabsStore'
 import {
@@ -129,10 +128,9 @@ const handleSelect = (path: string) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #409eff;
 
   h3 {
-    color: #fff;
+    color: #409eff;
     margin: 0;
     font-size: 18px;
     font-weight: bold;
