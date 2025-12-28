@@ -17,6 +17,7 @@ import { SITE_OWNER as owner, GITHUB_URL as githubUrl } from '@/config/siteConfi
   border-top: 1px solid #e6e6e6;
   color: #666;
   font-size: 14px;
+
   a {
     color: #409eff;
     margin-left: 4px;

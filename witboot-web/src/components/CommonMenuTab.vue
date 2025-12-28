@@ -8,12 +8,7 @@
       @tab-remove="removeTab"
       @tab-change="changeTab"
     >
-      <el-tab-pane
-        v-for="tab in tabs"
-        :key="tab.path"
-        :label="tab.title"
-        :name="tab.path"
-      >
+      <el-tab-pane v-for="tab in tabs" :key="tab.path" :label="tab.title" :name="tab.path">
         <!-- 关键：只有在激活时才渲染内容，避免缓存所有页面 -->
         <div v-if="activeTab === tab.path" class="tab-content">
           <keep-alive>
@@ -77,6 +72,7 @@ watch(
   border-bottom: 1px solid #e6e6e6;
   padding: 0 10px;
 }
+
 /*.menu-tabs :deep(.el-tabs__item) {
   border-radius: 6px 6px 0 0 !important;
   margin-right: 4px;
@@ -88,7 +84,8 @@ watch(
   color: var(--el-color-primary);
 }*/
 .tab-content {
-  height: calc(100vh - 160px); /* 根据你的 header + tabs + footer 高度调整 */
+  height: calc(100vh - 160px);
+  /* 根据你的 header + tabs + footer 高度调整 */
   overflow: auto;
 }
 </style>
