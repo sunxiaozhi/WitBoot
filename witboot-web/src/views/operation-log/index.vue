@@ -56,9 +56,9 @@
     </div>
 
     <!-- 详情抽屉 -->
-    <el-drawer v-model="dialog" direction="rtl" size="40%" class="user-drawer">
+    <el-drawer v-model="dialog" title="操作日志" direction="rtl" size="40%" class="user-drawer">
       <div class="drawer__content">
-        <el-descriptions :title="`操作日志详情 - ${currentRow?.ip || ''}`" direction="vertical" :column="1" border>
+        <el-descriptions :title="`详情`" direction="vertical" :column="1" border>
           <el-descriptions-item label="IP" :span="1">{{ currentRow?.ip || '-' }}</el-descriptions-item>
           <el-descriptions-item label="地址" :span="1">{{ currentRow?.location || '-' }}</el-descriptions-item>
           <el-descriptions-item label="请求方法" :span="1">{{ currentRow?.method || '-' }}</el-descriptions-item>
@@ -67,17 +67,17 @@
           <el-descriptions-item label="耗时(ms)" :span="1">{{ currentRow?.wasteTime || '-' }}</el-descriptions-item>
           <el-descriptions-item label="请求参数" :span="1">
             <el-scrollbar height="100px">
-              <pre>{{ currentRow?.requestParam || '-' }}</pre>
+              <pre style="white-space: pre-wrap; word-break: break-word;">{{ currentRow?.requestParam || '-' }}</pre>
             </el-scrollbar>
           </el-descriptions-item>
           <el-descriptions-item label="请求体" :span="1">
             <el-scrollbar height="100px">
-              <pre>{{ currentRow?.requestBody || '-' }}</pre>
+              <pre style="white-space: pre-wrap; word-break: break-word;">{{ currentRow?.requestBody || '-' }}</pre>
             </el-scrollbar>
           </el-descriptions-item>
           <el-descriptions-item label="响应结果" :span="1">
-            <el-scrollbar height="100px">
-              <pre>{{ currentRow?.responseResult || '-' }}</pre>
+            <el-scrollbar height="300px">
+              <pre style="white-space: pre-wrap; word-break: break-word;">{{ currentRow?.responseResult || '-' }}</pre>
             </el-scrollbar>
           </el-descriptions-item>
         </el-descriptions>
@@ -177,7 +177,7 @@ const handleBatchDelete = () => {
     {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
-      type: 'warning',
+      type: 'error',
       draggable: true
     }
   ).then(async () => {
@@ -218,13 +218,9 @@ const handleDetail = async (row) => {
 
     // 将获取的详情数据赋值给 currentRow
     currentRow.value = res.data
-    
+
     // 显示抽屉
     dialog.value = true
-
-    dialog.value = true
-
-    console.log(res.data)
   } catch (error) {
     console.error('Failed to fetch data:', error)
   }
@@ -234,14 +230,6 @@ const handleDetail = async (row) => {
 onMounted(async () => {
   await fetchData()
 })
-
-// 监听分页参数变化
-watch(
-  () => [pagination.currentPage, pagination.pageSize],
-  () => {
-    fetchData()
-  }
-)
 </script>
 
 <style scoped>
