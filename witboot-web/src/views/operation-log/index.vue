@@ -51,7 +51,7 @@
     <div class="pagination-container">
       <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
         :page-sizes="[10, 20, 30]" layout="total, prev, pager, next, sizes, jumper" :total="pagination.total"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange"
+        @size-change="handlePageSizeChange" @current-change="handleCurrentPageChange"
         style="margin-top: 16px; text-align: right" />
     </div>
 
@@ -66,12 +66,12 @@
           <el-descriptions-item label="请求时间" :span="1">{{ currentRow?.requestTime || '-' }}</el-descriptions-item>
           <el-descriptions-item label="耗时(ms)" :span="1">{{ currentRow?.wasteTime || '-' }}</el-descriptions-item>
           <el-descriptions-item label="请求参数" :span="1">
-            <el-scrollbar height="100px">
+            <el-scrollbar height="80px">
               <pre style="white-space: pre-wrap; word-break: break-word;">{{ currentRow?.requestParam || '-' }}</pre>
             </el-scrollbar>
           </el-descriptions-item>
           <el-descriptions-item label="请求体" :span="1">
-            <el-scrollbar height="100px">
+            <el-scrollbar height="80px">
               <pre style="white-space: pre-wrap; word-break: break-word;">{{ currentRow?.requestBody || '-' }}</pre>
             </el-scrollbar>
           </el-descriptions-item>
@@ -88,7 +88,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { selectOperationLogList, operationLogInfo, deleteOperationLog } from '@/api/operationLog.ts'
 import { debounce } from 'lodash-es'
 import { Delete, Document, Search } from '@element-plus/icons-vue'
@@ -111,30 +111,33 @@ const selectedRows = ref<OperationLog[]>([])
 const selectedIds = ref<number[]>([])
 const searchLoading = ref(false)
 const tableLoading = ref(false)
-
 const dialog = ref(false)
-const currentRow = ref<OperationLog | null>(null)  // 添加当前行数据
-
-// 搜索关键词
+const currentRow = ref<OperationLog | null>(null)
 const searchKeyword = ref('')
-
-// 表格数据
 const tableData = ref([])
-
-// 加载状态
 const loading = ref(false)
-
-const handleSelectionChange = (selection: OperationLog[]) => {
-  selectedRows.value = selection
-  selectedIds.value = selection.map((item) => item.id)
-}
-
-// 分页状态
 const pagination = reactive({
   currentPage: 1,
   pageSize: 10,
   total: 0
 })
+
+// 选择框选中行操作
+const handleSelectionChange = (selection: OperationLog[]) => {
+  selectedRows.value = selection
+  selectedIds.value = selection.map((item) => item.id)
+}
+
+// 搜索触发
+const handleSearch = () => {
+  pagination.currentPage = 1
+  debouncedSearch()
+}
+
+// 防抖搜索
+const debouncedSearch = debounce(() => {
+  fetchData()
+}, 300)
 
 // 获取数据
 const fetchData = async () => {
@@ -142,7 +145,8 @@ const fetchData = async () => {
   try {
     const res = await selectOperationLogList({
       pageNo: pagination.currentPage,
-      pageSize: pagination.pageSize
+      pageSize: pagination.pageSize,
+      searchKeyword: searchKeyword.value,
     })
 
     tableData.value = res.data.list
@@ -154,17 +158,7 @@ const fetchData = async () => {
   }
 }
 
-// 防抖搜索
-const debouncedSearch = debounce(() => {
-  fetchData()
-}, 300)
-
-// 搜索触发
-const handleSearch = () => {
-  pagination.currentPage = 1
-  debouncedSearch()
-}
-
+// 批量删除
 const handleBatchDelete = () => {
   if (selectedIds.value.length === 0) {
     ElMessage.warning('请先选择要删除的用户')
@@ -200,18 +194,19 @@ const handleBatchDelete = () => {
     })
 }
 
-// 页面大小变化
-const handleSizeChange = (size) => {
+// 页面条数改变时触发，重新获取数据变化
+const handlePageSizeChange = (size) => {
   pagination.pageSize = size
   fetchData()
 }
 
-// 当前页码变化
-const handleCurrentChange = (page) => {
+// 当前页码改变时触发，重新获取数据
+const handleCurrentPageChange = (page) => {
   pagination.currentPage = page
   fetchData()
 }
 
+// 详情
 const handleDetail = async (row) => {
   try {
     const res = await operationLogInfo(row.id)
