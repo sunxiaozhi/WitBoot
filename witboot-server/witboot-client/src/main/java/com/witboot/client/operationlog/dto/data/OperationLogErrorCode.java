@@ -13,7 +13,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OperationLogErrorCode implements BaseErrorCode {
     /**
-     * 尽量让code可以达意
+     * 尽量让 code 可以达意
      */
     B_OPERATION_LOG_UNDEFINED("B_OPERATION_LOG_UNDEFINED", "日志不存在");
 

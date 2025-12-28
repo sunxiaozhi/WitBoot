@@ -58,6 +58,7 @@ public class OperationLogAssembler {
         operationlogVO.setLocation(operationlogEntity.getLocation());
         operationlogVO.setMethod(operationlogEntity.getMethod());
         operationlogVO.setUri(operationlogEntity.getUri());
+        operationlogVO.setRequestTime(operationlogEntity.getRequestTime());
         operationlogVO.setWasteTime(operationlogEntity.getWasteTime());
         operationlogVO.setRequestParam(operationlogEntity.getRequestParam());
         operationlogVO.setRequestBody(operationlogEntity.getRequestBody());

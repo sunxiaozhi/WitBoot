@@ -57,7 +57,7 @@ public class WitLogAspect {
             RequestInfo requestInfo = captureRequestInfo();
             if (requestInfo != null) {
                 // 异步处理日志保存，避免阻塞主业务流程
-                CompletableFuture.runAsync(() -> saveOperationLog(requestInfo, witLog, responseResult))
+                CompletableFuture.runAsync(() -> saveOperationLog(requestInfo, responseResult))
                         .exceptionally(throwable -> {
                             log.error("保存操作日志失败: {}", throwable.getMessage(), throwable);
                             return null;
@@ -79,7 +79,7 @@ public class WitLogAspect {
             RequestInfo requestInfo = captureRequestInfo();
             if (requestInfo != null) {
                 // 异步处理异常日志保存
-                CompletableFuture.runAsync(() -> saveExceptionLog(requestInfo, witLog, exception))
+                CompletableFuture.runAsync(() -> saveExceptionLog(requestInfo, exception))
                         .exceptionally(throwable -> {
                             log.error("保存异常日志失败: {}", throwable.getMessage(), throwable);
                             return null;
@@ -116,27 +116,36 @@ public class WitLogAspect {
     }
 
     /**
+     * 初始化操作日志实体的公共属性
+     */
+    private OperationLogEntity initOperationLogEntity(RequestInfo requestInfo) throws Exception {
+        OperationLogEntity operationLogEntity = new OperationLogEntity();
+
+        operationLogEntity.setIp(requestInfo.ip);
+        operationLogEntity.setLocation("未知地址");
+        operationLogEntity.setMethod(requestInfo.method);
+        operationLogEntity.setUri(requestInfo.uri);
+        operationLogEntity.setRequestTime(DateUtil.now());
+
+        if (requestInfo.startTime != null) {
+            operationLogEntity.setWasteTime(System.currentTimeMillis() - requestInfo.startTime);
+        }
+
+        // 记录请求参数
+        operationLogEntity.setRequestParam(objectMapper.writeValueAsString(requestInfo.parameterMap));
+
+        // 记录请求体
+        operationLogEntity.setRequestBody(requestInfo.requestBody);
+
+        return operationLogEntity;
+    }
+
+    /**
      * 保存操作日志
      */
-    private void saveOperationLog(RequestInfo requestInfo, WitLog witLog, Object responseResult) {
+    private void saveOperationLog(RequestInfo requestInfo, Object responseResult) {
         try {
-            OperationLogEntity operationLogEntity = new OperationLogEntity();
-
-            operationLogEntity.setIp(requestInfo.ip);
-            operationLogEntity.setLocation("未知地址");
-            operationLogEntity.setMethod(requestInfo.method);
-            operationLogEntity.setUri(requestInfo.uri);
-            operationLogEntity.setRequestTime(DateUtil.now());
-
-            if (requestInfo.startTime != null) {
-                operationLogEntity.setWasteTime(System.currentTimeMillis() - requestInfo.startTime);
-            }
-
-            // 记录请求参数
-            operationLogEntity.setRequestParam(objectMapper.writeValueAsString(requestInfo.parameterMap));
-
-            // 记录请求体
-            operationLogEntity.setRequestBody(requestInfo.requestBody);
+            OperationLogEntity operationLogEntity = initOperationLogEntity(requestInfo);
 
             // 记录响应结果
             operationLogEntity.setResponseResult(objectMapper.writeValueAsString(responseResult));
@@ -151,25 +160,9 @@ public class WitLogAspect {
     /**
      * 保存异常日志
      */
-    private void saveExceptionLog(RequestInfo requestInfo, WitLog witLog, Exception exception) {
+    private void saveExceptionLog(RequestInfo requestInfo, Exception exception) {
         try {
-            OperationLogEntity operationLogEntity = new OperationLogEntity();
-
-            operationLogEntity.setIp(requestInfo.ip);
-            operationLogEntity.setLocation("未知地址");
-            operationLogEntity.setMethod(requestInfo.method);
-            operationLogEntity.setUri(requestInfo.uri);
-            operationLogEntity.setRequestTime(DateUtil.now());
-
-            if (requestInfo.startTime != null) {
-                operationLogEntity.setWasteTime(System.currentTimeMillis() - requestInfo.startTime);
-            }
-
-            // 记录请求参数
-            operationLogEntity.setRequestParam(objectMapper.writeValueAsString(requestInfo.parameterMap));
-
-            // 记录请求体
-            operationLogEntity.setRequestBody(requestInfo.requestBody);
+            OperationLogEntity operationLogEntity = initOperationLogEntity(requestInfo);
 
             // 记录异常信息
             operationLogEntity.setResponseResult("Exception: " + exception.getClass().getName() + ": " + exception.getMessage());
