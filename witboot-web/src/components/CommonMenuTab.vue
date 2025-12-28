@@ -1,13 +1,6 @@
 <template>
   <div class="menu-tabs-wrapper">
-    <el-tabs
-      v-model="activeTab"
-      type="card"
-      closable
-      class="menu-tabs"
-      @tab-remove="removeTab"
-      @tab-change="changeTab"
-    >
+    <el-tabs v-model="activeTab" type="card" closable class="menu-tabs" @tab-remove="removeTab" @tab-change="changeTab">
       <el-tab-pane v-for="tab in tabs" :key="tab.path" :label="tab.title" :name="tab.path">
         <!-- 关键：只有在激活时才渲染内容，避免缓存所有页面 -->
         <div v-if="activeTab === tab.path" class="tab-content">
@@ -73,16 +66,6 @@ watch(
   padding: 0 10px;
 }
 
-/*.menu-tabs :deep(.el-tabs__item) {
-  border-radius: 6px 6px 0 0 !important;
-  margin-right: 4px;
-  user-select: none;
-}
-.menu-tabs :deep(.el-tabs__item.is-active) {
-  background: var(--el-color-primary-light-9);
-  border-color: var(--el-color-primary) !important;
-  color: var(--el-color-primary);
-}*/
 .tab-content {
   height: calc(100vh - 160px);
   /* 根据你的 header + tabs + footer 高度调整 */
