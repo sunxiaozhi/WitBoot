@@ -2,7 +2,7 @@
   <div class="operation-log-container">
     <!-- 搜索框 -->
     <div class="search-container">
-      <el-input v-model="searchKeyword" placeholder="请输入ip" clearable class="search-input"
+      <el-input v-model="searchKeyword" placeholder="请输入IP" clearable class="search-input"
         @keyup.enter="handleSearch" />
       <el-button type="primary" @click="handleSearch" :loading="searchLoading">
         <el-icon>
@@ -55,19 +55,30 @@
         style="margin-top: 16px; text-align: right" />
     </div>
 
-    <!-- 新增/编辑抽屉 -->
-    <el-drawer v-model="dialog" :title="请求记录详情" :before-close="handleClose" direction="rtl" size="40%"
-      class="user-drawer">
+    <!-- 详情抽屉 -->
+    <el-drawer v-model="dialog" direction="rtl" size="40%" class="user-drawer">
       <div class="drawer__content">
-        <el-descriptions title="Vertical list with border" direction="vertical" :column="4" :size="size" border>
-          <el-descriptions-item label="Username">kooriookami</el-descriptions-item>
-          <el-descriptions-item label="Telephone">18100000000</el-descriptions-item>
-          <el-descriptions-item label="Place" :span="2">Suzhou</el-descriptions-item>
-          <el-descriptions-item label="Remarks">
-            <el-tag size="small">School</el-tag>
+        <el-descriptions :title="`操作日志详情 - ${currentRow?.ip || ''}`" direction="vertical" :column="1" border>
+          <el-descriptions-item label="IP" :span="1">{{ currentRow?.ip || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="地址" :span="1">{{ currentRow?.location || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="请求方法" :span="1">{{ currentRow?.method || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="URI" :span="1">{{ currentRow?.uri || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="请求时间" :span="1">{{ currentRow?.requestTime || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="耗时(ms)" :span="1">{{ currentRow?.wasteTime || '-' }}</el-descriptions-item>
+          <el-descriptions-item label="请求参数" :span="1">
+            <el-scrollbar height="100px">
+              <pre>{{ currentRow?.requestParam || '-' }}</pre>
+            </el-scrollbar>
           </el-descriptions-item>
-          <el-descriptions-item label="Address">
-            No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province
+          <el-descriptions-item label="请求体" :span="1">
+            <el-scrollbar height="100px">
+              <pre>{{ currentRow?.requestBody || '-' }}</pre>
+            </el-scrollbar>
+          </el-descriptions-item>
+          <el-descriptions-item label="响应结果" :span="1">
+            <el-scrollbar height="100px">
+              <pre>{{ currentRow?.responseResult || '-' }}</pre>
+            </el-scrollbar>
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -89,6 +100,7 @@ interface OperationLog {
   location: string
   method: string
   uri: string
+  requestTime: string
   wasteTime: string
   requestParam: string
   requestBody: string
@@ -101,6 +113,7 @@ const searchLoading = ref(false)
 const tableLoading = ref(false)
 
 const dialog = ref(false)
+const currentRow = ref<OperationLog | null>(null)  // 添加当前行数据
 
 // 搜索关键词
 const searchKeyword = ref('')
@@ -202,6 +215,12 @@ const handleCurrentChange = (page) => {
 const handleDetail = async (row) => {
   try {
     const res = await operationLogInfo(row.id)
+
+    // 将获取的详情数据赋值给 currentRow
+    currentRow.value = res.data
+    
+    // 显示抽屉
+    dialog.value = true
 
     dialog.value = true
 
