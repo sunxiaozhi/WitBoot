@@ -1,31 +1,29 @@
 <template>
   <div class="user-container">
     <!-- 搜索区域 -->
-    <div class="header-container">
-      <div class="search-container">
-        <el-input
-          v-model="searchKeyword"
-          placeholder="请输入用户名、姓名"
-          clearable
-          class="search-input"
-          @keyup.enter="handleSearch"
-        />
-        <el-button type="primary" @click="handleSearch" :loading="searchLoading">
-          <el-icon><Search /></el-icon>
-          搜索
-        </el-button>
-      </div>
+    <div class="search-container">
+      <el-input
+        v-model="searchKeyword"
+        placeholder="请输入用户名、姓名"
+        clearable
+        class="search-input"
+        @keyup.enter="handleSearch"
+      />
+      <el-button type="primary" @click="handleSearch" :loading="searchLoading">
+        <el-icon><Search /></el-icon>
+        搜索
+      </el-button>
+    </div>
 
-      <div class="option-container">
-        <el-button type="primary" @click="handleAdd">
-          <el-icon><Plus /></el-icon>
-          新增
-        </el-button>
-        <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
-          <el-icon><Delete /></el-icon>
-          批量删除
-        </el-button>
-      </div>
+    <div class="option-container">
+      <el-button type="primary" @click="handleAdd">
+        <el-icon><Plus /></el-icon>
+        新增
+      </el-button>
+      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete">
+        <el-icon><Delete /></el-icon>
+        批量删除
+      </el-button>
     </div>
 
     <!-- 表格承载区 -->
@@ -506,28 +504,23 @@ watch(
   min-height: 0;
 }
 
-.header-container {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
 .search-container {
+  flex: 0 0 auto;
+  margin-bottom: 16px;
   display: flex;
-  gap: 12px;
-  min-width: 300px;
-}
+  gap: 8px;
 
-.search-input {
-  max-width: 300px;
+  .search-input,
+  .method-select {
+    max-width: 200px;
+  }
 }
 
 .option-container {
+  flex: 0 0 auto;
+  margin-bottom: 16px;
   display: flex;
-  gap: 12px;
+  gap: 8px;
 }
 
 .table-wrapper {
@@ -548,7 +541,7 @@ watch(
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
-  padding-top: 12px;
+  margin-bottom: 16px;
 }
 
 .drawer__content {

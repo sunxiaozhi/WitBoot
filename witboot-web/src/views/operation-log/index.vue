@@ -37,11 +37,11 @@
 
     <!-- 操作按钮区域 -->
     <div class="option-container">
-      <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
+      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete">
         <el-icon>
           <Delete />
         </el-icon>
-        删除
+        批量删除
       </el-button>
     </div>
 
@@ -307,6 +307,7 @@ onUnmounted(() => debouncedSearch.cancel())
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
 }
 
 .search-container {
