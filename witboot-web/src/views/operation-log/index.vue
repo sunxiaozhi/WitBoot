@@ -28,6 +28,13 @@
         </el-icon>
         搜索
       </el-button>
+
+      <el-button @click="handleReset">
+        <el-icon>
+          <Refresh />
+        </el-icon>
+        重置
+      </el-button>
     </div>
 
     <!-- 操作按钮区域 -->
@@ -148,7 +155,7 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { selectOperationLogList, operationLogInfo, deleteOperationLog } from '@/api/operationLog.ts'
 import { debounce } from 'lodash-es'
-import { Delete, Document, Search } from '@element-plus/icons-vue'
+import { Delete, Document, Search, Refresh } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 interface OperationLog {
@@ -224,6 +231,13 @@ const debouncedSearch = debounce(fetchData, 300)
 const handleSearch = () => {
   pagination.currentPage = 1
   debouncedSearch()
+}
+
+const handleReset = () => {
+  queryForm.keyword = ''
+  queryForm.method = ''
+  pagination.currentPage = 1
+  fetchData()
 }
 
 // 批量删除
