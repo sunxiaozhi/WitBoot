@@ -1,152 +1,209 @@
 <template>
-  <div class="header-container">
+  <div class="user-container">
     <!-- 搜索区域 -->
-    <div class="search-container">
-      <el-input v-model="searchKeyword" placeholder="请输入用户名、姓名" clearable class="search-input"
-        @keyup.enter="handleSearch" />
-      <el-button type="primary" @click="handleSearch" :loading="searchLoading">
-        <el-icon>
-          <Search />
-        </el-icon>
-        搜索
-      </el-button>
-    </div>
-
-    <!-- 操作按钮区域 -->
-    <div class="option-container">
-      <el-button type="primary" @click="handleAdd">
-        <el-icon>
-          <Plus />
-        </el-icon>
-        新增
-      </el-button>
-      <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
-        <el-icon>
-          <Delete />
-        </el-icon>
-        批量删除
-      </el-button>
-    </div>
-  </div>
-
-  <!-- 用户列表表格 -->
-  <el-table ref="multipleTableRef" :data="tableData" row-key="id" border style="width: 100%" :loading="tableLoading"
-    element-loading-text="数据加载中..." @selection-change="handleSelectionChange" class="user-table">
-    <el-table-column type="selection" width="55" />
-    <el-table-column prop="username" label="用户名" min-width="120">
-      <template #default="scope">
-        <el-tag type="primary">{{ scope.row.username }}</el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column prop="name" label="姓名" min-width="100" />
-    <el-table-column prop="mobile" label="手机号" min-width="120" />
-    <el-table-column prop="gender" label="性别" width="80" align="center">
-      <template #default="scope">
-        <el-tag :type="scope.row.gender === '1' ? 'primary' : 'danger'">
-          {{ scope.row.gender === '1' ? '男' : '女' }}
-        </el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column prop="birthday" label="生日" width="120" align="center" />
-    <el-table-column prop="description" label="描述" min-width="150" show-overflow-tooltip />
-    <el-table-column fixed="right" label="操作" width="150" align="center">
-      <template #default="scope">
-        <el-button link type="primary" size="small" @click.prevent="handleEdit(scope.row)" class="action-button">
-          <el-icon>
-            <Edit />
-          </el-icon>
-          编辑
+    <div class="header-container">
+      <div class="search-container">
+        <el-input
+          v-model="searchKeyword"
+          placeholder="请输入用户名、姓名"
+          clearable
+          class="search-input"
+          @keyup.enter="handleSearch"
+        />
+        <el-button type="primary" @click="handleSearch" :loading="searchLoading">
+          <el-icon><Search /></el-icon>
+          搜索
         </el-button>
-        <el-button link type="danger" size="small" @click.prevent="handleDelete(scope.row)" class="action-button">
-          <el-icon>
-            <Delete />
-          </el-icon>
-          删除
+      </div>
+
+      <div class="option-container">
+        <el-button type="primary" @click="handleAdd">
+          <el-icon><Plus /></el-icon>
+          新增
         </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-
-  <!-- 分页组件 -->
-  <div class="pagination-container">
-    <el-pagination v-model:current-page="pagination.currentPage" v-model:page-size="pagination.pageSize"
-      :page-sizes="[10, 20, 30, 50]" layout="total, sizes, prev, pager, next, jumper" :total="pagination.total"
-      @size-change="handleSizeChange" @current-change="handleCurrentChange" background class="pagination" />
-  </div>
-
-  <!-- 新增/编辑抽屉 -->
-  <el-drawer v-model="dialog" :title="form.id ? '编辑用户' : '新增用户'" :before-close="handleClose" direction="rtl" size="40%"
-    class="user-drawer">
-    <div class="drawer__content">
-      <el-form ref="ruleFormRef" :model="form" :rules="rules" label-position="right" label-width="100px">
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="form.username" autocomplete="off" placeholder="请输入用户名" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name" autocomplete="off" placeholder="请输入姓名" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="密码" prop="password" v-if="!form.id">
-              <el-input v-model="form.password" type="password" autocomplete="off" placeholder="请输入密码" show-password />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="确认密码" prop="rePassword" v-if="!form.id">
-              <el-input v-model="form.rePassword" type="password" autocomplete="off" placeholder="请再次输入密码"
-                show-password />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="手机号" prop="mobile">
-              <el-input v-model="form.mobile" autocomplete="off" placeholder="请输入手机号" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="性别" prop="gender">
-              <el-select v-model="form.gender" placeholder="请选择性别" style="width: 100%">
-                <el-option label="男" value="1" />
-                <el-option label="女" value="2" />
-              </el-select>
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="生日" prop="birthday">
-              <el-date-picker v-model="form.birthday" type="date" value-format="YYYY-MM-DD" placeholder="请选择日期"
-                style="width: 100%" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-
-        <el-form-item label="描述" prop="description">
-          <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
-        </el-form-item>
-      </el-form>
-
-      <div class="drawer__footer">
-        <el-button @click="cancelForm" size="large">取消</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="submitForm" size="large">
-          <el-icon v-if="!submitLoading">
-            <Check />
-          </el-icon>
-          {{ submitLoading ? '提交中...' : '提交' }}
+        <el-button type="danger" :disabled="selectedIds.length === 0" @click="handleBatchDelete">
+          <el-icon><Delete /></el-icon>
+          批量删除
         </el-button>
       </div>
     </div>
-  </el-drawer>
+
+    <!-- 表格承载区 -->
+    <div class="table-wrapper">
+      <el-table
+        ref="multipleTableRef"
+        :data="tableData"
+        row-key="id"
+        border
+        style="width: 100%"
+        :loading="tableLoading"
+        element-loading-text="数据加载中..."
+        @selection-change="handleSelectionChange"
+        class="user-table"
+      >
+        <el-table-column type="selection" width="55" />
+        <el-table-column prop="username" label="用户名" min-width="120">
+          <template #default="scope">
+            <el-tag type="primary">{{ scope.row.username }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="name" label="姓名" min-width="100" />
+        <el-table-column prop="mobile" label="手机号" min-width="120" />
+        <el-table-column prop="gender" label="性别" width="80" align="center">
+          <template #default="scope">
+            <el-tag :type="scope.row.gender === '1' ? 'primary' : 'danger'">
+              {{ scope.row.gender === '1' ? '男' : '女' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="birthday" label="生日" width="120" align="center" />
+        <el-table-column prop="description" label="描述" min-width="150" show-overflow-tooltip />
+        <el-table-column fixed="right" label="操作" width="150" align="center">
+          <template #default="scope">
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click.prevent="handleEdit(scope.row)"
+              class="action-button"
+            >
+              <el-icon><Edit /></el-icon>
+              编辑
+            </el-button>
+            <el-button
+              link
+              type="danger"
+              size="small"
+              @click.prevent="handleDelete(scope.row)"
+              class="action-button"
+            >
+              <el-icon><Delete /></el-icon>
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+
+    <!-- 分页组件 -->
+    <div class="pagination-container">
+      <el-pagination
+        v-model:current-page="pagination.currentPage"
+        v-model:page-size="pagination.pageSize"
+        :page-sizes="[10, 20, 30, 50]"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="pagination.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        background
+      />
+    </div>
+
+    <!-- 新增/编辑抽屉 -->
+    <el-drawer
+      v-model="dialog"
+      :title="form.id ? '编辑用户' : '新增用户'"
+      :before-close="handleClose"
+      direction="rtl"
+      size="40%"
+      class="user-drawer"
+    >
+      <div class="drawer__content">
+        <el-form
+          ref="ruleFormRef"
+          :model="form"
+          :rules="rules"
+          label-position="right"
+          label-width="100px"
+        >
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="form.username" autocomplete="off" placeholder="请输入用户名" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="姓名" prop="name">
+                <el-input v-model="form.name" autocomplete="off" placeholder="请输入姓名" />
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-form-item label="密码" prop="password" v-if="!form.id">
+                <el-input
+                  v-model="form.password"
+                  type="password"
+                  autocomplete="off"
+                  placeholder="请输入密码"
+                  show-password
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="确认密码" prop="rePassword" v-if="!form.id">
+                <el-input
+                  v-model="form.rePassword"
+                  type="password"
+                  autocomplete="off"
+                  placeholder="请再次输入密码"
+                  show-password
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-form-item label="手机号" prop="mobile">
+                <el-input v-model="form.mobile" autocomplete="off" placeholder="请输入手机号" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="性别" prop="gender">
+                <el-select v-model="form.gender" placeholder="请选择性别" style="width: 100%">
+                  <el-option label="男" value="1" />
+                  <el-option label="女" value="2" />
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-row :gutter="20">
+            <el-col :span="12">
+              <el-form-item label="生日" prop="birthday">
+                <el-date-picker
+                  v-model="form.birthday"
+                  type="date"
+                  value-format="YYYY-MM-DD"
+                  placeholder="请选择日期"
+                  style="width: 100%"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+
+          <el-form-item label="描述" prop="description">
+            <el-input
+              v-model="form.description"
+              type="textarea"
+              :rows="3"
+              placeholder="请输入描述信息"
+            />
+          </el-form-item>
+        </el-form>
+
+        <div class="drawer__footer">
+          <el-button @click="cancelForm" size="large">取消</el-button>
+          <el-button type="primary" :loading="submitLoading" @click="submitForm" size="large">
+            <el-icon v-if="!submitLoading"><Check /></el-icon>
+            {{ submitLoading ? '提交中...' : '提交' }}
+          </el-button>
+        </div>
+      </div>
+    </el-drawer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -155,10 +212,8 @@ import { debounce } from 'lodash-es'
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { register, selectUserList, updateUserInfo, deleteUser } from '@/api/user'
-// 引入图标组件
 import { Check, Delete, Edit, Plus, Search } from '@element-plus/icons-vue'
 
-// 类型定义
 type Gender = '1' | '2'
 
 interface User {
@@ -189,7 +244,6 @@ interface QueryParams {
   keyword?: string
 }
 
-// 响应式数据
 const dialog = ref(false)
 const searchKeyword = ref('')
 const tableData = ref<User[]>([])
@@ -219,7 +273,6 @@ const pagination = reactive<Pagination>({
 
 const ruleFormRef = ref<FormInstance>()
 
-// 表单校验规则
 const rules = reactive<FormRules<UserForm>>({
   username: [
     { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -263,11 +316,9 @@ const fetchData = async () => {
       pageNo: pagination.currentPage,
       pageSize: pagination.pageSize
     }
-
     if (searchKeyword.value) {
       params.keyword = searchKeyword.value
     }
-
     const userList = await selectUserList(params)
     tableData.value = userList.data.list
     pagination.total = userList.data.total
@@ -303,7 +354,6 @@ const resetForm = () => {
     birthday: '',
     description: ''
   })
-
   if (ruleFormRef.value) {
     ruleFormRef.value.resetFields()
   }
@@ -315,9 +365,7 @@ const handleAdd = () => {
 }
 
 const handleEdit = (row: User) => {
-  // 填充表单数据
   Object.assign(form, row)
-  // 清空密码字段（编辑时不需要填写密码）
   form.password = ''
   form.rePassword = ''
   dialog.value = true
@@ -332,7 +380,6 @@ const handleDelete = (row: User) => {
   })
     .then(async () => {
       try {
-        // 调用删除API
         const res = await deleteUser({ ids: [row.id] })
         if (res.code === 200) {
           ElMessage.success('删除成功')
@@ -355,7 +402,6 @@ const handleBatchDelete = () => {
     ElMessage.warning('请先选择要删除的用户')
     return
   }
-
   ElMessageBox.confirm(
     `确定要删除选中的${selectedIds.value.length}个用户吗？此操作不可恢复！`,
     '删除确认',
@@ -368,7 +414,6 @@ const handleBatchDelete = () => {
   )
     .then(async () => {
       try {
-        // 调用删除API，传入ID数组
         const res = await deleteUser({ ids: selectedIds.value })
         if (res.code === 200) {
           ElMessage.success('批量删除成功')
@@ -398,16 +443,11 @@ const handleCurrentChange = (page: number) => {
 
 const submitForm = async () => {
   if (!ruleFormRef.value) return
-
   await ruleFormRef.value.validate(async (valid) => {
     if (valid) {
       submitLoading.value = true
       try {
-        // 根据是否有ID判断是新增还是编辑
-        const res = form.id
-          ? await updateUserInfo(form as User) // 假设有编辑API
-          : await register(form)
-
+        const res = form.id ? await updateUserInfo(form as User) : await register(form)
         if (res.code === 200) {
           ElMessage.success(`${form.id ? '更新' : '创建'}成功`)
           dialog.value = false
@@ -431,19 +471,14 @@ const handleClose = (done: () => void) => {
     ElMessage.warning('正在提交数据，请稍候')
     return
   }
-
   ElMessageBox.confirm('确定要关闭表单吗？未保存的数据将会丢失', '确认关闭', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
     draggable: true
   })
-    .then(() => {
-      done()
-    })
-    .catch(() => {
-      // 用户取消操作
-    })
+    .then(() => done())
+    .catch(() => {})
 }
 
 const cancelForm = () => {
@@ -451,12 +486,10 @@ const cancelForm = () => {
   resetForm()
 }
 
-// 生命周期钩子
 onMounted(async () => {
   await fetchData()
 })
 
-// 监听器
 watch(
   () => [pagination.currentPage, pagination.pageSize],
   () => {
@@ -466,30 +499,29 @@ watch(
 </script>
 
 <style scoped>
-.user-management-card {
-  flex: 1;
-  min-height: 0;
+.user-container {
+  height: 100%;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .header-container {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .search-container {
   display: flex;
   gap: 12px;
-  flex: 1;
   min-width: 300px;
 }
 
 .search-input {
-  flex: 1;
   max-width: 300px;
 }
 
@@ -498,26 +530,25 @@ watch(
   gap: 12px;
 }
 
-/*.user-table {
-  margin: 20px 0;
-}*/
-
-.user-table {
+.table-wrapper {
   flex: 1;
   min-height: 0;
   overflow: auto;
-  /* 推荐加这个，否则 el-table 内容多时外层会被撑开 */
 }
 
+.user-table {
+  width: 100%;
+}
 
 .action-button {
   padding: 4px 8px;
 }
 
 .pagination-container {
+  flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  padding-top: 12px;
 }
 
 .drawer__content {
@@ -528,29 +559,16 @@ watch(
 
 .drawer__content :deep(.el-form) {
   flex: 1;
-  padding: 0 20px;
+  overflow: auto;
+  padding-right: 16px;
 }
 
 .drawer__footer {
+  flex: 0 0 auto;
+  padding-top: 16px;
   display: flex;
   justify-content: flex-end;
   gap: 16px;
-  padding: 20px;
   border-top: 1px solid var(--el-border-color-light);
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    flex-direction: column;
-  }
-
-  .search-container {
-    min-width: 100%;
-  }
-
-  .option-container {
-    width: 100%;
-    justify-content: center;
-  }
 }
 </style>
