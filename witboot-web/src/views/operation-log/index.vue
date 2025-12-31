@@ -50,7 +50,7 @@
         style="width: 100%"
         element-loading-text="数据加载中..."
         @selection-change="handleSelectionChange"
-        :loading="tableLoading"
+        v-loading="tableLoading"
         class="operation-log-table"
       >
         <el-table-column type="selection" width="55" />
