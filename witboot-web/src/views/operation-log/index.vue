@@ -29,10 +29,8 @@
         搜索
       </el-button>
 
-      <el-button @click="handleReset">
-        <el-icon>
-          <Refresh />
-        </el-icon>
+      <el-button @click="handleReset" :disabled="!queryForm.keyword && !queryForm.method">
+        <el-icon><Refresh /></el-icon>
         重置
       </el-button>
     </div>
