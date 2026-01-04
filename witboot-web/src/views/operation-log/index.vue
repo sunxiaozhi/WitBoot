@@ -343,6 +343,6 @@ onUnmounted(() => debouncedSearch.cancel())
   flex: 0 0 auto;
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 </style>
