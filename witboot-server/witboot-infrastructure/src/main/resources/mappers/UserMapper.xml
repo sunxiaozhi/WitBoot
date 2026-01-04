@@ -27,8 +27,8 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_user
-        (username, name, password, delete_flag, creator, modifier, create_time, update_time)
-        VALUES (#{username}, #{name}, #{password}, #{deleteFlag}, #{creator}, #{modifier}, sysdate(), sysdate())
+        (username, name, password, mobile, gender, birthday, description, delete_flag, creator, modifier, create_time, update_time)
+        VALUES (#{username}, #{name}, #{password}, #{mobile}, #{gender}, #{birthday}, #{description}, #{deleteFlag}, #{creator}, #{modifier}, sysdate(), sysdate())
     </insert>
 
     <insert id="update" useGeneratedKeys="true" keyProperty="id">
