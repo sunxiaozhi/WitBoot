@@ -40,7 +40,7 @@ public class UserDO extends BaseDO implements UserDetails {
     /**
      * 性别
      */
-    private Integer gender;
+    private String gender;
 
     /**
      * 生日

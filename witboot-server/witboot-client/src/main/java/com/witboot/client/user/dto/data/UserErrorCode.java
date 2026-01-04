@@ -13,7 +13,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum UserErrorCode implements BaseErrorCode {
     /**
-     * 尽量让code可以达意
+     * 尽量让 code 可以达意
      */
     B_USER_USERNAME_REPEAT("B_USER_USERNAME_REPEAT", "用户名重复"),
     B_USER_PASSWORD_NOT_EQUALS("B_USER_USERNAME_REPEAT", "两次输入的密码不一致"),

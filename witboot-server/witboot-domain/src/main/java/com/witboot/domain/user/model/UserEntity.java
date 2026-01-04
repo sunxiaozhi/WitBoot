@@ -41,7 +41,7 @@ public class UserEntity {
     /**
      * 性别
      */
-    private Integer gender;
+    private String gender;
 
     /**
      * 生日

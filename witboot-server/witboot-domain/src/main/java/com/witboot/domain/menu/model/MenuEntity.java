@@ -38,7 +38,7 @@ public class MenuEntity implements Serializable {
      * 删除标识 0已删除 1正常
      */
     @NotNull(message = "[删除标识 0已删除 1正常]不能为空")
-    private Integer deleteFlag;
+    private String deleteFlag;
 
     /**
      * 创建人

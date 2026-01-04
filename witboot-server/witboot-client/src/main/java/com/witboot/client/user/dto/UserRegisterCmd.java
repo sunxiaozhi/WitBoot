@@ -52,7 +52,7 @@ public class UserRegisterCmd extends Command {
     /**
      * 性别
      */
-    private Integer gender;
+    private String gender;
 
     /**
      * 生日

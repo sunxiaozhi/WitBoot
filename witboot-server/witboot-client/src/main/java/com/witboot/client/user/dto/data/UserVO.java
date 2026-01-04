@@ -34,7 +34,7 @@ public class UserVO {
     /**
      * 性别
      */
-    private Integer gender;
+    private String gender;
 
     /**
      * 生日

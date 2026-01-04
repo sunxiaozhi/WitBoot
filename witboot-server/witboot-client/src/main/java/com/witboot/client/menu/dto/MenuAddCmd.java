@@ -24,7 +24,7 @@ public class MenuAddCmd extends Command {
     private String name;
 
     /**
-     * 父级ID
+     * 父级 ID
      */
     private Long parentId;
 }

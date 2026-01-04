@@ -18,44 +18,4 @@ public class MenuUpdateCmd extends Command {
 
     @Serial
     private static final long serialVersionUID = 2484506238493820565L;
-
-    public MenuUpdateCmd(Long id, String username) {
-        this.id = id;
-        this.username = username;
-    }
-
-    /**
-     * 主键ID
-     */
-    private Long id;
-
-    /**
-     * 用户名
-     */
-    private String username;
-
-    /**
-     * 姓名
-     */
-    private String name;
-
-    /**
-     * 手机号
-     */
-    private String phoneNo;
-
-    /**
-     * 性别
-     */
-    private Integer gender;
-
-    /**
-     * 生日
-     */
-    private LocalDate birthday;
-
-    /**
-     * 描述
-     */
-    private String description;
 }

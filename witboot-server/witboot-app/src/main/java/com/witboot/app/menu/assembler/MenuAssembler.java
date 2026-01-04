@@ -32,7 +32,7 @@ public class MenuAssembler {
 
     public static MenuEntity toEntity(MenuUpdateCmd menuUpdateCmd) {
         MenuEntity menuEntity = new MenuEntity();
-        menuEntity.setId(menuUpdateCmd.getId());
+        /*menuEntity.setId(menuUpdateCmd.getId());
         menuEntity.setName(menuUpdateCmd.getName());
         /*menuEntity.setMenuname(menuUpdateCmd.getMenuname());
         menuEntity.setName(menuUpdateCmd.getName());

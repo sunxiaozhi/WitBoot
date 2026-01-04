@@ -29,7 +29,7 @@ public class MenuVO {
     /**
      * 删除标识 0已删除 1正常
      */
-    private Integer deleteFlag;
+    private String deleteFlag;
 
     /**
      * 创建人

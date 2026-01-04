@@ -13,12 +13,12 @@ public class Constants {
     /**
      * 已删除数据标识
      */
-    public final static int DELETED_FLAG = 0;
+    public final static String DELETED_FLAG = "0";
 
     /**
      * 正常数据标识
      */
-    public final static int NOT_DELETED_FLAG = 1;
+    public final static String NOT_DELETED_FLAG = "1";
 
     public static class DateTime {
         /** 默认日期时间格式 */
