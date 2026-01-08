@@ -45,6 +45,19 @@ CREATE TABLE `wb_menu` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '菜单表';
 
+DROP TABLE IF EXISTS `wb_login_log`;
+CREATE TABLE `wb_login_log` (
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+    `user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '用户id',
+    `ip` varchar(100) NOT NULL DEFAULT '' COMMENT 'ip',
+    `location` varchar(100) NOT NULL DEFAULT '' COMMENT '位置',
+	`user_agent` text NULL COMMENT 'user_agent',
+    `device_type` varchar(100) NOT NULL DEFAULT '' COMMENT '设备类型',
+    `browser` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器及版本',
+	`login_time` datetime DEFAULT NULL COMMENT '登录时间'
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '登录记录表';
+
 DROP TABLE IF EXISTS `wb_operation_log`;
 CREATE TABLE `wb_operation_log` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
