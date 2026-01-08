@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.witboot.infrastructure.gateway.impl.database.mapper.LoginLogMapper">
+
+    <resultMap id="loginLoggDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.LoginLogDO">
+        <result property="id" column="id"/>
+        <result property="ip" column="ip"/>
+        <result property="location" column="location"/>
+        <result property="method" column="method"/>
+        <result property="uri" column="uri"/>
+        <result property="requestTime" column="request_time"/>
+        <result property="wasteTime" column="waste_time"/>
+        <result property="requestParam" column="request_param"/>
+        <result property="requestBody" column="request_body"/>
+        <result property="responseResult" column="response_result"/>
+    </resultMap>
+
+    <sql id="Column_List">
+        id, ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result
+    </sql>
+
+    <select id="selectByParam" resultMap="loginLoggDOMap">
+        SELECT
+        id, ip, location, method, uri, request_time, waste_time
+        FROM wb_login_log
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                ip like concat('%',#{searchKeyword},'%')
+            </if>
+            <if test="method != null and method != ''">
+                and method = #{method}
+            </if>
+        </where>
+        ORDER BY request_time DESC
+    </select>
+
+    <select id="selectById" resultMap="loginLoggDOMap">
+        SELECT
+        <include refid="Column_List"/>
+        FROM wb_login_log
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO wb_login_log
+        (ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result)
+        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{requestTime}, #{wasteTime}, #{requestParam}, #{requestBody}, #{responseResult})
+    </insert>
+
+    <delete id="deleteByIds">
+        DELETE FROM wb_login_log WHERE id IN
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
