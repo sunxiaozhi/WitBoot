@@ -54,7 +54,7 @@ CREATE TABLE `wb_login_log` (
 	`user_agent` text NULL COMMENT 'user_agent',
     `device_type` varchar(100) NOT NULL DEFAULT '' COMMENT '设备类型',
     `browser` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器及版本',
-	`login_time` datetime DEFAULT NULL COMMENT '登录时间'
+	`login_time` datetime DEFAULT NULL COMMENT '登录时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT '登录记录表';
 
