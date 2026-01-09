@@ -7,8 +7,10 @@ import com.witboot.domain.user.model.UserEntity;
 import com.witboot.infrastructure.common.Constants;
 import com.witboot.infrastructure.common.event.JwtLoginSuccessEvent;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.infrastructure.common.utils.JakartaServletUtil;
 import com.witboot.infrastructure.common.utils.JwtTokenUtil;
 import com.witboot.infrastructure.common.utils.RedisUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
@@ -50,9 +52,18 @@ public class UserLoginQueryExe {
         //将jwtToken存进Redis，用于后续登录判断jwtToken的有效性
         redisUtil.setCache(Constants.LOGIN_USER_KEY + userEntity.getUsername(), jwtToken);
 
+        HttpServletRequest request = JakartaServletUtil.getRequest();
+        String ip = JakartaServletUtil.getClientIP(request);
+        String userAgent = request.getHeader("User-Agent");
+
         // 发布登录成功事件
         publisher.publishEvent(
-                new JwtLoginSuccessEvent(userEntity.getId(), userEntity.getUsername())
+                new JwtLoginSuccessEvent(
+                        userEntity.getId(),
+                        userEntity.getUsername(),
+                        ip,
+                        userAgent
+                )
         );
 
         return jwtToken;

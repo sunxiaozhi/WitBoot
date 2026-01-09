@@ -32,7 +32,7 @@
                 and method = #{method}
             </if>
         </where>
-        ORDER BY request_time DESC
+        ORDER BY login_time DESC
     </select>
 
     <select id="selectById" resultMap="loginLoggDOMap">

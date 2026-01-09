@@ -33,15 +33,13 @@ public class JwtLoginSuccessListener {
     private LoginLogEntity initLoginLogEntity(JwtLoginSuccessEvent jwtLoginSuccessEvent) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
 
-        HttpServletRequest request = JakartaServletUtil.getRequest();
-        String ip = JakartaServletUtil.getClientIP(request);
-
-        loginLogEntity.setIp(ip);
+        loginLogEntity.setIp(jwtLoginSuccessEvent.ip());
         loginLogEntity.setUserId(String.valueOf(jwtLoginSuccessEvent.userId()));
         loginLogEntity.setUserName(jwtLoginSuccessEvent.username());
         loginLogEntity.setLocation("未知地址");
-        loginLogEntity.setUserName("");
+        loginLogEntity.setUserAgent(jwtLoginSuccessEvent.userAgent());
         loginLogEntity.setDeviceType("");
+        loginLogEntity.setBrowser("");
         loginLogEntity.setLoginTime(DateUtil.now());
 
         return loginLogEntity;
