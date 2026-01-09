@@ -36,7 +36,7 @@ public class LoginLogGatewayImpl implements LoginLogGateway {
      * 根据条件查询
      *
      * @param LoginLogListByParamQuerySpec ip等
-     * @return List 操作日志实体集合
+     * @return List 登录日志实体集合
      */
     @Override
     public PageResult<LoginLogEntity> findByParam(LoginLogQuerySpec LoginLogListByParamQuerySpec) {
@@ -71,17 +71,17 @@ public class LoginLogGatewayImpl implements LoginLogGateway {
     }
 
     /**
-     * 新增操作日志
+     * 新增登录日志
      *
-     * @param loginLogEntity 操作日志实体
-     * @return 操作日志实体
+     * @param loginLogEntity 登录日志实体
+     * @return 登录日志实体
      */
     public LoginLogEntity addLoginLog(LoginLogEntity loginLogEntity) {
         LoginLogDO loginLogDo = LoginLogConvertor.toAddLoginLogDo(loginLogEntity);
 
         int insert = loginLogMapper.insert(loginLogDo);
         if (insert < Constants.ONE) {
-            throw new PersistenceException("保存操作日志异常");
+            throw new PersistenceException("保存登录日志异常");
         }
 
         return LoginLogConvertor.toEntity(loginLogDo);

@@ -7,23 +7,22 @@
     <resultMap id="loginLoggDOMap" type="com.witboot.infrastructure.gateway.impl.database.dataobject.LoginLogDO">
         <result property="id" column="id"/>
         <result property="ip" column="ip"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
         <result property="location" column="location"/>
-        <result property="method" column="method"/>
-        <result property="uri" column="uri"/>
-        <result property="requestTime" column="request_time"/>
-        <result property="wasteTime" column="waste_time"/>
-        <result property="requestParam" column="request_param"/>
-        <result property="requestBody" column="request_body"/>
-        <result property="responseResult" column="response_result"/>
+        <result property="userAgent" column="user_agent"/>
+        <result property="deviceType" column="device_type"/>
+        <result property="browser" column="browser"/>
+        <result property="loginTime" column="login_time"/>
     </resultMap>
 
     <sql id="Column_List">
-        id, ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result
+        id, ip, user_id, user_name, location, user_agent, device_type, browser, login_time
     </sql>
 
     <select id="selectByParam" resultMap="loginLoggDOMap">
         SELECT
-        id, ip, location, method, uri, request_time, waste_time
+        id, ip, user_id, user_name, location, user_agent, device_type, browser, login_time
         FROM wb_login_log
         <where>
             <if test="searchKeyword != null and searchKeyword != ''">
@@ -45,8 +44,8 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_login_log
-        (ip, location, method, uri, request_time, waste_time, request_param, request_body, response_result)
-        VALUES (#{ip}, #{location}, #{method}, #{uri}, #{requestTime}, #{wasteTime}, #{requestParam}, #{requestBody}, #{responseResult})
+        (ip, user_id, user_name, location, user_agent, device_type, browser, login_time)
+        VALUES (#{ip}, #{userId}, #{userName}, #{location}, #{userAgent}, #{deviceType}, #{browser}, #{loginTime})
     </insert>
 
     <delete id="deleteByIds">

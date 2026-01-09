@@ -11,16 +11,14 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.LoginLogDO;
 public class LoginLogConvertor {
     public static LoginLogEntity toEntity(LoginLogDO loginLogDo) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
-        loginLogEntity.setId(loginLogDo.getId());
         loginLogEntity.setIp(loginLogDo.getIp());
+        loginLogEntity.setUserId(loginLogDo.getUserId());
+        loginLogEntity.setUserName(loginLogDo.getUserName());
         loginLogEntity.setLocation(loginLogDo.getLocation());
-        loginLogEntity.setUri(loginLogDo.getUri());
-        loginLogEntity.setMethod(loginLogDo.getMethod());
-        loginLogEntity.setRequestTime(loginLogDo.getRequestTime());
-        loginLogEntity.setWasteTime(loginLogDo.getWasteTime());
-        loginLogEntity.setRequestParam(loginLogDo.getRequestParam());
-        loginLogEntity.setRequestBody(loginLogDo.getRequestBody());
-        loginLogEntity.setResponseResult(loginLogDo.getResponseResult());
+        loginLogEntity.setUserAgent(loginLogDo.getUserAgent());
+        loginLogEntity.setDeviceType(loginLogDo.getDeviceType());
+        loginLogEntity.setBrowser(loginLogDo.getBrowser());
+        loginLogEntity.setLoginTime(loginLogDo.getLoginTime());
 
         return loginLogEntity;
     }
@@ -28,14 +26,13 @@ public class LoginLogConvertor {
     public static LoginLogDO toAddLoginLogDo(LoginLogEntity loginLogEntity) {
         LoginLogDO loginLogDo = new LoginLogDO();
         loginLogDo.setIp(loginLogEntity.getIp());
+        loginLogDo.setUserId(loginLogEntity.getUserId());
+        loginLogDo.setUserName(loginLogEntity.getUserName());
         loginLogDo.setLocation(loginLogEntity.getLocation());
-        loginLogDo.setUri(loginLogEntity.getUri());
-        loginLogDo.setMethod(loginLogEntity.getMethod());
-        loginLogDo.setRequestTime(loginLogEntity.getRequestTime());
-        loginLogDo.setWasteTime(loginLogEntity.getWasteTime());
-        loginLogDo.setRequestParam(loginLogEntity.getRequestParam());
-        loginLogDo.setRequestBody(loginLogEntity.getRequestBody());
-        loginLogDo.setResponseResult(loginLogEntity.getResponseResult());
+        loginLogDo.setUserAgent(loginLogEntity.getUserAgent());
+        loginLogDo.setDeviceType(loginLogEntity.getDeviceType());
+        loginLogDo.setBrowser(loginLogEntity.getBrowser());
+        loginLogDo.setLoginTime(loginLogEntity.getLoginTime());
 
         return loginLogDo;
     }

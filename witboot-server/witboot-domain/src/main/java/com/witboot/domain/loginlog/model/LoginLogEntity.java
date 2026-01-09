@@ -3,7 +3,7 @@ package com.witboot.domain.loginlog.model;
 import lombok.Data;
 
 /**
- * OperationLog Domain
+ * LoginLog Domain
  *
  * @author sunxiaoizhi
  */
@@ -20,42 +20,37 @@ public class LoginLogEntity {
     private String ip;
 
     /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
      * 位置
      */
     private String location;
 
     /**
-     * 方法
+     * user-agent
      */
-    private String method;
+    private String userAgent;
 
     /**
-     * uri
+     * 设备类型
      */
-    private String uri;
+    private String deviceType;
 
     /**
-     * 请求时间
+     * 浏览器
      */
-    private String requestTime;
+    private String browser;
 
     /**
-     * 耗费时间
+     * dl时间
      */
-    private long wasteTime;
-
-    /**
-     * 请求参数
-     */
-    private String requestParam;
-
-    /**
-     * 请求参数
-     */
-    private String requestBody;
-
-    /**
-     * 响应内容
-     */
-    private String responseResult;
+    private String loginTime;
 }

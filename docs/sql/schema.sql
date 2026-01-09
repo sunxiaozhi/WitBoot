@@ -49,6 +49,7 @@ DROP TABLE IF EXISTS `wb_login_log`;
 CREATE TABLE `wb_login_log` (
     `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
     `user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '用户id',
+    `user_name` varchar(100) NOT NULL DEFAULT '' COMMENT '用户名',
     `ip` varchar(100) NOT NULL DEFAULT '' COMMENT 'ip',
     `location` varchar(100) NOT NULL DEFAULT '' COMMENT '位置',
 	`user_agent` text NULL COMMENT 'user_agent',

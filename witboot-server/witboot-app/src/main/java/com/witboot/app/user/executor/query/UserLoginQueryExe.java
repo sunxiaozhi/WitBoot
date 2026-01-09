@@ -5,10 +5,12 @@ import com.witboot.client.user.dto.query.UserLoginQuery;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.infrastructure.common.Constants;
+import com.witboot.infrastructure.common.event.JwtLoginSuccessEvent;
 import com.witboot.infrastructure.common.exception.WitBootBizException;
 import com.witboot.infrastructure.common.utils.JwtTokenUtil;
 import com.witboot.infrastructure.common.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -29,10 +31,13 @@ public class UserLoginQueryExe {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
     public String execute(UserLoginQuery userLoginQuery) {
         UserEntity userEntity = userGateway.findPasswordInfo(userLoginQuery.getUsername());
         if (Objects.isNull(userEntity)) {
-            throw new WitBootBizException(UserErrorCode.B_USER_PASSWORD_ERROR);
+            throw new WitBootBizException(UserErrorCode.B_USER_UNDEFINED);
         }
 
         // 校验密码是否正确
@@ -44,6 +49,11 @@ public class UserLoginQueryExe {
 
         //将jwtToken存进Redis，用于后续登录判断jwtToken的有效性
         redisUtil.setCache(Constants.LOGIN_USER_KEY + userEntity.getUsername(), jwtToken);
+
+        // 发布登录成功事件
+        publisher.publishEvent(
+                new JwtLoginSuccessEvent(userEntity.getId(), userEntity.getUsername())
+        );
 
         return jwtToken;
     }

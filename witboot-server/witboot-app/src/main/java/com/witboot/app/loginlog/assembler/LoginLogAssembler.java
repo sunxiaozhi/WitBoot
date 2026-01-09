@@ -27,15 +27,14 @@ public class LoginLogAssembler {
 
     public static LoginLogEntity toEntity(LoginLogAddCmd loginLogAddCmd) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
-        loginLogEntity.setId(loginLogAddCmd.getId());
         loginLogEntity.setIp(loginLogAddCmd.getIp());
+        loginLogEntity.setUserId(loginLogAddCmd.getUserId());
+        loginLogEntity.setUserName(loginLogAddCmd.getUserName());
         loginLogEntity.setLocation(loginLogAddCmd.getLocation());
-        loginLogEntity.setMethod(loginLogAddCmd.getMethod());
-        loginLogEntity.setUri(loginLogAddCmd.getUri());
-        loginLogEntity.setWasteTime(loginLogAddCmd.getWasteTime());
-        loginLogEntity.setRequestParam(loginLogAddCmd.getRequestParam());
-        loginLogEntity.setRequestBody(loginLogAddCmd.getRequestBody());
-        loginLogEntity.setResponseResult(loginLogAddCmd.getResponseResult());
+        loginLogEntity.setUserAgent(loginLogAddCmd.getUserAgent());
+        loginLogEntity.setDeviceType(loginLogAddCmd.getDeviceType());
+        loginLogEntity.setBrowser(loginLogAddCmd.getBrowser());
+        loginLogEntity.setLoginTime(loginLogAddCmd.getLoginTime());
 
         return loginLogEntity;
     }
@@ -55,16 +54,14 @@ public class LoginLogAssembler {
 
     public static LoginLogVO toValueObject(LoginLogEntity loginLogEntity) {
         LoginLogVO loginLogVO = new LoginLogVO();
-        loginLogVO.setId(loginLogEntity.getId());
         loginLogVO.setIp(loginLogEntity.getIp());
+        loginLogVO.setUserId(loginLogEntity.getUserId());
+        loginLogVO.setUserName(loginLogEntity.getUserName());
         loginLogVO.setLocation(loginLogEntity.getLocation());
-        loginLogVO.setMethod(loginLogEntity.getMethod());
-        loginLogVO.setUri(loginLogEntity.getUri());
-        loginLogVO.setRequestTime(loginLogEntity.getRequestTime());
-        loginLogVO.setWasteTime(loginLogEntity.getWasteTime());
-        loginLogVO.setRequestParam(loginLogEntity.getRequestParam());
-        loginLogVO.setRequestBody(loginLogEntity.getRequestBody());
-        loginLogVO.setResponseResult(loginLogEntity.getResponseResult());
+        loginLogVO.setUserAgent(loginLogEntity.getUserAgent());
+        loginLogVO.setDeviceType(loginLogEntity.getDeviceType());
+        loginLogVO.setBrowser(loginLogEntity.getBrowser());
+        loginLogVO.setLoginTime(loginLogEntity.getLoginTime());
         return loginLogVO;
     }
 

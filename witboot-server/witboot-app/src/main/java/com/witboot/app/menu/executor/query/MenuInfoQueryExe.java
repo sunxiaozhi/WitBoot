@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 /**
- * 用户信息查询
+ * 菜单信息查询
  *
  * @author sunxiaoizhi
  */

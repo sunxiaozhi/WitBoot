@@ -17,7 +17,6 @@ public class LoginLogAddCmd extends Command {
 
     @Serial
     private static final long serialVersionUID = -5726685703640910355L;
-
     /**
      * id
      */
@@ -29,37 +28,37 @@ public class LoginLogAddCmd extends Command {
     private String ip;
 
     /**
+     * 用户id
+     */
+    private String userId;
+
+    /**
+     * 用户名
+     */
+    private String userName;
+
+    /**
      * 位置
      */
     private String location;
 
     /**
-     * 方法
+     * user-agent
      */
-    private String method;
+    private String userAgent;
 
     /**
-     * uri
+     * 设备类型
      */
-    private String uri;
+    private String deviceType;
 
     /**
-     * 耗费时间
+     * 浏览器
      */
-    private long wasteTime;
+    private String browser;
 
     /**
-     * 请求参数
+     * dl时间
      */
-    private String requestParam;
-
-    /**
-     * 请求参数
-     */
-    private String requestBody;
-
-    /**
-     * 响应内容
-     */
-    private String responseResult;
+    private String loginTime;
 }
