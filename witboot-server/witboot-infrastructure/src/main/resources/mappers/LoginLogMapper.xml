@@ -11,18 +11,18 @@
         <result property="userName" column="user_name"/>
         <result property="location" column="location"/>
         <result property="userAgent" column="user_agent"/>
-        <result property="deviceType" column="device_type"/>
+        <result property="device" column="device"/>
         <result property="browser" column="browser"/>
         <result property="loginTime" column="login_time"/>
     </resultMap>
 
     <sql id="Column_List">
-        id, ip, user_id, user_name, location, user_agent, device_type, browser, login_time
+        id, ip, user_id, user_name, location, user_agent, os, device, browser, login_time
     </sql>
 
     <select id="selectByParam" resultMap="loginLoggDOMap">
         SELECT
-        id, ip, user_id, user_name, location, user_agent, device_type, browser, login_time
+        id, ip, user_id, user_name, location, user_agent, os, device, browser, login_time
         FROM wb_login_log
         <where>
             <if test="searchKeyword != null and searchKeyword != ''">
@@ -44,8 +44,8 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_login_log
-        (ip, user_id, user_name, location, user_agent, device_type, browser, login_time)
-        VALUES (#{ip}, #{userId}, #{userName}, #{location}, #{userAgent}, #{deviceType}, #{browser}, #{loginTime})
+        (ip, user_id, user_name, location, user_agent, os, device, browser, login_time)
+        VALUES (#{ip}, #{userId}, #{userName}, #{location}, #{userAgent}, #{os}, #{device}, #{browser}, #{loginTime})
     </insert>
 
     <delete id="deleteByIds">

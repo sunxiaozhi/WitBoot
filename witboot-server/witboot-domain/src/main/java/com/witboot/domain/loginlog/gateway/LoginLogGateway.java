@@ -22,7 +22,7 @@ public interface LoginLogGateway {
     /**
      * 获取操作日志信息
      *
-     * @param id 操作日志ID
+     * @param id 操作日志 ID
      * @return 操作日志实体
      */
     LoginLogEntity findById(Long id);

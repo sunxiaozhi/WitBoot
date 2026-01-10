@@ -11,12 +11,14 @@ import com.witboot.infrastructure.gateway.impl.database.dataobject.LoginLogDO;
 public class LoginLogConvertor {
     public static LoginLogEntity toEntity(LoginLogDO loginLogDo) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
+        loginLogEntity.setId(loginLogDo.getId());
         loginLogEntity.setIp(loginLogDo.getIp());
         loginLogEntity.setUserId(loginLogDo.getUserId());
         loginLogEntity.setUserName(loginLogDo.getUserName());
         loginLogEntity.setLocation(loginLogDo.getLocation());
         loginLogEntity.setUserAgent(loginLogDo.getUserAgent());
-        loginLogEntity.setDeviceType(loginLogDo.getDeviceType());
+        loginLogEntity.setOs(loginLogDo.getOs());
+        loginLogEntity.setDevice(loginLogDo.getDevice());
         loginLogEntity.setBrowser(loginLogDo.getBrowser());
         loginLogEntity.setLoginTime(loginLogDo.getLoginTime());
 
@@ -30,7 +32,8 @@ public class LoginLogConvertor {
         loginLogDo.setUserName(loginLogEntity.getUserName());
         loginLogDo.setLocation(loginLogEntity.getLocation());
         loginLogDo.setUserAgent(loginLogEntity.getUserAgent());
-        loginLogDo.setDeviceType(loginLogEntity.getDeviceType());
+        loginLogDo.setOs(loginLogEntity.getOs());
+        loginLogDo.setDevice(loginLogEntity.getDevice());
         loginLogDo.setBrowser(loginLogEntity.getBrowser());
         loginLogDo.setLoginTime(loginLogEntity.getLoginTime());
 

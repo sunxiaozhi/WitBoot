@@ -29,6 +29,7 @@
         <jjwt.version>0.11.5</jjwt.version>
         <knife4j-openapi3-jakarta-spring-boot-starter.version>4.5.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
         <hutool.version>5.8.26</hutool.version>
+        <uap-java.version>1.6.1</uap-java.version>
     </properties>
 
     <modules>
@@ -145,6 +146,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ua-parser</groupId>
+                <artifactId>uap-java</artifactId>
+                <version>${uap-java.version}</version>
             </dependency>
 
             <dependency>

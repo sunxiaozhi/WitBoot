@@ -32,7 +32,8 @@ public class LoginLogAssembler {
         loginLogEntity.setUserName(loginLogAddCmd.getUserName());
         loginLogEntity.setLocation(loginLogAddCmd.getLocation());
         loginLogEntity.setUserAgent(loginLogAddCmd.getUserAgent());
-        loginLogEntity.setDeviceType(loginLogAddCmd.getDeviceType());
+        loginLogEntity.setOs(loginLogAddCmd.getOs());
+        loginLogEntity.setDevice(loginLogAddCmd.getDevice());
         loginLogEntity.setBrowser(loginLogAddCmd.getBrowser());
         loginLogEntity.setLoginTime(loginLogAddCmd.getLoginTime());
 
@@ -54,12 +55,14 @@ public class LoginLogAssembler {
 
     public static LoginLogVO toValueObject(LoginLogEntity loginLogEntity) {
         LoginLogVO loginLogVO = new LoginLogVO();
+        loginLogVO.setId(loginLogEntity.getId());
         loginLogVO.setIp(loginLogEntity.getIp());
         loginLogVO.setUserId(loginLogEntity.getUserId());
         loginLogVO.setUserName(loginLogEntity.getUserName());
         loginLogVO.setLocation(loginLogEntity.getLocation());
         loginLogVO.setUserAgent(loginLogEntity.getUserAgent());
-        loginLogVO.setDeviceType(loginLogEntity.getDeviceType());
+        loginLogVO.setOs(loginLogEntity.getOs());
+        loginLogVO.setDevice(loginLogEntity.getDevice());
         loginLogVO.setBrowser(loginLogEntity.getBrowser());
         loginLogVO.setLoginTime(loginLogEntity.getLoginTime());
         return loginLogVO;

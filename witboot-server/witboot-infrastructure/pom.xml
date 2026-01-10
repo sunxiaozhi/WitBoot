@@ -145,6 +145,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.ua-parser</groupId>
+            <artifactId>uap-java</artifactId>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.witboot</groupId>
             <artifactId>witboot-client</artifactId>
         </dependency>

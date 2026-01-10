@@ -48,9 +48,14 @@ public class LoginLogAddCmd extends Command {
     private String userAgent;
 
     /**
+     * 操作系统
+     */
+    private String os;
+
+    /**
      * 设备类型
      */
-    private String deviceType;
+    private String device;
 
     /**
      * 浏览器

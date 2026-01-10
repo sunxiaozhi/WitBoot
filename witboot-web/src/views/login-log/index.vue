@@ -13,15 +13,6 @@
         <template #prepend>查询词</template>
       </el-input>
 
-      <el-select
-        v-model="queryForm.method"
-        placeholder="请选择请求方法"
-        clearable
-        class="method-select"
-      >
-        <el-option v-for="item in METHOD_OPTIONS" :key="item" :label="item" :value="item" />
-      </el-select>
-
       <el-button type="primary" @click="handleSearch" :loading="tableLoading">
         <el-icon>
           <Search />
@@ -35,7 +26,7 @@
       </el-button>
     </div>
 
-    <!-- 操作按钮区域 -->
+    <!-- 登录按钮区域 -->
     <div class="option-container">
       <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete">
         <el-icon>
@@ -60,12 +51,14 @@
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="ip" label="IP" />
+        <el-table-column prop="userName" label="用户名" />
         <el-table-column prop="location" label="地址" />
-        <el-table-column prop="method" label="请求方法" />
-        <el-table-column prop="uri" label="URI" />
-        <el-table-column prop="requestTime" label="请求时间" />
-        <el-table-column prop="wasteTime" label="耗时(ms)" />
-        <el-table-column fixed="right" label="操作" width="150" align="center">
+        <el-table-column prop="userAgent" label="User-Agent" />
+        <el-table-column prop="os" label="操作系统" />
+        <el-table-column prop="device" label="设备类型" />
+        <el-table-column prop="browser" label="浏览器" />
+        <el-table-column prop="loginTime" label="登录时间" />
+        <el-table-column fixed="right" label="登录" width="150" align="center">
           <template #default="scope">
             <el-button
               link
@@ -98,51 +91,33 @@
     </div>
 
     <!-- 详情抽屉 -->
-    <el-drawer v-model="dialog" title="操作日志" direction="rtl" size="40%" class="user-drawer">
+    <el-drawer v-model="dialog" title="登录日志" direction="rtl" size="40%" class="user-drawer">
       <div class="drawer__content">
         <el-descriptions :title="`详情`" direction="vertical" :column="1" border>
           <el-descriptions-item label="IP" :span="1">{{
             currentRow?.ip || '-'
           }}</el-descriptions-item>
+          <el-descriptions-item label="用户名" :span="1">{{
+            currentRow?.userName || '-'
+          }}</el-descriptions-item>
           <el-descriptions-item label="地址" :span="1">{{
             currentRow?.location || '-'
           }}</el-descriptions-item>
-          <el-descriptions-item label="请求方法" :span="1">{{
-            currentRow?.method || '-'
+          <el-descriptions-item label="User-Agent" :span="1">{{
+            currentRow?.userAgent || '-'
           }}</el-descriptions-item>
-          <el-descriptions-item label="URI" :span="1">{{
-            currentRow?.uri || '-'
+          <el-descriptions-item label="操作系统" :span="1">{{
+            currentRow?.os || '-'
           }}</el-descriptions-item>
-          <el-descriptions-item label="请求时间" :span="1">{{
-            currentRow?.requestTime || '-'
+          <el-descriptions-item label="设备类型" :span="1">{{
+            currentRow?.device || '-'
           }}</el-descriptions-item>
-          <el-descriptions-item label="耗时(ms)" :span="1">{{
-            currentRow?.wasteTime || '-'
+          <el-descriptions-item label="浏览器" :span="1">{{
+            currentRow?.browser || '-'
           }}</el-descriptions-item>
-          <el-descriptions-item label="请求参数" :span="1">
-            <el-scrollbar height="80px">
-              <pre style="white-space: pre-wrap; word-break: break-word">
-            {{ currentRow?.requestParam || '-' }}
-          </pre
-              >
-            </el-scrollbar>
-          </el-descriptions-item>
-          <el-descriptions-item label="请求体" :span="1">
-            <el-scrollbar height="80px">
-              <pre style="white-space: pre-wrap; word-break: break-word">
-            {{ currentRow?.requestBody || '-' }}
-          </pre
-              >
-            </el-scrollbar>
-          </el-descriptions-item>
-          <el-descriptions-item label="响应结果" :span="1">
-            <el-scrollbar height="300px">
-              <pre style="white-space: pre-wrap; word-break: break-word">
-            {{ currentRow?.responseResult || '-' }}
-          </pre
-              >
-            </el-scrollbar>
-          </el-descriptions-item>
+          <el-descriptions-item label="登录时间" :span="1">{{
+            currentRow?.loginTime || '-'
+          }}</el-descriptions-item>
         </el-descriptions>
       </div>
     </el-drawer>
@@ -159,18 +134,16 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 interface LoginLog {
   id: number
   ip: string
+  userName: string
   location: string
-  method: string
-  uri: string
-  requestTime: string
-  wasteTime: string
-  requestParam: string
-  requestBody: string
-  responseResult: string
+  userAgent: string
+  os: string
+  device: string
+  browser: string
+  loginTime: string
 }
 
 // 常量
-const METHOD_OPTIONS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
 const PAGE_SIZES = [10, 20, 30]
 
 // 表格 & 状态
@@ -196,7 +169,7 @@ const pagination = reactive({
 
 // -------------------- 方法 --------------------
 
-// 选择框选中行操作
+// 选择框选中行登录
 const handleSelectionChange = (selection: LoginLog[]) => {
   selectedRows.value = selection
   selectedIds.value = selection.map((item) => item.id)
@@ -241,12 +214,12 @@ const handleReset = () => {
 // 批量删除
 const handleBatchDelete = () => {
   if (selectedIds.value.length === 0) {
-    ElMessage.warning('请先选择要删除的操作日志')
+    ElMessage.warning('请先选择要删除的登录日志')
     return
   }
 
   ElMessageBox.confirm(
-    `确定要删除选中的${selectedIds.value.length}条操作日志吗？此操作不可恢复！`,
+    `确定要删除选中的${selectedIds.value.length}条登录日志吗？此登录不可恢复！`,
     '删除确认',
     {
       confirmButtonText: '确定',

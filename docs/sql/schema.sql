@@ -53,7 +53,8 @@ CREATE TABLE `wb_login_log` (
     `ip` varchar(100) NOT NULL DEFAULT '' COMMENT 'ip',
     `location` varchar(100) NOT NULL DEFAULT '' COMMENT '位置',
 	`user_agent` text NULL COMMENT 'user_agent',
-    `device_type` varchar(100) NOT NULL DEFAULT '' COMMENT '设备类型',
+    `os` varchar(100) NOT NULL DEFAULT '' COMMENT '操作系统',
+    `device` varchar(100) NOT NULL DEFAULT '' COMMENT '设备类型',
     `browser` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器及版本',
 	`login_time` datetime DEFAULT NULL COMMENT '登录时间',
     PRIMARY KEY (`id`)

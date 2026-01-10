@@ -3,11 +3,10 @@ package com.witboot.infrastructure.common.litenser;
 import cn.hutool.core.date.DateUtil;
 import com.witboot.domain.loginlog.gateway.LoginLogGateway;
 import com.witboot.domain.loginlog.model.LoginLogEntity;
-import com.witboot.infrastructure.common.aspectj.WitLogAspect;
+import com.witboot.infrastructure.common.core.model.UserAgentInfo;
 import com.witboot.infrastructure.common.event.JwtLoginSuccessEvent;
 import com.witboot.infrastructure.common.utils.BeanUtils;
-import com.witboot.infrastructure.common.utils.JakartaServletUtil;
-import jakarta.servlet.http.HttpServletRequest;
+import com.witboot.infrastructure.common.utils.UserAgentUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -33,13 +32,24 @@ public class JwtLoginSuccessListener {
     private LoginLogEntity initLoginLogEntity(JwtLoginSuccessEvent jwtLoginSuccessEvent) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
 
-        loginLogEntity.setIp(jwtLoginSuccessEvent.ip());
-        loginLogEntity.setUserId(String.valueOf(jwtLoginSuccessEvent.userId()));
-        loginLogEntity.setUserName(jwtLoginSuccessEvent.username());
+        String ip = jwtLoginSuccessEvent.ip();
+        String userId = String.valueOf(jwtLoginSuccessEvent.userId());
+        String userName = jwtLoginSuccessEvent.username();
+        String userAgent = jwtLoginSuccessEvent.userAgent();
+
+        UserAgentInfo userAgentInfo = UserAgentUtils.parse(userAgent);
+        String os = userAgentInfo.getOs();
+        String device = userAgentInfo.getDevice();
+        String browser = userAgentInfo.getBrowser();
+
+        loginLogEntity.setIp(ip);
+        loginLogEntity.setUserId(userId);
+        loginLogEntity.setUserName(userName);
         loginLogEntity.setLocation("未知地址");
-        loginLogEntity.setUserAgent(jwtLoginSuccessEvent.userAgent());
-        loginLogEntity.setDeviceType("");
-        loginLogEntity.setBrowser("");
+        loginLogEntity.setUserAgent(userAgent);
+        loginLogEntity.setOs(os);
+        loginLogEntity.setDevice(device);
+        loginLogEntity.setBrowser(browser);
         loginLogEntity.setLoginTime(DateUtil.now());
 
         return loginLogEntity;
