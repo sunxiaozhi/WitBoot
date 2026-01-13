@@ -6,7 +6,7 @@ import com.witboot.app.department.executor.query.DepartmentListByParamQueryExe;
 import com.witboot.client.department.api.IDepartmentService;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.department.query.DepartmentQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,7 @@ import com.witboot.client.loginlog.dto.data.LoginLogErrorCode;
 import com.witboot.client.loginlog.dto.data.LoginLogVO;
 import com.witboot.domain.loginlog.gateway.LoginLogGateway;
 import com.witboot.domain.loginlog.model.LoginLogEntity;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.common.exception.WitBootBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

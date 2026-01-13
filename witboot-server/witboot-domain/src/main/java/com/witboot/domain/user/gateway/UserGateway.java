@@ -1,6 +1,6 @@
 package com.witboot.domain.user.gateway;
 
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.query.UserQuerySpec;

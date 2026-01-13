@@ -1,7 +1,7 @@
 package com.witboot.util;
 
 import com.witboot.WitbootApplication;
-import com.witboot.infrastructure.common.utils.RedisUtil;
+import com.witboot.common.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

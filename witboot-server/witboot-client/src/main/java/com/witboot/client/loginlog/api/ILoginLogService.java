@@ -1,10 +1,10 @@
 package com.witboot.client.loginlog.api;
 
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.loginlog.dto.LoginLogAddCmd;
 import com.witboot.client.loginlog.dto.data.LoginLogVO;
 import com.witboot.client.loginlog.dto.query.LoginLogListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 
 /**
  * 登录日志相关

@@ -11,7 +11,7 @@ import com.witboot.client.menu.dto.MenuAddCmd;
 import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.client.menu.dto.query.MenuListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.menu.query.MenuQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

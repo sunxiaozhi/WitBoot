@@ -1,6 +1,6 @@
 package com.witboot.domain.loginlog.gateway;
 
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.loginlog.model.LoginLogEntity;
 import com.witboot.domain.loginlog.query.LoginLogQuerySpec;

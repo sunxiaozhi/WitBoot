@@ -2,7 +2,7 @@ package com.witboot.app.user.executor.query;
 
 import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.client.user.dto.data.UserVO;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.query.UserQuerySpec;

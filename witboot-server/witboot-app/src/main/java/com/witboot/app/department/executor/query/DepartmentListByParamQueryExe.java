@@ -2,7 +2,7 @@ package com.witboot.app.department.executor.query;
 
 import com.witboot.app.department.assembler.DepartmentAssembler;
 import com.witboot.client.department.dto.data.DepartmentVO;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.department.gateway.DepartmentGateway;
 import com.witboot.domain.department.model.DepartmentEntity;
 import com.witboot.domain.department.query.DepartmentQuerySpec;

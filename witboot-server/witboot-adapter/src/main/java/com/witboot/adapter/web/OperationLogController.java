@@ -1,13 +1,13 @@
 package com.witboot.adapter.web;
 
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.api.IOperationLogService;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
-import com.witboot.infrastructure.common.annotation.WitLog;
-import com.witboot.infrastructure.common.core.controller.BaseController;
-import com.witboot.infrastructure.common.response.ResponseResult;
+import com.witboot.common.annotation.WitLog;
+import com.witboot.common.core.controller.BaseController;
+import com.witboot.common.response.ResponseResult;
+import com.witboot.common.core.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

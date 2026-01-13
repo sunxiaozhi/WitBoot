@@ -6,7 +6,7 @@ import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.common.exception.WitBootBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

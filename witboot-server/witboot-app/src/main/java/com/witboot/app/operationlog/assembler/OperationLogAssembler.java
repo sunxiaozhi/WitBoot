@@ -1,7 +1,7 @@
 package com.witboot.app.operationlog.assembler;
 
 import com.witboot.app.user.assembler.UserAssembler;
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;

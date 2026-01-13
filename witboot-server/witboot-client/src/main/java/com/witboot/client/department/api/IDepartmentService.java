@@ -2,7 +2,7 @@ package com.witboot.client.department.api;
 
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 
 /**
  * 部门相关

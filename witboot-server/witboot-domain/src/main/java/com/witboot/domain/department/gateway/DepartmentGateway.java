@@ -1,6 +1,6 @@
 package com.witboot.domain.department.gateway;
 
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.department.model.DepartmentEntity;
 import com.witboot.domain.department.query.DepartmentQuerySpec;
 

@@ -1,10 +1,10 @@
 package com.witboot.client.operationlog.api;
 
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 
 /**
  * 操作日志相关

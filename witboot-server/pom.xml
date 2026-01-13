@@ -17,7 +17,6 @@
 
     <properties>
         <java.version>17</java.version>
-        <spring-boot.version>3.0.6</spring-boot.version>
         <arthas.version>3.4.8</arthas.version>
         <common-io.version>2.7</common-io.version>
         <druid-spring-boot-starter.version>1.2.18</druid-spring-boot-starter.version>
@@ -39,6 +38,7 @@
         <module>witboot-app</module>
         <module>witboot-adapter</module>
         <module>witboot-infrastructure</module>
+        <module>witboot-common</module>
     </modules>
 
     <dependencyManagement>
@@ -181,6 +181,12 @@
             <dependency>
                 <groupId>com.witboot</groupId>
                 <artifactId>witboot-infrastructure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.witboot</groupId>
+                <artifactId>witboot-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

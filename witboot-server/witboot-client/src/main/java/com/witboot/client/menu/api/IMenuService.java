@@ -4,7 +4,7 @@ import com.witboot.client.menu.dto.MenuAddCmd;
 import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.client.menu.dto.query.MenuListByParamQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 
 /**
  * 菜单相关

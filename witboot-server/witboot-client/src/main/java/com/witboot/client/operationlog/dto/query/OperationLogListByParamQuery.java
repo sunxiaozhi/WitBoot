@@ -1,6 +1,6 @@
 package com.witboot.client.operationlog.dto.query;
 
-import com.witboot.domain.base.model.query.BaseQuery;
+import com.witboot.client.base.model.query.BaseQuery;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

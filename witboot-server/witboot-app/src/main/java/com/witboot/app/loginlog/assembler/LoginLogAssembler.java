@@ -1,7 +1,7 @@
 package com.witboot.app.loginlog.assembler;
 
 import com.witboot.app.user.assembler.UserAssembler;
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.loginlog.dto.LoginLogAddCmd;
 import com.witboot.client.loginlog.dto.data.LoginLogVO;
 import com.witboot.client.loginlog.dto.query.LoginLogListByParamQuery;

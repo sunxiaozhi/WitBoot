@@ -1,6 +1,6 @@
 package com.witboot.client.operationlog.dto.data;
 
-import com.witboot.client.base.dto.data.BaseErrorCode;
+import com.witboot.common.core.dto.data.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

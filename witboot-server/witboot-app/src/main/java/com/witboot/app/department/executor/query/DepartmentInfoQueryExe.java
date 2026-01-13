@@ -5,7 +5,7 @@ import com.witboot.client.department.dto.data.DepartmentErrorCode;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.domain.department.gateway.DepartmentGateway;
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.common.exception.WitBootBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

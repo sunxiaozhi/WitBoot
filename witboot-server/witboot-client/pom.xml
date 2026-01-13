@@ -8,8 +8,8 @@
         <version>0.0.1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>witboot-client</artifactId>
-    <version>0.0.1</version>
 
     <dependencies>
         <dependency>
@@ -23,9 +23,15 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- DTO 校验 -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-domain</artifactId>
+            <artifactId>witboot-common</artifactId>
         </dependency>
     </dependencies>
 </project>

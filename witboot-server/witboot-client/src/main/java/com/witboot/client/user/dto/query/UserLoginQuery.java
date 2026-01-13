@@ -1,10 +1,10 @@
 package com.witboot.client.user.dto.query;
 
 import com.alibaba.cola.dto.Query;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serial;
 
 /**

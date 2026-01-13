@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.config;
 
-import com.witboot.infrastructure.common.filter.RequestLogFilter;
+import com.witboot.infrastructure.filter.RequestLogFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

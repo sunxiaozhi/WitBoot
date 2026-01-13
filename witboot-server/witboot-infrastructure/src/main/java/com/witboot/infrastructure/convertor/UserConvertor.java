@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.convertor;
 
 import com.witboot.domain.user.model.UserEntity;
-import com.witboot.infrastructure.common.Constants;
+import com.witboot.common.Constants;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.UserDO;
 import org.springframework.beans.BeanUtils;
 

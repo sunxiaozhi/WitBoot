@@ -2,7 +2,7 @@ package com.witboot.app.operationlog.executor.query;
 
 import com.witboot.app.operationlog.assembler.OperationLogAssembler;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.domain.operationlog.query.OperationLogQuerySpec;

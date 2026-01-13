@@ -5,7 +5,7 @@ import com.witboot.client.operationlog.dto.data.OperationLogErrorCode;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
 import com.witboot.domain.operationlog.gateway.OperationLogGateway;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
+import com.witboot.common.exception.WitBootBizException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

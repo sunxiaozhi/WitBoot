@@ -2,14 +2,14 @@ package com.witboot.app.user.executor.query;
 
 import com.witboot.client.user.dto.data.UserErrorCode;
 import com.witboot.client.user.dto.query.UserLoginQuery;
+import com.witboot.common.utils.JwtTokenUtil;
 import com.witboot.domain.user.gateway.UserGateway;
 import com.witboot.domain.user.model.UserEntity;
-import com.witboot.infrastructure.common.Constants;
-import com.witboot.infrastructure.common.event.JwtLoginSuccessEvent;
-import com.witboot.infrastructure.common.exception.WitBootBizException;
-import com.witboot.infrastructure.common.utils.JakartaServletUtil;
-import com.witboot.infrastructure.common.utils.JwtTokenUtil;
-import com.witboot.infrastructure.common.utils.RedisUtil;
+import com.witboot.common.Constants;
+import com.witboot.common.event.JwtLoginSuccessEvent;
+import com.witboot.common.exception.WitBootBizException;
+import com.witboot.common.utils.JakartaServletUtil;
+import com.witboot.common.utils.RedisUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -47,7 +47,7 @@ public class UserLoginQueryExe {
             throw new WitBootBizException(UserErrorCode.B_USER_PASSWORD_ERROR);
         }
 
-        String jwtToken = jwtTokenUtil.generateToken(userEntity);
+        String jwtToken = jwtTokenUtil.generateToken(String.valueOf(userEntity.getId()), userEntity.getUsername());
 
         //将jwtToken存进Redis，用于后续登录判断jwtToken的有效性
         redisUtil.setCache(Constants.LOGIN_USER_KEY + userEntity.getUsername(), jwtToken);

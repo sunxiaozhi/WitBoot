@@ -2,7 +2,7 @@ package com.witboot.app.loginlog.executor.query;
 
 import com.witboot.app.loginlog.assembler.LoginLogAssembler;
 import com.witboot.client.loginlog.dto.data.LoginLogVO;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.loginlog.gateway.LoginLogGateway;
 import com.witboot.domain.loginlog.model.LoginLogEntity;
 import com.witboot.domain.loginlog.query.LoginLogQuerySpec;

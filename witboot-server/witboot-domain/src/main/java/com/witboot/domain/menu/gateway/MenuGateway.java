@@ -1,6 +1,6 @@
 package com.witboot.domain.menu.gateway;
 
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.menu.model.MenuEntity;
 import com.witboot.domain.menu.query.MenuQuerySpec;
 

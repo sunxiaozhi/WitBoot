@@ -1,12 +1,12 @@
 package com.witboot.client.user.api;
 
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;
 import com.witboot.client.user.dto.query.UserListByParamQuery;
 import com.witboot.client.user.dto.query.UserLoginQuery;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 
 /**
  * 用户相关

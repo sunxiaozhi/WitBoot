@@ -14,12 +14,13 @@
     <dependencies>
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-client</artifactId>
+            <artifactId>witboot-domain</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.witboot</groupId>
-            <artifactId>witboot-infrastructure</artifactId>
+            <artifactId>witboot-client</artifactId>
         </dependency>
     </dependencies>
 </project>
+ 

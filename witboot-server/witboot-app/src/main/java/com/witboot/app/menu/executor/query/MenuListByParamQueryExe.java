@@ -2,7 +2,7 @@ package com.witboot.app.menu.executor.query;
 
 import com.witboot.app.menu.assembler.MenuAssembler;
 import com.witboot.client.menu.dto.data.MenuVO;
-import com.witboot.domain.base.model.PageResult;
+import com.witboot.common.core.model.PageResult;
 import com.witboot.domain.menu.gateway.MenuGateway;
 import com.witboot.domain.menu.model.MenuEntity;
 import com.witboot.domain.menu.query.MenuQuerySpec;

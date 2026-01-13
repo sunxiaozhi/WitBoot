@@ -1,6 +1,6 @@
 package com.witboot.app.user.assembler;
 
-import com.witboot.client.base.dto.delete.DeleteRequest;
+import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.user.dto.UserRegisterCmd;
 import com.witboot.client.user.dto.UserUpdateCmd;
 import com.witboot.client.user.dto.data.UserVO;

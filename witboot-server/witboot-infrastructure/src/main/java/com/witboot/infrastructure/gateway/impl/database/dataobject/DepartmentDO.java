@@ -1,6 +1,6 @@
 package com.witboot.infrastructure.gateway.impl.database.dataobject;
 
-import com.witboot.infrastructure.common.api.BaseDO;
+import com.witboot.common.api.BaseDO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

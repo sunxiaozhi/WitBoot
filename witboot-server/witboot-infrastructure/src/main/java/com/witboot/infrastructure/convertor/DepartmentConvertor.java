@@ -1,7 +1,7 @@
 package com.witboot.infrastructure.convertor;
 
 import com.witboot.domain.department.model.DepartmentEntity;
-import com.witboot.infrastructure.common.Constants;
+import com.witboot.common.Constants;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.DepartmentDO;
 import org.springframework.beans.BeanUtils;
 

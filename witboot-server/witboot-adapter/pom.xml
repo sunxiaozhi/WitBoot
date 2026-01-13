@@ -16,5 +16,10 @@
             <groupId>com.witboot</groupId>
             <artifactId>witboot-app</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.witboot</groupId>
+            <artifactId>witboot-client</artifactId>
+        </dependency>
     </dependencies>
 </project>
