@@ -13,19 +13,14 @@ import org.springframework.beans.BeanUtils;
 public class DepartmentConvertor {
     public static DepartmentEntity toEntity(DepartmentDO departmentDO) {
         DepartmentEntity departmentEntity = new DepartmentEntity();
-        /*departmentEntity.setId(departmentDO.getId());
-        departmentEntity.setName(departmentDO.getName());
-        departmentEntity.setParentId(departmentDO.getParentId());*/
         BeanUtils.copyProperties(departmentDO, departmentEntity);
-
         return departmentEntity;
     }
 
     public static DepartmentDO toAddDepartmentDO(DepartmentEntity departmentEntity) {
         DepartmentDO departmentDO = new DepartmentDO();
-        departmentDO.setId(departmentEntity.getId());
-        departmentDO.setName(departmentEntity.getName());
-        departmentDO.setParentId(departmentEntity.getParentId());
+        BeanUtils.copyProperties(departmentEntity, departmentDO);
+
         departmentDO.setDeleteFlag(Constants.NOT_DELETED_FLAG);
         departmentDO.setCreator("");
         departmentDO.setModifier("");

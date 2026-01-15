@@ -1,6 +1,5 @@
 package com.witboot.app.operationlog.assembler;
 
-import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.operationlog.dto.OperationLogAddCmd;
 import com.witboot.client.operationlog.dto.data.OperationLogVO;
@@ -8,6 +7,7 @@ import com.witboot.client.operationlog.dto.query.OperationLogListByParamQuery;
 import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.operationlog.model.OperationLogEntity;
 import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
+import org.springframework.beans.BeanUtils;
 
 /**
  * OperationLog Application层转换器
@@ -18,57 +18,25 @@ import com.witboot.domain.operationlog.query.OperationLogQuerySpec;
 public class OperationLogAssembler {
     public static OperationLogQuerySpec toOperationLogListByParamQuerySpec (OperationLogListByParamQuery operatorLogListByParamQuery) {
         OperationLogQuerySpec operationLogListByParamQuerySpec = new OperationLogQuerySpec();
-        operationLogListByParamQuerySpec.setSearchKeyword(operatorLogListByParamQuery.getSearchKeyword());
-        operationLogListByParamQuerySpec.setMethod(operatorLogListByParamQuery.getMethod());
-        operationLogListByParamQuerySpec.setPageNo(operatorLogListByParamQuery.getPageNo());
-        operationLogListByParamQuerySpec.setPageSize(operatorLogListByParamQuery.getPageSize());
+        BeanUtils.copyProperties(operatorLogListByParamQuery, operationLogListByParamQuerySpec);
         return operationLogListByParamQuerySpec;
     }
 
     public static OperationLogEntity toEntity(OperationLogAddCmd operationLogAddCmd) {
         OperationLogEntity operationlogEntity = new OperationLogEntity();
-        operationlogEntity.setId(operationLogAddCmd.getId());
-        operationlogEntity.setIp(operationLogAddCmd.getIp());
-        operationlogEntity.setLocation(operationLogAddCmd.getLocation());
-        operationlogEntity.setMethod(operationLogAddCmd.getMethod());
-        operationlogEntity.setUri(operationLogAddCmd.getUri());
-        operationlogEntity.setWasteTime(operationLogAddCmd.getWasteTime());
-        operationlogEntity.setRequestParam(operationLogAddCmd.getRequestParam());
-        operationlogEntity.setRequestBody(operationLogAddCmd.getRequestBody());
-        operationlogEntity.setResponseResult(operationLogAddCmd.getResponseResult());
-
+        BeanUtils.copyProperties(operationLogAddCmd, operationlogEntity);
         return operationlogEntity;
     }
 
-    /*public static OperationLogEntity toEntity(OperationLogUpdateCmd operationlogUpdateCmd) {
-        OperationLogEntity operationlogEntity = new OperationLogEntity();
-        operationlogEntity.setId(operationlogUpdateCmd.getId());
-        operationlogEntity.setOperationLogname(operationlogUpdateCmd.getOperationLogname());
-        operationlogEntity.setName(operationlogUpdateCmd.getName());
-        operationlogEntity.setMobile(operationlogUpdateCmd.getPhoneNo());
-        operationlogEntity.setGender(operationlogUpdateCmd.getGender());
-        operationlogEntity.setBirthday(operationlogUpdateCmd.getBirthday());
-        operationlogEntity.setDescription(operationlogUpdateCmd.getDescription());
-
-        return operationlogEntity;
-    }*/
-
     public static OperationLogVO toValueObject(OperationLogEntity operationlogEntity) {
         OperationLogVO operationlogVO = new OperationLogVO();
-        operationlogVO.setId(operationlogEntity.getId());
-        operationlogVO.setIp(operationlogEntity.getIp());
-        operationlogVO.setLocation(operationlogEntity.getLocation());
-        operationlogVO.setMethod(operationlogEntity.getMethod());
-        operationlogVO.setUri(operationlogEntity.getUri());
-        operationlogVO.setRequestTime(operationlogEntity.getRequestTime());
-        operationlogVO.setWasteTime(operationlogEntity.getWasteTime());
-        operationlogVO.setRequestParam(operationlogEntity.getRequestParam());
-        operationlogVO.setRequestBody(operationlogEntity.getRequestBody());
-        operationlogVO.setResponseResult(operationlogEntity.getResponseResult());
+        BeanUtils.copyProperties(operationlogEntity, operationlogVO);
         return operationlogVO;
     }
 
     public static DeleteRequestSpec toDeleteRequestSpec(DeleteRequest deleteRequest) {
-        return UserAssembler.toDeleteRequestSpec(deleteRequest);
+        DeleteRequestSpec deleteRequestSpec = new DeleteRequestSpec();
+        deleteRequestSpec.setIds(deleteRequest.getIds());
+        return deleteRequestSpec;
     }
 }

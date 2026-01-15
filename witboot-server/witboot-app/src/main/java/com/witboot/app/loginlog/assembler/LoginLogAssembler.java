@@ -1,6 +1,5 @@
 package com.witboot.app.loginlog.assembler;
 
-import com.witboot.app.user.assembler.UserAssembler;
 import com.witboot.common.core.dto.delete.DeleteRequest;
 import com.witboot.client.loginlog.dto.LoginLogAddCmd;
 import com.witboot.client.loginlog.dto.data.LoginLogVO;
@@ -8,6 +7,7 @@ import com.witboot.client.loginlog.dto.query.LoginLogListByParamQuery;
 import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.loginlog.model.LoginLogEntity;
 import com.witboot.domain.loginlog.query.LoginLogQuerySpec;
+import org.springframework.beans.BeanUtils;
 
 /**
  * LoginLog Application层转换器
@@ -16,59 +16,27 @@ import com.witboot.domain.loginlog.query.LoginLogQuerySpec;
  * @author sunxiaozhi
  */
 public class LoginLogAssembler {
-    public static LoginLogQuerySpec toLoginLogListByParamQuerySpec (LoginLogListByParamQuery operatorLogListByParamQuery) {
+    public static LoginLogQuerySpec toLoginLogListByParamQuerySpec (LoginLogListByParamQuery loginLogListByParamQuery) {
         LoginLogQuerySpec loginLogListByParamQuerySpec = new LoginLogQuerySpec();
-        loginLogListByParamQuerySpec.setSearchKeyword(operatorLogListByParamQuery.getSearchKeyword());
-        loginLogListByParamQuerySpec.setMethod(operatorLogListByParamQuery.getMethod());
-        loginLogListByParamQuerySpec.setPageNo(operatorLogListByParamQuery.getPageNo());
-        loginLogListByParamQuerySpec.setPageSize(operatorLogListByParamQuery.getPageSize());
+        BeanUtils.copyProperties(loginLogListByParamQuery, loginLogListByParamQuerySpec);
         return loginLogListByParamQuerySpec;
     }
 
     public static LoginLogEntity toEntity(LoginLogAddCmd loginLogAddCmd) {
         LoginLogEntity loginLogEntity = new LoginLogEntity();
-        loginLogEntity.setIp(loginLogAddCmd.getIp());
-        loginLogEntity.setUserId(loginLogAddCmd.getUserId());
-        loginLogEntity.setUserName(loginLogAddCmd.getUserName());
-        loginLogEntity.setLocation(loginLogAddCmd.getLocation());
-        loginLogEntity.setUserAgent(loginLogAddCmd.getUserAgent());
-        loginLogEntity.setOs(loginLogAddCmd.getOs());
-        loginLogEntity.setDevice(loginLogAddCmd.getDevice());
-        loginLogEntity.setBrowser(loginLogAddCmd.getBrowser());
-        loginLogEntity.setLoginTime(loginLogAddCmd.getLoginTime());
-
+        BeanUtils.copyProperties(loginLogAddCmd, loginLogEntity);
         return loginLogEntity;
     }
 
-    /*public static LoginLogEntity toEntity(LoginLogUpdateCmd loginLogUpdateCmd) {
-        LoginLogEntity loginLogEntity = new LoginLogEntity();
-        loginLogEntity.setId(loginLogUpdateCmd.getId());
-        loginLogEntity.setLoginLogname(loginLogUpdateCmd.getLoginLogname());
-        loginLogEntity.setName(loginLogUpdateCmd.getName());
-        loginLogEntity.setMobile(loginLogUpdateCmd.getPhoneNo());
-        loginLogEntity.setGender(loginLogUpdateCmd.getGender());
-        loginLogEntity.setBirthday(loginLogUpdateCmd.getBirthday());
-        loginLogEntity.setDescription(loginLogUpdateCmd.getDescription());
-
-        return loginLogEntity;
-    }*/
-
     public static LoginLogVO toValueObject(LoginLogEntity loginLogEntity) {
         LoginLogVO loginLogVO = new LoginLogVO();
-        loginLogVO.setId(loginLogEntity.getId());
-        loginLogVO.setIp(loginLogEntity.getIp());
-        loginLogVO.setUserId(loginLogEntity.getUserId());
-        loginLogVO.setUserName(loginLogEntity.getUserName());
-        loginLogVO.setLocation(loginLogEntity.getLocation());
-        loginLogVO.setUserAgent(loginLogEntity.getUserAgent());
-        loginLogVO.setOs(loginLogEntity.getOs());
-        loginLogVO.setDevice(loginLogEntity.getDevice());
-        loginLogVO.setBrowser(loginLogEntity.getBrowser());
-        loginLogVO.setLoginTime(loginLogEntity.getLoginTime());
+        BeanUtils.copyProperties(loginLogEntity, loginLogVO);
         return loginLogVO;
     }
 
     public static DeleteRequestSpec toDeleteRequestSpec(DeleteRequest deleteRequest) {
-        return UserAssembler.toDeleteRequestSpec(deleteRequest);
+        DeleteRequestSpec deleteRequestSpec = new DeleteRequestSpec();
+        deleteRequestSpec.setIds(deleteRequest.getIds());
+        return deleteRequestSpec;
     }
 }

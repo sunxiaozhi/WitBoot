@@ -4,6 +4,7 @@ import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.domain.department.model.DepartmentEntity;
 import com.witboot.domain.department.query.DepartmentQuerySpec;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Department Application层转换器
@@ -12,45 +13,15 @@ import com.witboot.domain.department.query.DepartmentQuerySpec;
  * @author sunxiaozhi
  */
 public class DepartmentAssembler {
-    /*public static DepartmentEntity toEntity(DepartmentRegisterCmd departmentRegisterCmd) {
-        DepartmentEntity departmentEntity = new DepartmentEntity();
-        departmentEntity.setDepartmentname(departmentRegisterCmd.getDepartmentname());
-        departmentEntity.setPassword(new DepartmentPassword(departmentRegisterCmd.getPassword()));
-        departmentEntity.setName(departmentRegisterCmd.getName());
-        departmentEntity.setMobile(departmentRegisterCmd.getMobile());
-        departmentEntity.setGender(departmentRegisterCmd.getGender());
-        departmentEntity.setBirthday(departmentRegisterCmd.getBirthday());
-        departmentEntity.setDescription(departmentRegisterCmd.getDescription());
-
-        return departmentEntity;
-    }
-
-    public static DepartmentEntity toEntity(DepartmentModifyCmd departmentModifyCmd) {
-        DepartmentEntity departmentEntity = new DepartmentEntity();
-        departmentEntity.setId(departmentModifyCmd.getId());
-        departmentEntity.setDepartmentname(departmentModifyCmd.getDepartmentname());
-        departmentEntity.setName(departmentModifyCmd.getName());
-        departmentEntity.setMobile(departmentModifyCmd.getPhoneNo());
-        departmentEntity.setGender(departmentModifyCmd.getGender());
-        departmentEntity.setBirthday(departmentModifyCmd.getBirthday());
-        departmentEntity.setDescription(departmentModifyCmd.getDescription());
-
-        return departmentEntity;
-    }*/
     public static DepartmentQuerySpec toDepartmentListByParamQuerySpec (DepartmentListByParamQuery departmentListByParamQuery) {
         DepartmentQuerySpec departmentListByParamQuerySpec = new DepartmentQuerySpec();
-        departmentListByParamQuerySpec.setName(departmentListByParamQuery.getName());
-        departmentListByParamQuerySpec.setPageNo(departmentListByParamQuery.getPageNo());
-        departmentListByParamQuerySpec.setPageSize(departmentListByParamQuery.getPageSize());
+        BeanUtils.copyProperties(departmentListByParamQuery, departmentListByParamQuerySpec);
         return departmentListByParamQuerySpec;
     }
 
     public static DepartmentVO toValueObject(DepartmentEntity departmentEntity) {
         DepartmentVO departmentVO = new DepartmentVO();
-        departmentVO.setId(departmentEntity.getId());
-        departmentVO.setName(departmentEntity.getName());
-        departmentVO.setParentId(departmentEntity.getParentId());
-
+        BeanUtils.copyProperties(departmentEntity, departmentVO);
         return departmentVO;
     }
 }

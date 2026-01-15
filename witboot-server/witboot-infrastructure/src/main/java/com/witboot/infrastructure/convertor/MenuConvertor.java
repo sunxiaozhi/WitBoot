@@ -13,19 +13,14 @@ import org.springframework.beans.BeanUtils;
 public class MenuConvertor {
     public static MenuEntity toEntity(MenuDO menuDO) {
         MenuEntity menuEntity = new MenuEntity();
-        /*menuEntity.setId(menuDO.getId());
-        menuEntity.setName(menuDO.getName());
-        menuEntity.setParentId(menuDO.getParentId());*/
         BeanUtils.copyProperties(menuDO, menuEntity);
-
         return menuEntity;
     }
 
     public static MenuDO toAddMenuDO(MenuEntity menuEntity) {
         MenuDO menuDO = new MenuDO();
-        menuDO.setId(menuEntity.getId());
-        menuDO.setName(menuEntity.getName());
-        menuDO.setParentId(menuEntity.getParentId());
+        BeanUtils.copyProperties(menuEntity, menuDO);
+
         menuDO.setDeleteFlag(Constants.NOT_DELETED_FLAG);
         menuDO.setCreator("");
         menuDO.setModifier("");

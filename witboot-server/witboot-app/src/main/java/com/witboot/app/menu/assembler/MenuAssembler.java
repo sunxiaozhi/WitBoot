@@ -6,6 +6,7 @@ import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.domain.menu.query.MenuQuerySpec;
 import com.witboot.domain.menu.model.MenuEntity;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Menu Application层转换器
@@ -16,44 +17,25 @@ import com.witboot.domain.menu.model.MenuEntity;
 public class MenuAssembler {
     public static MenuQuerySpec toMenuListByParamQuerySpec (MenuListByParamQuery menuListByParamQuery) {
         MenuQuerySpec menuListByParamQuerySpec = new MenuQuerySpec();
-        menuListByParamQuerySpec.setName(menuListByParamQuery.getName());
-        menuListByParamQuerySpec.setPageNo(menuListByParamQuery.getPageNo());
-        menuListByParamQuerySpec.setPageSize(menuListByParamQuery.getPageSize());
+        BeanUtils.copyProperties(menuListByParamQuery, menuListByParamQuerySpec);
         return menuListByParamQuerySpec;
     }
     
     public static MenuEntity toEntity(MenuAddCmd menuAddCmd) {
         MenuEntity menuEntity = new MenuEntity();
-        menuEntity.setName(menuAddCmd.getName());
-        menuEntity.setParentId(menuAddCmd.getParentId());
-
+        BeanUtils.copyProperties(menuAddCmd, menuEntity);
         return menuEntity;
     }
 
     public static MenuEntity toEntity(MenuUpdateCmd menuUpdateCmd) {
         MenuEntity menuEntity = new MenuEntity();
-        /*menuEntity.setId(menuUpdateCmd.getId());
-        menuEntity.setName(menuUpdateCmd.getName());
-        /*menuEntity.setMenuname(menuUpdateCmd.getMenuname());
-        menuEntity.setName(menuUpdateCmd.getName());
-        menuEntity.setMobile(menuUpdateCmd.getPhoneNo());
-        menuEntity.setGender(menuUpdateCmd.getGender());
-        menuEntity.setBirthday(menuUpdateCmd.getBirthday());
-        menuEntity.setDescription(menuUpdateCmd.getDescription());*/
-
+        BeanUtils.copyProperties(menuUpdateCmd, menuEntity);
         return menuEntity;
     }
 
     public static MenuVO toValueObject(MenuEntity menuEntity) {
         MenuVO menuVO = new MenuVO();
-        menuVO.setId(menuEntity.getId());
-        menuVO.setName(menuEntity.getName());
-        /*menuVO.setMenuname(menuEntity.getMenuname());
-        menuVO.setMobile(menuEntity.getMobile());
-        menuVO.setGender(menuEntity.getGender());
-        menuVO.setBirthday(menuEntity.getBirthday());
-        menuVO.setDescription(menuEntity.getDescription());*/
-
+        BeanUtils.copyProperties(menuEntity, menuVO);
         return menuVO;
     }
 }

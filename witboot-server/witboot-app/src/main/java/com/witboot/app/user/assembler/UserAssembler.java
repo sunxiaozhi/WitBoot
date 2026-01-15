@@ -9,6 +9,7 @@ import com.witboot.domain.base.model.delete.DeleteRequestSpec;
 import com.witboot.domain.user.model.UserEntity;
 import com.witboot.domain.user.model.UserPassword;
 import com.witboot.domain.user.query.UserQuerySpec;
+import org.springframework.beans.BeanUtils;
 
 /**
  * User Application层转换器
@@ -19,50 +20,25 @@ import com.witboot.domain.user.query.UserQuerySpec;
 public class UserAssembler {
     public static UserQuerySpec toUserListByParamQuerySpec (UserListByParamQuery userListByParamQuery) {
         UserQuerySpec userListByParamQuerySpec = new UserQuerySpec();
-        userListByParamQuerySpec.setKeyword(userListByParamQuery.getKeyword());
-        userListByParamQuerySpec.setName(userListByParamQuery.getName());
-        userListByParamQuerySpec.setUsername(userListByParamQuery.getUsername());
-        userListByParamQuerySpec.setPageNo(userListByParamQuery.getPageNo());
-        userListByParamQuerySpec.setPageSize(userListByParamQuery.getPageSize());
+        BeanUtils.copyProperties(userListByParamQuery, userListByParamQuerySpec);
         return userListByParamQuerySpec;
     }
 
     public static UserEntity toEntity(UserRegisterCmd userRegisterCmd) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(userRegisterCmd.getUsername());
-        userEntity.setPassword(new UserPassword(userRegisterCmd.getPassword()));
-        userEntity.setName(userRegisterCmd.getName());
-        userEntity.setMobile(userRegisterCmd.getMobile());
-        userEntity.setGender(userRegisterCmd.getGender());
-        userEntity.setBirthday(userRegisterCmd.getBirthday());
-        userEntity.setDescription(userRegisterCmd.getDescription());
-
+        BeanUtils.copyProperties(userRegisterCmd, userEntity);
         return userEntity;
     }
 
     public static UserEntity toEntity(UserUpdateCmd userUpdateCmd) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(userUpdateCmd.getId());
-        userEntity.setUsername(userUpdateCmd.getUsername());
-        userEntity.setName(userUpdateCmd.getName());
-        userEntity.setMobile(userUpdateCmd.getMobile());
-        userEntity.setGender(userUpdateCmd.getGender());
-        userEntity.setBirthday(userUpdateCmd.getBirthday());
-        userEntity.setDescription(userUpdateCmd.getDescription());
-
+        BeanUtils.copyProperties(userUpdateCmd, userEntity);
         return userEntity;
     }
 
     public static UserVO toValueObject(UserEntity userEntity) {
         UserVO userVO = new UserVO();
-        userVO.setId(userEntity.getId());
-        userVO.setName(userEntity.getName());
-        userVO.setUsername(userEntity.getUsername());
-        userVO.setMobile(userEntity.getMobile());
-        userVO.setGender(userEntity.getGender());
-        userVO.setBirthday(userEntity.getBirthday());
-        userVO.setDescription(userEntity.getDescription());
-
+        BeanUtils.copyProperties(userEntity, userVO);
         return userVO;
     }
 
