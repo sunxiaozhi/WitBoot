@@ -34,9 +34,6 @@ public class WitLogAspect {
     /** 计算操作消耗时间 */
     private static final ThreadLocal<Long> WASTE_TIME_THREADLOCAL = new NamedThreadLocal<>("wasteTime");
 
-    /** 复用ObjectMapper实例 */
-    //private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     @Before("@annotation(com.witboot.common.annotation.WitLog)")
     public void before() {
         log.debug("Wit Log切入点之前操作");
