@@ -4,7 +4,7 @@
     <div class="search-container">
       <el-input
         v-model="queryForm.keyword"
-        placeholder="请输入用户名、姓名"
+        placeholder="用户名、姓名"
         clearable
         class="search-input"
         @keyup.enter="handleSearch"
@@ -37,6 +37,7 @@
         :data="tableData"
         row-key="id"
         border
+        stripe
         :loading="tableLoading"
         @selection-change="handleSelectionChange"
       >
