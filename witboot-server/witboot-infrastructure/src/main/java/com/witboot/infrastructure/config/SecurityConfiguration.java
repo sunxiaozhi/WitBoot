@@ -2,13 +2,14 @@ package com.witboot.infrastructure.config;
 
 import com.witboot.infrastructure.filter.JwtAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,16 +29,16 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
-
+    /**
+     * JWT 认证过滤器
+     */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
 
     /**
-     * 加密方式
+     * 密码加密器
      */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -45,42 +46,58 @@ public class SecurityConfiguration {
     }
 
     /**
-     * 认证管理器，登录的时候参数会传给 authenticationManager
+     * 认证管理器
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    /**
+     * Security 过滤链
+     */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        //关闭 csrf
-        httpSecurity.csrf().disable()
-                //允许跨域（也可以不允许，看具体需求）
-                .cors().and()
-                //不通过Session获取 SecurityContext
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeHttpRequests()
-                //对于部分接口 允许匿名访问
-                .requestMatchers("/user/register", "/user/login", "/index/hello", "/doc.html", "/webjars/**", "/favicon.ico", "/v3/api-docs/**")
-                .permitAll()
-                //配置权限
-                /*requestMatchers("/test")
-                .hasAuthority("admin")*/
-                //除上面外的所有请求全部需要鉴权认证
-                .anyRequest()
-                .authenticated()
-                .and()
-                .authenticationManager(authenticationManager(authenticationConfiguration))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                //此处为添加jwt过滤
-                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager, JwtAuthenticationFilter jwtAuthenticationFilter
+    ) throws Exception {
+        http
+                // 1. CSRF（JWT 场景直接关闭）
+                .csrf(AbstractHttpConfigurer::disable)
 
-        httpSecurity.headers().frameOptions().disable();
-        return httpSecurity.build();
+                // 2. CORS
+                .cors(cors -> {
+                })
+
+                // 3. Session 管理（无状态）
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+
+                // 4. 请求授权配置
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/user/register",
+                                "/user/login",
+                                "/index/hello",
+                                "/doc.html",
+                                "/webjars/**",
+                                "/favicon.ico",
+                                "/v3/api-docs/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+
+                // 5. AuthenticationManager
+                .authenticationManager(authenticationManager)
+
+                // 6. JWT 过滤器
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+
+                // 7. Header 配置
+                .headers(headers ->
+                        headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)
+                );
+
+        return http.build();
     }
 
     /**
@@ -88,17 +105,22 @@ public class SecurityConfiguration {
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        final CorsConfiguration configuration = new CorsConfiguration();
+        CorsConfiguration configuration = new CorsConfiguration();
 
-        //此处发现如果不加入自己的项目地址，会被拦截。
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:5173"));
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:*"));
         configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
-        configuration.setAllowedHeaders(List.of("Access-Control-Allow-Origin", "X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
+        configuration.setAllowedHeaders(List.of(
+                "Access-Control-Allow-Origin",
+                "X-Requested-With",
+                "Origin",
+                "Content-Type",
+                "Accept",
+                "Authorization"
+        ));
         configuration.setAllowCredentials(true);
 
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-
         return source;
     }
 }

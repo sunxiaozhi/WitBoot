@@ -4,14 +4,11 @@
     <div class="search-container">
       <el-input
         v-model="queryForm.keyword"
-        placeholder="请输入IP"
+        placeholder="IP"
         clearable
         class="search-input"
         @keyup.enter="handleSearch"
-        maxlength="30"
-      >
-        <template #prepend>查询词</template>
-      </el-input>
+      />
 
       <el-button type="primary" @click="handleSearch" :loading="tableLoading">
         <el-icon>
@@ -43,6 +40,7 @@
         :data="tableData"
         row-key="id"
         border
+        stripe
         style="width: 100%"
         element-loading-text="数据加载中..."
         @selection-change="handleSelectionChange"
