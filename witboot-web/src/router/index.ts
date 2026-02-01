@@ -5,14 +5,14 @@ import { useMenuTabsStore } from '@/stores/menuTabsStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
 
 // 全局前置守卫
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('accessToken') // 替换为你的 token 获取方式
 
-  if (to.matched.some((record) => record.meta?.requiresAuth)) {
+  if (to.matched.some(record => record.meta?.requiresAuth)) {
     if (!token) {
       next({ name: 'login' })
     } else {
@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
 })
 
 // 设置页面标题
-router.afterEach((to) => {
+router.afterEach(to => {
   const title = to.meta.title as string
   if (title) {
     document.title = SITE_NAME + ' - ' + title

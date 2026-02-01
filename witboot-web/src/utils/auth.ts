@@ -28,7 +28,7 @@ export const clearAccessToken = () => localStorage.removeItem('accessToken')
  */
 export const logout = () => {
   const stores = [useMenuTabsStore(), useMenuCollapseStore()]
-  stores.forEach((store) => store.$reset())
+  stores.forEach(store => store.$reset())
   localStorage.clear()
 
   router.push('/login')

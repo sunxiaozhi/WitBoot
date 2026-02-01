@@ -116,7 +116,7 @@ const fetchData = async () => {
   const res = await selectUserList({
     pageNo: pagination.currentPage,
     pageSize: pagination.pageSize,
-    keyword: queryForm.keyword
+    keyword: queryForm.keyword,
   })
   tableData.value = res.data.list
   pagination.total = res.data.total
@@ -144,7 +144,7 @@ const handleEdit = (row: User) => {
 }
 
 const handleSelectionChange = (rows: User[]) => {
-  selectedIds.value = rows.map((r) => r.id)
+  selectedIds.value = rows.map(r => r.id)
 }
 
 const handleDelete = (row: User) => {

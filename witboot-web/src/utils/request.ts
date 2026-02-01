@@ -10,18 +10,18 @@ const instance = axios.create({
   timeout: 5000, //配置超时时间
   withCredentials: true, //携带凭证允许
   headers: {
-    'content-type': 'application/json'
-  }
+    'content-type': 'application/json',
+  },
 })
 
 /* 请求拦截 */
-instance.interceptors.request.use(requestAuth, (error) => Promise.reject(error))
+instance.interceptors.request.use(requestAuth, error => Promise.reject(error))
 
 /**
  * 请求开始前的检查
  */
 function requestAuth(
-  config: InternalAxiosRequestConfig & requestConfigType
+  config: InternalAxiosRequestConfig & requestConfigType,
 ): InternalAxiosRequestConfig {
   if (config.headers && config.isToken) {
     config.headers.Authorization = `Bearer ${getAccessToken()}`
@@ -33,7 +33,7 @@ function requestAuth(
 }
 
 /* 响应拦截 */
-instance.interceptors.response.use(responseSuccess, (error) => {
+instance.interceptors.response.use(responseSuccess, error => {
   return Promise.reject(error)
 })
 
@@ -68,10 +68,10 @@ function request(url: string, data: any, config: any, method: Method): any {
       method: method,
       data: method === 'GET' ? null : data,
       params: method === 'GET' ? data : null, // get请求不携带data，params放在url上
-      ...config // 用户自定义配置，可以覆盖前面的配置
+      ...config, // 用户自定义配置，可以覆盖前面的配置
     })
-    .then((response) => checkResponse(response.data))
-    .catch((error) => responseError(error))
+    .then(response => checkResponse(response.data))
+    .catch(error => responseError(error))
 }
 
 /**
@@ -121,7 +121,7 @@ function responseError(error: any) {
 
   return Promise.reject({
     ...error,
-    reason: '网络出错啦，请检查您的网络或更换浏览器重试'
+    reason: '网络出错啦，请检查您的网络或更换浏览器重试',
   })
 }
 

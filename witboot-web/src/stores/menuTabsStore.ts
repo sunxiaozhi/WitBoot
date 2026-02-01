@@ -11,7 +11,7 @@ interface TabItem {
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
     tabs: [] as TabItem[],
-    activeTab: '/home' as string
+    activeTab: '/home' as string,
   }),
 
   actions: {
@@ -20,7 +20,7 @@ export const useMenuTabsStore = defineStore('menuTabs', {
         this.tabs.push({
           title: '首页',
           path: '/home',
-          fullPath: '/home'
+          fullPath: '/home',
         })
         this.activeTab = '/home'
       }
@@ -30,19 +30,19 @@ export const useMenuTabsStore = defineStore('menuTabs', {
       const path = route.path
       const title = (route.meta?.title as string) || (route.name as string) || path
 
-      if (!this.tabs.some((tab) => tab.path === path)) {
+      if (!this.tabs.some(tab => tab.path === path)) {
         this.tabs.push({
           title,
           path,
           name: route.name as string | undefined,
-          fullPath: (route as any).fullPath
+          fullPath: (route as any).fullPath,
         })
       }
       this.activeTab = path
     },
 
     removeTab(path: string) {
-      const index = this.tabs.findIndex((tab) => tab.path === path)
+      const index = this.tabs.findIndex(tab => tab.path === path)
       if (index === -1) return
 
       this.tabs.splice(index, 1)
@@ -60,11 +60,11 @@ export const useMenuTabsStore = defineStore('menuTabs', {
     closeAllTabs() {
       this.tabs = [{ title: '首页', path: '/home', fullPath: '/home' }]
       this.activeTab = '/home'
-    }
+    },
   },
 
   persist: {
     key: 'witboot-menu-tabs',
-    storage: localStorage // 也可以用 sessionStorage
-  }
+    storage: localStorage, // 也可以用 sessionStorage
+  },
 })

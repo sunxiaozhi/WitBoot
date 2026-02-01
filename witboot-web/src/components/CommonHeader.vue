@@ -36,7 +36,7 @@ const toProfile = () => {
 
 const handleLogout = () => {
   ElMessageBox.confirm('确定要退出登录吗？', '提示', {
-    type: 'warning'
+    type: 'warning',
   }).then(() => {
     // logout()
     localStorage.clear()

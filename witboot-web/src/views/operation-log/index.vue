@@ -185,13 +185,13 @@ const currentRow = ref<OperationLog | null>(null)
 // 搜索表单 & 分页
 const queryForm = reactive({
   keyword: '',
-  method: ''
+  method: '',
 })
 
 const pagination = reactive({
   currentPage: 1,
   pageSize: 10,
-  total: 0
+  total: 0,
 })
 
 // -------------------- 方法 --------------------
@@ -199,7 +199,7 @@ const pagination = reactive({
 // 选择框选中行操作
 const handleSelectionChange = (selection: OperationLog[]) => {
   selectedRows.value = selection
-  selectedIds.value = selection.map((item) => item.id)
+  selectedIds.value = selection.map(item => item.id)
 }
 
 // 搜索触发
@@ -210,7 +210,7 @@ const fetchData = async () => {
       pageNo: pagination.currentPage,
       pageSize: pagination.pageSize,
       searchKeyword: queryForm.keyword,
-      method: queryForm.method
+      method: queryForm.method,
     })
 
     tableData.value = res.data.list
@@ -252,8 +252,8 @@ const handleBatchDelete = () => {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       type: 'error',
-      draggable: true
-    }
+      draggable: true,
+    },
   )
     .then(async () => {
       try {

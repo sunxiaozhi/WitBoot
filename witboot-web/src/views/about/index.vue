@@ -13,7 +13,6 @@
         <el-table-column prop="version" label="版本" width="180" />
       </el-table>
     </div>
-
   </div>
 </template>
 

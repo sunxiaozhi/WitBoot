@@ -5,12 +5,7 @@
     size="40%"
     :before-close="handleBeforeClose"
   >
-    <el-form
-      ref="formRef"
-      :model="form"
-      :rules="rules"
-      label-width="100px"
-    >
+    <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="用户名" prop="username">
@@ -69,9 +64,7 @@
 
     <template #footer>
       <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" :loading="submitLoading" @click="submit">
-        提交
-      </el-button>
+      <el-button type="primary" :loading="submitLoading" @click="submit"> 提交 </el-button>
     </template>
   </el-drawer>
 </template>
@@ -105,7 +98,7 @@ const createEmptyForm = () => ({
   mobile: '',
   gender: '',
   birthday: '',
-  description: ''
+  description: '',
 })
 
 /* ================= state ================= */
@@ -132,28 +125,28 @@ const rules: FormRules = {
     {
       validator: (_, value, cb) =>
         value === form.password ? cb() : cb(new Error('两次密码不一致')),
-      trigger: 'blur'
-    }
+      trigger: 'blur',
+    },
   ],
   mobile: [{ pattern: /^1[3-9]\d{9}$/, message: '手机号格式错误' }],
-  gender: [{ required: true, message: '请选择性别', trigger: 'change' }]
+  gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
 }
 
 /* ================= watch ================= */
 
 watch(
   () => props.modelValue,
-  (v) => (visible.value = v)
+  v => (visible.value = v),
 )
 
-watch(visible, (v) => {
+watch(visible, v => {
   emit('update:modelValue', v)
   if (!v) resetForm()
 })
 
 watch(
   () => props.data,
-  (v) => {
+  v => {
     if (v) {
       Object.assign(form, createEmptyForm(), v)
       form.password = ''
@@ -162,14 +155,14 @@ watch(
       resetForm()
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 /* ================= actions ================= */
 
 const submit = async () => {
   if (!formRef.value) return
-  await formRef.value.validate(async (valid) => {
+  await formRef.value.validate(async valid => {
     if (!valid) return
     submitLoading.value = true
     try {
@@ -185,7 +178,7 @@ const submit = async () => {
 
 const handleBeforeClose = (done: () => void) => {
   ElMessageBox.confirm('确认关闭？未保存数据将丢失', '提示', {
-    type: 'warning'
+    type: 'warning',
   })
     .then(() => done())
     .catch(() => {})

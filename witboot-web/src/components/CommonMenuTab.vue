@@ -1,6 +1,13 @@
 <template>
   <div class="menu-tabs-wrapper">
-    <el-tabs v-model="activeTab" type="card" closable class="menu-tabs" @tab-remove="removeTab" @tab-change="changeTab">
+    <el-tabs
+      v-model="activeTab"
+      type="card"
+      closable
+      class="menu-tabs"
+      @tab-remove="removeTab"
+      @tab-change="changeTab"
+    >
       <el-tab-pane v-for="tab in tabs" :key="tab.path" :label="tab.title" :name="tab.path">
         <!-- 关键：只有在激活时才渲染内容，避免缓存所有页面 -->
         <div v-if="activeTab === tab.path" class="tab-content">
@@ -27,7 +34,7 @@ const router = useRouter()
 const tabs = computed(() => menuTabsStore.tabs)
 const activeTab = computed({
   get: () => menuTabsStore.activeTab,
-  set: (val) => menuTabsStore.changeActiveTab(val)
+  set: val => menuTabsStore.changeActiveTab(val),
 })
 
 const removeTab = (path: string) => {
@@ -51,11 +58,11 @@ onMounted(() => {
 // 路由变化时添加
 watch(
   () => route.path,
-  (newPath) => {
+  newPath => {
     if (newPath !== '/login' && route.meta?.title) {
       menuTabsStore.addTab(route)
     }
-  }
+  },
 )
 </script>
 

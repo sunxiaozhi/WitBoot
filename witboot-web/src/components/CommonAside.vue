@@ -3,8 +3,16 @@
     <div class="logo">
       <h3>{{ isCollapse ? 'WB' : 'WitBoot' }}</h3>
     </div>
-    <el-menu :default-active="activeMenu" :collapse="isCollapse" :collapse-transition="false" router
-      background-color="#ffffff" text-color="#303133" active-text-color="#409eff" @select="handleSelect">
+    <el-menu
+      :default-active="activeMenu"
+      :collapse="isCollapse"
+      :collapse-transition="false"
+      router
+      background-color="#ffffff"
+      text-color="#303133"
+      active-text-color="#409eff"
+      @select="handleSelect"
+    >
       <!-- 使用配置化菜单渲染 -->
       <template v-for="menu in menuList" :key="menu.index">
         <!-- 一级菜单无子菜单 -->
@@ -65,7 +73,7 @@ import {
   Memo,
   Document,
   Reading,
-  InfoFilled
+  InfoFilled,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -75,7 +83,7 @@ const menuTabsStore = useMenuTabsStore()
 const { isCollapse } = storeToRefs(menuCollapseStore)*/
 
 const menuCollapseStore = useMenuCollapseStore()
-const isCollapse = computed(() => menuCollapseStore.isCollapse)  // 直接用
+const isCollapse = computed(() => menuCollapseStore.isCollapse) // 直接用
 // 或者更狠：const isCollapse = menuCollapseStore.isCollapse   // 因为本身就是 ref，模板里可以直接用
 
 const asideWidth = computed(() => (isCollapse.value ? '64px' : '200px'))
@@ -98,12 +106,12 @@ const menuList = [
         title: '日志管理',
         children: [
           { index: '/operationLog', icon: Document, title: '操作日志' },
-          { index: '/loginLog', icon: Reading, title: '登录日志' }
-        ]
-      }
-    ]
+          { index: '/loginLog', icon: Reading, title: '登录日志' },
+        ],
+      },
+    ],
   },
-  { index: '/about', icon: InfoFilled, title: '关于系统' }
+  { index: '/about', icon: InfoFilled, title: '关于系统' },
 ]
 
 const handleSelect = (path: string) => {

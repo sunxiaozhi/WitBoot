@@ -64,18 +64,18 @@ const formSize = ref<ComponentSize>('default')
 const ruleFormRef = ref<FormInstance>()
 const ruleForm = reactive<RuleForm>({
   username: '',
-  password: ''
+  password: '',
 })
 
 const rules = reactive<FormRules<RuleForm>>({
   username: [
     { required: true, message: '请填写用户名', trigger: 'blur' },
-    { min: 6, max: 12, message: '用户名长度需6-12位', trigger: 'blur' }
+    { min: 6, max: 12, message: '用户名长度需6-12位', trigger: 'blur' },
   ],
   password: [
     { required: true, message: '请填写密码', trigger: 'blur' },
-    { min: 6, max: 12, message: '密码长度需6-12位', trigger: 'blur' }
-  ]
+    { min: 6, max: 12, message: '密码长度需6-12位', trigger: 'blur' },
+  ],
 })
 
 const rememberMe = ref(false)
