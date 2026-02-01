@@ -53,9 +53,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         //关闭 csrf
-        http.csrf().disable()
+        httpSecurity.csrf().disable()
                 //允许跨域（也可以不允许，看具体需求）
                 .cors().and()
                 //不通过Session获取 SecurityContext
@@ -79,8 +79,8 @@ public class SecurityConfiguration {
                 //此处为添加jwt过滤
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.headers().frameOptions().disable();
-        return http.build();
+        httpSecurity.headers().frameOptions().disable();
+        return httpSecurity.build();
     }
 
     /**
