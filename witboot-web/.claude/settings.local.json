@@ -9,7 +9,9 @@
       "Bash(pnpm remove:*)",
       "Bash(pnpm add:*)",
       "Bash(pnpm run lint)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(git restore:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
