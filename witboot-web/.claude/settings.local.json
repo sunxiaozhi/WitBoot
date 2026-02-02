@@ -11,7 +11,9 @@
       "Bash(pnpm run lint)",
       "Bash(timeout:*)",
       "Bash(git restore:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(dir \"*.js\" \"*.json\" \"*.ts\" \"*.vue\")",
+      "Bash(findstr:*)"
     ]
   }
 }
