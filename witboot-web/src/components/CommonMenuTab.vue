@@ -66,16 +66,67 @@ watch(
 )
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .menu-tabs-wrapper {
   background: #fff;
-  border-bottom: 1px solid #e6e6e6;
-  padding: 0 10px;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 16px 0 16px;
+
+  .menu-tabs {
+    :deep(.el-tabs__header) {
+      margin: 0;
+      border: none;
+    }
+
+    :deep(.el-tabs__nav) {
+      border: none;
+      gap: 4px;
+    }
+
+    :deep(.el-tabs__item) {
+      border: none;
+      background: #f5f7fa;
+      border-radius: 6px 6px 0 0;
+      padding: 0 16px;
+      height: 36px;
+      line-height: 36px;
+      font-size: 13px;
+      color: #606266;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #667eea;
+        background: #e8ecf5;
+      }
+
+      &.is-active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        font-weight: 500;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+      }
+    }
+
+    :deep(.el-tabs__item .el-icon-close) {
+      width: 14px;
+      height: 14px;
+      margin-left: 6px;
+      font-size: 12px;
+      border-radius: 50%;
+      transition: all 0.3s;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
+        color: #fff;
+      }
+    }
+  }
 }
 
 .tab-content {
-  height: calc(100vh - 160px);
-  /* 根据你的 header + tabs + footer 高度调整 */
+  height: calc(100vh - 64px - 48px - 36px);
+  padding: 20px;
+  background: #f5f7fa;
   overflow: auto;
 }
 </style>

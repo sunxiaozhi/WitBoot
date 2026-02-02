@@ -1,19 +1,28 @@
 <template>
   <el-header class="header">
     <div class="left">
-      <el-icon :size="24" class="collapse-icon" @click="menuCollapseStore.toggleCollapse">
-        <Expand v-if="menuCollapseStore.isCollapse" />
+      <el-icon :size="20" class="collapse-icon" @click="menuCollapseStore.toggleCollapse">
+        <Expand v-if="!menuCollapseStore.isCollapse" />
         <Fold v-else />
       </el-icon>
     </div>
 
     <div class="right">
       <el-dropdown trigger="click">
-        <el-avatar :size="32" :src="avatarUrl" />
+        <div class="user-dropdown">
+          <el-avatar :size="36" :src="avatarUrl" class="user-avatar" />
+          <span class="username">管理员</span>
+        </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item @click="toProfile">个人信息</el-dropdown-item>
-            <el-dropdown-item divided @click="handleLogout">退出登录</el-dropdown-item>
+            <el-dropdown-item @click="toProfile">
+              <el-icon><User /></el-icon>
+              <span>个人信息</span>
+            </el-dropdown-item>
+            <el-dropdown-item divided @click="handleLogout">
+              <el-icon><SwitchButton /></el-icon>
+              <span>退出登录</span>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -22,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { Fold, Expand } from '@element-plus/icons-vue'
+import { Expand, User, SwitchButton } from '@element-plus/icons-vue'
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import { ElMessageBox } from 'element-plus'
 
@@ -37,6 +46,8 @@ const toProfile = () => {
 const handleLogout = () => {
   ElMessageBox.confirm('确定要退出登录吗？', '提示', {
     type: 'warning',
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
   }).then(() => {
     // logout()
     localStorage.clear()
@@ -51,15 +62,67 @@ const handleLogout = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-  height: 50px !important;
+  padding: 0 24px;
+  height: 64px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid #f0f0f0;
 
-  .collapse-icon {
-    cursor: pointer;
-    transition: transform 0.3s;
+  .left {
+    display: flex;
+    align-items: center;
+
+    .collapse-icon {
+      cursor: pointer;
+      color: #666;
+      transition: all 0.3s;
+      padding: 8px;
+      border-radius: 8px;
+
+      &:hover {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .right {
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 4px 8px;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover {
+        background: rgba(102, 126, 234, 0.08);
+      }
+
+      .user-avatar {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      }
+
+      .username {
+        font-size: 14px;
+        color: #333;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+:deep(.el-dropdown-menu) {
+  .el-dropdown-menu__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
 
     &:hover {
-      transform: scale(1.1);
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
     }
   }
 }
