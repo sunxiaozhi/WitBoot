@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(WitBootBizException .class)
+    public ResponseResult<String> handleWitBootBizException(WitBootBizException witBootBizException) {
+        return ResponseResult.fail(witBootBizException.getMessage());
+    }
+
     /**
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public ResponseResult<String> handleRuntimeException(RuntimeException runtimeException)
-    {
+    public ResponseResult<String> handleRuntimeException(RuntimeException runtimeException) {
         return ResponseResult.fail(runtimeException.getMessage());
     }
 
@@ -25,8 +29,7 @@ public class GlobalExceptionHandler {
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public ResponseResult<String> handleException(Exception exception)
-    {
+    public ResponseResult<String> handleException(Exception exception) {
         return ResponseResult.fail(exception.getMessage());
     }
 }

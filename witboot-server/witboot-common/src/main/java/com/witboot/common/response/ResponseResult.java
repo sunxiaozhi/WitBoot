@@ -23,15 +23,15 @@ public class ResponseResult<T> {
     /**
      * 提示语
      */
-    private String msg;
+    private String message;
 
     protected ResponseResult() {
     }
 
-    private static <T> ResponseResult<T> responseResult(int code, String msg, T data) {
+    private static <T> ResponseResult<T> responseResult(int code, String message, T data) {
         ResponseResult<T> responseResult = new ResponseResult<>();
         responseResult.setCode(code);
-        responseResult.setMsg(msg);
+        responseResult.setMessage(message);
         responseResult.setData(data);
         return responseResult;
     }
@@ -44,7 +44,7 @@ public class ResponseResult<T> {
         return responseResult(ResponseCode.SUCCESS.getCode(), "成功", data);
     }
 
-    public static <T> ResponseResult<T> fail(T data) {
-        return responseResult(ResponseCode.FAIL.getCode(), "失败", data);
+    public static <T> ResponseResult<T> fail(String message) {
+        return responseResult(ResponseCode.FAIL.getCode(), message, null);
     }
 }
