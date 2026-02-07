@@ -226,44 +226,47 @@ const handleBeforeClose = (done: () => void) => {
       .el-form-item__content {
         .el-input__wrapper {
           border-radius: 8px;
-          transition: all 0.3s;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+          border: 1px solid #e5e7eb;
+          transition: border-color 0.3s;
+          box-shadow: none;
 
           &:hover {
-            box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+            border-color: #cbd5f5;
           }
 
           &.is-focus {
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
           }
         }
 
         .el-textarea__inner {
           border-radius: 8px;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-          transition: all 0.3s;
+          box-shadow: none;
+          border: 1px solid #e5e7eb;
+          transition: border-color 0.3s;
 
           &:hover {
-            box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+            border-color: #cbd5f5;
           }
 
           &:focus {
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
           }
         }
 
         .el-select {
           .el-input__wrapper {
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s;
+            box-shadow: none;
+            border: 1px solid #e5e7eb;
+            transition: border-color 0.3s;
 
             &:hover {
-              box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+              border-color: #cbd5f5;
             }
 
             &.is-focus {
-              box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+              border-color: #667eea;
             }
           }
         }

@@ -9,6 +9,8 @@ lerna-debug.log*
 
 # Package manager lock files
 package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 node_modules
 .DS_Store

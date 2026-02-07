@@ -2,8 +2,15 @@
   <el-footer class="footer">
     <div class="footer-content">
       <p class="copyright">
-        Copyright © 2026 Powered by
-        <a :href="githubUrl" target="_blank" rel="noopener">{{ owner }}</a>
+        Copyright © {{ currentYear }} Powered by
+        <a
+          :href="githubUrl"
+          target="_blank"
+          rel="noopener"
+          :aria-label="`GitHub: ${owner}`"
+        >
+          {{ owner }}
+        </a>
       </p>
     </div>
   </el-footer>
@@ -11,6 +18,8 @@
 
 <script setup lang="ts">
 import { SITE_OWNER as owner, GITHUB_URL as githubUrl } from '@/config/siteConfig'
+
+const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" scoped>
@@ -28,7 +37,6 @@ import { SITE_OWNER as owner, GITHUB_URL as githubUrl } from '@/config/siteConfi
       margin: 0;
       font-size: 13px;
       color: #999;
-      line-height: 48px;
 
       a {
         color: #667eea;

@@ -1,13 +1,15 @@
-export interface ResponseDataType {
+import type { AxiosProgressEvent } from 'axios'
+
+export interface ResponseDataType<T = unknown> {
   code: number
   message: string
-  data: any
+  data: T
 }
 
-export interface requestConfigType {
-  headers?: { [key: string]: string }
+export interface RequestConfig {
+  headers?: Record<string, string>
   onDownloadProgress?: (progressEvent: AxiosProgressEvent) => void
-  signal?: GenericAbortSignal
+  signal?: AbortSignal
   hold?: boolean
   timeout?: number
   isToken?: boolean

@@ -1,7 +1,7 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig, type Method } from 'axios'
 import { clearAccessToken, getAccessToken } from './auth'
-import { HTTP_STATUS_CODE, TOKEN_ERROR_CODE } from './responseCode'
-import type { requestConfigType, ResponseDataType } from './request.d'
+import { TOKEN_ERROR_CODE } from './responseCode'
+import type { RequestConfig, ResponseDataType } from './request.d'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
 
@@ -21,11 +21,11 @@ instance.interceptors.request.use(requestAuth, error => Promise.reject(error))
  * 请求开始前的检查
  */
 function requestAuth(
-  config: InternalAxiosRequestConfig & requestConfigType,
+  config: InternalAxiosRequestConfig & RequestConfig,
 ): InternalAxiosRequestConfig {
   if (config.headers && config.isToken) {
-    config.headers.Authorization = `Bearer ${getAccessToken()}`
-    // 需要使用token的请求
+    const token = getAccessToken()
+    if (token) config.headers.Authorization = `Bearer ${token}`
   }
 
   // 不需要使用token的请求，直接送出即可
@@ -53,38 +53,37 @@ function responseSuccess(response: AxiosResponse<ResponseDataType>) {
  * @param method
  * @returns
  */
-function request(url: string, data: any, config: any, method: Method): any {
-  console.log('request->', url, data, config, method)
-  /* 去空 */
-  for (const key in data) {
-    if (data[key] === null || data[key] === undefined) {
-      delete data[key]
-    }
-  }
+function request<T>(
+  url: string,
+  data: Record<string, unknown> = {},
+  config: RequestConfig = {},
+  method: Method,
+): Promise<T> {
+  const cleanData = Object.fromEntries(
+    Object.entries(data).filter(([, value]) => value !== null && value !== undefined),
+  )
 
   return instance
     .request({
       url: url,
       method: method,
-      data: method === 'GET' ? null : data,
-      params: method === 'GET' ? data : null, // get请求不携带data，params放在url上
+      data: method === 'GET' ? null : cleanData,
+      params: method === 'GET' ? cleanData : null, // get请求不携带data，params放在url上
       ...config, // 用户自定义配置，可以覆盖前面的配置
     })
-    .then(response => checkResponse(response.data))
+    .then(response => checkResponse<T>(response.data))
     .catch(error => responseError(error))
 }
 
 /**
  * 响应数据检查
  */
-function checkResponse(data: ResponseDataType) {
+function checkResponse<T>(data: ResponseDataType<T>) {
   if (data === undefined) {
-    console.log('error->', data, 'data is empty')
     return Promise.reject('服务器异常')
   } else if (data.code < 200 || data.code >= 400) {
     return Promise.reject(data)
   }
-  console.log(data)
   return data
 }
 
@@ -106,13 +105,13 @@ function responseError(error: any) {
     if (response.status == 403) {
       ElMessage.error('登录信息已过期，请重新登录')
       clearAccessToken()
-      router.push('/login')
+      router.replace('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
 
     if (response.data.code in TOKEN_ERROR_CODE) {
       clearAccessToken()
-      router.push('/login')
+      router.replace('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
 
@@ -132,18 +131,18 @@ function responseError(error: any) {
  * @param {object} config
  * @returns
  */
-export function GET<T>(url: string, params: any = {}, config: any = {}): Promise<T> {
-  return request(url, params, config, 'GET')
+export function GET<T>(url: string, params: Record<string, unknown> = {}, config: RequestConfig = {}) {
+  return request<T>(url, params, config, 'GET')
 }
 
-export function POST<T>(url: string, data = {}, config: any = {}): Promise<T> {
-  return request(url, data, config, 'POST')
+export function POST<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+  return request<T>(url, data, config, 'POST')
 }
 
-export function PUT<T>(url: string, data = {}, config: any = {}): Promise<T> {
-  return request(url, data, config, 'PUT')
+export function PUT<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+  return request<T>(url, data, config, 'PUT')
 }
 
-export function DELETE<T>(url: string, data = {}, config: any = {}): Promise<T> {
-  return request(url, data, config, 'DELETE')
+export function DELETE<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+  return request<T>(url, data, config, 'DELETE')
 }

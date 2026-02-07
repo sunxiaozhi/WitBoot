@@ -2,23 +2,38 @@
   <div class="user-container">
     <!-- 搜索区域 -->
     <div class="search-container">
-      <el-input
-        v-model="queryForm.keyword"
-        placeholder="搜索用户名、姓名"
-        clearable
-        class="search-input"
-        @keyup.enter="handleSearch"
-      >
-        <template #prefix>
-          <el-icon><Search /></el-icon>
-        </template>
-      </el-input>
-      <el-button type="primary" @click="handleSearch" :loading="searchLoading" class="search-button">
-        搜索
-      </el-button>
-      <el-button @click="handleReset" :disabled="!queryForm.keyword" class="reset-button">
-        <el-icon><Refresh /></el-icon>
-      </el-button>
+      <div class="search-bar">
+        <el-input
+          v-model="queryForm.keyword"
+          placeholder="搜索用户名、姓名"
+          clearable
+          class="search-input"
+          @keyup.enter="handleSearch"
+        >
+          <template #prefix>
+            <el-icon><Search /></el-icon>
+          </template>
+        </el-input>
+        <div class="search-actions">
+          <el-button
+            type="primary"
+            @click="handleSearch"
+            :loading="searchLoading"
+            class="search-button"
+          >
+            <el-icon><Search /></el-icon>
+            搜索
+          </el-button>
+          <el-button
+            @click="handleReset"
+            :disabled="!queryForm.keyword"
+            class="reset-button"
+            circle
+          >
+            <el-icon><Refresh /></el-icon>
+          </el-button>
+        </div>
+      </div>
     </div>
 
     <!-- 操作区 -->
@@ -40,6 +55,7 @@
         row-key="id"
         :header-cell-style="{ background: '#f8fafc', color: '#374151' }"
         :row-style="{ color: '#606266' }"
+        height="100%"
         stripe
         :loading="tableLoading"
         @selection-change="handleSelectionChange"
@@ -200,35 +216,44 @@ onMounted(fetchData)
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 16px;
+  gap: 12px;
   background: #f5f7fa;
+
+  --card-radius: 10px;
+  --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --hover-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  --button-transition: all 0.3s;
 }
 
 .search-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 20px;
+  padding: 12px 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+
+  .search-bar {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) auto;
+    align-items: center;
+    gap: 12px;
+  }
 
   .search-input {
-    flex: 1;
-    max-width: 320px;
+    width: 100%;
 
     :deep(.el-input__wrapper) {
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s;
+      box-shadow: none;
+      border: 1px solid #e5e7eb;
+      transition: border-color 0.3s;
 
       &:hover {
-        box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+        border-color: #cbd5f5;
       }
 
       &.is-focus {
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
       }
 
       .el-input__inner {
@@ -239,16 +264,24 @@ onMounted(fetchData)
     }
   }
 
+  .search-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
+  }
+
   .search-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    padding: 10px 24px;
+    min-width: 56px;
+    padding: 6px 12px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: var(--hover-shadow);
     }
 
     &:active {
@@ -260,7 +293,7 @@ onMounted(fetchData)
     border: 1px solid #dcdfe6;
     color: #606266;
     background: #fff;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       color: #667eea;
@@ -279,18 +312,18 @@ onMounted(fetchData)
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
+  padding: 0 4px;
 
   .add-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: var(--hover-shadow);
     }
 
     &:active {
@@ -302,9 +335,9 @@ onMounted(fetchData)
     border: 1px solid #f56c6c;
     color: #f56c6c;
     background: #fff;
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       background: #fef0f0;
@@ -325,12 +358,22 @@ onMounted(fetchData)
 
 .table-wrapper {
   flex: 1;
+  min-height: 0;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: auto;
 
   .user-table {
+    height: 100%;
+    :deep(.el-table__cell) {
+      padding: 8px 0;
+    }
+
+    :deep(.el-table__body tr) {
+      height: 40px;
+    }
+
     :deep(.el-table__header-wrapper) {
       border-radius: 12px 12px 0 0;
     }
@@ -356,12 +399,15 @@ onMounted(fetchData)
 .pagination-container {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 10px 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
 
   :deep(.el-pagination) {
+    --el-pagination-button-height: 28px;
+    --el-pagination-item-height: 28px;
+
     .btn-prev,
     .btn-next {
       border-radius: 8px;

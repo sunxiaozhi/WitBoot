@@ -1,18 +1,13 @@
 <template>
   <el-aside :width="asideWidth" class="aside">
     <div class="logo">
-      <el-icon :size="28" class="logo-icon"><Monitor /></el-icon>
+      <el-icon :size="28" class="logo-icon">
+        <Monitor />
+      </el-icon>
       <h3 v-show="!isCollapse">WitBoot</h3>
     </div>
-    <el-menu
-      :default-active="activeMenu"
-      :collapse="isCollapse"
-      :collapse-transition="false"
-      router
-      :popper-class="'aside-sub-menu-popper'"
-      class="custom-menu"
-      @select="handleSelect"
-    >
+    <el-menu :default-active="activeMenu" :collapse="isCollapse" :collapse-transition="false" router
+      :popper-class="'aside-sub-menu-popper'" class="custom-menu" @select="handleSelect">
       <!-- 使用配置化菜单渲染 -->
       <template v-for="menu in menuList" :key="menu.index">
         <!-- 一级菜单无子菜单 -->
@@ -97,16 +92,26 @@ const menuList = [
     children: [
       { index: '/user', icon: User, title: '人员管理' },
       { index: '/department', icon: List, title: '部门管理' },
+      { index: '/menu', icon: Tickets, title: '菜单管理' },
+      { index: '/role', icon: List, title: '角色管理' },
       { index: '/dictionary', icon: Tickets, title: '字典管理' },
-      {
-        index: '2-4',
-        icon: Memo,
-        title: '日志管理',
-        children: [
-          { index: '/operationLog', icon: Document, title: '操作日志' },
-          { index: '/loginLog', icon: Reading, title: '登录日志' },
-        ],
-      },
+    ],
+  },
+  {
+    index: '3',
+    icon: Memo,
+    title: '日志审计',
+    children: [
+      { index: '/operationLog', icon: Document, title: '操作日志' },
+      { index: '/loginLog', icon: Reading, title: '登录日志' },
+    ],
+  },
+  {
+    index: '4',
+    icon: List,
+    title: '系统运维',
+    children: [
+      { index: '/systemMonitor', icon: Tickets, title: '系统监控' }
     ],
   },
   { index: '/about', icon: InfoFilled, title: '关于系统' },
@@ -135,9 +140,10 @@ const handleSelect = (path: string) => {
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 
   .logo-icon {
     color: #fff;
@@ -148,7 +154,7 @@ const handleSelect = (path: string) => {
     margin: 0;
     font-size: 20px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     white-space: nowrap;
   }
 }
@@ -158,16 +164,19 @@ const handleSelect = (path: string) => {
   background: transparent;
   flex: 1;
   overflow-y: auto;
+  padding: 8px 8px 12px;
 
   :deep(.el-menu-item),
   :deep(.el-sub-menu__title) {
-    color: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    margin: 4px 12px;
+    color: rgba(255, 255, 255, 0.82);
+    border-radius: 10px;
+    margin: 4px 6px;
     transition: all 0.3s;
+    height: 44px;
+    line-height: 44px;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       color: #fff;
     }
 
@@ -178,10 +187,10 @@ const handleSelect = (path: string) => {
   }
 
   :deep(.el-menu-item.is-active) {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.22);
     color: #fff;
     font-weight: 500;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   }
 
   :deep(.el-sub-menu) {
@@ -190,9 +199,9 @@ const handleSelect = (path: string) => {
     }
 
     .el-menu-item {
-      padding-left: 56px !important;
-      margin: 4px 12px;
-      border-radius: 8px;
+      padding-left: 52px !important;
+      margin: 4px 6px;
+      border-radius: 10px;
       color: rgba(255, 255, 255, 0.8) !important;
 
       span {
@@ -200,7 +209,7 @@ const handleSelect = (path: string) => {
       }
 
       &:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(255, 255, 255, 0.12) !important;
         color: #fff !important;
 
         span {
@@ -210,7 +219,7 @@ const handleSelect = (path: string) => {
     }
 
     .el-menu-item.is-active {
-      background: rgba(255, 255, 255, 0.2) !important;
+      background: rgba(255, 255, 255, 0.22) !important;
       color: #fff !important;
 
       span {
@@ -221,7 +230,7 @@ const handleSelect = (path: string) => {
     // 嵌套子菜单项（三级菜单）
     .el-sub-menu {
       .el-menu-item {
-        padding-left: 84px !important;
+        padding-left: 80px !important;
       }
     }
   }
@@ -229,12 +238,13 @@ const handleSelect = (path: string) => {
 
 /* 折叠状态样式调整 */
 :deep(.el-menu--collapse) {
+
   .el-menu-item,
   .el-sub-menu__title {
     justify-content: center;
     padding: 0 !important;
-    margin: 8px 12px;
-    min-width: 40px;
+    margin: 6px 6px;
+    min-width: 44px;
 
     .el-icon {
       margin-right: 0;

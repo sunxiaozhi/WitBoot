@@ -34,6 +34,24 @@ export const routes: RouteRecordRaw[] = [
         meta: { title: '部门管理' },
       },
       {
+        path: '/department',
+        name: 'department',
+        component: () => import('@/views/department/index.vue'),
+        meta: { title: '部门管理' },
+      },
+      {
+        path: '/menu',
+        name: 'menu',
+        component: () => import('@/views/menu/index.vue'),
+        meta: { title: '菜单管理' },
+      },
+      {
+        path: '/role',
+        name: 'role',
+        component: () => import('@/views/role/index.vue'),
+        meta: { title: '角色管理' },
+      },
+       {
         path: '/dictionary',
         name: 'dictionary',
         component: () => import('@/views/dictionary/index.vue'),
@@ -50,6 +68,12 @@ export const routes: RouteRecordRaw[] = [
         name: 'operationLog',
         component: () => import('@/views/operation-log/index.vue'),
         meta: { title: '操作日志' },
+      },
+      {
+        path: '/systemMonitor',
+        name: 'systemMonitor',
+        component: () => import('@/views/system-monitor/index.vue'),
+        meta: { title: '系统监控' },
       },
       {
         path: '/about',

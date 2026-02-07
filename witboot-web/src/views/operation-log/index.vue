@@ -2,31 +2,46 @@
   <div class="operation-log-container">
     <!-- 搜索框 -->
     <div class="search-container">
-      <el-input
-        v-model="queryForm.keyword"
-        placeholder="搜索 IP 地址"
-        clearable
-        class="search-input"
-        @keyup.enter="handleSearch"
-      >
-        <template #prefix>
-          <el-icon><Search /></el-icon>
-        </template>
-      </el-input>
-      <el-select
-        v-model="queryForm.method"
-        placeholder="请求方法"
-        clearable
-        class="method-select"
-      >
-        <el-option v-for="item in METHOD_OPTIONS" :key="item" :label="item" :value="item" />
-      </el-select>
-      <el-button type="primary" @click="handleSearch" :loading="tableLoading" class="search-button">
-        搜索
-      </el-button>
-      <el-button @click="handleReset" :disabled="!queryForm.keyword && !queryForm.method" class="reset-button">
-        <el-icon><Refresh /></el-icon>
-      </el-button>
+      <div class="search-bar">
+        <el-input
+          v-model="queryForm.keyword"
+          placeholder="搜索 IP 地址"
+          clearable
+          class="search-input"
+          @keyup.enter="handleSearch"
+        >
+          <template #prefix>
+            <el-icon><Search /></el-icon>
+          </template>
+        </el-input>
+        <el-select
+          v-model="queryForm.method"
+          placeholder="请求方法"
+          clearable
+          class="method-select"
+        >
+          <el-option v-for="item in METHOD_OPTIONS" :key="item" :label="item" :value="item" />
+        </el-select>
+        <div class="search-actions">
+          <el-button
+            type="primary"
+            @click="handleSearch"
+            :loading="tableLoading"
+            class="search-button"
+          >
+            <el-icon><Search /></el-icon>
+            搜索
+          </el-button>
+          <el-button
+            @click="handleReset"
+            :disabled="!queryForm.keyword && !queryForm.method"
+            class="reset-button"
+            circle
+          >
+            <el-icon><Refresh /></el-icon>
+          </el-button>
+        </div>
+      </div>
     </div>
 
     <!-- 操作按钮区域 -->
@@ -96,45 +111,7 @@
     </div>
 
     <!-- 详情抽屉 -->
-    <el-drawer v-model="dialog" title="日志详情" direction="rtl" size="40%" class="detail-drawer">
-      <div class="drawer-content">
-        <el-descriptions title="详细信息" direction="vertical" :column="1" border class="detail-descriptions">
-          <el-descriptions-item label="IP 地址" :span="1">
-            {{ currentRow?.ip || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="请求地址" :span="1">
-            {{ currentRow?.location || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="请求方法" :span="1">
-            {{ currentRow?.method || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="URI" :span="1">
-            {{ currentRow?.uri || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="请求时间" :span="1">
-            {{ currentRow?.requestTime || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="耗时(ms)" :span="1">
-            {{ currentRow?.wasteTime || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="请求参数" :span="2">
-            <el-scrollbar height="100px">
-              <pre class="json-code">{{ currentRow?.requestParam || '-' }}</pre>
-            </el-scrollbar>
-          </el-descriptions-item>
-          <el-descriptions-item label="请求体" :span="2">
-            <el-scrollbar height="100px">
-              <pre class="json-code">{{ currentRow?.requestBody || '-' }}</pre>
-            </el-scrollbar>
-          </el-descriptions-item>
-          <el-descriptions-item label="响应结果" :span="2">
-            <el-scrollbar height="250px">
-              <pre class="json-code">{{ currentRow?.responseResult || '-' }}</pre>
-            </el-scrollbar>
-          </el-descriptions-item>
-        </el-descriptions>
-      </div>
-    </el-drawer>
+    <OperationLogDetail v-model="dialog" :data="currentRow" />
   </div>
 </template>
 
@@ -144,6 +121,7 @@ import { selectOperationLogList, operationLogInfo, deleteOperationLog } from '@/
 import { debounce } from 'lodash-es'
 import { Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import OperationLogDetail from './OperationLogDetail.vue'
 
 interface OperationLog {
   id: number
@@ -314,68 +292,86 @@ onUnmounted(() => debouncedSearch.cancel())
 .operation-log-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   height: 100%;
+  padding: 16px;
+  gap: 12px;
   background: #f5f7fa;
+
+  --card-radius: 10px;
+  --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --hover-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  --button-transition: all 0.3s;
 }
 
 .search-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding: 20px;
+  padding: 12px 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+
+  .search-bar {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) minmax(140px, 180px) auto;
+    align-items: center;
+    gap: 12px;
+  }
 
   .search-input {
-    flex: 1;
-    max-width: 320px;
+    width: 100%;
 
     :deep(.el-input__wrapper) {
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s;
+      border: 1px solid #e5e7eb;
+      box-shadow: none;
+      transition: border-color 0.3s;
 
       &:hover {
-        box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+        border-color: #cbd5f5;
       }
 
       &.is-focus {
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
       }
     }
   }
 
   .method-select {
-    max-width: 140px;
+    width: 100%;
 
     :deep(.el-input__wrapper) {
       border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s;
+      border: 1px solid #e5e7eb;
+      box-shadow: none;
+      transition: border-color 0.3s;
 
       &:hover {
-        box-shadow: 0 1px 6px rgba(102, 126, 234, 0.15);
+        border-color: #cbd5f5;
       }
 
       &.is-focus {
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
       }
     }
+  }
+
+  .search-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-self: start;
   }
 
   .search-button {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    padding: 10px 24px;
+    min-width: 56px;
+    padding: 6px 12px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      box-shadow: var(--hover-shadow);
     }
 
     &:active {
@@ -387,7 +383,7 @@ onUnmounted(() => debouncedSearch.cancel())
     border: 1px solid #dcdfe6;
     color: #606266;
     background: #fff;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       color: #667eea;
@@ -406,15 +402,15 @@ onUnmounted(() => debouncedSearch.cancel())
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 20px;
+  padding: 0 4px;
 
   .delete-button {
     border: 1px solid #f56c6c;
     color: #f56c6c;
     background: #fff;
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-weight: 500;
-    transition: all 0.3s;
+    transition: var(--button-transition);
 
     &:hover {
       background: #fef0f0;
@@ -435,12 +431,23 @@ onUnmounted(() => debouncedSearch.cancel())
 
 .table-wrapper {
   flex: 1;
+  min-height: 0;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: auto;
 
   .operation-log-table {
+    height: 100%;
+
+    :deep(.el-table__cell) {
+      padding: 8px 0;
+    }
+
+    :deep(.el-table__body tr) {
+      height: 40px;
+    }
+
     :deep(.el-table__header-wrapper) {
       border-radius: 12px 12px 0 0;
     }
@@ -460,12 +467,15 @@ onUnmounted(() => debouncedSearch.cancel())
 .pagination-container {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
+  padding: 10px 16px;
   background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
 
   :deep(.el-pagination) {
+    --el-pagination-button-height: 28px;
+    --el-pagination-item-height: 28px;
+
     .btn-prev,
     .btn-next {
       border-radius: 8px;
@@ -492,47 +502,4 @@ onUnmounted(() => debouncedSearch.cancel())
   }
 }
 
-.detail-drawer {
-  :deep(.el-drawer__header) {
-    margin-bottom: 20px;
-    padding: 24px;
-    border-bottom: 1px solid #f0f0f0;
-
-    .el-drawer__title {
-      font-size: 20px;
-      font-weight: 600;
-      color: #333;
-    }
-  }
-
-  :deep(.el-drawer__body) {
-    padding: 0;
-  }
-}
-
-.drawer-content {
-  padding: 24px;
-  height: 100%;
-  overflow-y: auto;
-
-  .detail-descriptions {
-    :deep(.el-descriptions__label) {
-      font-weight: 500;
-      color: #606266;
-    }
-
-    .json-code {
-      background: #f8fafc;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: #374151;
-      margin: 0;
-      white-space: pre-wrap;
-      word-break: break-word;
-      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    }
-  }
-}
 </style>

@@ -16,7 +16,7 @@
             <el-icon :size="40" color="#fff"><Monitor /></el-icon>
             <span class="logo-text">WitBoot</span>
           </div>
-          <h1 class="introduction-title">企业级管理系统</h1>
+          <h1 class="introduction-title">通用级管理系统</h1>
           <p class="introduction-description">
             基于 SpringBoot 3.5.x + COLA 5.0 + Vue 3.x 的前后端分离解决方案
           </p>
@@ -31,7 +31,7 @@
             </li>
             <li class="feature-item">
               <el-icon><Check /></el-icon>
-              <span>操作日志记录</span>
+              <span>日志记录</span>
             </li>
             <li class="feature-item">
               <el-icon><Check /></el-icon>
@@ -55,6 +55,7 @@
             :rules="rules"
             label-position="top"
             class="login-form"
+            @submit.prevent="submitForm(ruleFormRef)"
           >
             <el-form-item prop="username">
               <div class="input-wrapper">
@@ -66,6 +67,11 @@
                   placeholder="请输入用户名"
                   size="large"
                   clearable
+                  autocomplete="username"
+                  aria-label="用户名"
+                  autocapitalize="none"
+                  spellcheck="false"
+                  :disabled="loading"
                 />
               </div>
             </el-form-item>
@@ -81,6 +87,9 @@
                   placeholder="请输入密码"
                   size="large"
                   show-password
+                  autocomplete="current-password"
+                  aria-label="密码"
+                  :disabled="loading"
                 />
               </div>
             </el-form-item>
@@ -94,6 +103,8 @@
                 type="primary"
                 size="large"
                 :loading="loading"
+                :disabled="loading"
+                native-type="submit"
                 @click="submitForm(ruleFormRef)"
                 class="login-button"
               >
@@ -103,8 +114,12 @@
           </el-form>
 
           <div class="form-footer">
-            <p>Copyright © 2024</p>
-            <a href="https://github.com/sunxiaozhi" target="_blank">
+            <p>Copyright © {{ currentYear }}</p>
+            <a
+              href="https://github.com/sunxiaozhi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Powered by sunxiaozhi
             </a>
           </div>
@@ -147,29 +162,31 @@ const rules = reactive<FormRules<RuleForm>>({
 
 const rememberMe = ref(false)
 const loading = ref(false)
+const currentYear = new Date().getFullYear()
 
 const router = useRouter()
 
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
+  if (loading.value) return
 
-  await formEl.validate((valid) => {
-    if (valid) {
-      loading.value = true
-      login({ username: ruleForm.username, password: ruleForm.password })
-        .then((result: any) => {
-          setAccessToken(result.data.accessToken)
-          router.push('/home')
-        })
-        .catch((error: any) => {
-          const errorMessage = error?.message || '登录失败，请检查用户名和密码'
-          ElMessage.error(errorMessage)
-        })
-        .finally(() => {
-          loading.value = false
-        })
-    }
-  })
+  const valid = await formEl.validate()
+  if (!valid) return
+
+  loading.value = true
+  try {
+    const result: any = await login({
+      username: ruleForm.username,
+      password: ruleForm.password,
+    })
+    setAccessToken(result.data.accessToken)
+    await router.push('/home')
+  } catch (error: any) {
+    const errorMessage = error?.message || '登录失败，请检查用户名和密码'
+    ElMessage.error(errorMessage)
+  } finally {
+    loading.value = false
+  }
 }
 </script>
 
@@ -184,6 +201,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   overflow: hidden;
+
+  --card-radius: 16px;
+  --card-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+  --panel-gap: 24px;
 }
 
 /* 背景装饰图形 */
@@ -249,12 +270,12 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   z-index: 1;
   display: flex;
   width: 90%;
-  max-width: 1000px;
-  height: 600px;
-  background: rgba(255, 255, 255, 0.95);
+  max-width: 980px;
+  height: 560px;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(20px);
-  border-radius: 20px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
   overflow: hidden;
 }
 
@@ -262,7 +283,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 .introduction-section {
   flex: 1;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 50px;
+  padding: 48px;
   display: flex;
   align-items: center;
   color: #fff;
@@ -275,7 +296,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 
     .logo-text {
       font-size: 28px;
@@ -285,16 +306,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   }
 
   .introduction-title {
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     line-height: 1.3;
   }
 
   .introduction-description {
     font-size: 16px;
     opacity: 0.9;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
     line-height: 1.6;
   }
 
@@ -321,7 +342,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 /* 右侧表单区域 */
 .form-section {
   flex: 1;
-  padding: 50px;
+  padding: 40px 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,10 +355,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 .form-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 
   h2 {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 8px;
@@ -352,7 +373,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 .login-form {
   :deep(.el-form-item) {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
 
   :deep(.el-form-item__error) {
@@ -378,16 +399,17 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
     :deep(.el-input__wrapper) {
       padding-left: 40px;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-      transition: all 0.3s;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      box-shadow: none;
+      transition: border-color 0.3s;
 
       &:hover {
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+        border-color: #cbd5f5;
       }
 
       &.is-focus {
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
       }
     }
   }
@@ -396,7 +418,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 
     :deep(.el-checkbox__label) {
       color: #6b7280;
@@ -409,8 +431,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
     .login-button {
       width: 100%;
-      height: 46px;
-      border-radius: 10px;
+      height: 44px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -430,7 +452,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 
 .form-footer {
-  margin-top: 30px;
+  margin-top: 22px;
   text-align: center;
   font-size: 13px;
   color: #9ca3af;

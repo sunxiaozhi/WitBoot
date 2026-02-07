@@ -17,6 +17,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 // UI 框架
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // 创建 pinia 实例
 const pinia = createPinia()
@@ -27,6 +28,9 @@ const app = createApp(App)
 
 // 注册插件
 app.use(ElementPlus, { locale: zhCn })
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 app.use(pinia)
 app.use(router)
 
