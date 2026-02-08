@@ -1,79 +1,48 @@
 <template>
   <div class="monitor-page">
-    <el-card class="hero" shadow="never">
-      <div class="hero-grid">
-        <div class="hero-summary">
-          <el-alert title="系统状态：正常" type="success" show-icon :closable="false" />
-          <div class="summary-tags">
-            <el-tag size="small" effect="plain" type="success">无重大告警</el-tag>
-            <el-tag size="small" effect="plain" type="info">最近更新 1 分钟前</el-tag>
-          </div>
-          <div class="summary-meta">当前负载稳定，资源使用保持在安全阈值内。</div>
-        </div>
-        <div class="hero-metrics-grid">
-          <div class="metric-tile">
-            <span class="metric-label">今日告警</span>
-            <el-statistic :value="3" />
-          </div>
-          <div class="metric-tile">
-            <span class="metric-label">平均响应</span>
-            <el-statistic :value="168" suffix="ms" />
-          </div>
-          <div class="metric-tile">
-            <span class="metric-label">在线服务</span>
-            <el-statistic :value="4" suffix="/5" />
-          </div>
-          <div class="metric-tile">
-            <span class="metric-label">异常节点</span>
-            <el-statistic :value="1" />
-          </div>
-        </div>
-      </div>
-    </el-card>
-
     <el-row :gutter="16" class="stat-row">
       <el-col :span="6">
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>CPU 使用率</span>
-            <el-tag size="small" type="success" effect="plain">稳定</el-tag>
+            <el-tag size="small" :type="cpuStatus.tagType" effect="plain">{{ cpuStatus.label }}</el-tag>
           </div>
-          <el-statistic :value="42" suffix="%" />
-          <el-progress :percentage="42" :stroke-width="8" />
-          <div class="stat-foot">峰值 58%</div>
+          <el-statistic :value="cpuUsageDisplay" suffix="%" />
+          <el-progress :percentage="cpuUsagePercent" :stroke-width="8" :status="cpuStatus.progressStatus" />
+          <div class="stat-foot">峰值 {{ cpuPeakDisplay }}</div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>内存使用率</span>
-            <el-tag size="small" type="warning" effect="plain">偏高</el-tag>
+            <el-tag size="small" :type="memoryStatus.tagType" effect="plain">{{ memoryStatus.label }}</el-tag>
           </div>
-          <el-statistic :value="63" suffix="%" />
-          <el-progress :percentage="63" :stroke-width="8" status="warning" />
-          <div class="stat-foot">已使用 12.4GB</div>
+          <el-statistic :value="memoryUsedPercentDisplay" suffix="%" />
+          <el-progress :percentage="memoryUsedPercent" :stroke-width="8" :status="memoryStatus.progressStatus" />
+          <div class="stat-foot">已使用 {{ memoryUsedReadable }}</div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>存储使用率</span>
-            <el-tag size="small" type="danger" effect="plain">预警</el-tag>
+            <el-tag size="small" :type="diskStatus.tagType" effect="plain">{{ diskStatus.label }}</el-tag>
           </div>
-          <el-statistic :value="71" suffix="%" />
-          <el-progress :percentage="71" :stroke-width="8" status="exception" />
-          <div class="stat-foot">剩余 428GB</div>
+          <el-statistic :value="diskUsedPercentDisplay" suffix="%" />
+          <el-progress :percentage="diskUsedPercent" :stroke-width="8" :status="diskStatus.progressStatus" />
+          <div class="stat-foot">剩余 {{ diskFreeReadable }}</div>
         </el-card>
       </el-col>
       <el-col :span="6">
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>JVM 堆使用率</span>
-            <el-tag size="small" type="info" effect="plain">平稳</el-tag>
+            <el-tag size="small" :type="jvmStatus.tagType" effect="plain">{{ jvmStatus.label }}</el-tag>
           </div>
-          <el-statistic :value="48" suffix="%" />
-          <el-progress :percentage="48" :stroke-width="8" status="success" />
-          <div class="stat-foot">4.0 GB / 8.0 GB</div>
+          <el-statistic :value="jvmHeapUsedPercentDisplay" suffix="%" />
+          <el-progress :percentage="jvmHeapUsedPercent" :stroke-width="8" :status="jvmStatus.progressStatus" />
+          <div class="stat-foot">{{ jvmHeapUsedReadable }} / {{ jvmHeapMaxReadable }}</div>
         </el-card>
       </el-col>
     </el-row>
@@ -88,16 +57,17 @@
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
-            <el-descriptions-item label="主机名">witboot-prod-01</el-descriptions-item>
-            <el-descriptions-item label="操作系统">Ubuntu 22.04 LTS</el-descriptions-item>
-            <el-descriptions-item label="内核版本">5.15.0-92</el-descriptions-item>
-            <el-descriptions-item label="IP 地址">10.23.12.41</el-descriptions-item>
-            <el-descriptions-item label="机房">华东-1</el-descriptions-item>
-            <el-descriptions-item label="可用区">AZ-2</el-descriptions-item>
-            <el-descriptions-item label="时区">Asia/Shanghai</el-descriptions-item>
-            <el-descriptions-item label="系统时间">2026-02-07 10:26</el-descriptions-item>
-            <el-descriptions-item label="磁盘总量">1.2 TB</el-descriptions-item>
-            <el-descriptions-item label="磁盘剩余">428 GB</el-descriptions-item>
+            <el-descriptions-item label="主机名">{{ serverInfo.hostName }}</el-descriptions-item>
+            <el-descriptions-item label="操作系统">{{ serverOsLabel }}</el-descriptions-item>
+            <el-descriptions-item label="架构">{{ serverInfo.architecture }}</el-descriptions-item>
+            <el-descriptions-item label="IP 地址">{{ serverInfo.hostAddress }}</el-descriptions-item>
+            <el-descriptions-item label="厂商">{{ serverInfo.systemManufacturer }}</el-descriptions-item>
+            <el-descriptions-item label="型号">{{ serverInfo.systemModel }}</el-descriptions-item>
+            <el-descriptions-item label="序列号">{{ serverInfo.systemSerialNumber }}</el-descriptions-item>
+            <el-descriptions-item label="启动时间">{{ serverBootTimeLabel }}</el-descriptions-item>
+            <el-descriptions-item label="系统时间">{{ systemTimeLabel }}</el-descriptions-item>
+            <el-descriptions-item label="磁盘总量">{{ diskTotalReadable }}</el-descriptions-item>
+            <el-descriptions-item label="磁盘剩余">{{ diskFreeReadable }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
       </el-col>
@@ -110,13 +80,14 @@
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
-            <el-descriptions-item label="型号">Intel Xeon Gold 6230</el-descriptions-item>
-            <el-descriptions-item label="架构">x86_64</el-descriptions-item>
-            <el-descriptions-item label="核心数">20</el-descriptions-item>
-            <el-descriptions-item label="线程数">40</el-descriptions-item>
-            <el-descriptions-item label="主频">2.10 GHz</el-descriptions-item>
-            <el-descriptions-item label="缓存">27.5 MB</el-descriptions-item>
-            <el-descriptions-item label="负载">1.24 / 5.12</el-descriptions-item>
+            <el-descriptions-item label="型号">{{ cpuInfo.name }}</el-descriptions-item>
+            <el-descriptions-item label="厂商">{{ cpuInfo.vendor }}</el-descriptions-item>
+            <el-descriptions-item label="物理 CPU">{{ cpuInfo.physicalPackageCount }}</el-descriptions-item>
+            <el-descriptions-item label="物理核心">{{ cpuInfo.physicalProcessorCount }}</el-descriptions-item>
+            <el-descriptions-item label="逻辑核心">{{ cpuInfo.logicalProcessorCount }}</el-descriptions-item>
+            <el-descriptions-item label="最大频率">{{ cpuInfo.maximumFrequencyReadable }}</el-descriptions-item>
+            <el-descriptions-item label="当前频率">{{ cpuCurrentFrequencyLabel }}</el-descriptions-item>
+            <el-descriptions-item label="负载">{{ cpuLoadAverageLabel }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
       </el-col>
@@ -129,60 +100,61 @@
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
-            <el-descriptions-item label="JVM 版本">17.0.8</el-descriptions-item>
-            <el-descriptions-item label="启动参数">-Xms4g -Xmx8g</el-descriptions-item>
-            <el-descriptions-item label="堆内存">4.0 / 8.0 GB</el-descriptions-item>
-            <el-descriptions-item label="非堆内存">320 / 512 MB</el-descriptions-item>
-            <el-descriptions-item label="GC 次数">1,284</el-descriptions-item>
-            <el-descriptions-item label="线程数">238</el-descriptions-item>
-            <el-descriptions-item label="运行时长">12 天 6 小时</el-descriptions-item>
+            <el-descriptions-item label="Java 版本">{{ jvmInfo.javaVersion }}</el-descriptions-item>
+            <el-descriptions-item label="JVM 名称">{{ jvmInfo.javaVirtualMachineName }}</el-descriptions-item>
+            <el-descriptions-item label="JVM 版本">{{ jvmInfo.javaVirtualMachineVersion }}</el-descriptions-item>
+            <el-descriptions-item label="Java Home">{{ jvmInfo.javaHome }}</el-descriptions-item>
+            <el-descriptions-item label="堆内存">{{ jvmHeapUsedReadable }} / {{ jvmHeapMaxReadable }}</el-descriptions-item>
+            <el-descriptions-item label="堆使用率">{{ jvmHeapUsedPercentDisplay }}%</el-descriptions-item>
+            <el-descriptions-item label="线程数">{{ jvmInfo.threadCount }}</el-descriptions-item>
+            <el-descriptions-item label="守护线程">{{ jvmInfo.daemonThreadCount }}</el-descriptions-item>
+            <el-descriptions-item label="已加载类">{{ jvmInfo.loadedClassCount }}</el-descriptions-item>
+            <el-descriptions-item label="运行时长">{{ jvmUptimeLabel }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
       </el-col>
     </el-row>
 
     <el-row :gutter="16" class="bottom-row">
-      <el-col :span="8">
+      <el-col :span="24">
         <el-card class="panel-card" shadow="never">
           <template #header>
             <div class="panel-header">
-              <span>告警概览</span>
-              <span class="panel-meta">今日</span>
+              <span>磁盘 IO</span>
+              <span class="panel-meta">采样 {{ diskIoSampleIntervalLabel }}</span>
             </div>
           </template>
-          <div class="alert-list">
-            <el-alert title="接口响应超时" type="warning" :closable="false">
-              <template #default>/api/order/list 平均响应 620ms</template>
-            </el-alert>
-            <el-alert title="CPU 短时高负载" type="error" :closable="false">
-              <template #default>节点 A 负载峰值 92%</template>
-            </el-alert>
-            <el-alert title="磁盘使用率提醒" type="info" :closable="false">
-              <template #default>节点 B 可用空间低于 30%</template>
-            </el-alert>
-          </div>
+          <el-table :data="diskIoTable" stripe height="100%" class="service-table equal-columns">
+            <el-table-column prop="name" label="设备" />
+            <el-table-column prop="model" label="型号" />
+            <el-table-column prop="sizeReadable" label="容量" />
+            <el-table-column prop="readReadablePerSecond" label="读速率" />
+            <el-table-column prop="writeReadablePerSecond" label="写速率" />
+            <el-table-column prop="readOperationsPerSecond" label="读 IOPS" />
+            <el-table-column prop="writeOperationsPerSecond" label="写 IOPS" />
+            <el-table-column prop="currentQueueLength" label="队列" />
+          </el-table>
         </el-card>
       </el-col>
-      <el-col :span="16">
+    </el-row>
+    <el-row :gutter="16" class="bottom-row">
+      <el-col :span="24">
         <el-card class="panel-card" shadow="never">
           <template #header>
             <div class="panel-header">
-              <span>关键服务</span>
-              <span class="panel-meta">实时</span>
+              <span>网络接口</span>
+              <span class="panel-meta">采样 {{ networkSampleIntervalLabel }}</span>
             </div>
           </template>
-          <el-table :data="serviceTable" stripe height="100%" class="service-table">
-            <el-table-column prop="name" label="服务名称" min-width="160" />
-            <el-table-column prop="status" label="状态" width="120">
-              <template #default="{ row }">
-                <el-tag :type="row.status === '运行中' ? 'success' : 'danger'" effect="plain" size="small">
-                  {{ row.status }}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column prop="qps" label="QPS" width="100" />
-            <el-table-column prop="latency" label="平均响应(ms)" width="140" />
-            <el-table-column prop="updatedAt" label="更新时间" width="160" />
+          <el-table :data="networkTable" stripe height="100%" class="service-table equal-columns">
+            <el-table-column prop="displayName" label="名称" />
+            <el-table-column prop="name" label="标识" />
+            <el-table-column prop="ipv4Label" label="IPv4" />
+            <el-table-column prop="speedReadable" label="速率" />
+            <el-table-column prop="receiveReadablePerSecond" label="下行" />
+            <el-table-column prop="transmitReadablePerSecond" label="上行" />
+            <el-table-column prop="receivePacketsPerSecond" label="RX PPS" />
+            <el-table-column prop="transmitPacketsPerSecond" label="TX PPS" />
           </el-table>
         </el-card>
       </el-col>
@@ -191,12 +163,204 @@
 </template>
 
 <script setup lang="ts">
-const serviceTable = [
-  { name: '用户服务', status: '运行中', qps: 1280, latency: 182, updatedAt: '2026-02-07 10:26' },
-  { name: '订单服务', status: '运行中', qps: 860, latency: 264, updatedAt: '2026-02-07 10:26' },
-  { name: '消息服务', status: '异常', qps: 120, latency: 920, updatedAt: '2026-02-07 10:25' },
-  { name: '日志服务', status: '运行中', qps: 360, latency: 140, updatedAt: '2026-02-07 10:26' },
-]
+import { computed, onMounted, ref } from 'vue'
+import { selectSystemMonitorInfo } from '@/api/systemMonitor.ts'
+import { ElMessage } from 'element-plus'
+
+type MonitorInfo = Record<string, any>
+
+const monitorInfo = ref<MonitorInfo | null>(null)
+
+const cpuInfo = computed(() => monitorInfo.value?.cpuInfo ?? {})
+const memoryInfo = computed(() => monitorInfo.value?.memoryInfo ?? {})
+const diskInfo = computed(() => monitorInfo.value?.diskInfo ?? {})
+const jvmInfo = computed(() => monitorInfo.value?.jvmInfo ?? {})
+const serverInfo = computed(() => monitorInfo.value?.serverInfo ?? {})
+const networkInfo = computed(() => monitorInfo.value?.networkInfo ?? {})
+
+const cpuUsagePercent = computed(() => Number(cpuInfo.value.cpuUsagePercent ?? 0))
+const cpuUsageDisplay = computed(() => formatPercentValue(cpuUsagePercent.value))
+const cpuPeakDisplay = computed(() => {
+  const perCore = cpuInfo.value.perCoreUsagePercent ?? []
+  if (!Array.isArray(perCore) || perCore.length === 0) {
+    return '-'
+  }
+  return `${formatPercentValue(Math.max(...perCore))}%`
+})
+
+const memoryUsedPercent = computed(() => Number(memoryInfo.value.usedPercent ?? 0))
+const memoryUsedPercentDisplay = computed(() => formatPercentValue(memoryUsedPercent.value))
+const memoryUsedReadable = computed(() => memoryInfo.value.usedReadable ?? '-')
+
+const diskTotals = computed(() => {
+  const partitions = diskInfo.value.partitions ?? []
+  const totalBytes = partitions.reduce((sum: number, item: any) => sum + (item.totalBytes || 0), 0)
+  const usedBytes = partitions.reduce((sum: number, item: any) => sum + (item.usedBytes || 0), 0)
+  const freeBytes = partitions.reduce((sum: number, item: any) => sum + (item.freeBytes || 0), 0)
+  const usedPercent = totalBytes ? (usedBytes / totalBytes) * 100 : 0
+  return { totalBytes, usedBytes, freeBytes, usedPercent }
+})
+
+const diskUsedPercent = computed(() => Number(diskTotals.value.usedPercent))
+const diskUsedPercentDisplay = computed(() => formatPercentValue(diskUsedPercent.value))
+const diskTotalReadable = computed(() => formatBytes(diskTotals.value.totalBytes))
+const diskFreeReadable = computed(() => formatBytes(diskTotals.value.freeBytes))
+
+const jvmHeapUsedPercent = computed(() => Number(jvmInfo.value.heapUsedPercentOfMax ?? 0))
+const jvmHeapUsedPercentDisplay = computed(() => formatPercentValue(jvmHeapUsedPercent.value))
+const jvmHeapUsedReadable = computed(() => jvmInfo.value.heapUsedReadable ?? '-')
+const jvmHeapMaxReadable = computed(() => jvmInfo.value.heapMaxReadable ?? '-')
+
+const serverOsLabel = computed(() => {
+  const family = serverInfo.value.operatingSystemFamily ?? '-'
+  const version = serverInfo.value.operatingSystemVersion ?? ''
+  const build = serverInfo.value.operatingSystemBuildNumber ?? ''
+  const versionLabel = version ? ` ${version}` : ''
+  const buildLabel = build ? ` (Build ${build})` : ''
+  return `${family}${versionLabel}${buildLabel}`.trim()
+})
+
+const serverBootTimeLabel = computed(() => formatDateTime(serverInfo.value.bootTime))
+const systemTimeLabel = computed(() => formatDateTime(monitorInfo.value?.timestamp))
+
+const cpuCurrentFrequencyLabel = computed(() => {
+  const frequencies = cpuInfo.value.currentFrequenciesHertz ?? []
+  if (!Array.isArray(frequencies) || frequencies.length === 0) {
+    return cpuInfo.value.currentFrequenciesReadable?.[0] ?? '-'
+  }
+  const avg = frequencies.reduce((sum: number, value: number) => sum + (value || 0), 0) / frequencies.length
+  return formatHertz(avg)
+})
+
+const cpuLoadAverageLabel = computed(() => {
+  const load = cpuInfo.value.loadAverage ?? []
+  if (!Array.isArray(load) || load.length === 0 || load.every((value: number) => value < 0)) {
+    return '-'
+  }
+  return load.map((value: number) => value.toFixed(2)).join(' / ')
+})
+
+const jvmUptimeLabel = computed(() => formatDuration(jvmInfo.value.uptimeMilliseconds))
+
+const cpuStatus = computed(() => statusFromPercent(cpuUsagePercent.value))
+const memoryStatus = computed(() => statusFromPercent(memoryUsedPercent.value))
+const diskStatus = computed(() => statusFromPercent(diskUsedPercent.value))
+const jvmStatus = computed(() => statusFromPercent(jvmHeapUsedPercent.value, 60, 80))
+
+const diskIoSampleIntervalLabel = computed(() => {
+  const interval = diskInfo.value.inputOutputSampleIntervalMilliseconds
+  if (!interval && interval !== 0) return '-'
+  return `${interval} ms`
+})
+
+const diskIoTable = computed(() => {
+  const items = diskInfo.value.inputOutputStatistics ?? []
+  if (!Array.isArray(items)) return []
+  return items.map((item: any) => ({
+    name: item.name ?? '-',
+    model: item.model ?? '-',
+    sizeReadable: item.sizeReadable ?? formatBytes(item.sizeBytes),
+    readReadablePerSecond: item.readReadablePerSecond ?? '-',
+    writeReadablePerSecond: item.writeReadablePerSecond ?? '-',
+    readOperationsPerSecond: formatRate(item.readOperationsPerSecond),
+    writeOperationsPerSecond: formatRate(item.writeOperationsPerSecond),
+    currentQueueLength: item.currentQueueLength ?? '-',
+  }))
+})
+
+const networkSampleIntervalLabel = computed(() => {
+  const interval = networkInfo.value.sampleIntervalMilliseconds
+  if (!interval && interval !== 0) return '-'
+  return `${interval} ms`
+})
+
+const networkTable = computed(() => {
+  const items = networkInfo.value.interfaces ?? []
+  if (!Array.isArray(items)) return []
+  return items.map((item: any) => ({
+    name: item.name ?? '-',
+    displayName: item.displayName ?? item.name ?? '-',
+    ipv4Label: formatIpList(item.ipv4Addresses),
+    speedReadable: item.speedReadable ?? '-',
+    receiveReadablePerSecond: item.receiveReadablePerSecond ?? '-',
+    transmitReadablePerSecond: item.transmitReadablePerSecond ?? '-',
+    receivePacketsPerSecond: formatRate(item.receivePacketsPerSecond),
+    transmitPacketsPerSecond: formatRate(item.transmitPacketsPerSecond),
+  }))
+})
+
+const fetchData = async () => {
+  try {
+    const res = await selectSystemMonitorInfo({})
+    monitorInfo.value = res?.data?.monitorInfo ?? null
+  } catch (error) {
+    console.error('Failed to fetch data:', error)
+    ElMessage.error('数据获取失败')
+  }
+}
+
+const formatDateTime = (value?: string) => {
+  if (!value) return '-'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return '-'
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  return `${year}-${month}-${day} ${hours}:${minutes}`
+}
+
+const formatPercentValue = (value: number) => Number(value.toFixed(2))
+
+const formatBytes = (bytes?: number) => {
+  if (!bytes && bytes !== 0) return '-'
+  const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
+  let size = bytes
+  let index = 0
+  while (size >= 1024 && index < units.length - 1) {
+    size /= 1024
+    index += 1
+  }
+  return `${size.toFixed(1)} ${units[index]}`
+}
+
+const formatHertz = (value?: number) => {
+  if (!value && value !== 0) return '-'
+  if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(2)} GHz`
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(2)} MHz`
+  if (value >= 1_000) return `${(value / 1_000).toFixed(2)} KHz`
+  return `${value.toFixed(0)} Hz`
+}
+
+const formatDuration = (milliseconds?: number) => {
+  if (!milliseconds && milliseconds !== 0) return '-'
+  const totalSeconds = Math.floor(milliseconds / 1000)
+  const days = Math.floor(totalSeconds / 86400)
+  const hours = Math.floor((totalSeconds % 86400) / 3600)
+  const minutes = Math.floor((totalSeconds % 3600) / 60)
+  if (days > 0) return `${days} 天 ${hours} 小时`
+  if (hours > 0) return `${hours} 小时 ${minutes} 分钟`
+  return `${minutes} 分钟`
+}
+
+const formatRate = (value?: number) => {
+  if (!value && value !== 0) return '-'
+  return Number(value.toFixed(2))
+}
+
+const formatIpList = (value?: string[]) => {
+  if (!Array.isArray(value) || value.length === 0) return '-'
+  return value.join(', ')
+}
+
+const statusFromPercent = (value: number, warn = 70, danger = 85) => {
+  if (value >= danger) return { label: '预警', tagType: 'danger', progressStatus: 'exception' }
+  if (value >= warn) return { label: '偏高', tagType: 'warning', progressStatus: 'warning' }
+  return { label: '稳定', tagType: 'success', progressStatus: 'success' }
+}
+
+onMounted(() => fetchData())
 </script>
 
 <style scoped lang="scss">
@@ -216,76 +380,6 @@ const serviceTable = [
   --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-:deep(.hero.el-card) {
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow-strong);
-  border: none;
-  background: radial-gradient(circle at 20% 0%, rgba(102, 126, 234, 0.15), transparent 55%),
-    radial-gradient(circle at 80% 0%, rgba(118, 75, 162, 0.18), transparent 50%), #fff;
-  width: 100%;
-  min-height: 160px;
-  flex: 0 0 auto;
-}
-
-:deep(.hero .el-card__body) {
-  padding: 24px;
-  display: block;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  align-items: stretch;
-  min-height: 160px;
-}
-
-.hero-kicker {
-  font-size: 12px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #9ca3af;
-  margin: 0 0 10px;
-}
-
-.hero-summary {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.summary-tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.summary-meta {
-  font-size: 14px;
-  color: #64748b;
-  line-height: 1.6;
-}
-
-.hero-metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.metric-tile {
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.6));
-  border-radius: 12px;
-  padding: 14px;
-  border: 1px solid #eef2f7;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.metric-label {
-  font-size: 12px;
-  color: #64748b;
-}
 
 .stat-card,
 .panel-card {
@@ -345,11 +439,6 @@ const serviceTable = [
   color: #64748b;
 }
 
-.alert-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
 .service-table :deep(.el-table__cell) {
   padding: 8px 0;
@@ -359,15 +448,12 @@ const serviceTable = [
   height: 40px;
 }
 
-@media (max-width: 1200px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
+.equal-columns :deep(table) {
+  table-layout: fixed;
 }
 
-@media (max-width: 1024px) {
-  .hero-metrics-grid {
-    grid-template-columns: 1fr;
-  }
+.equal-columns :deep(colgroup col) {
+  width: 12.5% !important;
 }
+
 </style>
