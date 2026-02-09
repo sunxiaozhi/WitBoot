@@ -7,29 +7,37 @@ import router from '@/router'
  * @param accessToken
  * @returns
  */
+const ACCESS_TOKEN_KEY = 'accessToken'
+const PERSIST_KEYS = ['witboot-menu-tabs', 'witboot-menu-collapse']
+
+const getStorage = () => localStorage
+
 export const setAccessToken = (accessToken: string) =>
-  localStorage.setItem('accessToken', accessToken)
+  getStorage().setItem(ACCESS_TOKEN_KEY, accessToken)
 
 /**
  * 获取accessToken
  * @returns
  */
-export const getAccessToken = () => localStorage.getItem('accessToken')
+export const getAccessToken = () => getStorage().getItem(ACCESS_TOKEN_KEY)
 
 /**
- * 获取accessToken
+ * 清除accessToken
  * @returns
  */
-export const clearAccessToken = () => localStorage.removeItem('accessToken')
+export const clearAccessToken = () => getStorage().removeItem(ACCESS_TOKEN_KEY)
 
 /**
  * 登出
  * @returns
  */
 export const logout = () => {
-  const stores = [useMenuTabsStore(), useMenuCollapseStore()]
-  stores.forEach((store) => store.$reset())
-  localStorage.clear()
+  const menuTabsStore = useMenuTabsStore()
+  const menuCollapseStore = useMenuCollapseStore()
+  menuTabsStore.closeAllTabs()
+  menuCollapseStore.$reset()
+  clearAccessToken()
+  PERSIST_KEYS.forEach(key => localStorage.removeItem(key))
 
-  router.push('/login')
+  router.replace('/login')
 }

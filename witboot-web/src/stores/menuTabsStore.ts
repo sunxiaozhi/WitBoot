@@ -8,49 +8,54 @@ interface TabItem {
   fullPath?: string
 }
 
+const HOME_TAB: TabItem = { title: '首页', path: '/home', fullPath: '/home' }
+
 export const useMenuTabsStore = defineStore('menuTabs', {
   state: () => ({
     tabs: [] as TabItem[],
-    activeTab: '/home' as string
+    activeTab: '/home' as string,
   }),
 
   actions: {
-    initHomeTab() {
-      if (this.tabs.length === 0) {
-        this.tabs.push({
-          title: '首页',
-          path: '/home',
-          fullPath: '/home'
-        })
-        this.activeTab = '/home'
+    ensureHomeTab() {
+      if (!this.tabs.some(tab => tab.path === HOME_TAB.path)) {
+        this.tabs.unshift({ ...HOME_TAB })
       }
+      if (!this.activeTab) this.activeTab = HOME_TAB.path
+    },
+
+    initHomeTab() {
+      this.ensureHomeTab()
+      if (this.tabs.length === 1) this.activeTab = HOME_TAB.path
     },
 
     addTab(route: RouteLocationNormalizedLoaded | RouteRecordNormalized) {
       const path = route.path
       const title = (route.meta?.title as string) || (route.name as string) || path
 
-      if (!this.tabs.some((tab) => tab.path === path)) {
+      if (!this.tabs.some(tab => tab.path === path)) {
         this.tabs.push({
           title,
           path,
           name: route.name as string | undefined,
-          fullPath: (route as any).fullPath
+          fullPath: (route as RouteLocationNormalizedLoaded).fullPath,
         })
       }
       this.activeTab = path
     },
 
     removeTab(path: string) {
-      const index = this.tabs.findIndex((tab) => tab.path === path)
+      if (path === HOME_TAB.path) return
+      const index = this.tabs.findIndex(tab => tab.path === path)
       if (index === -1) return
 
       this.tabs.splice(index, 1)
 
       if (this.activeTab === path) {
         const newTab = this.tabs[index] || this.tabs[index - 1] || this.tabs[0]
-        this.activeTab = newTab?.path || '/home'
+        this.activeTab = newTab?.path || HOME_TAB.path
       }
+      this.ensureHomeTab()
     },
 
     changeActiveTab(path: string) {
@@ -58,13 +63,13 @@ export const useMenuTabsStore = defineStore('menuTabs', {
     },
 
     closeAllTabs() {
-      this.tabs = [{ title: '首页', path: '/home', fullPath: '/home' }]
-      this.activeTab = '/home'
-    }
+      this.tabs = [{ ...HOME_TAB }]
+      this.activeTab = HOME_TAB.path
+    },
   },
 
   persist: {
     key: 'witboot-menu-tabs',
-    storage: localStorage // 也可以用 sessionStorage
-  }
+    storage: localStorage, // 也可以用 sessionStorage
+  },
 })

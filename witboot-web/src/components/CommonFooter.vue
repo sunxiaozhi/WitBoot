@@ -1,26 +1,55 @@
 <template>
   <el-footer class="footer">
-    Copyright © 2026 Powered by
-    <a :href="githubUrl" target="_blank" rel="noopener">{{ owner }}</a>
+    <div class="footer-content">
+      <p class="copyright">
+        Copyright © {{ currentYear }} Powered by
+        <a
+          :href="githubUrl"
+          target="_blank"
+          rel="noopener"
+          :aria-label="`GitHub: ${owner}`"
+        >
+          {{ owner }}
+        </a>
+      </p>
+    </div>
   </el-footer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { SITE_OWNER as owner, GITHUB_URL as githubUrl } from '@/config/siteConfig'
+
+const currentYear = new Date().getFullYear()
 </script>
 
 <style lang="scss" scoped>
 .footer {
-  text-align: center;
-  line-height: 60px;
-  background: #fafafa;
-  border-top: 1px solid #e6e6e6;
-  color: #666;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+  padding: 0;
+  height: 48px !important;
 
-  a {
-    color: #409eff;
-    margin-left: 4px;
+  .footer-content {
+    .copyright {
+      margin: 0;
+      font-size: 13px;
+      color: #999;
+
+      a {
+        color: #667eea;
+        margin-left: 4px;
+        text-decoration: none;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #764ba2;
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
 </style>

@@ -2,12 +2,25 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-export const useMenuCollapseStore = defineStore('menuCollapse', () => {
-  const isCollapse = ref(false)
+export const useMenuCollapseStore = defineStore(
+  'menuCollapse',
+  () => {
+    const isCollapse = ref(false)
 
-  const toggleCollapse = () => {
-    isCollapse.value = !isCollapse.value
-  }
+    const toggleCollapse = () => {
+      isCollapse.value = !isCollapse.value
+    }
 
-  return { isCollapse, toggleCollapse }
-})
+    const setCollapse = (value: boolean) => {
+      isCollapse.value = value
+    }
+
+    return { isCollapse, toggleCollapse, setCollapse }
+  },
+  {
+    persist: {
+      key: 'witboot-menu-collapse',
+      storage: localStorage,
+    },
+  },
+)

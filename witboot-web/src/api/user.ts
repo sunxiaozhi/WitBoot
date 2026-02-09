@@ -7,7 +7,7 @@ const USER_API = {
   LOGIN: '/user/login',
   LIST: '/user/list',
   UPDATE: '/user/update',
-  DELETE: '/user/delete'
+  DELETE: '/user/delete',
 }
 
 /**
@@ -45,7 +45,7 @@ export const selectUserList = (params = {}) => {
 
   return GET(url, restParams, {
     headers: { 'Content-Type': 'application/json' },
-    isToken: true
+    isToken: true,
   })
 }
 
@@ -60,7 +60,7 @@ export const updateUserInfo = (data = {}) => {
 
   return POST(url, restData, {
     headers: { 'Content-Type': 'application/json' },
-    isToken: true
+    isToken: true,
   })
 }
 
@@ -75,6 +75,6 @@ export const deleteUser = (params = {}) => {
 
   return DELETE(url, restParams, {
     headers: { 'Content-Type': 'application/json' },
-    isToken: true
+    isToken: true,
   })
 }
