@@ -22,23 +22,17 @@ import java.time.format.DateTimeFormatter;
 public class JacksonConfiguration {
 
     @Bean
-    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+    public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
         return builder -> {
             builder
                     .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                     .featuresToDisable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                    .serializerByType(LocalDateTime.class,
-                            new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
-                    .serializerByType(LocalDate.class,
-                            new LocalDateSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
-                    .serializerByType(LocalTime.class,
-                            new LocalTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)))
-                    .deserializerByType(LocalDateTime.class,
-                            new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
-                    .deserializerByType(LocalDate.class,
-                            new LocalDateDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
-                    .deserializerByType(LocalTime.class,
-                            new LocalTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)));
+                    .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
+                    .serializerByType(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
+                    .serializerByType(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)))
+                    .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
+                    .deserializerByType(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
+                    .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)));
         };
     }
 }
