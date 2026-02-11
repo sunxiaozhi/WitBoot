@@ -61,6 +61,16 @@ public class RedisUtil {
     }
 
     /**
+     * 判断 Redis 中是否存在指定的 key。
+     *
+     * @param key 键
+     * @return 若存在返回 true，否则返回 false
+     */
+    public boolean hasKey(String key) {
+        return redisTemplate.hasKey(key);
+    }
+
+    /**
      * 缓存数据并设置过期时间（单位：秒）。
      *
      * @param key     键
