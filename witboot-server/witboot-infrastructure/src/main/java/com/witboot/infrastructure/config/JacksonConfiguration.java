@@ -37,27 +37,25 @@ public class JacksonConfiguration {
      */
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> {
-            builder
-                    // 安装所需的 Jackson 模块
-                    .modulesToInstall(new JavaTimeModule())
-                    // 禁用将日期序列化为时间戳的功能
-                    .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                    // 禁用反序列化时自动调整日期到上下文时区的功能
-                    .featuresToDisable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
-                    // 为 LocalDateTime 类型配置自定义序列化器
-                    .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
-                    // 为 LocalDate 类型配置自定义序列化器
-                    .serializerByType(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
-                    // 为 LocalTime 类型配置自定义序列化器
-                    .serializerByType(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)))
-                    // 为 LocalDateTime 类型配置自定义反序列化器
-                    .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
-                    // 为 LocalDate 类型配置自定义反序列化器
-                    .deserializerByType(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
-                    // 为 LocalTime 类型配置自定义反序列化器
-                    .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)));
-        };
+        return builder -> builder
+                // 安装所需的 Jackson 模块
+                .modules(new JavaTimeModule())
+                // 禁用将日期序列化为时间戳的功能
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                // 禁用反序列化时自动调整日期到上下文时区的功能
+                .featuresToDisable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE)
+                // 为 LocalDateTime 类型配置自定义序列化器
+                .serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
+                // 为 LocalDate 类型配置自定义序列化器
+                .serializerByType(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
+                // 为 LocalTime 类型配置自定义序列化器
+                .serializerByType(LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)))
+                // 为 LocalDateTime 类型配置自定义反序列化器
+                .deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_TIME_FORMAT)))
+                // 为 LocalDate 类型配置自定义反序列化器
+                .deserializerByType(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_DATE_FORMAT)))
+                // 为 LocalTime 类型配置自定义反序列化器
+                .deserializerByType(LocalTime.class, new LocalTimeDeserializer(DateTimeFormatter.ofPattern(Constants.DateTime.DEFAULT_TIME_FORMAT)));
     }
 }
 
