@@ -289,9 +289,9 @@ const networkTable = computed(() => {
   }))
 })
 
-const fetchData = async () => {
+const fetchData = async (fromCache: boolean) => {
   try {
-    const res = await selectSystemMonitorInfo({})
+    const res = await selectSystemMonitorInfo({ fromCache: fromCache })
     monitorInfo.value = res?.data?.monitorInfo ?? null
   } catch (error) {
     console.error('Failed to fetch data:', error)
@@ -360,7 +360,7 @@ const statusFromPercent = (value: number, warn = 70, danger = 85) => {
   return { label: '稳定', tagType: 'success', progressStatus: 'success' }
 }
 
-onMounted(() => fetchData())
+onMounted(() => fetchData(true))
 </script>
 
 <style scoped lang="scss">
