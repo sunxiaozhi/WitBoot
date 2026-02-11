@@ -110,3 +110,6 @@ knife4j:
   enable: true
   setting:
     language: zh_cn
+
+cron:
+  monitor-info: 0 0/1 * * * ?

@@ -12,5 +12,5 @@ public interface SystemMonitorGateway {
      * 获取监控信息
      * @return 监控信息
      */
-    Map<String, Object> monitorInfo();
+    Map<String, Object> monitorInfo(boolean fromCache);
 }

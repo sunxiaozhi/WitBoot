@@ -13,5 +13,5 @@ public interface ISystemMonitorService {
      *
      * @return 监控信息
      */
-    Map<String, Object> monitorInfo();
+    Map<String, Object> monitorInfo(boolean fromCache);
 }

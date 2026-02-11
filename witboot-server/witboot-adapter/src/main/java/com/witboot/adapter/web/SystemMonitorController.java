@@ -5,6 +5,7 @@ import com.witboot.common.annotation.WitLog;
 import com.witboot.common.core.controller.BaseController;
 import com.witboot.common.response.ResponseResult;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +38,7 @@ public class SystemMonitorController extends BaseController {
     @GetMapping(value = "/monitorInfo")
     @Operation(summary = "获取系统监控信息")
     @WitLog(description = "运维监控信息")
-    public ResponseResult<Map<String, Object>> monitorInfo() {
-        return ResponseResult.success(systemMonitorService.monitorInfo());
+    public ResponseResult<Map<String, Object>> monitorInfo(@Parameter(description = "是否从缓存中获取") boolean fromCache) {
+        return ResponseResult.success(systemMonitorService.monitorInfo(fromCache));
     }
 }

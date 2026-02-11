@@ -19,7 +19,7 @@ public class SystemMonitorServiceImpl implements ISystemMonitorService {
     private MonitorInfoCmdExe monitorInfoCmdExe;
 
     @Override
-    public Map<String, Object> monitorInfo() {
-        return monitorInfoCmdExe.execute();
+    public Map<String, Object> monitorInfo(boolean fromCache) {
+        return monitorInfoCmdExe.execute(fromCache);
     }
 }

@@ -11,7 +11,7 @@ public class MonitorInfoCmdExe {
     @Autowired
     private SystemMonitorGateway systemMonitorGateway;
 
-    public Map<String, Object> execute() {
-        return systemMonitorGateway.monitorInfo();
+    public Map<String, Object> execute(boolean fromCache) {
+        return systemMonitorGateway.monitorInfo(fromCache);
     }
 }

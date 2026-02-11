@@ -1,8 +1,11 @@
 package com.witboot.infrastructure.gateway.impl;
 
 import com.witboot.common.utils.ReadableFormatUtil;
+import com.witboot.common.utils.RedisUtil;
 import com.witboot.domain.systemmonitor.gateway.SystemMonitorGateway;
 import com.witboot.infrastructure.gateway.impl.common.systemmonitor.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import oshi.SystemInfo;
 import oshi.hardware.*;
@@ -19,8 +22,11 @@ import java.util.stream.Collectors;
 /**
  * 系统监控网关实现类，负责收集和组装系统监控数据。
  */
+@Slf4j
 @Component("SystemMonitorGateway")
 public class SystemMonitorGatewayImpl implements SystemMonitorGateway {
+    @Autowired
+    RedisUtil redisUtil;
 
     /**
      * 获取系统监控信息。
@@ -28,12 +34,22 @@ public class SystemMonitorGatewayImpl implements SystemMonitorGateway {
      * @return 包含监控信息的Map对象
      */
     @Override
-    public Map<String, Object> monitorInfo() {
+    public Map<String, Object> monitorInfo(boolean fromCache) {
         try {
+            MonitorSnapshot monitorSnapshot;
+
+            if (redisUtil.hasKey("monitorInfo") && fromCache) {
+                monitorSnapshot = redisUtil.getCache("monitorInfo");
+            } else {
+                monitorSnapshot = collect(500);
+                redisUtil.setCache("monitorInfo", monitorSnapshot);
+            }
+
             return new HashMap<>() {{
-                put("monitorInfo", collect(500));
+                put("monitorInfo", monitorSnapshot);
             }};
         } catch (Exception exception) {
+            log.error("Failed to collect system monitor information", exception);
             return new HashMap<>();
         }
     }
