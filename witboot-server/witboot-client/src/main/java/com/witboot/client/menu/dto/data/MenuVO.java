@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * User VO
+ * Menu VO
  *
  * @author sunxiaoizhi
  */

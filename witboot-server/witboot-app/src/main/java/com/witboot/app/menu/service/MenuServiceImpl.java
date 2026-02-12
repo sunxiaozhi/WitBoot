@@ -12,9 +12,12 @@ import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.client.menu.dto.query.MenuListByParamQuery;
 import com.witboot.common.core.model.PageResult;
+import com.witboot.common.response.ResponseResult;
 import com.witboot.domain.menu.query.MenuQuerySpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 用户相关
@@ -42,7 +45,7 @@ public class MenuServiceImpl implements IMenuService {
     private MenuDeleteCmdExe menuDeleteCmdExe;
 
     @Override
-    public PageResult<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery) {
+    public List<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery) {
         MenuQuerySpec menuListByParamQuerySpec = MenuAssembler.toMenuListByParamQuerySpec(menuListByParamQuery);
         return menuListByParamQueryExe.execute(menuListByParamQuerySpec);
     }

@@ -5,6 +5,9 @@ import com.witboot.client.menu.dto.MenuUpdateCmd;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.client.menu.dto.query.MenuListByParamQuery;
 import com.witboot.common.core.model.PageResult;
+import com.witboot.common.response.ResponseResult;
+
+import java.util.List;
 
 /**
  * 菜单相关
@@ -18,7 +21,7 @@ public interface IMenuService {
      * @param menuListByParamQuery 菜单查询请求
      * @return MultiResponse
      */
-    PageResult<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery);
+    List<MenuVO> listByParam(MenuListByParamQuery menuListByParamQuery);
 
     /**
      * 新增菜单

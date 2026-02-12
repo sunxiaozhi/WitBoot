@@ -1,14 +1,11 @@
 package com.witboot.infrastructure.gateway.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.witboot.client.menu.dto.data.MenuErrorCode;
-import com.witboot.common.core.model.PageResult;
+import com.witboot.common.Constants;
+import com.witboot.common.exception.WitBootBizException;
 import com.witboot.domain.menu.gateway.MenuGateway;
 import com.witboot.domain.menu.model.MenuEntity;
 import com.witboot.domain.menu.query.MenuQuerySpec;
-import com.witboot.common.Constants;
-import com.witboot.common.exception.WitBootBizException;
 import com.witboot.infrastructure.convertor.MenuConvertor;
 import com.witboot.infrastructure.gateway.impl.database.dataobject.MenuDO;
 import com.witboot.infrastructure.gateway.impl.database.mapper.MenuMapper;
@@ -33,14 +30,10 @@ public class MenuGatewayImpl implements MenuGateway {
     private MenuMapper menuMapper;
 
     @Override
-    public PageResult<MenuEntity> findByParam(MenuQuerySpec menuListByParamQuerySpec) {
-        PageHelper.startPage(menuListByParamQuerySpec.getPageNo(), menuListByParamQuerySpec.getPageSize());
+    public List<MenuEntity> findByParam(MenuQuerySpec menuListByParamQuerySpec) {
         List<MenuDO> menuDOList = menuMapper.selectByParam(menuListByParamQuerySpec);
-        PageInfo<MenuDO> pageInfo = new PageInfo<>(menuDOList);
 
-        List<MenuEntity> menuEntityList = menuDOList.stream().map(MenuConvertor::toEntity).collect(Collectors.toList());
-
-        return PageResult.build(menuEntityList,pageInfo.getTotal());
+        return menuDOList.stream().map(MenuConvertor::toEntity).collect(Collectors.toList());
     }
 
     @Override
