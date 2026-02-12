@@ -4,7 +4,7 @@
       <div class="header-left">
         <h2></h2>
         <div class="header-actions">
-          <el-button type="primary" class="primary-btn">
+          <el-button type="primary" class="primary-btn" @click="handleAddMenu">
             <el-icon><Plus /></el-icon>
             新增菜单
           </el-button>
@@ -134,6 +134,8 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <MenuDrawer v-model="drawerVisible" :data="currentMenu" @success="handleMenuSuccess" />
   </div>
 </template>
 
@@ -141,6 +143,7 @@
 import { ref } from 'vue'
 import type { ElTree } from 'element-plus'
 import { Plus, Upload, Search, Refresh, Menu } from '@element-plus/icons-vue'
+import MenuDrawer from './MenuDrawer.vue'
 
 const query = ref({ keyword: '' })
 const treeRef = ref<InstanceType<typeof ElTree>>()
@@ -204,6 +207,27 @@ const childMenus = [
 const defaultProps = {
   children: 'children',
   label: 'label',
+}
+
+const drawerVisible = ref(false)
+const currentMenu = ref<null | {
+  id?: number
+  name?: string
+  path?: string
+  component?: string
+  sort?: number
+  icon?: string
+  status?: '启用' | '停用'
+  description?: string
+}>(null)
+
+const handleAddMenu = () => {
+  currentMenu.value = null
+  drawerVisible.value = true
+}
+
+const handleMenuSuccess = () => {
+  drawerVisible.value = false
 }
 </script>
 

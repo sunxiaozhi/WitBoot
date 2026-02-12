@@ -4,7 +4,7 @@
       <div class="header-left">
         <h2></h2>
         <div class="header-actions">
-          <el-button type="primary" class="primary-btn">
+          <el-button type="primary" class="primary-btn" @click="handleAdd">
             <el-icon><Plus /></el-icon>
             新增字典
           </el-button>
@@ -74,7 +74,7 @@
         <div class="panel-header">
           <span>字典值</span>
           <div class="panel-actions">
-            <el-button type="primary" class="primary-btn">新增字典值</el-button>
+            <el-button type="primary" class="primary-btn" @click="handleAddValue">新增字典值</el-button>
           </div>
         </div>
 
@@ -104,7 +104,7 @@
                 {{ item.status }}
               </el-tag>
               <div class="value-actions">
-                <el-button text size="small">编辑</el-button>
+                <el-button text size="small" @click="handleEditValue(item)">编辑</el-button>
                 <el-button text size="small">禁用</el-button>
               </div>
             </div>
@@ -112,12 +112,17 @@
         </div>
       </div>
     </div>
+
+    <DictionaryDrawer v-model="drawerVisible" :data="currentDictionary" @success="handleSuccess" />
+    <DictionaryValueDialog v-model="valueDialogVisible" :data="currentValue" @success="handleValueSuccess" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { Search, Refresh, Plus, Upload } from '@element-plus/icons-vue'
+import DictionaryDrawer from './DictionaryDrawer.vue'
+import DictionaryValueDialog from './DictionaryValueDialog.vue'
 
 const query = reactive({
   keyword: '',
@@ -136,11 +141,46 @@ const tableData = [
   { id: 4, name: '支付方式', code: 'pay_method', status: '启用', updatedAt: '2026-02-04' },
 ]
 
-const dictValues = [
+const dictValues = ref([
   { id: 1, label: '启用', value: '1', status: '启用' },
   { id: 2, label: '禁用', value: '0', status: '停用' },
   { id: 3, label: '冻结', value: '2', status: '启用' },
-]
+])
+
+const drawerVisible = ref(false)
+const currentDictionary = ref<null | { id?: number; name?: string; code?: string; status?: string; remark?: string }>(null)
+const valueDialogVisible = ref(false)
+const currentValue = ref<null | { id?: number; label?: string; value?: string; status?: '启用' | '停用' }>(null)
+
+const handleAdd = () => {
+  currentDictionary.value = null
+  drawerVisible.value = true
+}
+
+const handleSuccess = () => {
+  drawerVisible.value = false
+}
+
+const handleAddValue = () => {
+  currentValue.value = null
+  valueDialogVisible.value = true
+}
+
+const handleEditValue = (item: { id: number; label: string; value: string; status: string }) => {
+  currentValue.value = { ...item, status: item.status === '启用' ? '启用' : '停用' }
+  valueDialogVisible.value = true
+}
+
+const handleValueSuccess = (payload: { id?: number; label: string; value: string; status: '启用' | '停用' }) => {
+  if (payload.id) {
+    const index = dictValues.value.findIndex(item => item.id === payload.id)
+    if (index >= 0) dictValues.value[index] = { ...dictValues.value[index], ...payload }
+  } else {
+    const nextId = Math.max(0, ...dictValues.value.map(item => item.id)) + 1
+    dictValues.value.unshift({ ...payload, id: nextId })
+  }
+  valueDialogVisible.value = false
+}
 </script>
 
 <style scoped lang="scss">
@@ -149,12 +189,14 @@ const dictValues = [
   display: flex;
   flex-direction: column;
   padding: 16px;
-  gap: 16px;
+  gap: 12px;
   background: #f5f7fa;
 
-  --card-radius: 12px;
+  --card-radius: 10px;
   --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --hover-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --button-transition: all 0.3s;
 }
 
 .page-header {
@@ -188,10 +230,28 @@ const dictValues = [
   .primary-btn {
     background: var(--primary-gradient);
     border: none;
+    font-weight: 500;
+    transition: var(--button-transition);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--hover-shadow);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 
   .ghost-btn {
     border: 1px solid #e5e7eb;
+    transition: var(--button-transition);
+
+    &:hover {
+      color: #667eea;
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.05);
+    }
   }
 }
 
@@ -220,7 +280,7 @@ const dictValues = [
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  color: #111827;
+  color: #0f172a;
 }
 
 .panel-actions {
@@ -246,16 +306,42 @@ const dictValues = [
       border-color: #667eea;
     }
   }
+
+  :deep(.el-input__inner) {
+    &::placeholder {
+      color: #999;
+    }
+  }
 }
 
 .search-btn {
   background: var(--primary-gradient);
   border: none;
   padding: 6px 12px;
+  font-weight: 500;
+  transition: var(--button-transition);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--hover-shadow);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 .reset-btn {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  background: #fff;
+  transition: var(--button-transition);
+
+  &:hover {
+    color: #667eea;
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+  }
 }
 
 .dict-table {
@@ -268,6 +354,16 @@ const dictValues = [
   :deep(.el-table__body tr) {
     height: 40px;
   }
+
+  :deep(.el-table__inner-wrapper) {
+    &::before {
+      display: none;
+    }
+  }
+
+  :deep(.el-table__border-left-patch) {
+    display: none;
+  }
 }
 
 .pagination-container {
@@ -277,6 +373,30 @@ const dictValues = [
   :deep(.el-pagination) {
     --el-pagination-button-height: 28px;
     --el-pagination-item-height: 28px;
+
+    .btn-prev,
+    .btn-next {
+      border-radius: 8px;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #667eea;
+      }
+    }
+
+    .el-pager li {
+      border-radius: 8px;
+      transition: all 0.3s;
+
+      &:hover {
+        color: #667eea;
+      }
+    }
+
+    .el-pager li.is-active {
+      background: var(--primary-gradient);
+      color: #fff;
+    }
   }
 }
 
@@ -316,6 +436,12 @@ const dictValues = [
   border-radius: 12px;
   border: 1px solid #eef2f7;
   background: #f8fafc;
+  transition: var(--button-transition);
+
+  &:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
+  }
 }
 
 .value-left {
