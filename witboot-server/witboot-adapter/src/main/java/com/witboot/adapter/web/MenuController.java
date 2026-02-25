@@ -8,11 +8,12 @@ import com.witboot.client.menu.dto.query.MenuListByParamQuery;
 import com.witboot.common.annotation.WitLog;
 import com.witboot.common.core.controller.BaseController;
 import com.witboot.common.response.ResponseResult;
-import com.witboot.common.core.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 菜单控制器
@@ -29,8 +30,7 @@ public class MenuController extends BaseController {
     @GetMapping(value = "/list")
     @Operation(summary = "菜单列表")
     @WitLog(description = "菜单列表")
-    public ResponseResult<PageResult<MenuVO>> list(MenuListByParamQuery menuListByParamQuery) {
-        startPage();
+    public ResponseResult<List<MenuVO>> list(MenuListByParamQuery menuListByParamQuery) {
         return ResponseResult.success(menuService.listByParam(menuListByParamQuery));
     }
 

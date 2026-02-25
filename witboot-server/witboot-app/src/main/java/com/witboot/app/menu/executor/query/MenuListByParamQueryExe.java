@@ -3,6 +3,7 @@ package com.witboot.app.menu.executor.query;
 import com.witboot.app.menu.assembler.MenuAssembler;
 import com.witboot.client.menu.dto.data.MenuVO;
 import com.witboot.common.core.model.PageResult;
+import com.witboot.common.response.ResponseResult;
 import com.witboot.domain.menu.gateway.MenuGateway;
 import com.witboot.domain.menu.model.MenuEntity;
 import com.witboot.domain.menu.query.MenuQuerySpec;
@@ -23,13 +24,11 @@ public class MenuListByParamQueryExe {
     @Autowired
     private MenuGateway menuGateway;
 
-    public PageResult<MenuVO> execute(MenuQuerySpec menuListByParamQuerySpec) {
-        PageResult<MenuEntity> menuEntityPageResult = menuGateway.findByParam(menuListByParamQuerySpec);
+    public List<MenuVO> execute(MenuQuerySpec menuListByParamQuerySpec) {
+        List<MenuEntity> menuEntityList = menuGateway.findByParam(menuListByParamQuerySpec);
 
-        List<MenuVO> menuVoList = menuEntityPageResult.getList().stream()
+        return menuEntityList.stream()
                 .map(MenuAssembler::toValueObject)
                 .collect(Collectors.toList());
-
-        return PageResult.build(menuVoList, menuEntityPageResult.getTotal());
     }
 }

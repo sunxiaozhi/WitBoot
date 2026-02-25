@@ -1,5 +1,22 @@
 <template>
   <div class="monitor-page">
+    <el-row :gutter="16" class="top-row">
+      <el-col :span="24">
+        <div class="top-strip">
+          <span class="top-meta">最后采集：{{ lastSampleTimeLabel }}</span>
+          <el-button
+            size="small"
+            type="primary"
+            plain
+            :loading="isRefreshing"
+            :icon="Refresh"
+            circle
+            aria-label="强制刷新"
+            @click="handleForceRefresh"
+          />
+        </div>
+      </el-col>
+    </el-row>
     <el-row :gutter="16" class="stat-row">
       <el-col :span="6">
         <el-card class="stat-card" shadow="never">
@@ -53,7 +70,6 @@
           <template #header>
             <div class="panel-header">
               <span>服务器信息</span>
-              <span class="panel-meta">实时</span>
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
@@ -76,7 +92,6 @@
           <template #header>
             <div class="panel-header">
               <span>CPU 信息</span>
-              <span class="panel-meta">实时</span>
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
@@ -96,7 +111,6 @@
           <template #header>
             <div class="panel-header">
               <span>JVM 信息</span>
-              <span class="panel-meta">实时</span>
             </div>
           </template>
           <el-descriptions :column="2" size="small" class="desc">
@@ -164,6 +178,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { Refresh } from '@element-plus/icons-vue'
 import { selectSystemMonitorInfo } from '@/api/systemMonitor.ts'
 import { ElMessage } from 'element-plus'
 
@@ -194,11 +209,17 @@ const memoryUsedReadable = computed(() => memoryInfo.value.usedReadable ?? '-')
 
 const diskTotals = computed(() => {
   const partitions = diskInfo.value.partitions ?? []
-  const totalBytes = partitions.reduce((sum: number, item: any) => sum + (item.totalBytes || 0), 0)
-  const usedBytes = partitions.reduce((sum: number, item: any) => sum + (item.usedBytes || 0), 0)
-  const freeBytes = partitions.reduce((sum: number, item: any) => sum + (item.freeBytes || 0), 0)
-  const usedPercent = totalBytes ? (usedBytes / totalBytes) * 100 : 0
-  return { totalBytes, usedBytes, freeBytes, usedPercent }
+  const totals = partitions.reduce(
+    (acc: { totalBytes: number; usedBytes: number; freeBytes: number }, item: any) => {
+      acc.totalBytes += item.totalBytes || 0
+      acc.usedBytes += item.usedBytes || 0
+      acc.freeBytes += item.freeBytes || 0
+      return acc
+    },
+    { totalBytes: 0, usedBytes: 0, freeBytes: 0 }
+  )
+  const usedPercent = totals.totalBytes ? (totals.usedBytes / totals.totalBytes) * 100 : 0
+  return { ...totals, usedPercent }
 })
 
 const diskUsedPercent = computed(() => Number(diskTotals.value.usedPercent))
@@ -220,8 +241,10 @@ const serverOsLabel = computed(() => {
   return `${family}${versionLabel}${buildLabel}`.trim()
 })
 
+const sampleTimestamp = computed(() => monitorInfo.value?.timestamp)
 const serverBootTimeLabel = computed(() => formatDateTime(serverInfo.value.bootTime))
-const systemTimeLabel = computed(() => formatDateTime(monitorInfo.value?.timestamp))
+const systemTimeLabel = computed(() => formatDateTime(sampleTimestamp.value))
+const lastSampleTimeLabel = computed(() => formatDateTime(sampleTimestamp.value))
 
 const cpuCurrentFrequencyLabel = computed(() => {
   const frequencies = cpuInfo.value.currentFrequenciesHertz ?? []
@@ -299,6 +322,17 @@ const fetchData = async (fromCache: boolean) => {
   }
 }
 
+const isRefreshing = ref(false)
+const handleForceRefresh = async () => {
+  if (isRefreshing.value) return
+  isRefreshing.value = true
+  try {
+    await fetchData(false)
+  } finally {
+    isRefreshing.value = false
+  }
+}
+
 const formatDateTime = (value?: string) => {
   if (!value) return '-'
   const date = new Date(value)
@@ -314,7 +348,7 @@ const formatDateTime = (value?: string) => {
 const formatPercentValue = (value: number) => Number(value.toFixed(2))
 
 const formatBytes = (bytes?: number) => {
-  if (!bytes && bytes !== 0) return '-'
+  if (bytes == null) return '-'
   const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
   let size = bytes
   let index = 0
@@ -419,6 +453,23 @@ onMounted(() => fetchData(true))
 .panel-meta {
   font-size: 12px;
   color: #94a3b8;
+}
+
+.top-row {
+  align-items: center;
+}
+
+.top-strip {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 4px 2px 0;
+}
+
+.top-meta {
+  font-size: 12px;
+  color: #64748b;
 }
 
 .info-row {

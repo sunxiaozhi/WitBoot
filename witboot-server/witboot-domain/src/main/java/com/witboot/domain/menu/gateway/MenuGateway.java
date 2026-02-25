@@ -1,8 +1,11 @@
 package com.witboot.domain.menu.gateway;
 
 import com.witboot.common.core.model.PageResult;
+import com.witboot.common.response.ResponseResult;
 import com.witboot.domain.menu.model.MenuEntity;
 import com.witboot.domain.menu.query.MenuQuerySpec;
+
+import java.util.List;
 
 /**
  * Menu Gateway
@@ -16,7 +19,7 @@ public interface MenuGateway {
      * @param menuListByParamQuerySpec 菜单名等
      * @return List 菜单实体
      */
-    PageResult<MenuEntity> findByParam(MenuQuerySpec menuListByParamQuerySpec);
+    List<MenuEntity> findByParam(MenuQuerySpec menuListByParamQuerySpec);
 
     /**
      * 获取菜单信息
