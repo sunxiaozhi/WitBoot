@@ -177,224 +177,45 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
 import { Refresh } from '@element-plus/icons-vue'
-import { selectSystemMonitorInfo } from '@/api/systemMonitor.ts'
-import { ElMessage } from 'element-plus'
+import { useSystemMonitor } from '@/composables/useSystemMonitor'
 
-type MonitorInfo = Record<string, any>
-
-const monitorInfo = ref<MonitorInfo | null>(null)
-
-const cpuInfo = computed(() => monitorInfo.value?.cpuInfo ?? {})
-const memoryInfo = computed(() => monitorInfo.value?.memoryInfo ?? {})
-const diskInfo = computed(() => monitorInfo.value?.diskInfo ?? {})
-const jvmInfo = computed(() => monitorInfo.value?.jvmInfo ?? {})
-const serverInfo = computed(() => monitorInfo.value?.serverInfo ?? {})
-const networkInfo = computed(() => monitorInfo.value?.networkInfo ?? {})
-
-const cpuUsagePercent = computed(() => Number(cpuInfo.value.cpuUsagePercent ?? 0))
-const cpuUsageDisplay = computed(() => formatPercentValue(cpuUsagePercent.value))
-const cpuPeakDisplay = computed(() => {
-  const perCore = cpuInfo.value.perCoreUsagePercent ?? []
-  if (!Array.isArray(perCore) || perCore.length === 0) {
-    return '-'
-  }
-  return `${formatPercentValue(Math.max(...perCore))}%`
-})
-
-const memoryUsedPercent = computed(() => Number(memoryInfo.value.usedPercent ?? 0))
-const memoryUsedPercentDisplay = computed(() => formatPercentValue(memoryUsedPercent.value))
-const memoryUsedReadable = computed(() => memoryInfo.value.usedReadable ?? '-')
-
-const diskTotals = computed(() => {
-  const partitions = diskInfo.value.partitions ?? []
-  const totals = partitions.reduce(
-    (acc: { totalBytes: number; usedBytes: number; freeBytes: number }, item: any) => {
-      acc.totalBytes += item.totalBytes || 0
-      acc.usedBytes += item.usedBytes || 0
-      acc.freeBytes += item.freeBytes || 0
-      return acc
-    },
-    { totalBytes: 0, usedBytes: 0, freeBytes: 0 }
-  )
-  const usedPercent = totals.totalBytes ? (totals.usedBytes / totals.totalBytes) * 100 : 0
-  return { ...totals, usedPercent }
-})
-
-const diskUsedPercent = computed(() => Number(diskTotals.value.usedPercent))
-const diskUsedPercentDisplay = computed(() => formatPercentValue(diskUsedPercent.value))
-const diskTotalReadable = computed(() => formatBytes(diskTotals.value.totalBytes))
-const diskFreeReadable = computed(() => formatBytes(diskTotals.value.freeBytes))
-
-const jvmHeapUsedPercent = computed(() => Number(jvmInfo.value.heapUsedPercentOfMax ?? 0))
-const jvmHeapUsedPercentDisplay = computed(() => formatPercentValue(jvmHeapUsedPercent.value))
-const jvmHeapUsedReadable = computed(() => jvmInfo.value.heapUsedReadable ?? '-')
-const jvmHeapMaxReadable = computed(() => jvmInfo.value.heapMaxReadable ?? '-')
-
-const serverOsLabel = computed(() => {
-  const family = serverInfo.value.operatingSystemFamily ?? '-'
-  const version = serverInfo.value.operatingSystemVersion ?? ''
-  const build = serverInfo.value.operatingSystemBuildNumber ?? ''
-  const versionLabel = version ? ` ${version}` : ''
-  const buildLabel = build ? ` (Build ${build})` : ''
-  return `${family}${versionLabel}${buildLabel}`.trim()
-})
-
-const sampleTimestamp = computed(() => monitorInfo.value?.timestamp)
-const serverBootTimeLabel = computed(() => formatDateTime(serverInfo.value.bootTime))
-const systemTimeLabel = computed(() => formatDateTime(sampleTimestamp.value))
-const lastSampleTimeLabel = computed(() => formatDateTime(sampleTimestamp.value))
-
-const cpuCurrentFrequencyLabel = computed(() => {
-  const frequencies = cpuInfo.value.currentFrequenciesHertz ?? []
-  if (!Array.isArray(frequencies) || frequencies.length === 0) {
-    return cpuInfo.value.currentFrequenciesReadable?.[0] ?? '-'
-  }
-  const avg = frequencies.reduce((sum: number, value: number) => sum + (value || 0), 0) / frequencies.length
-  return formatHertz(avg)
-})
-
-const cpuLoadAverageLabel = computed(() => {
-  const load = cpuInfo.value.loadAverage ?? []
-  if (!Array.isArray(load) || load.length === 0 || load.every((value: number) => value < 0)) {
-    return '-'
-  }
-  return load.map((value: number) => value.toFixed(2)).join(' / ')
-})
-
-const jvmUptimeLabel = computed(() => formatDuration(jvmInfo.value.uptimeMilliseconds))
-
-const cpuStatus = computed(() => statusFromPercent(cpuUsagePercent.value))
-const memoryStatus = computed(() => statusFromPercent(memoryUsedPercent.value))
-const diskStatus = computed(() => statusFromPercent(diskUsedPercent.value))
-const jvmStatus = computed(() => statusFromPercent(jvmHeapUsedPercent.value, 60, 80))
-
-const diskIoSampleIntervalLabel = computed(() => {
-  const interval = diskInfo.value.inputOutputSampleIntervalMilliseconds
-  if (!interval && interval !== 0) return '-'
-  return `${interval} ms`
-})
-
-const diskIoTable = computed(() => {
-  const items = diskInfo.value.inputOutputStatistics ?? []
-  if (!Array.isArray(items)) return []
-  return items.map((item: any) => ({
-    name: item.name ?? '-',
-    model: item.model ?? '-',
-    sizeReadable: item.sizeReadable ?? formatBytes(item.sizeBytes),
-    readReadablePerSecond: item.readReadablePerSecond ?? '-',
-    writeReadablePerSecond: item.writeReadablePerSecond ?? '-',
-    readOperationsPerSecond: formatRate(item.readOperationsPerSecond),
-    writeOperationsPerSecond: formatRate(item.writeOperationsPerSecond),
-    currentQueueLength: item.currentQueueLength ?? '-',
-  }))
-})
-
-const networkSampleIntervalLabel = computed(() => {
-  const interval = networkInfo.value.sampleIntervalMilliseconds
-  if (!interval && interval !== 0) return '-'
-  return `${interval} ms`
-})
-
-const networkTable = computed(() => {
-  const items = networkInfo.value.interfaces ?? []
-  if (!Array.isArray(items)) return []
-  return items.map((item: any) => ({
-    name: item.name ?? '-',
-    displayName: item.displayName ?? item.name ?? '-',
-    ipv4Label: formatIpList(item.ipv4Addresses),
-    speedReadable: item.speedReadable ?? '-',
-    receiveReadablePerSecond: item.receiveReadablePerSecond ?? '-',
-    transmitReadablePerSecond: item.transmitReadablePerSecond ?? '-',
-    receivePacketsPerSecond: formatRate(item.receivePacketsPerSecond),
-    transmitPacketsPerSecond: formatRate(item.transmitPacketsPerSecond),
-  }))
-})
-
-const fetchData = async (fromCache: boolean) => {
-  try {
-    const res = await selectSystemMonitorInfo({ fromCache: fromCache })
-    monitorInfo.value = res?.data?.monitorInfo ?? null
-  } catch (error) {
-    console.error('Failed to fetch data:', error)
-    ElMessage.error('数据获取失败')
-  }
-}
-
-const isRefreshing = ref(false)
-const handleForceRefresh = async () => {
-  if (isRefreshing.value) return
-  isRefreshing.value = true
-  try {
-    await fetchData(false)
-  } finally {
-    isRefreshing.value = false
-  }
-}
-
-const formatDateTime = (value?: string) => {
-  if (!value) return '-'
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return '-'
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  const hours = String(date.getHours()).padStart(2, '0')
-  const minutes = String(date.getMinutes()).padStart(2, '0')
-  return `${year}-${month}-${day} ${hours}:${minutes}`
-}
-
-const formatPercentValue = (value: number) => Number(value.toFixed(2))
-
-const formatBytes = (bytes?: number) => {
-  if (bytes == null) return '-'
-  const units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB']
-  let size = bytes
-  let index = 0
-  while (size >= 1024 && index < units.length - 1) {
-    size /= 1024
-    index += 1
-  }
-  return `${size.toFixed(1)} ${units[index]}`
-}
-
-const formatHertz = (value?: number) => {
-  if (!value && value !== 0) return '-'
-  if (value >= 1_000_000_000) return `${(value / 1_000_000_000).toFixed(2)} GHz`
-  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(2)} MHz`
-  if (value >= 1_000) return `${(value / 1_000).toFixed(2)} KHz`
-  return `${value.toFixed(0)} Hz`
-}
-
-const formatDuration = (milliseconds?: number) => {
-  if (!milliseconds && milliseconds !== 0) return '-'
-  const totalSeconds = Math.floor(milliseconds / 1000)
-  const days = Math.floor(totalSeconds / 86400)
-  const hours = Math.floor((totalSeconds % 86400) / 3600)
-  const minutes = Math.floor((totalSeconds % 3600) / 60)
-  if (days > 0) return `${days} 天 ${hours} 小时`
-  if (hours > 0) return `${hours} 小时 ${minutes} 分钟`
-  return `${minutes} 分钟`
-}
-
-const formatRate = (value?: number) => {
-  if (!value && value !== 0) return '-'
-  return Number(value.toFixed(2))
-}
-
-const formatIpList = (value?: string[]) => {
-  if (!Array.isArray(value) || value.length === 0) return '-'
-  return value.join(', ')
-}
-
-const statusFromPercent = (value: number, warn = 70, danger = 85) => {
-  if (value >= danger) return { label: '预警', tagType: 'danger', progressStatus: 'exception' }
-  if (value >= warn) return { label: '偏高', tagType: 'warning', progressStatus: 'warning' }
-  return { label: '稳定', tagType: 'success', progressStatus: 'success' }
-}
-
-onMounted(() => fetchData(true))
+const {
+  cpuInfo,
+  jvmInfo,
+  serverInfo,
+  cpuUsagePercent,
+  cpuUsageDisplay,
+  cpuPeakDisplay,
+  memoryUsedPercent,
+  memoryUsedPercentDisplay,
+  memoryUsedReadable,
+  diskUsedPercent,
+  diskUsedPercentDisplay,
+  diskTotalReadable,
+  diskFreeReadable,
+  jvmHeapUsedPercent,
+  jvmHeapUsedPercentDisplay,
+  jvmHeapUsedReadable,
+  jvmHeapMaxReadable,
+  serverOsLabel,
+  serverBootTimeLabel,
+  systemTimeLabel,
+  lastSampleTimeLabel,
+  cpuCurrentFrequencyLabel,
+  cpuLoadAverageLabel,
+  jvmUptimeLabel,
+  cpuStatus,
+  memoryStatus,
+  diskStatus,
+  jvmStatus,
+  diskIoSampleIntervalLabel,
+  diskIoTable,
+  networkSampleIntervalLabel,
+  networkTable,
+  isRefreshing,
+  handleForceRefresh,
+} = useSystemMonitor()
 </script>
 
 <style scoped lang="scss">
@@ -508,3 +329,4 @@ onMounted(() => fetchData(true))
 }
 
 </style>
+

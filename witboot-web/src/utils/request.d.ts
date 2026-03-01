@@ -1,4 +1,4 @@
-import type { AxiosProgressEvent } from 'axios'
+import type { AxiosProgressEvent, GenericAbortSignal } from 'axios'
 
 export interface ResponseDataType<T = unknown> {
   code: number
@@ -8,8 +8,8 @@ export interface ResponseDataType<T = unknown> {
 
 export interface RequestConfig {
   headers?: Record<string, string>
-  onDownloadProgress?: (progressEvent: AxiosProgressEvent) => void
-  signal?: AbortSignal
+  onDownloadProgress?: (_progressEvent: AxiosProgressEvent) => void
+  signal?: GenericAbortSignal
   hold?: boolean
   timeout?: number
   isToken?: boolean

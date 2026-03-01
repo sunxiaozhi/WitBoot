@@ -28,7 +28,7 @@ export const selectLoginLogList = (params = {}) => {
  * @param id 请求参数
  * @returns Promise
  */
-export const loginLogInfo = (id: any) => {
+export const loginLogInfo = (id: string | number) => {
   const url = BASE_URL + LOGIN_LOG_API.INFO + '/' + id
 
   return GET(

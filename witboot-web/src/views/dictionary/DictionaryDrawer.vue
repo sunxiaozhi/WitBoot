@@ -36,99 +36,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
+import { useDictionaryDrawerForm } from '@/composables/useDictionaryDrawerForm'
 
 const props = defineProps<{
-  modelValue: boolean
-  data?: Partial<DictionaryForm> | null
+  data?: {
+    id?: number
+    name?: string
+    code?: string
+    status?: string
+    remark?: string
+  } | null
 }>()
+
+const visible = defineModel<boolean>({ required: true })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', v: boolean): void
-  (e: 'success'): void
+  (_e: 'success'): void
 }>()
 
-type DictionaryForm = {
-  id?: number
-  name: string
-  code: string
-  status: string
-  remark: string
-}
-
-const createEmptyForm = (): DictionaryForm => ({
-  id: undefined,
-  name: '',
-  code: '',
-  status: '启用',
-  remark: '',
+const { submitLoading, formRef, form, rules, submit, handleBeforeClose } = useDictionaryDrawerForm({
+  visible,
+  data: () => props.data,
+  onSuccess: () => emit('success'),
 })
-
-const visible = ref(false)
-const submitLoading = ref(false)
-const formRef = ref<FormInstance>()
-const form = reactive(createEmptyForm())
-
-const resetForm = () => {
-  Object.assign(form, createEmptyForm())
-  formRef.value?.clearValidate()
-}
-
-const rules: FormRules = {
-  name: [{ required: true, message: '请输入字典名称', trigger: 'blur' }],
-  code: [{ required: true, message: '请输入字典编码', trigger: 'blur' }],
-  status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-}
-
-watch(
-  () => props.modelValue,
-  v => (visible.value = v),
-)
-
-watch(visible, v => {
-  emit('update:modelValue', v)
-  if (!v) resetForm()
-})
-
-watch(
-  () => props.data,
-  v => {
-    if (v) {
-      Object.assign(form, createEmptyForm(), v)
-    } else {
-      resetForm()
-    }
-  },
-  { immediate: true },
-)
-
-const submit = async () => {
-  if (!formRef.value) return
-  await formRef.value.validate(async valid => {
-    if (!valid) return
-    submitLoading.value = true
-    try {
-      await new Promise(resolve => setTimeout(resolve, 300))
-      ElMessage.success(form.id ? '更新成功' : '创建成功')
-      emit('success')
-      visible.value = false
-    } finally {
-      submitLoading.value = false
-    }
-  })
-}
-
-const handleBeforeClose = (done: () => void) => {
-  ElMessageBox.confirm('确认关闭？未保存数据将丢失', '提示', {
-    type: 'warning',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-  })
-    .then(() => done())
-    .catch(() => {})
-}
 </script>
 
 <style scoped lang="scss">

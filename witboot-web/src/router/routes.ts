@@ -34,12 +34,6 @@ export const routes: RouteRecordRaw[] = [
         meta: { title: '部门管理' },
       },
       {
-        path: '/department',
-        name: 'department',
-        component: () => import('@/views/department/index.vue'),
-        meta: { title: '部门管理' },
-      },
-      {
         path: '/menu',
         name: 'menu',
         component: () => import('@/views/menu/index.vue'),

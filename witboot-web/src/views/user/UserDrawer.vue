@@ -76,121 +76,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
-import { register, updateUserInfo } from '@/api/user'
+import { useUserDrawerForm } from '@/composables/useUserDrawerForm'
 
 /* ================= props / emits ================= */
 
 const props = defineProps<{
-  modelValue: boolean
-  data: any | null
+  data: {
+    id?: number
+    username?: string
+    name?: string
+    password?: string
+    rePassword?: string
+    mobile?: string
+    gender?: '' | '1' | '2'
+    birthday?: string
+    description?: string
+  } | null
 }>()
+
+const visible = defineModel<boolean>({ required: true })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', v: boolean): void
-  (e: 'success'): void
+  (_e: 'success'): void
 }>()
 
-/* ================= 表单工厂 ================= */
-
-const createEmptyForm = () => ({
-  id: undefined as number | undefined,
-  username: '',
-  name: '',
-  password: '',
-  rePassword: '',
-  mobile: '',
-  gender: '',
-  birthday: '',
-  description: '',
+const { submitLoading, formRef, form, rules, submit, handleBeforeClose } = useUserDrawerForm({
+  visible,
+  data: () => props.data,
+  onSuccess: () => emit('success'),
 })
-
-/* ================= state ================= */
-
-const visible = ref(false)
-const submitLoading = ref(false)
-const formRef = ref<FormInstance>()
-const form = reactive(createEmptyForm())
-
-/* ================= 表单方法（必须在 watch 之前） ================= */
-
-const resetForm = () => {
-  Object.assign(form, createEmptyForm())
-  formRef.value?.clearValidate()
-}
-
-/* ================= 校验规则 ================= */
-
-const rules: FormRules = {
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  rePassword: [
-    {
-      validator: (_, value, cb) =>
-        value === form.password ? cb() : cb(new Error('两次密码不一致')),
-      trigger: 'blur',
-    },
-  ],
-  mobile: [{ pattern: /^1[3-9]\d{9}$/, message: '手机号格式错误' }],
-  gender: [{ required: true, message: '请选择性别', trigger: 'change' }],
-}
-
-/* ================= watch ================= */
-
-watch(
-  () => props.modelValue,
-  v => (visible.value = v),
-)
-
-watch(visible, v => {
-  emit('update:modelValue', v)
-  if (!v) resetForm()
-})
-
-watch(
-  () => props.data,
-  v => {
-    if (v) {
-      Object.assign(form, createEmptyForm(), v)
-      form.password = ''
-      form.rePassword = ''
-    } else {
-      resetForm()
-    }
-  },
-  { immediate: true },
-)
-
-/* ================= actions ================= */
-
-const submit = async () => {
-  if (!formRef.value) return
-  await formRef.value.validate(async valid => {
-    if (!valid) return
-    submitLoading.value = true
-    try {
-      await (form.id ? updateUserInfo : register)(form)
-      ElMessage.success(form.id ? '更新成功' : '创建成功')
-      emit('success')
-      visible.value = false
-    } finally {
-      submitLoading.value = false
-    }
-  })
-}
-
-const handleBeforeClose = (done: () => void) => {
-  ElMessageBox.confirm('确认关闭？未保存数据将丢失', '提示', {
-    type: 'warning',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-  })
-    .then(() => done())
-    .catch(() => {})
-}
 </script>
 
 <style scoped lang="scss">

@@ -28,7 +28,7 @@ export const selectOperationLogList = (params = {}) => {
  * @param id 请求参数
  * @returns Promise
  */
-export const operationLogInfo = (id: any) => {
+export const operationLogInfo = (id: string | number) => {
   const url = BASE_URL + OPERATION_LOG_API.INFO + '/' + id
 
   return GET(

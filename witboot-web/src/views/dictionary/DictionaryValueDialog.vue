@@ -34,99 +34,37 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
-
-type DictionaryValueForm = {
-  id?: number
-  label: string
-  value: string
-  status: '启用' | '停用'
-}
+import { useDictionaryValueDialogForm } from '@/composables/useDictionaryValueDialogForm'
 
 const props = defineProps<{
-  modelValue: boolean
-  data?: Partial<DictionaryValueForm> | null
+  data?: {
+    id?: number
+    label?: string
+    value?: string
+    status?: '启用' | '停用'
+  } | null
 }>()
+
+const visible = defineModel<boolean>({ required: true })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'success', payload: DictionaryValueForm): void
+  (
+    _e: 'success',
+    _payload: {
+      id?: number
+      label: string
+      value: string
+      status: '启用' | '停用'
+    },
+  ): void
 }>()
 
-const createEmptyForm = (): DictionaryValueForm => ({
-  id: undefined,
-  label: '',
-  value: '',
-  status: '启用',
-})
-
-const visible = ref(false)
-const submitLoading = ref(false)
-const formRef = ref<FormInstance>()
-const form = reactive(createEmptyForm())
-
-const rules: FormRules = {
-  label: [{ required: true, message: '请输入显示名称', trigger: 'blur' }],
-  value: [{ required: true, message: '请输入字典值', trigger: 'blur' }],
-  status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-}
-
-const resetForm = () => {
-  Object.assign(form, createEmptyForm())
-  formRef.value?.clearValidate()
-}
-
-watch(
-  () => props.modelValue,
-  value => {
-    visible.value = value
-  }
-)
-
-watch(visible, value => {
-  emit('update:modelValue', value)
-  if (!value) resetForm()
-})
-
-watch(
-  () => props.data,
-  value => {
-    if (value) {
-      Object.assign(form, createEmptyForm(), value)
-    } else {
-      resetForm()
-    }
-  },
-  { immediate: true }
-)
-
-const handleSubmit = async () => {
-  if (!formRef.value) return
-  await formRef.value.validate(async valid => {
-    if (!valid) return
-    submitLoading.value = true
-    try {
-      await new Promise(resolve => setTimeout(resolve, 250))
-      emit('success', { ...form })
-      ElMessage.success(form.id ? '更新成功' : '创建成功')
-      visible.value = false
-    } finally {
-      submitLoading.value = false
-    }
+const { submitLoading, formRef, form, rules, handleSubmit, handleBeforeClose } =
+  useDictionaryValueDialogForm({
+    visible,
+    data: () => props.data,
+    onSuccess: payload => emit('success', payload),
   })
-}
-
-const handleBeforeClose = (done: () => void) => {
-  ElMessageBox.confirm('确认关闭？未保存数据将丢失', '提示', {
-    type: 'warning',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-  })
-    .then(() => done())
-    .catch(() => {})
-}
 </script>
 
 <style scoped lang="scss">

@@ -116,176 +116,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
-import { selectOperationLogList, operationLogInfo, deleteOperationLog } from '@/api/operationLog.ts'
-import { debounce } from 'lodash-es'
+import { useOperationLogList } from '@/composables/useOperationLogList'
 import { Delete, Search, Refresh } from '@element-plus/icons-vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
 import OperationLogDetail from './OperationLogDetail.vue'
-
-interface OperationLog {
-  id: number
-  ip: string
-  location: string
-  method: string
-  uri: string
-  requestTime: string
-  wasteTime: string
-  requestParam: string
-  requestBody: string
-  responseResult: string
-}
-
-// 常量
-const METHOD_OPTIONS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
-const PAGE_SIZES = [10, 20, 30]
-
-// 表格 & 状态
-const multipleTableRef = ref<InstanceType<typeof ElTable>>()
-const tableData = ref<OperationLog[]>([])
-const selectedRows = ref<OperationLog[]>([])
-const selectedIds = ref<number[]>([])
-const tableLoading = ref(false)
-const dialog = ref(false)
-const currentRow = ref<OperationLog | null>(null)
-
-// 搜索表单 & 分页
-const queryForm = reactive({
-  keyword: '',
-  method: '',
-})
-
-const pagination = reactive({
-  currentPage: 1,
-  pageSize: 10,
-  total: 0,
-})
-
-// 选择框选中行操作
-const handleSelectionChange = (selection: OperationLog[]) => {
-  selectedRows.value = selection
-  selectedIds.value = selection.map(item => item.id)
-}
-
-// 获取请求方法类型
-const getMethodType = (method: string) => {
-  const typeMap: Record<string, string> = {
-    GET: 'success',
-    POST: 'primary',
-    PUT: 'warning',
-    DELETE: 'danger',
-    PATCH: 'warning',
-    HEAD: 'info',
-    OPTIONS: 'info',
-  }
-  return typeMap[method] || 'info'
-}
-
-// 获取耗时类型
-const getWasteTimeType = (time: string) => {
-  const num = parseInt(time) || 0
-  if (num < 100) return 'success'
-  if (num < 500) return 'warning'
-  return 'danger'
-}
-
-// 搜索触发
-const fetchData = async () => {
-  tableLoading.value = true
-  try {
-    const res = await selectOperationLogList({
-      pageNo: pagination.currentPage,
-      pageSize: pagination.pageSize,
-      searchKeyword: queryForm.keyword,
-      method: queryForm.method,
-    })
-    tableData.value = res.data.list
-    pagination.total = res.data.total
-  } catch (error) {
-    console.error('Failed to fetch data:', error)
-    ElMessage.error('数据获取失败')
-  } finally {
-    tableLoading.value = false
-  }
-}
-
-// 防抖搜索
-const debouncedSearch = debounce(fetchData, 300)
-
-const handleSearch = () => {
-  pagination.currentPage = 1
-  debouncedSearch()
-}
-
-const handleReset = () => {
-  queryForm.keyword = ''
-  queryForm.method = ''
-  pagination.currentPage = 1
-  fetchData()
-}
-
-// 批量删除
-const handleBatchDelete = () => {
-  if (selectedIds.value.length === 0) {
-    ElMessage.warning('请先选择要删除的操作日志')
-    return
-  }
-
-  ElMessageBox.confirm(
-    `确定要删除选中的${selectedIds.value.length}条操作日志吗？此操作不可恢复！`,
-    '删除确认',
-    {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'error',
-      draggable: true,
-    },
-  )
-    .then(async () => {
-      try {
-        const res = await deleteOperationLog({ ids: selectedIds.value })
-        if (res.code === 200) {
-          ElMessage.success('批量删除成功')
-          await fetchData()
-        } else {
-          ElMessage.error(res.message || '批量删除失败')
-        }
-      } catch (error) {
-        console.error('Batch delete error:', error)
-        ElMessage.error('批量删除失败')
-      }
-    })
-    .catch(() => {
-      ElMessage.info('已取消删除')
-    })
-}
-
-// 分页事件
-const handlePageSizeChange = (size: number) => {
-  pagination.pageSize = size
-  fetchData()
-}
-
-const handleCurrentPageChange = (page: number) => {
-  pagination.currentPage = page
-  fetchData()
-}
-
-// 详情
-const handleDetail = async (row: OperationLog) => {
-  try {
-    const res = await operationLogInfo(row.id)
-    currentRow.value = res.data
-    dialog.value = true
-  } catch (error) {
-    console.error('Failed to fetch detail:', error)
-    ElMessage.error('获取详情失败')
-  }
-}
-
-// 初始化
-onMounted(() => fetchData())
-onUnmounted(() => debouncedSearch.cancel())
+const {
+  METHOD_OPTIONS,
+  PAGE_SIZES,
+  multipleTableRef,
+  tableData,
+  selectedIds,
+  tableLoading,
+  dialog,
+  currentRow,
+  queryForm,
+  pagination,
+  handleSelectionChange,
+  getMethodType,
+  getWasteTimeType,
+  handleSearch,
+  handleReset,
+  handleBatchDelete,
+  handlePageSizeChange,
+  handleCurrentPageChange,
+  handleDetail,
+} = useOperationLogList()
 </script>
 
 <style scoped lang="scss">

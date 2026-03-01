@@ -66,106 +66,44 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref, watch } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import type { FormInstance, FormRules } from 'element-plus'
-
-type MenuForm = {
-  id?: number
-  name: string
-  path: string
-  component: string
-  sort: number
-  icon: string
-  status: '启用' | '停用'
-  description: string
-}
+import { useMenuDrawerForm } from '@/composables/useMenuDrawerForm'
 
 const props = defineProps<{
-  modelValue: boolean
-  data?: Partial<MenuForm> | null
+  data?: {
+    id?: number
+    name?: string
+    path?: string
+    component?: string
+    sort?: number
+    icon?: string
+    status?: '启用' | '停用'
+    description?: string
+  } | null
 }>()
+
+const visible = defineModel<boolean>({ required: true })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'success', payload: MenuForm): void
+  (
+    _e: 'success',
+    _payload: {
+      id?: number
+      name: string
+      path: string
+      component: string
+      sort: number
+      icon: string
+      status: '启用' | '停用'
+      description: string
+    },
+  ): void
 }>()
 
-const createEmptyForm = (): MenuForm => ({
-  id: undefined,
-  name: '',
-  path: '',
-  component: '',
-  sort: 1,
-  icon: '',
-  status: '启用',
-  description: '',
+const { submitLoading, formRef, form, rules, submit, handleBeforeClose } = useMenuDrawerForm({
+  visible,
+  data: () => props.data,
+  onSuccess: payload => emit('success', payload),
 })
-
-const visible = ref(false)
-const submitLoading = ref(false)
-const formRef = ref<FormInstance>()
-const form = reactive(createEmptyForm())
-
-const rules: FormRules = {
-  name: [{ required: true, message: '请输入菜单名称', trigger: 'blur' }],
-  path: [{ required: true, message: '请输入菜单路径', trigger: 'blur' }],
-  component: [{ required: true, message: '请输入组件地址', trigger: 'blur' }],
-  status: [{ required: true, message: '请选择状态', trigger: 'change' }],
-}
-
-const resetForm = () => {
-  Object.assign(form, createEmptyForm())
-  formRef.value?.clearValidate()
-}
-
-watch(
-  () => props.modelValue,
-  value => (visible.value = value)
-)
-
-watch(visible, value => {
-  emit('update:modelValue', value)
-  if (!value) resetForm()
-})
-
-watch(
-  () => props.data,
-  value => {
-    if (value) {
-      Object.assign(form, createEmptyForm(), value)
-    } else {
-      resetForm()
-    }
-  },
-  { immediate: true }
-)
-
-const submit = async () => {
-  if (!formRef.value) return
-  await formRef.value.validate(async valid => {
-    if (!valid) return
-    submitLoading.value = true
-    try {
-      await new Promise(resolve => setTimeout(resolve, 300))
-      emit('success', { ...form })
-      ElMessage.success(form.id ? '更新成功' : '创建成功')
-      visible.value = false
-    } finally {
-      submitLoading.value = false
-    }
-  })
-}
-
-const handleBeforeClose = (done: () => void) => {
-  ElMessageBox.confirm('确认关闭？未保存数据将丢失', '提示', {
-    type: 'warning',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-  })
-    .then(() => done())
-    .catch(() => {})
-}
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,9 @@
-import axios, { type AxiosResponse, type InternalAxiosRequestConfig, type Method } from 'axios'
+import axios, {
+  type AxiosError,
+  type AxiosResponse,
+  type InternalAxiosRequestConfig,
+  type Method,
+} from 'axios'
 import { clearAccessToken, getAccessToken } from './auth'
 import { TOKEN_ERROR_CODE } from './responseCode'
 import type { RequestConfig, ResponseDataType } from './request.d'
@@ -21,7 +26,7 @@ instance.interceptors.request.use(requestAuth, error => Promise.reject(error))
  * 请求开始前的检查
  */
 function requestAuth(
-  config: InternalAxiosRequestConfig & RequestConfig,
+  config: InternalAxiosRequestConfig & { isToken?: boolean },
 ): InternalAxiosRequestConfig {
   if (config.headers && config.isToken) {
     const token = getAccessToken()
@@ -58,7 +63,7 @@ function request<T>(
   data: Record<string, unknown> = {},
   config: RequestConfig = {},
   method: Method,
-): Promise<T> {
+): Promise<ResponseDataType<T>> {
   const cleanData = Object.fromEntries(
     Object.entries(data).filter(([, value]) => value !== null && value !== undefined),
   )
@@ -90,7 +95,7 @@ function checkResponse<T>(data: ResponseDataType<T>) {
 /**
  * 响应错误
  */
-function responseError(error: any) {
+function responseError(error: unknown) {
   if (!error) {
     return Promise.reject({ reason: '未知错误' })
   }
@@ -98,24 +103,33 @@ function responseError(error: any) {
     return Promise.reject({ reason: error })
   }
 
-  if (error.response) {
+  if (axios.isAxiosError(error)) {
     // 有报错响应
     const response = error.response
+    const responseData = (response?.data ?? {}) as { code?: number; reason?: string }
 
-    if (response.status == 403) {
+    if (response?.status === 403) {
       ElMessage.error('登录信息已过期，请重新登录')
       clearAccessToken()
       router.replace('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
 
-    if (response.data.code in TOKEN_ERROR_CODE) {
+    if (typeof responseData.code === 'number' && responseData.code in TOKEN_ERROR_CODE) {
       clearAccessToken()
       router.replace('/login')
       return Promise.reject({ reason: '登录信息已过期，请重新登录' })
     }
 
-    return Promise.reject({ reason: response.data.reason })
+    return Promise.reject({ reason: responseData.reason ?? '请求失败' })
+  }
+
+  if (error instanceof Error) {
+    const axiosError = error as AxiosError
+    return Promise.reject({
+      ...axiosError,
+      reason: error.message || '网络出错啦，请检查您的网络或更换浏览器重试',
+    })
   }
 
   return Promise.reject({
@@ -131,18 +145,34 @@ function responseError(error: any) {
  * @param {object} config
  * @returns
  */
-export function GET<T>(url: string, params: Record<string, unknown> = {}, config: RequestConfig = {}) {
+export function GET<T = unknown>(
+  url: string,
+  params: Record<string, unknown> = {},
+  config: RequestConfig = {},
+) {
   return request<T>(url, params, config, 'GET')
 }
 
-export function POST<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+export function POST<T = unknown>(
+  url: string,
+  data: Record<string, unknown> = {},
+  config: RequestConfig = {},
+) {
   return request<T>(url, data, config, 'POST')
 }
 
-export function PUT<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+export function PUT<T = unknown>(
+  url: string,
+  data: Record<string, unknown> = {},
+  config: RequestConfig = {},
+) {
   return request<T>(url, data, config, 'PUT')
 }
 
-export function DELETE<T>(url: string, data: Record<string, unknown> = {}, config: RequestConfig = {}) {
+export function DELETE<T = unknown>(
+  url: string,
+  data: Record<string, unknown> = {},
+  config: RequestConfig = {},
+) {
   return request<T>(url, data, config, 'DELETE')
 }

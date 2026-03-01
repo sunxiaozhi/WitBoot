@@ -1,6 +1,7 @@
 import js from '@eslint/js'
 import pluginVue from 'eslint-plugin-vue'
-import tseslint from 'typescript-eslint'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 import vueParser from 'vue-eslint-parser'
 
 export default [
@@ -11,7 +12,22 @@ export default [
 
   js.configs.recommended,
   ...pluginVue.configs['flat/essential'],
-  ...tseslint.configs.recommended,
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
+      }
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules
+    }
+  },
 
   {
     files: ['**/*.{ts,tsx,js,jsx,vue}'],
@@ -33,7 +49,7 @@ export default [
     languageOptions: {
       parser: vueParser,
       parserOptions: {
-        parser: tseslint.parser,
+        parser: tsParser,
         ecmaVersion: 'latest',
         sourceType: 'module'
       }
@@ -43,7 +59,7 @@ export default [
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
-      parser: tseslint.parser,
+      parser: tsParser,
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module'
@@ -57,7 +73,7 @@ export default [
       'no-undef': 'off',
       'vue/multi-word-component-names': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
     }
   }
 ]

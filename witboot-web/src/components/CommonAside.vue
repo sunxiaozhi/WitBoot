@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, type Component } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import { useMenuTabsStore } from '@/stores/menuTabsStore'
@@ -82,8 +82,15 @@ const isCollapse = computed(() => menuCollapseStore.isCollapse)
 const asideWidth = computed(() => (isCollapse.value ? '64px' : '240px'))
 const activeMenu = computed(() => route.path)
 
+interface MenuItem {
+  index: string
+  icon: Component
+  title: string
+  children?: MenuItem[]
+}
+
 // 完全配置化菜单（推荐后续都走这里维护）
-const menuList = [
+const menuList: MenuItem[] = [
   { index: '/home', icon: HomeFilled, title: '首页' },
   {
     index: '2',

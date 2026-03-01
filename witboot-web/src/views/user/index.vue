@@ -111,104 +111,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { selectUserList, deleteUser } from '@/api/user'
+import { useUserList } from '@/composables/useUserList'
 import UserDrawer from './UserDrawer.vue'
 import { Search, Refresh, Plus, Delete } from '@element-plus/icons-vue'
 
-interface User {
-  id: number
-  username: string
-  name: string
-  mobile: string
-  gender: '1' | '2'
-  birthday: string
-  description: string
-}
-
-const queryForm = reactive({ keyword: '' })
-const pagination = reactive({ currentPage: 1, pageSize: 10, total: 0 })
-
-const tableData = ref<User[]>([])
-const tableLoading = ref(false)
-const searchLoading = ref(false)
-
-const selectedIds = ref<number[]>([])
-const drawerVisible = ref(false)
-const currentUser = ref<Partial<User> | null>(null)
-
-const fetchData = async () => {
-  tableLoading.value = true
-  const res = await selectUserList({
-    pageNo: pagination.currentPage,
-    pageSize: pagination.pageSize,
-    keyword: queryForm.keyword,
-  })
-  tableData.value = res.data.list
-  pagination.total = res.data.total
-  tableLoading.value = false
-}
-
-const handleSearch = () => {
-  pagination.currentPage = 1
-  fetchData()
-}
-
-const handleReset = () => {
-  queryForm.keyword = ''
-  fetchData()
-}
-
-const handleAdd = () => {
-  currentUser.value = null
-  drawerVisible.value = true
-}
-
-const handleEdit = (row: User) => {
-  currentUser.value = { ...row }
-  drawerVisible.value = true
-}
-
-const handleSelectionChange = (rows: User[]) => {
-  selectedIds.value = rows.map(r => r.id)
-}
-
-const handleDelete = (row: User) => {
-  ElMessageBox.confirm(`确认删除 ${row.name}？`, '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  }).then(async () => {
-    await deleteUser({ ids: [row.id] })
-    ElMessage.success('删除成功')
-    fetchData()
-  })
-}
-
-const handleBatchDelete = () => {
-  ElMessageBox.confirm('确认批量删除？', '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning',
-  }).then(async () => {
-    await deleteUser({ ids: selectedIds.value })
-    ElMessage.success('删除成功')
-    fetchData()
-  })
-}
-
-const handlePageSizeChange = (size: number) => {
-  pagination.pageSize = size
-  fetchData()
-}
-
-const handleCurrentPageChange = (page: number) => {
-  pagination.currentPage = page
-  fetchData()
-}
-
-onMounted(fetchData)
+const {
+  queryForm,
+  pagination,
+  tableData,
+  tableLoading,
+  searchLoading,
+  selectedIds,
+  drawerVisible,
+  currentUser,
+  fetchData,
+  handleSearch,
+  handleReset,
+  handleAdd,
+  handleEdit,
+  handleSelectionChange,
+  handleDelete,
+  handleBatchDelete,
+  handlePageSizeChange,
+  handleCurrentPageChange,
+} = useUserList()
 </script>
 
 <style scoped lang="scss">

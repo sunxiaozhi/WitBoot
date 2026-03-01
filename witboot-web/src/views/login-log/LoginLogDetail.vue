@@ -43,8 +43,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-
 interface LoginLogDetail {
   ip: string
   userName: string
@@ -56,23 +54,11 @@ interface LoginLogDetail {
   loginTime: string
 }
 
-const props = defineProps<{
-  modelValue: boolean
+defineProps<{
   data: LoginLogDetail | null
 }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', v: boolean): void
-}>()
-
-const visible = ref(false)
-
-watch(
-  () => props.modelValue,
-  v => (visible.value = v),
-)
-
-watch(visible, v => emit('update:modelValue', v))
+const visible = defineModel<boolean>({ required: true })
 </script>
 
 <style scoped lang="scss">
