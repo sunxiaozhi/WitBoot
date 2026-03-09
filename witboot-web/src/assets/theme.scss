@@ -1,0 +1,51 @@
+:root,
+:root[data-theme='indigo'] {
+  --wb-color-primary: #667eea;
+  --wb-color-primary-dark: #764ba2;
+  --wb-color-primary-soft: rgba(102, 126, 234, 0.05);
+  --wb-color-primary-soft-hover: rgba(102, 126, 234, 0.1);
+  --wb-color-primary-soft-strong: rgba(102, 126, 234, 0.12);
+  --wb-color-primary-tag-bg: rgba(102, 126, 234, 0.1);
+  --wb-color-primary-tag-border: rgba(102, 126, 234, 0.2);
+  --wb-color-primary-shadow: rgba(102, 126, 234, 0.3);
+  --wb-color-page-bg: #f5f7fa;
+  --wb-color-page-bg-soft: #f8fafc;
+  --wb-color-card-bg: #ffffff;
+  --wb-color-card-bg-muted: #fafafa;
+  --wb-color-card-bg-hover: #fef0f0;
+  --wb-color-text-primary: #1f2937;
+  --wb-color-text-regular: #374151;
+  --wb-color-text-secondary: #6b7280;
+  --wb-color-text-placeholder: #9ca3af;
+  --wb-color-text-body: #606266;
+  --wb-color-border: #e5e7eb;
+  --wb-color-border-soft: #eef2f7;
+  --wb-color-border-muted: #f0f0f0;
+  --wb-color-border-focus: #cbd5f5;
+  --wb-color-danger: #f56c6c;
+  --wb-color-danger-soft: rgba(245, 108, 108, 0.2);
+  --wb-gradient-primary: linear-gradient(135deg, var(--wb-color-primary) 0%, var(--wb-color-primary-dark) 100%);
+  --wb-gradient-aside: linear-gradient(180deg, var(--wb-color-primary) 0%, var(--wb-color-primary-dark) 100%);
+  --wb-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.06);
+  --wb-shadow-card-strong: 0 4px 12px var(--wb-color-primary-shadow);
+  --wb-shadow-danger: 0 4px 12px var(--wb-color-danger-soft);
+  --wb-shadow-layout: 2px 0 8px rgba(0, 0, 0, 0.08);
+  --wb-radius-card: 10px;
+  --wb-radius-medium: 8px;
+  --wb-radius-large: 12px;
+  --wb-transition-base: all 0.3s;
+  --el-color-primary: var(--wb-color-primary);
+  --el-border-radius-base: var(--wb-radius-medium);
+}
+
+:root[data-theme='emerald'] {
+  --wb-color-primary: #0f9d7a;
+  --wb-color-primary-dark: #0b6e63;
+  --wb-color-primary-soft: rgba(15, 157, 122, 0.06);
+  --wb-color-primary-soft-hover: rgba(15, 157, 122, 0.12);
+  --wb-color-primary-soft-strong: rgba(15, 157, 122, 0.16);
+  --wb-color-primary-tag-bg: rgba(15, 157, 122, 0.12);
+  --wb-color-primary-tag-border: rgba(15, 157, 122, 0.22);
+  --wb-color-primary-shadow: rgba(15, 157, 122, 0.28);
+  --el-color-primary: var(--wb-color-primary);
+}

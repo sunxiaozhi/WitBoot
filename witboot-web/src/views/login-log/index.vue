@@ -1,13 +1,13 @@
 <template>
-  <div class="login-log-container">
+  <div class="login-log-container admin-page">
     <!-- 搜索框 -->
-    <div class="search-container">
+    <div class="search-container admin-search-card">
       <div class="search-bar">
         <el-input
           v-model="queryForm.keyword"
           placeholder="搜索 IP 地址"
           clearable
-          class="search-input"
+          class="search-input admin-input-theme"
           @keyup.enter="handleSearch"
         >
           <template #prefix>
@@ -18,7 +18,7 @@
           v-model="queryForm.method"
           placeholder="请求方法"
           clearable
-          class="method-select"
+          class="method-select admin-input-theme"
         >
           <el-option v-for="item in METHOD_OPTIONS" :key="item" :label="item" :value="item" />
         </el-select>
@@ -27,7 +27,7 @@
             type="primary"
             @click="handleSearch"
             :loading="tableLoading"
-            class="search-button"
+            class="search-button admin-btn-primary"
           >
             <el-icon><Search /></el-icon>
             搜索
@@ -35,7 +35,7 @@
           <el-button
             @click="handleReset"
             :disabled="!queryForm.keyword && !queryForm.method"
-            class="reset-button"
+            class="reset-button admin-btn-secondary"
             circle
           >
             <el-icon><Refresh /></el-icon>
@@ -45,27 +45,26 @@
     </div>
 
     <!-- 登录按钮区域 -->
-    <div class="option-container">
-      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete" class="delete-button">
+    <div class="option-container admin-toolbar">
+      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete" class="delete-button admin-btn-danger">
         <el-icon><Delete /></el-icon>
         批量删除
       </el-button>
     </div>
 
     <!-- 表格 -->
-    <div class="table-wrapper">
+    <div class="table-wrapper admin-table-card">
       <el-table
         ref="multipleTableRef"
         :data="tableData"
         row-key="id"
-        :header-cell-style="{ background: '#f8fafc', color: '#374151' }"
-        :row-style="{ color: '#606266' }"
+        :header-cell-class-name="() => 'admin-table-header-cell'"
         stripe
         style="width: 100%"
         element-loading-text="数据加载中..."
         @selection-change="handleSelectionChange"
         v-loading="tableLoading"
-        class="login-log-table"
+        class="login-log-table admin-table-theme"
       >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="ip" label="IP 地址" min-width="130" />
@@ -93,7 +92,7 @@
     </div>
 
     <!-- 分页 -->
-    <div class="pagination-container">
+    <div class="pagination-container admin-pagination-card">
       <el-pagination
         v-model:current-page="pagination.currentPage"
         v-model:page-size="pagination.pageSize"
@@ -101,6 +100,7 @@
         :page-sizes="PAGE_SIZES"
         layout="total, sizes, prev, pager, next, jumper"
         background
+        class="admin-pagination-theme"
         @size-change="handlePageSizeChange"
         @current-change="handleCurrentPageChange"
       />
@@ -138,26 +138,7 @@ const {
 </script>
 
 <style scoped lang="scss">
-.login-log-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 16px;
-  gap: 12px;
-  background: #f5f7fa;
-
-  --card-radius: 10px;
-  --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  --hover-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  --button-transition: all 0.3s;
-}
-
 .search-container {
-  padding: 12px 16px;
-  background: #fff;
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-
   .search-bar {
     display: grid;
     grid-template-columns: minmax(220px, 320px) minmax(140px, 180px) auto;
@@ -167,40 +148,10 @@ const {
 
   .search-input {
     width: 100%;
-
-    :deep(.el-input__wrapper) {
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-      box-shadow: none;
-      transition: border-color 0.3s;
-
-      &:hover {
-        border-color: #cbd5f5;
-      }
-
-      &.is-focus {
-        border-color: #667eea;
-      }
-    }
   }
 
   .method-select {
     width: 100%;
-
-    :deep(.el-input__wrapper) {
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-      box-shadow: none;
-      transition: border-color 0.3s;
-
-      &:hover {
-        border-color: #cbd5f5;
-      }
-
-      &.is-focus {
-        border-color: #667eea;
-      }
-    }
   }
 
   .search-actions {
@@ -211,144 +162,18 @@ const {
   }
 
   .search-button {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border: none;
     min-width: 56px;
     padding: 6px 12px;
-    font-weight: 500;
-    transition: var(--button-transition);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--hover-shadow);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-
-  .reset-button {
-    border: 1px solid #dcdfe6;
-    color: #606266;
-    background: #fff;
-    transition: var(--button-transition);
-
-    &:hover {
-      color: #667eea;
-      border-color: #667eea;
-      background: rgba(102, 126, 234, 0.05);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
 }
 
 .option-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 0 4px;
-
   .delete-button {
-    border: 1px solid #f56c6c;
-    color: #f56c6c;
-    background: #fff;
     padding: 8px 16px;
-    font-weight: 500;
-    transition: var(--button-transition);
-
-    &:hover {
-      background: #fef0f0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(245, 108, 108, 0.2);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
   }
 }
 
 .table-wrapper {
-  flex: 1;
-  min-height: 0;
-  background: #fff;
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-  overflow: auto;
-
-  .login-log-table {
-    height: 100%;
-
-    :deep(.el-table__cell) {
-      padding: 8px 0;
-    }
-
-    :deep(.el-table__body tr) {
-      height: 40px;
-    }
-
-    :deep(.el-table__header-wrapper) {
-      border-radius: 12px 12px 0 0;
-    }
-
-    :deep(.el-table__inner-wrapper) {
-      &::before {
-        display: none;
-      }
-    }
-
-    :deep(.el-table__border-left-patch) {
-      display: none;
-    }
-  }
-}
-
-.pagination-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 16px;
-  background: #fff;
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
-
-  :deep(.el-pagination) {
-    --el-pagination-button-height: 28px;
-    --el-pagination-item-height: 28px;
-
-    .btn-prev,
-    .btn-next {
-      border-radius: 8px;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #667eea;
-      }
-    }
-
-    .el-pager li {
-      border-radius: 8px;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #667eea;
-      }
-    }
-
-    .el-pager li.is-active {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: #fff;
-    }
-  }
 }
 
 </style>

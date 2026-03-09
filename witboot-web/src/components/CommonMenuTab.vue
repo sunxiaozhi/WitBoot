@@ -98,8 +98,8 @@ watch(
 
 <style lang="scss" scoped>
 .menu-tabs-wrapper {
-  background: #fff;
-  border-bottom: 1px solid #eef2f7;
+  background: var(--wb-color-card-bg);
+  border-bottom: 1px solid var(--wb-color-border-soft);
   padding: 6px 16px 0 16px;
   display: flex;
   flex-direction: column;
@@ -134,17 +134,17 @@ watch(
       height: 36px;
       line-height: 36px;
       font-size: 13px;
-      color: #606266;
+      color: var(--wb-color-text-body);
       transition: color 0.2s, background 0.2s;
 
       &:hover {
-        color: #1f2937;
+        color: var(--wb-color-text-primary);
         background: rgba(31, 41, 55, 0.04);
         border-radius: 6px;
       }
 
       &.is-active {
-        color: #1f2937;
+        color: var(--wb-color-text-primary);
         font-weight: 600;
         position: relative;
 
@@ -155,7 +155,7 @@ watch(
           right: 10px;
           bottom: 2px;
           height: 2px;
-          background: #1f2937;
+          background: var(--wb-color-text-primary);
           border-radius: 2px;
         }
       }
@@ -171,7 +171,7 @@ watch(
 
       &:hover {
         background: rgba(31, 41, 55, 0.08);
-        color: #1f2937;
+        color: var(--wb-color-text-primary);
       }
     }
   }
@@ -182,7 +182,7 @@ watch(
   height: 100%;
   min-height: 0;
   padding: 2px;
-  background: #f5f7fa;
+  background: var(--wb-color-page-bg);
   overflow: auto;
 }
 </style>

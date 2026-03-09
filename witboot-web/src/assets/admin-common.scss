@@ -1,0 +1,171 @@
+.admin-page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 12px;
+  background: var(--wb-color-page-bg);
+}
+
+.admin-card {
+  background: var(--wb-color-card-bg);
+  border-radius: var(--wb-radius-card);
+  box-shadow: var(--wb-shadow-card);
+}
+
+.admin-search-card,
+.admin-table-card,
+.admin-pagination-card,
+.admin-panel {
+  @extend .admin-card;
+}
+
+.admin-search-card {
+  padding: 12px 16px;
+}
+
+.admin-table-card {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.admin-pagination-card {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 16px;
+}
+
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px;
+}
+
+.admin-input-theme {
+  :deep(.el-input__wrapper),
+  :deep(.el-select__wrapper) {
+    border-radius: var(--wb-radius-medium);
+    border: 1px solid var(--wb-color-border);
+    box-shadow: none;
+    transition: border-color 0.3s;
+  }
+
+  :deep(.el-input__wrapper:hover),
+  :deep(.el-select__wrapper:hover) {
+    border-color: var(--wb-color-border-focus);
+  }
+
+  :deep(.el-input__wrapper.is-focus),
+  :deep(.el-select__wrapper.is-focused) {
+    border-color: var(--wb-color-primary);
+  }
+
+  :deep(.el-input__inner::placeholder) {
+    color: var(--wb-color-text-placeholder);
+  }
+}
+
+.admin-btn-primary {
+  background: var(--wb-gradient-primary);
+  border: none;
+  font-weight: 500;
+  transition: var(--wb-transition-base);
+}
+
+.admin-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--wb-shadow-card-strong);
+}
+
+.admin-btn-primary:active {
+  transform: translateY(0);
+}
+
+.admin-btn-secondary {
+  border: 1px solid #dcdfe6;
+  color: var(--wb-color-text-body);
+  background: var(--wb-color-card-bg);
+  transition: var(--wb-transition-base);
+}
+
+.admin-btn-secondary:hover {
+  color: var(--wb-color-primary);
+  border-color: var(--wb-color-primary);
+  background: var(--wb-color-primary-soft);
+}
+
+.admin-btn-danger {
+  border: 1px solid var(--wb-color-danger);
+  color: var(--wb-color-danger);
+  background: var(--wb-color-card-bg);
+  font-weight: 500;
+  transition: var(--wb-transition-base);
+}
+
+.admin-btn-danger:hover {
+  background: var(--wb-color-card-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--wb-shadow-danger);
+}
+
+.admin-btn-danger:active {
+  transform: translateY(0);
+}
+
+.admin-btn-danger:disabled,
+.admin-btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-table-theme {
+  height: 100%;
+}
+
+.admin-table-theme :deep(.el-table__cell) {
+  padding: 8px 0;
+}
+
+.admin-table-theme :deep(.el-table__body tr) {
+  height: 40px;
+  color: var(--wb-color-text-body);
+}
+
+.admin-table-theme :deep(.el-table__header-wrapper) {
+  border-radius: var(--wb-radius-large) var(--wb-radius-large) 0 0;
+}
+
+.admin-table-theme :deep(.el-table__inner-wrapper::before),
+.admin-table-theme :deep(.el-table__border-left-patch) {
+  display: none;
+}
+
+.admin-pagination-theme {
+  --el-pagination-button-height: 28px;
+  --el-pagination-item-height: 28px;
+}
+
+.admin-pagination-theme .btn-prev,
+.admin-pagination-theme .btn-next,
+.admin-pagination-theme .el-pager li {
+  border-radius: var(--wb-radius-medium);
+  transition: var(--wb-transition-base);
+}
+
+.admin-pagination-theme .btn-prev:hover,
+.admin-pagination-theme .btn-next:hover,
+.admin-pagination-theme .el-pager li:hover {
+  color: var(--wb-color-primary);
+}
+
+.admin-pagination-theme .el-pager li.is-active {
+  background: var(--wb-gradient-primary);
+  color: #fff;
+}
+
+.admin-table-header-cell {
+  background: var(--wb-color-page-bg-soft);
+  color: var(--wb-color-text-regular);
+}

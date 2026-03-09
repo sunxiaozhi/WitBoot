@@ -4,10 +4,14 @@ body {
   padding: 0;
   height: 100%;
   font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  color: #333;
-  background-color: #fafbfc;
+  color: var(--wb-color-text-primary);
+  background-color: var(--wb-color-page-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  height: 100%;
 }
 
 *,
@@ -20,13 +24,13 @@ body {
 .detail-drawer-theme .el-drawer__header {
   margin-bottom: 6px;
   padding: 20px 24px;
-  border-bottom: 1px solid #eef2f7;
+  border-bottom: 1px solid var(--wb-color-border-soft);
 }
 
 .detail-drawer-theme .el-drawer__title {
   font-size: 18px;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--wb-color-text-primary);
 }
 
 .detail-drawer-theme .el-drawer__body {

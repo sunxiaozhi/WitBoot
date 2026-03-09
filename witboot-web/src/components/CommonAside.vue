@@ -135,12 +135,12 @@ const handleSelect = (path: string) => {
 
 <style lang="scss" scoped>
 .aside {
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  background: var(--wb-gradient-aside);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   transition: width 0.3s ease;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--wb-shadow-layout);
 }
 
 .logo {
@@ -268,7 +268,7 @@ const handleSelect = (path: string) => {
 /* 全局子菜单弹出层样式 - 确保折叠展开时能正确显示 */
 .aside-sub-menu-popper {
   .el-menu {
-    background: linear-gradient(180deg, #667eea 0%, #764ba2 100%) !important;
+    background: var(--wb-gradient-aside) !important;
     border: none;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border-radius: 8px;

@@ -1,6 +1,8 @@
 // 样式导入
 import 'normalize.css'
 import 'element-plus/dist/index.css'
+import '@/assets/theme.scss'
+import '@/assets/admin-common.scss'
 import '@/assets/witboot.scss'
 
 // Vue 核心

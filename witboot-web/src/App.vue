@@ -9,4 +9,6 @@ import { useMenuTabsStore } from '@/stores/menuTabsStore'
 // 初始化菜单标签页（必须在 pinia 注册后）
 const menuTabsStore = useMenuTabsStore()
 menuTabsStore.initHomeTab()
+
+document.documentElement.dataset.theme = localStorage.getItem('theme') || 'indigo'
 </script>

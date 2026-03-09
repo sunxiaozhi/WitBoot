@@ -1,14 +1,14 @@
 <template>
-  <div class="dictionary-container">
+  <div class="dictionary-container admin-page">
     <div class="page-header">
       <div class="header-left">
         <h2></h2>
         <div class="header-actions">
-          <el-button type="primary" class="primary-btn" @click="handleAdd">
+          <el-button type="primary" class="primary-btn admin-btn-primary" @click="handleAdd">
             <el-icon><Plus /></el-icon>
             新增字典
           </el-button>
-          <el-button class="ghost-btn">
+          <el-button class="ghost-btn admin-btn-secondary">
             <el-icon><Upload /></el-icon>
             导入
           </el-button>
@@ -17,17 +17,17 @@
     </div>
 
     <div class="content-grid">
-      <div class="table-panel">
+      <div class="table-panel admin-panel">
         <div class="panel-header">
           <span>字典列表</span>
           <div class="panel-actions">
-            <el-input v-model="query.keyword" placeholder="搜索字典名称/编码" clearable class="filter-input">
+            <el-input v-model="query.keyword" placeholder="搜索字典名称/编码" clearable class="filter-input admin-input-theme">
               <template #prefix>
                 <el-icon><Search /></el-icon>
               </template>
             </el-input>
-            <el-button type="primary" class="search-btn">搜索</el-button>
-            <el-button class="reset-btn" circle>
+            <el-button type="primary" class="search-btn admin-btn-primary">搜索</el-button>
+            <el-button class="reset-btn admin-btn-secondary" circle>
               <el-icon><Refresh /></el-icon>
             </el-button>
           </div>
@@ -37,8 +37,8 @@
           :data="tableData"
           stripe
           height="100%"
-          :header-cell-style="{ background: '#f8fafc', color: '#374151' }"
-          class="dict-table"
+          :header-cell-class-name="() => 'admin-table-header-cell'"
+          class="dict-table admin-table-theme"
         >
           <el-table-column prop="name" label="字典名称" min-width="140" />
           <el-table-column prop="code" label="字典编码" min-width="140" />
@@ -66,15 +66,16 @@
             :page-sizes="[10, 20, 50]"
             layout="total, sizes, prev, pager, next, jumper"
             background
+            class="admin-pagination-theme"
           />
         </div>
       </div>
 
-      <div class="detail-panel">
+      <div class="detail-panel admin-panel">
         <div class="panel-header">
           <span>字典值</span>
           <div class="panel-actions">
-            <el-button type="primary" class="primary-btn" @click="handleAddValue">新增字典值</el-button>
+            <el-button type="primary" class="primary-btn admin-btn-primary" @click="handleAddValue">新增字典值</el-button>
           </div>
         </div>
 
@@ -142,21 +143,6 @@ const {
 </script>
 
 <style scoped lang="scss">
-.dictionary-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  gap: 12px;
-  background: #f5f7fa;
-
-  --card-radius: 10px;
-  --card-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  --hover-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --button-transition: all 0.3s;
-}
-
 .page-header {
   display: flex;
   align-items: center;
@@ -165,13 +151,13 @@ const {
   h2 {
     margin: 0 0 4px;
     font-size: 20px;
-    color: #111827;
+    color: var(--wb-color-text-primary);
   }
 
   p {
     margin: 0;
     font-size: 13px;
-    color: #6b7280;
+    color: var(--wb-color-text-secondary);
   }
 }
 
@@ -184,33 +170,6 @@ const {
 .header-actions {
   display: flex;
   gap: 10px;
-
-  .primary-btn {
-    background: var(--primary-gradient);
-    border: none;
-    font-weight: 500;
-    transition: var(--button-transition);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--hover-shadow);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-
-  .ghost-btn {
-    border: 1px solid #e5e7eb;
-    transition: var(--button-transition);
-
-    &:hover {
-      color: #667eea;
-      border-color: #667eea;
-      background: rgba(102, 126, 234, 0.05);
-    }
-  }
 }
 
 .content-grid {
@@ -223,9 +182,6 @@ const {
 
 .table-panel,
 .detail-panel {
-  background: #fff;
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
   padding: 16px;
   display: flex;
   flex-direction: column;
@@ -238,7 +194,7 @@ const {
   align-items: center;
   justify-content: space-between;
   font-size: 14px;
-  color: #0f172a;
+  color: var(--wb-color-text-primary);
 }
 
 .panel-actions {
@@ -249,118 +205,20 @@ const {
 
 .filter-input {
   width: 220px;
-
-  :deep(.el-input__wrapper) {
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    box-shadow: none;
-    transition: border-color 0.3s;
-
-    &:hover {
-      border-color: #cbd5f5;
-    }
-
-    &.is-focus {
-      border-color: #667eea;
-    }
-  }
-
-  :deep(.el-input__inner) {
-    &::placeholder {
-      color: #999;
-    }
-  }
-}
-
-.search-btn {
-  background: var(--primary-gradient);
-  border: none;
-  padding: 6px 12px;
-  font-weight: 500;
-  transition: var(--button-transition);
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--hover-shadow);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.reset-btn {
-  border: 1px solid #dcdfe6;
-  color: #606266;
-  background: #fff;
-  transition: var(--button-transition);
-
-  &:hover {
-    color: #667eea;
-    border-color: #667eea;
-    background: rgba(102, 126, 234, 0.05);
-  }
 }
 
 .dict-table {
   flex: 1;
-
-  :deep(.el-table__cell) {
-    padding: 8px 0;
-  }
-
-  :deep(.el-table__body tr) {
-    height: 40px;
-  }
-
-  :deep(.el-table__inner-wrapper) {
-    &::before {
-      display: none;
-    }
-  }
-
-  :deep(.el-table__border-left-patch) {
-    display: none;
-  }
 }
 
 .pagination-container {
   display: flex;
   justify-content: flex-end;
-
-  :deep(.el-pagination) {
-    --el-pagination-button-height: 28px;
-    --el-pagination-item-height: 28px;
-
-    .btn-prev,
-    .btn-next {
-      border-radius: 8px;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #667eea;
-      }
-    }
-
-    .el-pager li {
-      border-radius: 8px;
-      transition: all 0.3s;
-
-      &:hover {
-        color: #667eea;
-      }
-    }
-
-    .el-pager li.is-active {
-      background: var(--primary-gradient);
-      color: #fff;
-    }
-  }
 }
 
 .detail-card {
-  background: #f8fafc;
-  border: 1px solid #eef2f7;
+  background: var(--wb-color-page-bg-soft);
+  border: 1px solid var(--wb-color-border-soft);
   border-radius: 12px;
   padding: 16px;
   display: flex;
@@ -373,11 +231,11 @@ const {
   grid-template-columns: 80px 1fr;
   gap: 12px;
   font-size: 13px;
-  color: #374151;
+  color: var(--wb-color-text-regular);
 }
 
 .detail-label {
-  color: #6b7280;
+  color: var(--wb-color-text-secondary);
 }
 
 .value-list {
@@ -392,9 +250,9 @@ const {
   gap: 12px;
   padding: 12px;
   border-radius: 12px;
-  border: 1px solid #eef2f7;
-  background: #f8fafc;
-  transition: var(--button-transition);
+  border: 1px solid var(--wb-color-border-soft);
+  background: var(--wb-color-page-bg-soft);
+  transition: var(--wb-transition-base);
 
   &:hover {
     border-color: #e2e8f0;
@@ -410,13 +268,13 @@ const {
 
 .value-name {
   font-size: 13px;
-  color: #111827;
+  color: var(--wb-color-text-primary);
   font-weight: 600;
 }
 
 .value-code {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--wb-color-text-secondary);
 }
 
 .value-right {
