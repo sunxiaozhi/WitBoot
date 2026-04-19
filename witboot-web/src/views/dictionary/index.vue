@@ -21,7 +21,12 @@
         <div class="panel-header">
           <span>字典列表</span>
           <div class="panel-actions">
-            <el-input v-model="query.keyword" placeholder="搜索字典名称/编码" clearable class="filter-input admin-input-theme">
+            <el-input
+              v-model="query.keyword"
+              placeholder="搜索字典名称/编码"
+              clearable
+              class="filter-input admin-input-theme"
+            >
               <template #prefix>
                 <el-icon><Search /></el-icon>
               </template>
@@ -44,7 +49,11 @@
           <el-table-column prop="code" label="字典编码" min-width="140" />
           <el-table-column prop="status" label="状态" width="120">
             <template #default="{ row }">
-              <el-tag :type="row.status === '启用' ? 'success' : 'info'" effect="plain" size="small">
+              <el-tag
+                :type="row.status === '启用' ? 'success' : 'info'"
+                effect="plain"
+                size="small"
+              >
                 {{ row.status }}
               </el-tag>
             </template>
@@ -75,7 +84,9 @@
         <div class="panel-header">
           <span>字典值</span>
           <div class="panel-actions">
-            <el-button type="primary" class="primary-btn admin-btn-primary" @click="handleAddValue">新增字典值</el-button>
+            <el-button type="primary" class="primary-btn admin-btn-primary" @click="handleAddValue"
+              >新增字典值</el-button
+            >
           </div>
         </div>
 
@@ -101,7 +112,11 @@
               <span class="value-code">{{ item.value }}</span>
             </div>
             <div class="value-right">
-              <el-tag :type="item.status === '启用' ? 'success' : 'info'" effect="plain" size="small">
+              <el-tag
+                :type="item.status === '启用' ? 'success' : 'info'"
+                effect="plain"
+                size="small"
+              >
                 {{ item.status }}
               </el-tag>
               <div class="value-actions">
@@ -115,7 +130,11 @@
     </div>
 
     <DictionaryDrawer v-model="drawerVisible" :data="currentDictionary" @success="handleSuccess" />
-    <DictionaryValueDialog v-model="valueDialogVisible" :data="currentValue" @success="handleValueSuccess" />
+    <DictionaryValueDialog
+      v-model="valueDialogVisible"
+      :data="currentValue"
+      @success="handleValueSuccess"
+    />
   </div>
 </template>
 

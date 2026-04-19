@@ -46,7 +46,11 @@
 
     <!-- 操作按钮区域 -->
     <div class="option-container admin-toolbar">
-      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete" class="delete-button admin-btn-danger">
+      <el-button
+        :disabled="selectedIds.length === 0"
+        @click="handleBatchDelete"
+        class="delete-button admin-btn-danger"
+      >
         <el-icon><Delete /></el-icon>
         批量删除
       </el-button>
@@ -178,8 +182,9 @@ const {
   }
 }
 
-.table-wrapper {}
+.table-wrapper {
+}
 
-.pagination-container {}
-
+.pagination-container {
+}
 </style>

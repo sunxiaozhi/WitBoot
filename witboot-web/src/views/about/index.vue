@@ -21,7 +21,8 @@
         <h3>系统简介</h3>
         <p class="info-text">
           WitBoot 基于 SpringBoot 3.x + COLA 5.0（整洁面向对象分层架构）+ Mybatis Plus + Vue 3.x +
-          Element Plus 实现的前后端分离系统，支持 RBAC 动态权限、数据权限、日志记录等能力，适用于通用级管理平台快速搭建。
+          Element Plus 实现的前后端分离系统，支持 RBAC
+          动态权限、数据权限、日志记录等能力，适用于通用级管理平台快速搭建。
         </p>
         <div class="version-row">
           <span class="version-label">当前版本</span>

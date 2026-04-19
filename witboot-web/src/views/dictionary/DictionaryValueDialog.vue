@@ -25,7 +25,12 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button class="cancel-button" @click="visible = false">取消</el-button>
-        <el-button type="primary" class="submit-button" :loading="submitLoading" @click="handleSubmit">
+        <el-button
+          type="primary"
+          class="submit-button"
+          :loading="submitLoading"
+          @click="handleSubmit"
+        >
           {{ submitLoading ? '提交中...' : '提交' }}
         </el-button>
       </div>

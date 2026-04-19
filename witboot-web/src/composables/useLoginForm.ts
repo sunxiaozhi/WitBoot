@@ -2,7 +2,7 @@ import { login } from '@/api/user'
 import { setAccessToken } from '@/utils/auth'
 import { ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 
 interface RuleForm {
@@ -10,13 +10,17 @@ interface RuleForm {
   password: string
 }
 
-interface LoginResult {
-  data: {
-    accessToken: string
-  }
+interface LoginData {
+  accessToken: string
+}
+
+interface RequestError {
+  reason?: string
 }
 
 export function useLoginForm() {
+  const REMEMBERED_USERNAME_KEY = 'rememberedUsername'
+
   const ruleFormRef = ref<FormInstance>()
   const ruleForm = reactive<RuleForm>({
     username: '',
@@ -34,12 +38,29 @@ export function useLoginForm() {
     ],
   })
 
-  const rememberMe = ref(false)
+  const rememberedUsername = localStorage.getItem(REMEMBERED_USERNAME_KEY)
+  if (rememberedUsername) {
+    ruleForm.username = rememberedUsername
+  }
+
+  const rememberMe = ref(Boolean(rememberedUsername))
   const loading = ref(false)
   const currentYear = new Date().getFullYear()
   const router = useRouter()
+  const route = useRoute()
 
-  const submitForm = async (formEl: FormInstance | undefined) => {
+  const getErrorMessage = (error: unknown) => {
+    if (error && typeof error === 'object' && 'reason' in error) {
+      return (error as RequestError).reason ?? '登录失败，请检查用户名和密码'
+    }
+    if (error instanceof Error) {
+      return error.message
+    }
+    return '登录失败，请检查用户名和密码'
+  }
+
+  const submitForm = async () => {
+    const formEl = ruleFormRef.value
     if (!formEl || loading.value) return
 
     const valid = await formEl.validate()
@@ -47,15 +68,29 @@ export function useLoginForm() {
 
     loading.value = true
     try {
-      const result = (await login({
+      const result = await login<LoginData>({
         username: ruleForm.username,
         password: ruleForm.password,
-      })) as LoginResult
+      })
+
+      if (!result.data?.accessToken) {
+        throw new Error('登录失败，未获取到访问令牌')
+      }
+
+      if (rememberMe.value) {
+        localStorage.setItem(REMEMBERED_USERNAME_KEY, ruleForm.username)
+      } else {
+        localStorage.removeItem(REMEMBERED_USERNAME_KEY)
+      }
+
       setAccessToken(result.data.accessToken)
-      await router.push('/home')
+      const redirect =
+        typeof route.query.redirect === 'string' && route.query.redirect.startsWith('/')
+          ? route.query.redirect
+          : '/home'
+      await router.push(redirect)
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : '登录失败，请检查用户名和密码'
-      ElMessage.error(errorMessage)
+      ElMessage.error(getErrorMessage(error))
     } finally {
       loading.value = false
     }

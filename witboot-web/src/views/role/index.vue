@@ -15,7 +15,12 @@
         </div>
       </div>
       <div class="header-right">
-        <el-input v-model="query.keyword" placeholder="搜索角色名称/编码" clearable class="filter-input">
+        <el-input
+          v-model="query.keyword"
+          placeholder="搜索角色名称/编码"
+          clearable
+          class="filter-input"
+        >
           <template #prefix>
             <el-icon><Search /></el-icon>
           </template>
@@ -41,7 +46,11 @@
             <el-table-column prop="code" label="角色编码" min-width="140" />
             <el-table-column prop="status" label="状态" width="120">
               <template #default="{ row }">
-                <el-tag :type="row.status === '启用' ? 'success' : 'info'" effect="plain" size="small">
+                <el-tag
+                  :type="row.status === '启用' ? 'success' : 'info'"
+                  effect="plain"
+                  size="small"
+                >
                   {{ row.status }}
                 </el-tag>
               </template>

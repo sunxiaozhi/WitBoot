@@ -1,5 +1,4 @@
 import { GET, DELETE } from '@/utils/request'
-import { BASE_URL } from '@/config/siteConfig'
 
 // 定义登录日志相关的 API 路径
 const LOGIN_LOG_API = {
@@ -15,9 +14,8 @@ const LOGIN_LOG_API = {
  */
 export const selectLoginLogList = (params = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + LOGIN_LOG_API.LIST
 
-  return GET(url, restParams, {
+  return GET(LOGIN_LOG_API.LIST, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })
@@ -29,10 +27,8 @@ export const selectLoginLogList = (params = {}) => {
  * @returns Promise
  */
 export const loginLogInfo = (id: string | number) => {
-  const url = BASE_URL + LOGIN_LOG_API.INFO + '/' + id
-
   return GET(
-    url,
+    `${LOGIN_LOG_API.INFO}/${id}`,
     {},
     {
       headers: { 'Content-Type': 'application/json' },
@@ -48,9 +44,8 @@ export const loginLogInfo = (id: string | number) => {
  */
 export const deleteLoginLog = (params = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + LOGIN_LOG_API.DELETE
 
-  return DELETE(url, restParams, {
+  return DELETE(LOGIN_LOG_API.DELETE, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })

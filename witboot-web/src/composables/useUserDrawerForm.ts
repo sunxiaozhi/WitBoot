@@ -50,7 +50,8 @@ export function useUserDrawerForm(options: UseUserDrawerFormOptions) {
     password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
     rePassword: [
       {
-        validator: (_, value, cb) => (value === form.password ? cb() : cb(new Error('两次密码不一致'))),
+        validator: (_, value, cb) =>
+          value === form.password ? cb() : cb(new Error('两次密码不一致')),
         trigger: 'blur',
       },
     ],

@@ -62,11 +62,21 @@
 </template>
 
 <script setup lang="ts">
-import { Expand, Fold, User, SwitchButton, ArrowRight, FullScreen, Close, Brush } from '@element-plus/icons-vue'
+import {
+  Expand,
+  Fold,
+  User,
+  SwitchButton,
+  ArrowRight,
+  FullScreen,
+  Close,
+  Brush,
+} from '@element-plus/icons-vue'
 import { useMenuCollapseStore } from '@/stores/menuCollapseStore'
 import { useRoute } from 'vue-router'
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { ElMessageBox } from 'element-plus'
+import { logout } from '@/utils/auth'
 
 const menuCollapseStore = useMenuCollapseStore()
 const avatarUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
@@ -120,16 +130,17 @@ const toProfile = () => {
   console.log('去个人信息页')
 }
 
-const handleLogout = () => {
-  ElMessageBox.confirm('确定要退出登录吗？', '提示', {
-    type: 'warning',
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-  }).then(() => {
-    // logout()
-    localStorage.clear()
-    location.href = '/login'
-  })
+const handleLogout = async () => {
+  try {
+    await ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+      type: 'warning',
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+    })
+    await logout()
+  } catch {
+    // 用户取消时不做额外处理
+  }
 }
 </script>
 

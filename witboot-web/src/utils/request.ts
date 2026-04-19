@@ -10,9 +10,11 @@ import type { RequestConfig, ResponseDataType } from './request.d'
 import { ElMessage } from 'element-plus'
 import router from '@/router'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
+
 const instance = axios.create({
-  baseURL: '/api', // 开发环境下的跨域解决
-  timeout: 10000, //配置超时时间
+  baseURL: API_BASE_URL,
+  timeout: 5000, //配置超时时间
   withCredentials: true, //携带凭证允许
   headers: {
     'content-type': 'application/json',

@@ -14,14 +14,6 @@
             <el-icon><Search /></el-icon>
           </template>
         </el-input>
-        <el-select
-          v-model="queryForm.method"
-          placeholder="请求方法"
-          clearable
-          class="method-select admin-input-theme"
-        >
-          <el-option v-for="item in METHOD_OPTIONS" :key="item" :label="item" :value="item" />
-        </el-select>
         <div class="search-actions">
           <el-button
             type="primary"
@@ -34,7 +26,7 @@
           </el-button>
           <el-button
             @click="handleReset"
-            :disabled="!queryForm.keyword && !queryForm.method"
+            :disabled="!queryForm.keyword"
             class="reset-button admin-btn-secondary"
             circle
           >
@@ -46,7 +38,11 @@
 
     <!-- 登录按钮区域 -->
     <div class="option-container admin-toolbar">
-      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete" class="delete-button admin-btn-danger">
+      <el-button
+        :disabled="selectedIds.length === 0"
+        @click="handleBatchDelete"
+        class="delete-button admin-btn-danger"
+      >
         <el-icon><Delete /></el-icon>
         批量删除
       </el-button>
@@ -70,7 +66,12 @@
         <el-table-column prop="ip" label="IP 地址" min-width="130" />
         <el-table-column prop="userName" label="用户名" min-width="120" />
         <el-table-column prop="location" label="地址" min-width="150" show-overflow-tooltip />
-        <el-table-column prop="userAgent" label="User-Agent" min-width="180" show-overflow-tooltip />
+        <el-table-column
+          prop="userAgent"
+          label="User-Agent"
+          min-width="180"
+          show-overflow-tooltip
+        />
         <el-table-column prop="os" label="操作系统" width="120" />
         <el-table-column prop="device" label="设备类型" width="100" align="center">
           <template #default="{ row }">
@@ -116,7 +117,6 @@ import { useLoginLogList } from '@/composables/useLoginLogList'
 import { Delete, Search, Refresh } from '@element-plus/icons-vue'
 import LoginLogDetail from './LoginLogDetail.vue'
 const {
-  METHOD_OPTIONS,
   PAGE_SIZES,
   multipleTableRef,
   tableData,
@@ -141,16 +141,12 @@ const {
 .search-container {
   .search-bar {
     display: grid;
-    grid-template-columns: minmax(220px, 320px) minmax(140px, 180px) auto;
+    grid-template-columns: minmax(220px, 320px) auto;
     align-items: center;
     gap: 12px;
   }
 
   .search-input {
-    width: 100%;
-  }
-
-  .method-select {
     width: 100%;
   }
 
@@ -175,5 +171,4 @@ const {
 
 .table-wrapper {
 }
-
 </style>

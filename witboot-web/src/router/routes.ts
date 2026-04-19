@@ -45,7 +45,7 @@ export const routes: RouteRecordRaw[] = [
         component: () => import('@/views/role/index.vue'),
         meta: { title: '角色管理' },
       },
-       {
+      {
         path: '/dictionary',
         name: 'dictionary',
         component: () => import('@/views/dictionary/index.vue'),

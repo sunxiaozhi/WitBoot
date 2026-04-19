@@ -68,7 +68,12 @@
               <span>最近操作日志</span>
               <span class="panel-meta">近 1 小时</span>
               <span class="panel-spacer"></span>
-              <el-button text size="small" class="panel-action" @click="router.push('/operationLog')">
+              <el-button
+                text
+                size="small"
+                class="panel-action"
+                @click="router.push('/operationLog')"
+              >
                 查看全部
               </el-button>
             </div>
@@ -82,7 +87,9 @@
             <el-table-column prop="result" label="结果" width="120">
               <template #default="{ row }">
                 <el-tag
-                  :type="row.result === '成功' ? 'success' : row.result === '失败' ? 'danger' : 'info'"
+                  :type="
+                    row.result === '成功' ? 'success' : row.result === '失败' ? 'danger' : 'info'
+                  "
                   effect="plain"
                   size="small"
                 >
@@ -114,7 +121,6 @@
         </el-card>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -284,7 +290,10 @@ const { operationLogs, loginActivities, todos } = useHomeDashboard()
 
 .biz-item.is-clickable {
   cursor: pointer;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .biz-item.is-clickable:hover {
@@ -303,7 +312,6 @@ const { operationLogs, loginActivities, todos } = useHomeDashboard()
   font-weight: 700;
   color: #0f172a;
 }
-
 
 .data-table :deep(.el-table__cell) {
   padding: 8px 0;

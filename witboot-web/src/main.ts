@@ -13,17 +13,12 @@ import App from '@/App.vue'
 import router from '@/router'
 
 // 状态管理
-import { createPinia } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { pinia } from '@/stores'
 
 // UI 框架
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-// 创建 pinia 实例
-const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
 
 // 创建 app 实例
 const app = createApp(App)

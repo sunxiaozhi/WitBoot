@@ -6,8 +6,15 @@
       </el-icon>
       <h3 v-show="!isCollapse">WitBoot</h3>
     </div>
-    <el-menu :default-active="activeMenu" :collapse="isCollapse" :collapse-transition="false" router
-      :popper-class="'aside-sub-menu-popper'" class="custom-menu" @select="handleSelect">
+    <el-menu
+      :default-active="activeMenu"
+      :collapse="isCollapse"
+      :collapse-transition="false"
+      router
+      :popper-class="'aside-sub-menu-popper'"
+      class="custom-menu"
+      @select="handleSelect"
+    >
       <!-- 使用配置化菜单渲染 -->
       <template v-for="menu in menuList" :key="menu.index">
         <!-- 一级菜单无子菜单 -->
@@ -117,9 +124,7 @@ const menuList: MenuItem[] = [
     index: '4',
     icon: List,
     title: '系统运维',
-    children: [
-      { index: '/systemMonitor', icon: Tickets, title: '系统监控' }
-    ],
+    children: [{ index: '/systemMonitor', icon: Tickets, title: '系统监控' }],
   },
   { index: '/about', icon: InfoFilled, title: '关于系统' },
 ]
@@ -245,7 +250,6 @@ const handleSelect = (path: string) => {
 
 /* 折叠状态样式调整 */
 :deep(.el-menu--collapse) {
-
   .el-menu-item,
   .el-sub-menu__title {
     justify-content: center;

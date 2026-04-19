@@ -33,7 +33,6 @@ interface DeleteResponse {
   message: string
 }
 
-const METHOD_OPTIONS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
 const PAGE_SIZES = [10, 20, 30]
 
 export function useLoginLogList() {
@@ -47,7 +46,6 @@ export function useLoginLogList() {
 
   const queryForm = reactive({
     keyword: '',
-    method: '',
   })
 
   const pagination = reactive({
@@ -77,7 +75,6 @@ export function useLoginLogList() {
         pageNo: pagination.currentPage,
         pageSize: pagination.pageSize,
         searchKeyword: queryForm.keyword,
-        method: queryForm.method,
       })) as LoginLogListResponse
       tableData.value = res.data.list
       pagination.total = res.data.total
@@ -98,7 +95,6 @@ export function useLoginLogList() {
 
   const handleReset = () => {
     queryForm.keyword = ''
-    queryForm.method = ''
     pagination.currentPage = 1
     fetchData()
   }
@@ -163,7 +159,6 @@ export function useLoginLogList() {
   onUnmounted(() => debouncedSearch.cancel())
 
   return {
-    METHOD_OPTIONS,
     PAGE_SIZES,
     multipleTableRef,
     tableData,

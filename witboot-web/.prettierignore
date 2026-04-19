@@ -1,0 +1,9 @@
+dist
+coverage
+node_modules
+.pnpm-store
+.agents
+*.tsbuildinfo
+package-lock.json
+pnpm-lock.yaml
+skills-lock.json

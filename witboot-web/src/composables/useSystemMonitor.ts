@@ -16,7 +16,8 @@ const asSectionList = (value: unknown): SectionData[] => {
 }
 
 const toNumber = (value: unknown) => (typeof value === 'number' ? value : Number(value ?? 0) || 0)
-const toStringOr = (value: unknown, fallback = '-') => (typeof value === 'string' ? value : fallback)
+const toStringOr = (value: unknown, fallback = '-') =>
+  typeof value === 'string' ? value : fallback
 
 const formatDateTime = (value?: string) => {
   if (!value) return '-'
@@ -139,7 +140,9 @@ export function useSystemMonitor() {
   })
 
   const sampleTimestamp = computed(() => monitorInfo.value?.timestamp)
-  const serverBootTimeLabel = computed(() => formatDateTime(toStringOr(serverInfo.value.bootTime, '')))
+  const serverBootTimeLabel = computed(() =>
+    formatDateTime(toStringOr(serverInfo.value.bootTime, '')),
+  )
   const systemTimeLabel = computed(() => formatDateTime(toStringOr(sampleTimestamp.value, '')))
   const lastSampleTimeLabel = computed(() => formatDateTime(toStringOr(sampleTimestamp.value, '')))
 
@@ -150,7 +153,8 @@ export function useSystemMonitor() {
       const readable = cpuInfo.value.currentFrequenciesReadable
       return Array.isArray(readable) ? toStringOr(readable[0]) : '-'
     }
-    const avg = frequencies.reduce((sum: number, value: number) => sum + value, 0) / frequencies.length
+    const avg =
+      frequencies.reduce((sum: number, value: number) => sum + value, 0) / frequencies.length
     return formatHertz(avg)
   })
 

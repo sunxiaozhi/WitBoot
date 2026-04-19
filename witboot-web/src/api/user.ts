@@ -1,5 +1,4 @@
 import { DELETE, GET, POST } from '@/utils/request'
-import { BASE_URL } from '@/config/siteConfig'
 
 // 定义用户模块的 API 路径
 const USER_API = {
@@ -15,11 +14,10 @@ const USER_API = {
  * @param data - 注册请求参数
  * @returns Promise
  */
-export const register = (data = {}) => {
-  const url = BASE_URL + USER_API.REGISTER
+export const register = <T = unknown>(data: Record<string, unknown> = {}) => {
   const { ...restData } = data
 
-  return POST(url, restData)
+  return POST<T>(USER_API.REGISTER, restData)
 }
 
 /**
@@ -27,11 +25,10 @@ export const register = (data = {}) => {
  * @param data - 登录请求参数
  * @returns Promise
  */
-export const login = (data = {}) => {
-  const url = BASE_URL + USER_API.LOGIN
+export const login = <T = unknown>(data: Record<string, unknown> = {}) => {
   const { ...restData } = data
 
-  return POST(url, restData)
+  return POST<T>(USER_API.LOGIN, restData)
 }
 
 /**
@@ -39,11 +36,10 @@ export const login = (data = {}) => {
  * @param params 请求参数
  * @returns Promise
  */
-export const selectUserList = (params = {}) => {
+export const selectUserList = <T = unknown>(params: Record<string, unknown> = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.LIST
 
-  return GET(url, restParams, {
+  return GET<T>(USER_API.LIST, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })
@@ -54,11 +50,10 @@ export const selectUserList = (params = {}) => {
  * @param data 更新请求参数
  * @returns Promise
  */
-export const updateUserInfo = (data = {}) => {
+export const updateUserInfo = <T = unknown>(data: Record<string, unknown> = {}) => {
   const { ...restData } = data // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.UPDATE
 
-  return POST(url, restData, {
+  return POST<T>(USER_API.UPDATE, restData, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })
@@ -69,11 +64,10 @@ export const updateUserInfo = (data = {}) => {
  * @param params 删除请求参数
  * @returns Promise
  */
-export const deleteUser = (params = {}) => {
+export const deleteUser = <T = unknown>(params: Record<string, unknown> = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + USER_API.DELETE
 
-  return DELETE(url, restParams, {
+  return DELETE<T>(USER_API.DELETE, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })

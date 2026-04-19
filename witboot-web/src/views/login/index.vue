@@ -55,7 +55,7 @@
             :rules="rules"
             label-position="top"
             class="login-form"
-            @submit.prevent="submitForm(ruleFormRef)"
+            @submit.prevent="submitForm"
           >
             <el-form-item prop="username">
               <div class="input-wrapper">
@@ -105,7 +105,6 @@
                 :loading="loading"
                 :disabled="loading"
                 native-type="submit"
-                @click="submitForm(ruleFormRef)"
                 class="login-button"
               >
                 {{ loading ? '登录中...' : '登录' }}
@@ -115,12 +114,8 @@
 
           <div class="form-footer">
             <p>Copyright © {{ currentYear }}</p>
-            <a
-              href="https://github.com/sunxiaozhi"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by sunxiaozhi
+            <a :href="githubUrl" target="_blank" rel="noopener noreferrer">
+              Powered by {{ siteOwner }}
             </a>
           </div>
         </div>
@@ -132,8 +127,12 @@
 <script setup lang="ts">
 import { User, Lock, Monitor, Check } from '@element-plus/icons-vue'
 import { useLoginForm } from '@/composables/useLoginForm'
+import { GITHUB_URL, SITE_OWNER } from '@/config/siteConfig'
 
-const { ruleFormRef, ruleForm, rules, rememberMe, loading, currentYear, submitForm } = useLoginForm()
+const { ruleFormRef, ruleForm, rules, rememberMe, loading, currentYear, submitForm } =
+  useLoginForm()
+const githubUrl = GITHUB_URL
+const siteOwner = SITE_OWNER
 </script>
 
 <style scoped lang="scss">

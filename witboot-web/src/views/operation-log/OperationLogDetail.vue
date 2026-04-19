@@ -190,8 +190,6 @@ const { collapsed, toggleCollapse, getScrollbarHeight, copyJson, highlightJson }
     height: 2px;
   }
 
-
-
   .json-block {
     display: flex;
     flex-direction: column;

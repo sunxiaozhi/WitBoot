@@ -22,10 +22,16 @@
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>CPU 使用率</span>
-            <el-tag size="small" :type="cpuStatus.tagType" effect="plain">{{ cpuStatus.label }}</el-tag>
+            <el-tag size="small" :type="cpuStatus.tagType" effect="plain">{{
+              cpuStatus.label
+            }}</el-tag>
           </div>
           <el-statistic :value="cpuUsageDisplay" suffix="%" />
-          <el-progress :percentage="cpuUsagePercent" :stroke-width="8" :status="cpuStatus.progressStatus" />
+          <el-progress
+            :percentage="cpuUsagePercent"
+            :stroke-width="8"
+            :status="cpuStatus.progressStatus"
+          />
           <div class="stat-foot">峰值 {{ cpuPeakDisplay }}</div>
         </el-card>
       </el-col>
@@ -33,10 +39,16 @@
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>内存使用率</span>
-            <el-tag size="small" :type="memoryStatus.tagType" effect="plain">{{ memoryStatus.label }}</el-tag>
+            <el-tag size="small" :type="memoryStatus.tagType" effect="plain">{{
+              memoryStatus.label
+            }}</el-tag>
           </div>
           <el-statistic :value="memoryUsedPercentDisplay" suffix="%" />
-          <el-progress :percentage="memoryUsedPercent" :stroke-width="8" :status="memoryStatus.progressStatus" />
+          <el-progress
+            :percentage="memoryUsedPercent"
+            :stroke-width="8"
+            :status="memoryStatus.progressStatus"
+          />
           <div class="stat-foot">已使用 {{ memoryUsedReadable }}</div>
         </el-card>
       </el-col>
@@ -44,10 +56,16 @@
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>存储使用率</span>
-            <el-tag size="small" :type="diskStatus.tagType" effect="plain">{{ diskStatus.label }}</el-tag>
+            <el-tag size="small" :type="diskStatus.tagType" effect="plain">{{
+              diskStatus.label
+            }}</el-tag>
           </div>
           <el-statistic :value="diskUsedPercentDisplay" suffix="%" />
-          <el-progress :percentage="diskUsedPercent" :stroke-width="8" :status="diskStatus.progressStatus" />
+          <el-progress
+            :percentage="diskUsedPercent"
+            :stroke-width="8"
+            :status="diskStatus.progressStatus"
+          />
           <div class="stat-foot">剩余 {{ diskFreeReadable }}</div>
         </el-card>
       </el-col>
@@ -55,10 +73,16 @@
         <el-card class="stat-card" shadow="never">
           <div class="stat-head">
             <span>JVM 堆使用率</span>
-            <el-tag size="small" :type="jvmStatus.tagType" effect="plain">{{ jvmStatus.label }}</el-tag>
+            <el-tag size="small" :type="jvmStatus.tagType" effect="plain">{{
+              jvmStatus.label
+            }}</el-tag>
           </div>
           <el-statistic :value="jvmHeapUsedPercentDisplay" suffix="%" />
-          <el-progress :percentage="jvmHeapUsedPercent" :stroke-width="8" :status="jvmStatus.progressStatus" />
+          <el-progress
+            :percentage="jvmHeapUsedPercent"
+            :stroke-width="8"
+            :status="jvmStatus.progressStatus"
+          />
           <div class="stat-foot">{{ jvmHeapUsedReadable }} / {{ jvmHeapMaxReadable }}</div>
         </el-card>
       </el-col>
@@ -76,10 +100,16 @@
             <el-descriptions-item label="主机名">{{ serverInfo.hostName }}</el-descriptions-item>
             <el-descriptions-item label="操作系统">{{ serverOsLabel }}</el-descriptions-item>
             <el-descriptions-item label="架构">{{ serverInfo.architecture }}</el-descriptions-item>
-            <el-descriptions-item label="IP 地址">{{ serverInfo.hostAddress }}</el-descriptions-item>
-            <el-descriptions-item label="厂商">{{ serverInfo.systemManufacturer }}</el-descriptions-item>
+            <el-descriptions-item label="IP 地址">{{
+              serverInfo.hostAddress
+            }}</el-descriptions-item>
+            <el-descriptions-item label="厂商">{{
+              serverInfo.systemManufacturer
+            }}</el-descriptions-item>
             <el-descriptions-item label="型号">{{ serverInfo.systemModel }}</el-descriptions-item>
-            <el-descriptions-item label="序列号">{{ serverInfo.systemSerialNumber }}</el-descriptions-item>
+            <el-descriptions-item label="序列号">{{
+              serverInfo.systemSerialNumber
+            }}</el-descriptions-item>
             <el-descriptions-item label="启动时间">{{ serverBootTimeLabel }}</el-descriptions-item>
             <el-descriptions-item label="系统时间">{{ systemTimeLabel }}</el-descriptions-item>
             <el-descriptions-item label="磁盘总量">{{ diskTotalReadable }}</el-descriptions-item>
@@ -97,11 +127,21 @@
           <el-descriptions :column="2" size="small" class="desc">
             <el-descriptions-item label="型号">{{ cpuInfo.name }}</el-descriptions-item>
             <el-descriptions-item label="厂商">{{ cpuInfo.vendor }}</el-descriptions-item>
-            <el-descriptions-item label="物理 CPU">{{ cpuInfo.physicalPackageCount }}</el-descriptions-item>
-            <el-descriptions-item label="物理核心">{{ cpuInfo.physicalProcessorCount }}</el-descriptions-item>
-            <el-descriptions-item label="逻辑核心">{{ cpuInfo.logicalProcessorCount }}</el-descriptions-item>
-            <el-descriptions-item label="最大频率">{{ cpuInfo.maximumFrequencyReadable }}</el-descriptions-item>
-            <el-descriptions-item label="当前频率">{{ cpuCurrentFrequencyLabel }}</el-descriptions-item>
+            <el-descriptions-item label="物理 CPU">{{
+              cpuInfo.physicalPackageCount
+            }}</el-descriptions-item>
+            <el-descriptions-item label="物理核心">{{
+              cpuInfo.physicalProcessorCount
+            }}</el-descriptions-item>
+            <el-descriptions-item label="逻辑核心">{{
+              cpuInfo.logicalProcessorCount
+            }}</el-descriptions-item>
+            <el-descriptions-item label="最大频率">{{
+              cpuInfo.maximumFrequencyReadable
+            }}</el-descriptions-item>
+            <el-descriptions-item label="当前频率">{{
+              cpuCurrentFrequencyLabel
+            }}</el-descriptions-item>
             <el-descriptions-item label="负载">{{ cpuLoadAverageLabel }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
@@ -115,14 +155,26 @@
           </template>
           <el-descriptions :column="2" size="small" class="desc">
             <el-descriptions-item label="Java 版本">{{ jvmInfo.javaVersion }}</el-descriptions-item>
-            <el-descriptions-item label="JVM 名称">{{ jvmInfo.javaVirtualMachineName }}</el-descriptions-item>
-            <el-descriptions-item label="JVM 版本">{{ jvmInfo.javaVirtualMachineVersion }}</el-descriptions-item>
+            <el-descriptions-item label="JVM 名称">{{
+              jvmInfo.javaVirtualMachineName
+            }}</el-descriptions-item>
+            <el-descriptions-item label="JVM 版本">{{
+              jvmInfo.javaVirtualMachineVersion
+            }}</el-descriptions-item>
             <el-descriptions-item label="Java Home">{{ jvmInfo.javaHome }}</el-descriptions-item>
-            <el-descriptions-item label="堆内存">{{ jvmHeapUsedReadable }} / {{ jvmHeapMaxReadable }}</el-descriptions-item>
-            <el-descriptions-item label="堆使用率">{{ jvmHeapUsedPercentDisplay }}%</el-descriptions-item>
+            <el-descriptions-item label="堆内存"
+              >{{ jvmHeapUsedReadable }} / {{ jvmHeapMaxReadable }}</el-descriptions-item
+            >
+            <el-descriptions-item label="堆使用率"
+              >{{ jvmHeapUsedPercentDisplay }}%</el-descriptions-item
+            >
             <el-descriptions-item label="线程数">{{ jvmInfo.threadCount }}</el-descriptions-item>
-            <el-descriptions-item label="守护线程">{{ jvmInfo.daemonThreadCount }}</el-descriptions-item>
-            <el-descriptions-item label="已加载类">{{ jvmInfo.loadedClassCount }}</el-descriptions-item>
+            <el-descriptions-item label="守护线程">{{
+              jvmInfo.daemonThreadCount
+            }}</el-descriptions-item>
+            <el-descriptions-item label="已加载类">{{
+              jvmInfo.loadedClassCount
+            }}</el-descriptions-item>
             <el-descriptions-item label="运行时长">{{ jvmUptimeLabel }}</el-descriptions-item>
           </el-descriptions>
         </el-card>
@@ -225,8 +277,7 @@ const {
   flex-direction: column;
   padding: 20px;
   gap: 20px;
-  background: radial-gradient(circle at top, rgba(102, 126, 234, 0.08), transparent 55%),
-    #f5f7fa;
+  background: radial-gradient(circle at top, rgba(102, 126, 234, 0.08), transparent 55%), #f5f7fa;
   min-height: 0;
 
   --card-radius: 14px;
@@ -234,7 +285,6 @@ const {
   --card-shadow-strong: 0 22px 44px rgba(15, 23, 42, 0.12);
   --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
-
 
 .stat-card,
 .panel-card {
@@ -311,7 +361,6 @@ const {
   color: #64748b;
 }
 
-
 .service-table :deep(.el-table__cell) {
   padding: 8px 0;
 }
@@ -327,6 +376,4 @@ const {
 .equal-columns :deep(colgroup col) {
   width: 12.5% !important;
 }
-
 </style>
-

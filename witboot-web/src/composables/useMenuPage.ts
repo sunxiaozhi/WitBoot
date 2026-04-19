@@ -49,7 +49,13 @@ export function useMenuPage() {
   ]
 
   const childMenus = [
-    { name: '人员管理', path: '/user', level: '二级', component: 'views/user/index.vue', status: '启用' },
+    {
+      name: '人员管理',
+      path: '/user',
+      level: '二级',
+      component: 'views/user/index.vue',
+      status: '启用',
+    },
     {
       name: '部门管理',
       path: '/department',

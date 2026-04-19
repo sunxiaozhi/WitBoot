@@ -24,12 +24,22 @@
         <el-row v-if="!form.id" :gutter="20">
           <el-col :span="12">
             <el-form-item label="密码" prop="password">
-              <el-input v-model="form.password" type="password" show-password placeholder="请输入密码" />
+              <el-input
+                v-model="form.password"
+                type="password"
+                show-password
+                placeholder="请输入密码"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="确认密码" prop="rePassword">
-              <el-input v-model="form.rePassword" type="password" show-password placeholder="请再次输入密码" />
+              <el-input
+                v-model="form.rePassword"
+                type="password"
+                show-password
+                placeholder="请再次输入密码"
+              />
             </el-form-item>
           </el-col>
         </el-row>
@@ -61,7 +71,12 @@
         </el-form-item>
 
         <el-form-item label="描述" prop="description">
-          <el-input v-model="form.description" type="textarea" :rows="3" placeholder="请输入描述信息" />
+          <el-input
+            v-model="form.description"
+            type="textarea"
+            :rows="3"
+            placeholder="请输入描述信息"
+          />
         </el-form-item>
       </el-form>
 

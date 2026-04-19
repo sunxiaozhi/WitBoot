@@ -24,8 +24,16 @@
   --wb-color-border-focus: #cbd5f5;
   --wb-color-danger: #f56c6c;
   --wb-color-danger-soft: rgba(245, 108, 108, 0.2);
-  --wb-gradient-primary: linear-gradient(135deg, var(--wb-color-primary) 0%, var(--wb-color-primary-dark) 100%);
-  --wb-gradient-aside: linear-gradient(180deg, var(--wb-color-primary) 0%, var(--wb-color-primary-dark) 100%);
+  --wb-gradient-primary: linear-gradient(
+    135deg,
+    var(--wb-color-primary) 0%,
+    var(--wb-color-primary-dark) 100%
+  );
+  --wb-gradient-aside: linear-gradient(
+    180deg,
+    var(--wb-color-primary) 0%,
+    var(--wb-color-primary-dark) 100%
+  );
   --wb-shadow-card: 0 1px 4px rgba(0, 0, 0, 0.06);
   --wb-shadow-card-strong: 0 4px 12px var(--wb-color-primary-shadow);
   --wb-shadow-danger: 0 4px 12px var(--wb-color-danger-soft);

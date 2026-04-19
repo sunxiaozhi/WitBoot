@@ -1,11 +1,7 @@
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import { debounce } from 'lodash-es'
 import { ElMessage, ElMessageBox, type ElTable } from 'element-plus'
-import {
-  deleteOperationLog,
-  operationLogInfo,
-  selectOperationLogList,
-} from '@/api/operationLog'
+import { deleteOperationLog, operationLogInfo, selectOperationLogList } from '@/api/operationLog'
 
 export interface OperationLog {
   id: number

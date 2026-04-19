@@ -1,5 +1,4 @@
 import { GET, DELETE } from '@/utils/request'
-import { BASE_URL } from '@/config/siteConfig'
 
 // 定义操作日志相关的 API 路径
 const OPERATION_LOG_API = {
@@ -15,9 +14,8 @@ const OPERATION_LOG_API = {
  */
 export const selectOperationLogList = (params = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + OPERATION_LOG_API.LIST
 
-  return GET(url, restParams, {
+  return GET(OPERATION_LOG_API.LIST, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })
@@ -29,10 +27,8 @@ export const selectOperationLogList = (params = {}) => {
  * @returns Promise
  */
 export const operationLogInfo = (id: string | number) => {
-  const url = BASE_URL + OPERATION_LOG_API.INFO + '/' + id
-
   return GET(
-    url,
+    `${OPERATION_LOG_API.INFO}/${id}`,
     {},
     {
       headers: { 'Content-Type': 'application/json' },
@@ -48,9 +44,8 @@ export const operationLogInfo = (id: string | number) => {
  */
 export const deleteOperationLog = (params = {}) => {
   const { ...restParams } = params // 使用解构确保参数安全
-  const url = BASE_URL + OPERATION_LOG_API.DELETE
 
-  return DELETE(url, restParams, {
+  return DELETE(OPERATION_LOG_API.DELETE, restParams, {
     headers: { 'Content-Type': 'application/json' },
     isToken: true,
   })

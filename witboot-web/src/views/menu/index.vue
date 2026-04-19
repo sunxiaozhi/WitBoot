@@ -15,7 +15,12 @@
         </div>
       </div>
       <div class="header-right">
-        <el-input v-model="query.keyword" placeholder="搜索菜单名称/路径" clearable class="filter-input">
+        <el-input
+          v-model="query.keyword"
+          placeholder="搜索菜单名称/路径"
+          clearable
+          class="filter-input"
+        >
           <template #prefix>
             <el-icon><Search /></el-icon>
           </template>
@@ -115,10 +120,19 @@
               <el-table-column prop="name" label="名称" min-width="140" />
               <el-table-column prop="path" label="路径" min-width="160" />
               <el-table-column prop="level" label="级别" width="80" />
-              <el-table-column prop="component" label="组件" min-width="180" show-overflow-tooltip />
+              <el-table-column
+                prop="component"
+                label="组件"
+                min-width="180"
+                show-overflow-tooltip
+              />
               <el-table-column prop="status" label="状态" width="120">
                 <template #default="{ row }">
-                  <el-tag :type="row.status === '启用' ? 'success' : 'info'" effect="plain" size="small">
+                  <el-tag
+                    :type="row.status === '启用' ? 'success' : 'info'"
+                    effect="plain"
+                    size="small"
+                  >
                     {{ row.status }}
                   </el-tag>
                 </template>

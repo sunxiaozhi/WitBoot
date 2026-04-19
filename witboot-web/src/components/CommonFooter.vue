@@ -3,12 +3,7 @@
     <div class="footer-content">
       <p class="copyright">
         Copyright © {{ currentYear }} Powered by
-        <a
-          :href="githubUrl"
-          target="_blank"
-          rel="noopener"
-          :aria-label="`GitHub: ${owner}`"
-        >
+        <a :href="githubUrl" target="_blank" rel="noopener" :aria-label="`GitHub: ${owner}`">
           {{ owner }}
         </a>
       </p>

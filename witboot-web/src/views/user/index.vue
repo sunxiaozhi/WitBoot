@@ -42,7 +42,11 @@
         <el-icon><Plus /></el-icon>
         新增用户
       </el-button>
-      <el-button :disabled="selectedIds.length === 0" @click="handleBatchDelete" class="delete-button admin-btn-danger">
+      <el-button
+        :disabled="selectedIds.length === 0"
+        @click="handleBatchDelete"
+        class="delete-button admin-btn-danger"
+      >
         <el-icon><Delete /></el-icon>
         批量删除
       </el-button>
@@ -79,12 +83,8 @@
         <el-table-column prop="description" label="描述" min-width="150" show-overflow-tooltip />
         <el-table-column fixed="right" label="操作" width="150">
           <template #default="{ row }">
-            <el-button link type="primary" size="small" @click="handleEdit(row)">
-              编辑
-            </el-button>
-            <el-button link type="danger" size="small" @click="handleDelete(row)">
-              删除
-            </el-button>
+            <el-button link type="primary" size="small" @click="handleEdit(row)"> 编辑 </el-button>
+            <el-button link type="danger" size="small" @click="handleDelete(row)"> 删除 </el-button>
           </template>
         </el-table-column>
       </el-table>
