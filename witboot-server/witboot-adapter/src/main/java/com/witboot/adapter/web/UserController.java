@@ -59,8 +59,8 @@ public class UserController extends BaseController {
     @PostMapping(value = "/update")
     @Operation(summary = "用户更新")
     @WitLog(description = "用户更新")
-    public ResponseResult<UserVO> update(@RequestBody UserUpdateCmd updateCmd) {
-        return ResponseResult.success(userService.update(updateCmd));
+    public ResponseResult<UserVO> update(@RequestBody UserUpdateCmd userUpdateCmd) {
+        return ResponseResult.success(userService.update(userUpdateCmd));
     }
 
     @DeleteMapping(value = "/delete")

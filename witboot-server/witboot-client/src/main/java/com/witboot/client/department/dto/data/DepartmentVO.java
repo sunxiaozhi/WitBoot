@@ -2,6 +2,8 @@ package com.witboot.client.department.dto.data;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Department VO
  *
@@ -23,5 +25,10 @@ public class DepartmentVO {
      * 父级id
      */
     private Long parentId;
+
+    /**
+     * 子级
+     */
+    private List<DepartmentVO>  children;
 }
 

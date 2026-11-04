@@ -27,6 +27,14 @@ public interface DepartmentGateway {
     DepartmentEntity findById(Long id);
 
     /**
+     * 保存部门
+     *
+     * @param departmentEntity Department Domain
+     * @return 部门实体
+     */
+    DepartmentEntity save(DepartmentEntity departmentEntity);
+
+    /**
      * 删除部门
      *
      * @param ids ids

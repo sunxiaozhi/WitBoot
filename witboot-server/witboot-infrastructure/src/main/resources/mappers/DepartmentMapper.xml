@@ -16,7 +16,7 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <insert id="insert">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO wb_department
         (id, name, parent_id, creator, modifier, delete_flag, create_time, update_time)
         VALUES
@@ -40,6 +40,7 @@
             </if>
             update_time = sysdate()
        </set>
+        WHERE id = #{id}
     </update>
 
     <select id="selectByParam" resultMap="departmentDOMap">

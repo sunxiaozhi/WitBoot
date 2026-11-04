@@ -1,6 +1,8 @@
 package com.witboot.adapter.web;
 
 import com.witboot.client.department.api.IDepartmentService;
+import com.witboot.client.department.dto.DepartmentAddCmd;
+import com.witboot.client.department.dto.DepartmentUpdateCmd;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.common.annotation.WitLog;
@@ -10,10 +12,7 @@ import com.witboot.common.core.model.PageResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 部门控制器
@@ -33,6 +32,20 @@ public class DepartmentController extends BaseController {
     public ResponseResult<PageResult<DepartmentVO>> list(DepartmentListByParamQuery departmentParamQuery) {
         startPage();
         return ResponseResult.success(departmentService.listByParam(departmentParamQuery));
+    }
+
+    @PostMapping(value = "/add")
+    @Operation(summary = "部门新增")
+    @WitLog(description = "部门新增")
+    public ResponseResult<DepartmentVO> add(@RequestBody DepartmentAddCmd departmentAddCmd) {
+        return ResponseResult.success(departmentService.add(departmentAddCmd));
+    }
+
+    @PostMapping(value = "/update")
+    @Operation(summary = "部门修改")
+    @WitLog(description = "部门修改")
+    public ResponseResult<DepartmentVO> update(@RequestBody DepartmentUpdateCmd departmentUpdateCmd) {
+        return ResponseResult.success(departmentService.update(departmentUpdateCmd));
     }
 
     @DeleteMapping(value = "/delete")

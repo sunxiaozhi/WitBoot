@@ -1,5 +1,7 @@
 package com.witboot.app.department.assembler;
 
+import com.witboot.client.department.dto.DepartmentAddCmd;
+import com.witboot.client.department.dto.DepartmentUpdateCmd;
 import com.witboot.client.department.dto.data.DepartmentVO;
 import com.witboot.client.department.dto.query.DepartmentListByParamQuery;
 import com.witboot.domain.department.model.DepartmentEntity;
@@ -17,6 +19,18 @@ public class DepartmentAssembler {
         DepartmentQuerySpec departmentListByParamQuerySpec = new DepartmentQuerySpec();
         BeanUtils.copyProperties(departmentListByParamQuery, departmentListByParamQuerySpec);
         return departmentListByParamQuerySpec;
+    }
+
+    public static DepartmentEntity toEntity(DepartmentAddCmd departmentAddCmd) {
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        BeanUtils.copyProperties(departmentAddCmd, departmentEntity);
+        return departmentEntity;
+    }
+
+    public static DepartmentEntity toEntity(DepartmentUpdateCmd departmentUpdateCmd) {
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        BeanUtils.copyProperties(departmentUpdateCmd, departmentEntity);
+        return departmentEntity;
     }
 
     public static DepartmentVO toValueObject(DepartmentEntity departmentEntity) {
