@@ -2,6 +2,8 @@
 
 WitBoot Web 是一个基于 `Vue 3 + TypeScript + Vite + Element Plus` 的后台管理系统前端项目，当前已覆盖登录鉴权、首页工作台、用户与组织管理、菜单与角色管理、字典管理、日志审计、系统监控等常见管理后台模块。
 
+前后端工程与 Agent 协作规范统一见仓库根目录 [AGENTS.md](../AGENTS.md)。
+
 ## 功能概览
 
 - 登录与鉴权

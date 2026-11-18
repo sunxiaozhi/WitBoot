@@ -2,6 +2,10 @@
 
 > 本项目结合Spring Boot3.4.4和COLA 5.0.0（整洁面向对象分层架构）实现。
 
+项目工程与 Agent 协作规范统一维护于 [AGENTS.md](AGENTS.md)。
+
+系统功能、设计草案与交付状态见 [OpenSpec 需求与设计台账](openspec/requirements.md)。开发与验收步骤见 [需求管理流程](openspec/需求管理.md)。
+
 ## 项目架构图
 ![项目架构图](docs/image/架构.png)
 
@@ -21,37 +25,6 @@
 ![Domain Module](docs/image/witboot-domain.png)
 
 ![Infrastructure Module](docs/image/witboot-infrastructure.png)
-
-## 集成功能列表
-- [x] SpringBoot Security集成
-- [x] Swagger Knife4j增强
-- [ ] 接口版本
-- [ ] MyBatis-Plus
-- [x] MySQL
-- [x] Druid
-- [ ] Validate校验（接口）
-- [x] 统一数据返回
-- [x] 统一异常处理
-- [x] Actuator
-- [x] log4j2配置
-- [ ] Redis
-- [ ] Elasticsearch
-- [ ] Kafka
-- [ ] Flyway
-- [ ] 接口限流
-- [ ] 接口幂等性
-- [ ] 接口加签验签
-
-## 功能列表
-- [ ] 用户管理
-- [ ] 部门管理
-- [ ] 菜单管理
-- [ ] 角色权限管理
-- [ ] 字典管理
-- [ ] 性能监控
-- [ ] 数据变更记录
-- [ ] 操作日志记录
-- [ ] Redis监控
 
 ## 特性
 * 数据比对器，简化数据对比
